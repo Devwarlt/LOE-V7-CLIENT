@@ -4,6 +4,11 @@
     <configurations>
       <configuration name="LoE" target-platform="Desktop" main-class="LoE" output-file="LoE.swf" output-folder="$MODULE_DIR$/release">
         <dependencies>
+          <entries>
+            <entry library-id="2ca4c9c9-f56b-49f7-affe-9c56a9e14e5c">
+              <dependency linkage="Merged" />
+            </entry>
+          </entries>
           <sdk name="Flex SDK 4.9.1" />
         </dependencies>
         <compiler-options>
@@ -23,5 +28,15 @@
     </content>
     <orderEntry type="jdk" jdkName="Flex SDK 4.9.1" jdkType="Flex SDK Type (new)" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library" exported="">
+      <library type="flex">
+        <properties id="2ca4c9c9-f56b-49f7-affe-9c56a9e14e5c" />
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/greensock.swc!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

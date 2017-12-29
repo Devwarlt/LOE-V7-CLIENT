@@ -167,7 +167,7 @@ public class Parameters {
     }
 
     public static function formatValue(value:Number, places:Number, dotToComma:Boolean = false):String {
-        var _local1:String = (int(value * places) / places).toString();
+        var _local1:String = (int(value * (10^places)) / (10^places)).toString();
         return dotToComma ? _local1.replace(".", ",") : _local1;
     }
 

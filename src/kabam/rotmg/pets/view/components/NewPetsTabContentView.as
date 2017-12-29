@@ -218,12 +218,12 @@ public class NewPetsTabContentView extends Sprite {
     private function drawPetStatDetails():void {
         if (this.petObjectId != 0) {
             this.petHealingTextField = PetsViewAssetFactory.returnTextfield(0xFFFFFF, 12, false, true).setHTML(true);
-            this.petHealingTextField.setStringBuilder(new LineBuilder().setParams("Your pet heals every <b>" + Parameters.formatValue(this.petHealingCooldown / 1000, 10) + "s</b>."));
+            this.petHealingTextField.setStringBuilder(new LineBuilder().setParams("Your pet heals every <b>" + Parameters.formatValue(this.petHealingCooldown / 1000, 1) + "s</b>."));
             this.petHealingTextField.x = 8;
             this.petHealingTextField.y = HEIGHT - 18;
             this.petTabSprite.addChild(this.petHealingTextField);
             this.petAttackTextField = PetsViewAssetFactory.returnTextfield(0xFFFFFF, 12, false, true).setHTML(true);
-            this.petAttackTextField.setStringBuilder(new LineBuilder().setParams("Your pet attacks every <b>" + Parameters.formatValue(this.petAttackCooldown / 1000, 10) + "s</b>, with\n<b>" + this.petAttackChance + "%</b> chance to deal damage."));
+            this.petAttackTextField.setStringBuilder(new LineBuilder().setParams("Your pet attacks every <b>" + Parameters.formatValue(this.petAttackCooldown / 1000, 1) + "s</b>, with\n<b>" + this.petAttackChance + "%</b> chance to deal damage."));
             this.petAttackTextField.x = 8;
             this.petAttackTextField.y = this.petHealingTextField.y + 12;
             this.petTabSprite.addChild(this.petAttackTextField);
