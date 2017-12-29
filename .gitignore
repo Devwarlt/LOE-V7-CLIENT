@@ -97,7 +97,9 @@ $RECYCLE.BIN/
 
 # IntelliJ
 /client-release/
-/LOE-V6-CLIENT-MODULE/client-release/
+/LoE/src/client-resource/
+/LoE/release/
+/obfuscator/experimental
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
@@ -110,3 +112,5 @@ com_crashlytics_export_strings.xml
 crashlytics.properties
 crashlytics-build.properties
 fabric.properties
+LoE/src/client-resource/client-release.swf
+LoE/release/LoE.swf
