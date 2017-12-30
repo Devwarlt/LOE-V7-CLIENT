@@ -1,8 +1,11 @@
 ﻿package kabam.rotmg.language.service {
+import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.ui.dialogs.ErrorDialog;
 
 import kabam.lib.tasks.BaseTask;
 import kabam.rotmg.appengine.api.AppEngineClient;
+import kabam.rotmg.application.api.ApplicationSetup;
+import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
 import kabam.rotmg.language.model.LanguageModel;
 import kabam.rotmg.language.model.StringMap;
@@ -23,13 +26,14 @@ public class GetLanguageService extends BaseTask {
     public var openDialog:OpenDialogSignal;
     [Inject]
     public var client:AppEngineClient;
+    protected var appEngineUrl:String = StaticInjectorContext.getInjector().getInstance(ApplicationSetup).getAppEngineUrl();
     private var language:String;
-
 
     override protected function startTask():void {
         this.language = this.model.getLanguageFamily();
         this.client.complete.addOnce(this.onComplete);
         this.client.setMaxRetries(3);
+        this.logger.info("[Production: " + Parameters.IS_PRODUCTION.toString() + "] Attempt to connect to " + this.appEngineUrl + " to obtain language string '" + this.language + "'.");
         this.client.sendRequest("/app/getLanguageStrings", {"languageType": this.language});
     }
 
