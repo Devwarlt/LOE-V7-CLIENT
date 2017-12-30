@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<application xmlns="http://ns.adobe.com/air/application/15.0">
+    <id>LoEApp</id>
+    <filename>LoE</filename>
+    <name>LoE Application</name>
+    <versionNumber>0.0.2</versionNumber>
+    <description>A LoE AIR desktop application.</description>
+    <copyright>Developed by LoESoft Games © 2015-2018</copyright>
+    <initialWindow>
+        <content>LoE.swf</content>
+        <title>LoE Realm</title>
+        <systemChrome>standard</systemChrome>
+        <transparent>false</transparent>
+        <visible>true</visible>
+        <minimizable>true</minimizable>
+        <maximizable>false</maximizable>
+        <resizable>false</resizable>
+        <minSize>800 600</minSize>
+        <autoOrients>false</autoOrients>
+        <renderMode>auto</renderMode>
+        <softKeyboardBehavior>pan</softKeyboardBehavior>
+        <requestedDisplayResolution>standard</requestedDisplayResolution>
+    </initialWindow>
+    <icon>
+        <image16x16>resources/favicon-8.png</image16x16>
+        <image32x32>resources/favicon-7.png</image32x32>
+        <image48x48>resources/favicon-6.png</image48x48>
+    </icon>
+    <customUpdateUI>false</customUpdateUI>
+    <allowBrowserInvocation>false</allowBrowserInvocation>
+</application>
