@@ -1,5 +1,6 @@
 ﻿package kabam.rotmg.characters.reskin.control {
 import com.company.assembleegameclient.objects.Player;
+import com.company.assembleegameclient.util.AnimatedChars;
 
 import kabam.rotmg.assets.services.CharacterFactory;
 import kabam.rotmg.classes.model.CharacterClass;
@@ -14,9 +15,6 @@ public class ReskinHandler {
     public var model:GameModel;
     [Inject]
     public var classes:ClassesModel;
-    [Inject]
-    public var factory:CharacterFactory;
-
 
     public function execute(_arg1:Reskin):void {
         var _local2:Player;
@@ -27,7 +25,7 @@ public class ReskinHandler {
         _local4 = this.classes.getCharacterClass(_local2.objectType_);
         var _local5:CharacterSkin = _local4.skins.getSkin(_local3);
         _local2.skinId = _local3;
-        _local2.skin = this.factory.makeCharacter(_local5.template);
+        _local2.skin = AnimatedChars.getAnimatedChar(_local5.template.file, _local5.template.index);
         _local2.isDefaultAnimatedChar = false;
     }
 

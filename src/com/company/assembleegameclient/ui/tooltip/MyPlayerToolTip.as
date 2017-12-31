@@ -7,6 +7,7 @@ import com.company.assembleegameclient.ui.LineBreakDesign;
 import com.company.assembleegameclient.ui.StatusBar;
 import com.company.assembleegameclient.ui.panels.itemgrids.EquippedGrid;
 import com.company.assembleegameclient.ui.panels.itemgrids.InventoryGrid;
+import com.company.assembleegameclient.util.AnimatedChars;
 import com.company.assembleegameclient.util.FameUtil;
 import com.company.assembleegameclient.util.TextureRedrawer;
 
@@ -26,7 +27,6 @@ import kabam.rotmg.text.view.stringBuilder.LineBuilder;
 
 public class MyPlayerToolTip extends ToolTip {
 
-    private var factory:CharacterFactory;
     private var classes:ClassesModel;
     public var player_:Player;
     private var playerPanel_:GameObjectListItem;
@@ -55,7 +55,6 @@ public class MyPlayerToolTip extends ToolTip {
 
     public function createUI():void {
         var _local5:Number;
-        this.factory = StaticInjectorContext.getInjector().getInstance(CharacterFactory);
         this.classes = StaticInjectorContext.getInjector().getInstance(ClassesModel);
         var _local1:int = int(this.charXML.ObjectType);
         var _local2:XML = ObjectLibrary.xmlLibrary_[_local1];
@@ -63,7 +62,7 @@ public class MyPlayerToolTip extends ToolTip {
         this.player_.accountId_ = StaticInjectorContext.getInjector().getInstance(PlayerModel).charList.accountId_;
         var _local3:CharacterClass = this.classes.getCharacterClass(this.player_.objectType_);
         var _local4:CharacterSkin = _local3.skins.getSkin(this.charXML.Texture);
-        this.player_.animatedChar_ = this.factory.makeCharacter(_local4.template);
+        this.player_.animatedChar_ = AnimatedChars.getAnimatedChar(_local4.template.file, _local4.template.index);
         this.playerPanel_ = new GameObjectListItem(0xB3B3B3, true, this.player_, false, true);
         this.playerPanel_.x = this._XOffset;
         addChild(this.playerPanel_);

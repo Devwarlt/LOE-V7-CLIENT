@@ -10,23 +10,26 @@ import flash.display.BitmapData;
 
 import kabam.rotmg.assets.model.Animation;
 import kabam.rotmg.assets.model.CharacterTemplate;
+import kabam.rotmg.core.StaticInjectorContext;
+
+import robotlegs.bender.framework.api.ILogger;
+
+import robotlegs.bender.framework.impl.Logger;
 
 public class CharacterFactory {
 
     private var texture1:int;
     private var texture2:int;
     private var size:int;
-
-
-    public function makeCharacter(_arg1:CharacterTemplate):AnimatedChar {
-        return (AnimatedChars.getAnimatedChar(_arg1.file, _arg1.index));
-    }
+    [Inject]
+    private var logger:Logger = StaticInjectorContext.getInjector().getInstance(ILogger);
 
     public function makeIcon(_arg1:CharacterTemplate, _arg2:int = 100, _arg3:int = 0, _arg4:int = 0):BitmapData {
+        this.logger.debug("\n\t- File: " + _arg1.file + "\n\t- Index: " + _arg1.index + "\n\t- Textures: " + _arg3 + " and " + _arg4 + "\n\t- Size: " + _arg2);
         this.texture1 = _arg3;
         this.texture2 = _arg4;
         this.size = _arg2;
-        var _local5:AnimatedChar = this.makeCharacter(_arg1);
+        var _local5:AnimatedChar = AnimatedChars.getAnimatedChar(_arg1.file, _arg1.index);
         var _local6:BitmapData = this.makeFrame(_local5, AnimatedChar.STAND, 0);
         _local6 = GlowRedrawer.outlineGlow(_local6, 0);
         _local6 = BitmapUtil.cropToBitmapData(_local6, 6, 6, (_local6.width - 12), (_local6.height - 6));
@@ -37,7 +40,7 @@ public class CharacterFactory {
         this.texture1 = _arg3;
         this.texture2 = _arg4;
         this.size = _arg2;
-        var _local5:AnimatedChar = this.makeCharacter(_arg1);
+        var _local5:AnimatedChar = AnimatedChars.getAnimatedChar(_arg1.file, _arg1.index);
         var _local6:BitmapData = this.makeFrame(_local5, AnimatedChar.WALK, 0.5);
         _local6 = GlowRedrawer.outlineGlow(_local6, 0);
         var _local7:BitmapData = this.makeFrame(_local5, AnimatedChar.WALK, 0);
