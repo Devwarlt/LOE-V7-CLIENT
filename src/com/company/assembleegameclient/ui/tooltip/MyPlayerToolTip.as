@@ -120,7 +120,7 @@ public class MyPlayerToolTip extends ToolTip {
         this.bestLevel_.x = 8 + this._XOffset;
         this.bestLevel_.y = (height - 2);
         var _local6:int = FameUtil.nextStarFame(this.charStats == null ? 0 : this.charStats.bestFame(), 0);
-        if (_local6 > 0)
+        if (_local6 > 0 && this.player_.accountType_ < 2)
             this.makeNextClassQuestText(_local6, _local2);
     }
 
