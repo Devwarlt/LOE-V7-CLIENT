@@ -1,5 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
+    <Object type="0x5102" id="Sword of the Chinese Dragon" setType="0x0009" setName="Chinese Dragon Warrior Set">
+        <Class>Equipment</Class>
+        <Item/>
+        <Texture>
+            <File>lofiObj5</File>
+            <Index>0xfa</Index>
+        </Texture>
+        <SlotType>1</SlotType>
+        <Red/>
+        <Description>Bestowed by the Annual Chinese New Year!</Description>
+        <RateOfFire>1</RateOfFire>
+        <Sound>weapon/mithril_sword</Sound>
+        <Projectile>
+            <ObjectId>Chinese Dragon Shot</ObjectId>
+            <Speed>70</Speed>
+            <MinDamage>100</MinDamage>
+            <MaxDamage>150</MaxDamage>
+            <LifetimeMS>500</LifetimeMS>
+            <Size>80</Size>
+        </Projectile>
+        <NumProjectiles>4</NumProjectiles>
+        <BagType>10</BagType>
+        <FameBonus>6</FameBonus>
+        <OldSound>bladeSwing</OldSound>
+    </Object>
     <Object type="0x5107" id="K is Bae Skin">
         <Class>Equipment</Class>
         <Item/>
