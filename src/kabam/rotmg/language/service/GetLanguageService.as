@@ -49,11 +49,15 @@ public class GetLanguageService extends BaseTask {
     }
 
     private function onLanguageResponse(_arg1:String):void {
-        var _local3:Array;
+        var _local3:Array = [];
         this.strings.clear();
-        var _local2:Object = JSON.parse(_arg1);
-        for each (_local3 in _local2) {
-            this.strings.setValue(_local3[0], _local3[1], _local3[2]);
+        try {
+            var _local2:Object = JSON.parse(_arg1);
+            for each (_local3 in _local2) {
+                this.strings.setValue(_local3[0], _local3[1], _local3[2]);
+            }
+        } catch (e:Error) {
+            this.logger.error(e.getStackTrace());
         }
     }
 
