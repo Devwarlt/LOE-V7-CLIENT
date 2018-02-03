@@ -1,4 +1,5 @@
 ﻿package com.company.assembleegameclient.util {
+import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.util.redrawers.GlowRedrawer;
 import com.company.util.AssetLibrary;
 import com.company.util.MoreColorUtil;
@@ -16,7 +17,15 @@ import flash.geom.Rectangle;
 import flash.utils.ByteArray;
 import flash.utils.Dictionary;
 
+import kabam.rotmg.core.StaticInjectorContext;
+
+import robotlegs.bender.framework.api.ILogger;
+
+import robotlegs.bender.framework.impl.Logger;
+
 public class TextureRedrawer {
+    [Inject]
+    public static var logger:Logger = StaticInjectorContext.getInjector().getInstance(ILogger);
 
     public static const magic:int = 12;
     public static const minSize:int = (2 * magic);//24
@@ -147,33 +156,33 @@ public class TextureRedrawer {
 
     private static function getTexture(op:int, bmp:BitmapData):BitmapData {
         var ret:BitmapData;
-        var textureType:int = (op >> 24) & 0xFF;
-        var textureValue:int = op & 0xFFFFFF; // could mean color or sprite index
+        var textureType:String = "0x" + op.toString(16).charAt(0) + op.toString(16).charAt(1);
+        var textureValue:int = Parameters.parse(op.toString(16).substr(2));
+        logger.debug("\n\tTexture type: " + textureType + "\n\tTexture value: " + textureValue);
         switch (textureType) {
-            case 0:
-                ret = bmp;
-                break;
-            case 1:
+            case "0x01":
                 bmp.setPixel(0, 0, textureValue);
                 ret = bmp;
                 break;
-            case 4:
+            case "0x04":
                 ret = AssetLibrary.getImageFromSet("textile4x4", textureValue);
                 break;
-            case 5:
+            case "0x05":
                 ret = AssetLibrary.getImageFromSet("textile5x5", textureValue);
                 break;
-            case 9:
+            case "0x09":
                 ret = AssetLibrary.getImageFromSet("textile9x9", textureValue);
                 break;
-            case 10:
+            case "0xa0":
                 ret = AssetLibrary.getImageFromSet("textile10x10", textureValue);
                 break;
-            case 0xFF:
+            case "0xff":
                 ret = sharedTexture_;
                 break;
+            case "0x0":
             default:
                 ret = bmp;
+                break;
         }
         return ret;
     }

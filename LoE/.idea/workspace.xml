@@ -5,9 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76bab4a3-63c0-4e8d-a75a-9fb8190b121d" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../loe-v6-client.iml" afterPath="$PROJECT_DIR$/../loe-v6-client.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/assets/EmbeddedData/xmls/EmbeddedData_EncountersCXML.xml" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/assets/EmbeddedData/xmls/EmbeddedData_EncountersCXML.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/language/service/GetLanguageService.as" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/language/service/GetLanguageService.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/com/company/assembleegameclient/objects/ObjectLibrary.as" afterPath="$PROJECT_DIR$/../src/com/company/assembleegameclient/objects/ObjectLibrary.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/com/company/assembleegameclient/objects/Player.as" afterPath="$PROJECT_DIR$/../src/com/company/assembleegameclient/objects/Player.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/com/company/assembleegameclient/objects/Projectile.as" afterPath="$PROJECT_DIR$/../src/com/company/assembleegameclient/objects/Projectile.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/com/company/assembleegameclient/parameters/Parameters.as" afterPath="$PROJECT_DIR$/../src/com/company/assembleegameclient/parameters/Parameters.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/com/company/assembleegameclient/ui/tooltip/EquipmentToolTip.as" afterPath="$PROJECT_DIR$/../src/com/company/assembleegameclient/ui/tooltip/EquipmentToolTip.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/com/company/assembleegameclient/util/TextureRedrawer.as" afterPath="$PROJECT_DIR$/../src/com/company/assembleegameclient/util/TextureRedrawer.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/game/view/components/StatsView.as" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/game/view/components/StatsView.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/messaging/impl/GameServerConnectionConcrete.as" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/messaging/impl/GameServerConnectionConcrete.as" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
