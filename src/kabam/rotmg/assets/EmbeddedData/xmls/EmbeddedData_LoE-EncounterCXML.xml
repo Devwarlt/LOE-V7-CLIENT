@@ -88,8 +88,8 @@
         <Enemy/>
         <Class>Character</Class>
         <Texture>
-            <File>32x27img</File>
-            <Index>1</Index>
+            <File>chars16x16dMountains1</File>
+            <Index>0x08</Index>
         </Texture>
         <HitSound>monster/pythons_hit</HitSound>
         <DeathSound>monster/pythons_death</DeathSound>
