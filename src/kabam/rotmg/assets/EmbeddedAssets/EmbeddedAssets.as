@@ -30,7 +30,6 @@ public class EmbeddedAssets {
     public static var lofiObj4Embed_:Class = EmbeddedAssets_lofiObj4Embed_;
     public static var lofiObj5Embed_:Class = EmbeddedAssets_lofiObj5Embed_;
     public static var lofiObj6Embed_:Class = EmbeddedAssets_lofiObj6Embed_;
-    public static var _32x27imgEmbed_:Class = EmbeddedAssets_32x27imgEmbed_;
     public static var lofiObjBigEmbed_:Class = EmbeddedAssets_lofiObjBigEmbed_;
     public static var lofiObj40x40Embed_:Class = EmbeddedAssets_lofiObj40x40Embed_;
     public static var lofiProjsEmbed_:Class = EmbeddedAssets_lofiProjsEmbed_;
