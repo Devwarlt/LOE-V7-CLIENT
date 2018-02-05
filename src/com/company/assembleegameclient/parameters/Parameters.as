@@ -176,8 +176,19 @@ public class Parameters {
     }
 
     public static function formatValue(value:Number, places:Number, dotToComma:Boolean = false):String {
-        var _local1:String = (int(value * (10^places)) / (10^places)).toString();
-        return dotToComma ? _local1.replace(".", ",") : _local1;
+        return appendValues(value, places, dotToComma);
+    }
+
+    private static function appendValues(value:Number, places:Number, dotToComma:Boolean):String {
+        var string:String = null;
+        var valueData:Array = [ String(int(value)), String(value - int(value)).substr(2)];
+        for (var i:Number = 0; i < places; i++)
+            valueData.push((valueData[1]).charAt(i)); // append all strings properly to right length
+        string = valueData[0] + (dotToComma ? "," : ".") + valueData[2];
+        for (i = 3; i < valueData.length; i++)
+            string = string + valueData[i];
+        var stringData:Array = string.split((dotToComma ? "," : "."));
+        return stringData[1] == null || stringData[1] == "" ? stringData[0] : string;
     }
 
     private static function setDefault(_arg1:String, _arg2:*):void {
