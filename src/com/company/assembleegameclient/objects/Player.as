@@ -180,15 +180,6 @@ public class Player extends Character {
         this.slideVec_ = new Vector3D();
     }
 
-    public static function parse(str:String):int {
-        for (var i:int = 0; i < str.length; i++) {
-            var c:String = str.charAt(i);
-            if (c != "0") break;
-        }
-
-        return int(str.substr(i));
-    }
-
     public static function fromPlayerXML(name:String, playerXML:XML):Player {
         var _local3:int = int(playerXML.ObjectType);
         var _local4:XML = ObjectLibrary.xmlLibrary_[_local3];
@@ -777,7 +768,7 @@ public class Player extends Character {
         if (isSlowed()) {
             return ((MIN_MOVE_SPEED * this.moveMultiplier_));
         }
-        var _local1:Number = (MIN_MOVE_SPEED + ((Player.parse(this.speed_) / 75) * (MAX_MOVE_SPEED - MIN_MOVE_SPEED)));
+        var _local1:Number = (MIN_MOVE_SPEED + ((Parameters.parse(this.speed_) / 75) * (MAX_MOVE_SPEED - MIN_MOVE_SPEED)));
         if (((isSpeedy()) || (isNinjaSpeedy()))) {
             _local1 = (_local1 * 1.5);
         }
@@ -788,7 +779,7 @@ public class Player extends Character {
         if (isDazed()) {
             return (MIN_ATTACK_FREQ);
         }
-        var _local1:Number = (MIN_ATTACK_FREQ + ((parse(this.dexterity_) / 75) * (MAX_ATTACK_FREQ - MIN_ATTACK_FREQ)));
+        var _local1:Number = (MIN_ATTACK_FREQ + ((Parameters.parse(this.dexterity_) / 75) * (MAX_ATTACK_FREQ - MIN_ATTACK_FREQ)));
         if (isBerserk()) {
             _local1 = (_local1 * 1.5);
         }
@@ -799,7 +790,7 @@ public class Player extends Character {
         if (isWeak()) {
             return (MIN_ATTACK_MULT);
         }
-        var _local1:Number = (MIN_ATTACK_MULT + ((Player.parse(this.attack_) / 75) * (MAX_ATTACK_MULT - MIN_ATTACK_MULT)));
+        var _local1:Number = (MIN_ATTACK_MULT + ((Parameters.parse(this.attack_) / 75) * (MAX_ATTACK_MULT - MIN_ATTACK_MULT)));
         if (isDamaging()) {
             _local1 = (_local1 * 1.5);
         }

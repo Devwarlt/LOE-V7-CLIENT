@@ -251,7 +251,7 @@ public class Projectile extends BasicObject {
                     (this.damagesPlayers_ || goIsEnemy && this.ownerId_ == player.objectId_);
 
             if (goHit) {
-                var dmg:int = GameObject.damageWithDefense(this.damage_, Player.parse(go.defense_), this.projProps_.armorPiercing_, go.condition_);
+                var dmg:int = GameObject.damageWithDefense(this.damage_, Parameters.parse(go.defense_), this.projProps_.armorPiercing_, go.condition_);
 
                 var killed:Boolean = false;
                 if (go.hp_ <= dmg) {

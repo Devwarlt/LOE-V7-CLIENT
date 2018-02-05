@@ -166,6 +166,15 @@ public class Parameters {
         return str;
     }
 
+    public static function parse(str:String):int {
+        for (var i:int = 0; i < str.length; i++) {
+            var c:String = str.charAt(i);
+            if (c != "0") break;
+        }
+
+        return int(str.substr(i));
+    }
+
     public static function formatValue(value:Number, places:Number, dotToComma:Boolean = false):String {
         var _local1:String = (int(value * (10^places)) / (10^places)).toString();
         return dotToComma ? _local1.replace(".", ",") : _local1;

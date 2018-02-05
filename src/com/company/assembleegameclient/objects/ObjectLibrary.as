@@ -347,17 +347,17 @@ public class ObjectLibrary {
                 case StatData.LEVEL_STAT:
                     return ((_arg2.level_ >= _local3));
                 case StatData.ATTACK_STAT:
-                    return ((Player.parse(_arg2.attack_) >= _local3));
+                    return ((Parameters.parse(_arg2.attack_) >= _local3));
                 case StatData.DEFENSE_STAT:
-                    return ((Player.parse(_arg2.defense_) >= _local3));
+                    return ((Parameters.parse(_arg2.defense_) >= _local3));
                 case StatData.SPEED_STAT:
-                    return ((Player.parse(_arg2.speed_) >= _local3));
+                    return ((Parameters.parse(_arg2.speed_) >= _local3));
                 case StatData.VITALITY_STAT:
-                    return ((Player.parse(_arg2.vitality_) >= _local3));
+                    return ((Parameters.parse(_arg2.vitality_) >= _local3));
                 case StatData.WISDOM_STAT:
-                    return ((Player.parse(_arg2.wisdom_) >= _local3));
+                    return ((Parameters.parse(_arg2.wisdom_) >= _local3));
                 case StatData.DEXTERITY_STAT:
-                    return ((Player.parse(_arg2.dexterity_) >= _local3));
+                    return ((Parameters.parse(_arg2.dexterity_) >= _local3));
             }
         }
         return (false);
