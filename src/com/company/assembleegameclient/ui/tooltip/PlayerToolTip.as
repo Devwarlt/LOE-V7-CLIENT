@@ -1,5 +1,6 @@
 ﻿package com.company.assembleegameclient.ui.tooltip {
 import com.company.assembleegameclient.objects.Player;
+import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.ui.GameObjectListItem;
 import com.company.assembleegameclient.ui.GuildText;
 import com.company.assembleegameclient.ui.RankText;
@@ -76,9 +77,9 @@ public class PlayerToolTip extends ToolTip {
 
     override public function draw():void {
         this.hpBarBackground_.draw(1, 1, 0, 1);
-        this.hpBar_.draw(this.player_.hp_, this.player_.maxHP_, this.player_.maxHPBoost_, this.player_.maxHPMax_);
+        this.hpBar_.draw(this.player_.hp_, this.player_.maxHP_, Parameters.parse(this.player_.maxHPBoost_), this.player_.maxHPMax_);
         this.mpBarBackground_.draw(1, 1, 0, 1);
-        this.mpBar_.draw(this.player_.mp_, this.player_.maxMP_, this.player_.maxMPBoost_, this.player_.maxMPMax_);
+        this.mpBar_.draw(this.player_.mp_, this.player_.maxMP_, Parameters.parse(this.player_.maxMPBoost_), this.player_.maxMPMax_);
         this.eGrid.setItems(this.player_.equipment_);
         this.rankText_.draw(this.player_.numStars_);
         super.draw();

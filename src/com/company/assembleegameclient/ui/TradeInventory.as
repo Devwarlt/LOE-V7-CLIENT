@@ -24,10 +24,11 @@ public class TradeInventory extends Sprite {
 
     public var gs_:AGameSprite;
     public var playerName_:String;
-    private var message_:int;
+    public var slots_:Vector.<TradeSlot>;
+
     private var nameText_:BaseSimpleText;
     private var taglineText_:TextFieldDisplayConcrete;
-    public var slots_:Vector.<TradeSlot>;
+    private var iconSize:Number = 60;
 
     public function TradeInventory(_arg1:AGameSprite, _arg2:String, _arg3:Vector.<TradeItem>, _arg4:Boolean) {
         var _local6:TradeItem;
@@ -52,7 +53,7 @@ public class TradeInventory extends Sprite {
         var _local5:int;
         while (_local5 < (GeneralConstants.NUM_EQUIPMENT_SLOTS + GeneralConstants.NUM_INVENTORY_SLOTS)) {
             _local6 = _arg3[_local5];
-            _local7 = new TradeSlot(_local6.item_, _local6.tradeable_, _local6.included_, _local6.slotType_, (_local5 - 3), cuts[_local5], _local5);
+            _local7 = new TradeSlot(_local6.item_, _local6.tradeable_, _local6.included_, _local6.slotType_, (_local5 - 3), cuts[_local5], _local5, this.iconSize);
             _local7.setPlayer(this.gs_.map.player_);
             _local7.x = (int((_local5 % 4)) * (Slot.WIDTH + 4));
             _local7.y = ((int((_local5 / 4)) * (Slot.HEIGHT + 4)) + 46);

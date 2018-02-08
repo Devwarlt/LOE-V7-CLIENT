@@ -150,7 +150,6 @@ public class HUDView extends Sprite implements UnFocusAble {
             this.interactPanel.draw();
         }
 
-
         // draw breath overlay
         if (player != null && player.breath_ >= 0 && player.breath_ < Parameters.BREATH_THRESH) {
             var bMult:Number = (Parameters.BREATH_THRESH - player.breath_) / Parameters.BREATH_THRESH;
