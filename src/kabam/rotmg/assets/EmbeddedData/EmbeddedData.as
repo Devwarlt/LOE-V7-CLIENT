@@ -7,13 +7,14 @@ public class EmbeddedData {
     private static const LoERealmProjectilesCXML:Class = EmbeddedData_LoERealmProjectilesCXML;
     private static const LoERealmSkinsCXML:Class = EmbeddedData_LoERealmSkinsCXML;
     private static const LoERealmSuperRareTierCXML:Class = EmbeddedData_LoERealmSuperRareTierCXML;
-
     private static const LoERealmDreamIslandEncountersCXML:Class = EmbeddedData_LoERealmDreamIslandEncountersCXML;
     private static const LoERealmDreamIslandObjectsCXML:Class = EmbeddedData_LoERealmDreamIslandObjectsCXML;
     private static const LoERealmDreamIslandProjectilesCXML:Class = EmbeddedData_LoERealmDreamIslandProjectilesCXML;
-
     private static const LoERealmGoldenCrownsCXML:Class = EmbeddedData_LoERealmGoldenCrownsCXML;
-
+    private static const LoERealmEdition1EncountersCXML:Class = EmbeddedData_LoERealmEdition1EncountersCXML;
+    private static const LoERealmEdition1GroundsCXML:Class = EmbeddedData_LoERealmEdition1GroundsCXML;
+    private static const LoERealmEdition1ObjectsCXML:Class = EmbeddedData_LoERealmEdition1ObjectsCXML;
+    private static const LoERealmEdition1ProjectilesCXML:Class = EmbeddedData_LoERealmEdition1ProjectilesCXML;
     private static const GroundCXML:Class = EmbeddedData_GroundCXML;
     private static const ProjectilesCXML:Class = EmbeddedData_ProjectilesCXML;
     private static const EquipCXML:Class = EmbeddedData_EquipCXML;
@@ -99,17 +100,20 @@ public class EmbeddedData {
                 XML(new SkinsCXML()).children(),
                 XML(new LoERealmSkinsCXML()).children()
             ];
-    public static const skinsEquipmentSetsXML:XML =
-            XML(new EquipmentSetsCXML());
+    public static const skinsEquipmentSetsXML:XML = XML(new EquipmentSetsCXML());
     public static const groundFiles:Array =
             [
                 new GroundCXML(),
                 new stPatricksGroundCXML(),
                 new hanaminexusGroundCXML(),
-                new mountainTempleGroundCXML()
+                new mountainTempleGroundCXML(),
+                new LoERealmEdition1GroundsCXML()
             ];
     public static const objectFiles:Array =
             [
+                new LoERealmEdition1EncountersCXML(),
+                new LoERealmEdition1ObjectsCXML(),
+                new LoERealmEdition1ProjectilesCXML(),
                 new LoERealmGoldenCrownsCXML(),
                 new LoERealmDreamIslandEncountersCXML(),
                 new LoERealmDreamIslandObjectsCXML(),

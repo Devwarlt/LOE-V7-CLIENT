@@ -147,7 +147,6 @@
             <PassesCover/>
         </Projectile>
     </Object>
-    <!--0x6706-->
     <Object type="0x736b" id="shtrs Encounter Spawner">
         <Enemy />
         <Class>Character</Class>

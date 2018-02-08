@@ -42,6 +42,11 @@ public class AssetLoader {
         AssetLibrary.addImageSet("LRDIO16x16", new EmbeddedAssets.LoERealmDreamIslandObjects16x16Embed_().bitmapData, 16, 16);
         AssetLibrary.addImageSet("LRDIP8x8", new EmbeddedAssets.LoERealmDreamIslandProjectiles8x8Embed_().bitmapData, 8, 8);
         AssetLibrary.addImageSet("LRCrowns", new EmbeddedAssets.LoERealmGoldenCrownsEmbed_().bitmapData, 16, 16);
+        AssetLibrary.addImageSet("LREEO8x8", new EmbeddedAssets.LoERealmEditionsEnvironmentObjects8x8Embed_().bitmapData, 8, 8);
+        AssetLibrary.addImageSet("LREEO16x16", new EmbeddedAssets.LoERealmEditionsEnvironmentObjects16x16Embed_().bitmapData, 16, 16);
+        AssetLibrary.addImageSet("LREE", new EmbeddedAssets.LoERealmEditionsEquipmentsEmbed_().bitmapData, 8, 8);
+        AssetLibrary.addImageSet("LREP8x8", new EmbeddedAssets.LoERealmEditionsProjectiles8x8Embed_().bitmapData, 8, 8);
+        AssetLibrary.addImageSet("LREP16x16", new EmbeddedAssets.LoERealmEditionsProjectiles16x16Embed_().bitmapData, 16, 16);
         AssetLibrary.addImageSet("lofiChar8x8", new EmbeddedAssets.lofiCharEmbed_().bitmapData, 8, 8);
         AssetLibrary.addImageSet("lofiChar16x8", new EmbeddedAssets.lofiCharEmbed_().bitmapData, 16, 8);
         AssetLibrary.addImageSet("lofiChar16x16", new EmbeddedAssets.lofiCharEmbed_().bitmapData, 16, 16);
@@ -103,6 +108,7 @@ public class AssetLoader {
         AnimatedChars.add("LRDIE16x16", new EmbeddedAssets.LoERealmDreamIslandEncounters16x16Embed_().bitmapData, null, 16, 16, 112, 16, AnimatedChar.DOWN);
         AnimatedChars.add("LRDIE24x24", new EmbeddedAssets.LoERealmDreamIslandEncounters24x24Embed_().bitmapData, null, 24, 24, 168, 24, AnimatedChar.DOWN);
         AnimatedChars.add("LRDIE32x32", new EmbeddedAssets.LoERealmDreamIslandEncounters32x32Embed_().bitmapData, null, 32, 32, 224, 32, AnimatedChar.DOWN);
+        AnimatedChars.add("LREE16x16", new EmbeddedAssets.LoERealmEditionsEncounters16x16Embed_().bitmapData, null, 16, 16, 112, 16, AnimatedChar.DOWN);
         AnimatedChars.add("chars8x8rBeach", new EmbeddedAssets.chars8x8rBeachEmbed_().bitmapData, null, 8, 8, 56, 8, AnimatedChar.RIGHT);
         AnimatedChars.add("chars8x8dBeach", new EmbeddedAssets.chars8x8dBeachEmbed_().bitmapData, null, 8, 8, 56, 8, AnimatedChar.DOWN);
         AnimatedChars.add("chars8x8rLow1", new EmbeddedAssets.chars8x8rLow1Embed_().bitmapData, null, 8, 8, 56, 8, AnimatedChar.RIGHT);
