@@ -1,6 +1,8 @@
 ﻿package com.company.assembleegameclient.ui.panels.itemgrids.itemtiles {
 import com.company.assembleegameclient.objects.ObjectLibrary;
 import com.company.assembleegameclient.parameters.Parameters;
+import com.company.assembleegameclient.parameters.Parameters;
+import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.util.TextureRedrawer;
 import com.company.util.AssetLibrary;
 
@@ -103,8 +105,8 @@ public class ItemTileSprite extends Sprite {
                 spriteFile = _local3.attribute("spriteFile");
             if (hasArray) {
                 spriteArray = String(_local3.attribute("spriteArray")).split('-');
-                first = parse(spriteArray[0]);
-                last = parse(spriteArray[1]);
+                first = Parameters.parse(spriteArray[0]);
+                last = Parameters.parse(spriteArray[1]);
             }
             if (hasAnimatedSprites && this.spritePeriod != -1 && spriteFile != null && spriteArray != null && first != -1 && last != -1) {
                 this.spriteFile = spriteFile;
@@ -136,15 +138,6 @@ public class ItemTileSprite extends Sprite {
     private var first:Number;
     private var last:Number;
     private var next:Number;
-
-    private static function parse(str:String):Number {
-        for (var i:Number = 0; i < str.length; i++) {
-            var c:String = str.charAt(i);
-            if (c != "0") break;
-        }
-
-        return Number(str.substr(i));
-    }
 
     private function makeAnimation():void {
         if (this.spriteFile == null)

@@ -44,8 +44,9 @@ public class TradeSlot extends Slot implements TooltipAble {
     private var overlayPath_:GraphicsPath;
     private var graphicsData_:Vector.<IGraphicsData>;
     private var bitmapFactory:BitmapTextFactory;
+    private var iconSize:Number;
 
-    public function TradeSlot(_arg1:int, _arg2:Boolean, _arg3:Boolean, _arg4:int, _arg5:int, _arg6:Array, _arg7:uint) {
+    public function TradeSlot(_arg1:int, _arg2:Boolean, _arg3:Boolean, _arg4:int, _arg5:int, _arg6:Array, _arg7:uint, _arg8:Number) {
         this.equipmentToolTipFactory = new EquipmentToolTipFactory();
         this.overlayFill_ = new GraphicsSolidFill(16711310, 1);
         this.lineStyle_ = new GraphicsStroke(2, false, LineScaleMode.NORMAL, CapsStyle.NONE, JointStyle.ROUND, 3, this.overlayFill_);
@@ -55,6 +56,7 @@ public class TradeSlot extends Slot implements TooltipAble {
         this.id = _arg7;
         this.item_ = _arg1;
         this.included_ = _arg3;
+        this.iconSize = _arg8;
         this.drawItemIfAvailable();
         if (!_arg2) {
             transform.colorTransform = MoreColorUtil.veryDarkCT;
@@ -79,11 +81,11 @@ public class TradeSlot extends Slot implements TooltipAble {
     }
 
     private function drawItem():void {
+        var _local1:BitmapData = ObjectLibrary.getRedrawnTextureFromType(this.item_, this.iconSize, true);
+        var _local2:XML = ObjectLibrary.xmlLibrary_[this.item_];
         var _local4:Bitmap;
         var _local5:BitmapData;
         SpriteUtil.safeRemoveChild(this, backgroundImage_);
-        var _local1:BitmapData = ObjectLibrary.getRedrawnTextureFromType(this.item_, 80, true);
-        var _local2:XML = ObjectLibrary.xmlLibrary_[this.item_];
         if (((_local2.hasOwnProperty("Doses") || _local2.hasOwnProperty("@successChance")) && (this.bitmapFactory))) {
             if (_local2.hasOwnProperty("@successChance")) {
                 var _successChance:String = _local2.attribute("successChance");
