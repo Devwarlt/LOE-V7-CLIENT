@@ -1,5 +1,6 @@
 ﻿package kabam.rotmg.ui.view {
 import com.company.assembleegameclient.objects.Player;
+import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.ui.ExperienceBoostTimerPopup;
 import com.company.assembleegameclient.ui.StatusBar;
 
@@ -99,9 +100,9 @@ public class StatMetersView extends Sprite {
             this.fameBar_.draw(_arg1.currFame_, _arg1.nextClassQuestFame_, 0);
         }
         this.hpBarBackground_.draw(1, 1, 0, 1);
-        this.hpBar_.draw(_arg1.hp_, _arg1.maxHP_, _arg1.maxHPBoost_, _arg1.maxHPMax_, _arg1.level_);
+        this.hpBar_.draw(_arg1.hp_, _arg1.maxHP_, Parameters.parse(_arg1.maxHPBoost_), _arg1.maxHPMax_, _arg1.level_);
         this.mpBarBackground_.draw(1, 1, 0, 1);
-        this.mpBar_.draw(_arg1.mp_, _arg1.maxMP_, _arg1.maxMPBoost_, _arg1.maxMPMax_, _arg1.level_);
+        this.mpBar_.draw(_arg1.mp_, _arg1.maxMP_, Parameters.parse(_arg1.maxMPBoost_), _arg1.maxMPMax_, _arg1.level_);
     }
 
     private function onExpBarOver(_arg1:Event):void {

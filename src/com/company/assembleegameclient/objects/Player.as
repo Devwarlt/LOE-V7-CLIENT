@@ -5,6 +5,7 @@ import com.company.assembleegameclient.map.mapoverlay.CharacterStatusText;
 import com.company.assembleegameclient.objects.particles.HealingEffect;
 import com.company.assembleegameclient.objects.particles.LevelUpEffect;
 import com.company.assembleegameclient.parameters.Parameters;
+import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.sound.SoundEffectLibrary;
 import com.company.assembleegameclient.tutorial.Tutorial;
 import com.company.assembleegameclient.tutorial.doneAction;
@@ -114,14 +115,14 @@ public class Player extends Character {
     public var dexterity_:String = null;
     public var vitality_:String = null;
     public var wisdom_:String = null;
-    public var maxHPBoost_:int = 0;
-    public var maxMPBoost_:int = 0;
-    public var attackBoost_:int = 0;
-    public var defenseBoost_:int = 0;
-    public var speedBoost_:int = 0;
-    public var vitalityBoost_:int = 0;
-    public var wisdomBoost_:int = 0;
-    public var dexterityBoost_:int = 0;
+    public var maxHPBoost_:String = null;
+    public var maxMPBoost_:String = null;
+    public var attackBoost_:String = null;
+    public var defenseBoost_:String = null;
+    public var speedBoost_:String = null;
+    public var vitalityBoost_:String = null;
+    public var wisdomBoost_:String = null;
+    public var dexterityBoost_:String = null;
     public var xpBoost_:int = 0;
     public var healthPotionCount_:int = 0;
     public var magicPotionCount_:int = 0;
@@ -190,16 +191,16 @@ public class Player extends Character {
         _local5.equipment_ = ConversionUtil.toIntVector(playerXML.Equipment);
         _local5.calculateStatBoosts();
         _local5.lockedSlot = new Vector.<int>(_local5.equipment_.length);
-        _local5.maxHP_ = (_local5.maxHPBoost_ + int(playerXML.MaxHitPoints));
+        _local5.maxHP_ = (Parameters.parse(_local5.maxHPBoost_) + int(playerXML.MaxHitPoints));
         _local5.hp_ = int(playerXML.HitPoints);
-        _local5.maxMP_ = (_local5.maxMPBoost_ + int(playerXML.MaxMagicPoints));
+        _local5.maxMP_ = (Parameters.parse(_local5.maxMPBoost_) + int(playerXML.MaxMagicPoints));
         _local5.mp_ = int(playerXML.MagicPoints);
-        _local5.attack_ = (_local5.attackBoost_ + int(playerXML.Attack)).toString();
-        _local5.defense_ = (_local5.defenseBoost_ + int(playerXML.Defense)).toString();
-        _local5.speed_ = (_local5.speedBoost_ + int(playerXML.Speed)).toString();
-        _local5.dexterity_ = (_local5.vitalityBoost_ + int(playerXML.Dexterity)).toString();
-        _local5.vitality_ = (_local5.wisdomBoost_ + int(playerXML.HpRegen)).toString();
-        _local5.wisdom_ = (_local5.dexterityBoost_ + int(playerXML.MpRegen)).toString();
+        _local5.attack_ = (Parameters.parse(_local5.attackBoost_) + int(playerXML.Attack)).toString();
+        _local5.defense_ = (Parameters.parse(_local5.defenseBoost_) + int(playerXML.Defense)).toString();
+        _local5.speed_ = (Parameters.parse(_local5.speedBoost_) + int(playerXML.Speed)).toString();
+        _local5.dexterity_ = (Parameters.parse(_local5.vitalityBoost_) + int(playerXML.Dexterity)).toString();
+        _local5.vitality_ = (Parameters.parse(_local5.wisdomBoost_) + int(playerXML.HpRegen)).toString();
+        _local5.wisdom_ = (Parameters.parse(_local5.dexterityBoost_) + int(playerXML.MpRegen)).toString();
         _local5.tex1Id_ = int(playerXML.Tex1);
         _local5.tex2Id_ = int(playerXML.Tex2);
         _local5.hasBackpack_ = int(playerXML.HasBackpack) != 0;
@@ -212,14 +213,14 @@ public class Player extends Character {
         var _local4:XML;
         var _local5:int;
         var _local6:int;
-        this.maxHPBoost_ = 0;
-        this.maxMPBoost_ = 0;
-        this.attackBoost_ = 0;
-        this.defenseBoost_ = 0;
-        this.speedBoost_ = 0;
-        this.vitalityBoost_ = 0;
-        this.wisdomBoost_ = 0;
-        this.dexterityBoost_ = 0;
+        this.maxHPBoost_ = "0";
+        this.maxMPBoost_ = "0";
+        this.attackBoost_ = "0";
+        this.defenseBoost_ = "0";
+        this.speedBoost_ = "0";
+        this.vitalityBoost_ = "0";
+        this.wisdomBoost_ = "0";
+        this.dexterityBoost_ = "0";
         var _local1:uint;
         while (_local1 < GeneralConstants.NUM_EQUIPMENT_SLOTS) {
             if (((equipment_) && ((equipment_.length > _local1)))) {
@@ -239,22 +240,22 @@ public class Player extends Character {
                                         this.maxMPBoost_ = (this.maxMPBoost_ + _local6);
                                         break;
                                     case StatData.ATTACK_STAT:
-                                        this.attackBoost_ = (this.attackBoost_ + _local6);
+                                        this.attackBoost_ = (Parameters.parse(this.attackBoost_) + _local6).toString();
                                         break;
                                     case StatData.DEFENSE_STAT:
-                                        this.defenseBoost_ = (this.defenseBoost_ + _local6);
+                                        this.defenseBoost_ = (Parameters.parse(this.defenseBoost_) + _local6).toString();
                                         break;
                                     case StatData.SPEED_STAT:
-                                        this.speedBoost_ = (this.speedBoost_ + _local6);
+                                        this.speedBoost_ = (Parameters.parse(this.speedBoost_) + _local6).toString();
                                         break;
                                     case StatData.VITALITY_STAT:
-                                        this.vitalityBoost_ = (this.vitalityBoost_ + _local6);
+                                        this.vitalityBoost_ = (Parameters.parse(this.vitalityBoost_) + _local6).toString();
                                         break;
                                     case StatData.WISDOM_STAT:
-                                        this.wisdomBoost_ = (this.wisdomBoost_ + _local6);
+                                        this.wisdomBoost_ = (Parameters.parse(this.wisdomBoost_) + _local6).toString();
                                         break;
                                     case StatData.DEXTERITY_STAT:
-                                        this.dexterityBoost_ = (this.dexterityBoost_ + _local6);
+                                        this.dexterityBoost_ = (Parameters.parse(this.dexterityBoost_) + _local6).toString();
                                         break;
                                 }
                             }

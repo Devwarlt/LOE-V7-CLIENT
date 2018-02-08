@@ -824,7 +824,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
             else {
                 p = this.player;
             }
-            if ((((((((((((((((((((((itemId == 2591)) || ((itemId == 5465)))) || ((itemId == 9064)))) && ((p.attackMax_ == (Parameters.parse(p.attack_) - p.attackBoost_))))) || ((((((((itemId == 2592)) || ((itemId == 5466)))) || ((itemId == 9065)))) && ((p.defenseMax_ == (Parameters.parse(p.defense_) - p.defenseBoost_))))))) || ((((((((itemId == 2593)) || ((itemId == 5467)))) || ((itemId == 9066)))) && ((p.speedMax_ == (Parameters.parse(p.speed_) - p.speedBoost_))))))) || ((((((((itemId == 2612)) || ((itemId == 5468)))) || ((itemId == 9067)))) && ((p.vitalityMax_ == (Parameters.parse(p.vitality_) - p.vitalityBoost_))))))) || ((((((((itemId == 2613)) || ((itemId == 5469)))) || ((itemId == 9068)))) && ((p.wisdomMax_ == (Parameters.parse(p.wisdom_) - p.wisdomBoost_))))))) || ((((((((itemId == 2636)) || ((itemId == 5470)))) || ((itemId == 9069)))) && ((p.dexterityMax_ == (Parameters.parse(p.dexterity_) - p.dexterityBoost_))))))) || ((((((((itemId == 2793)) || ((itemId == 5471)))) || ((itemId == 9070)))) && ((p.maxHPMax_ == (p.maxHP_ - p.maxHPBoost_))))))) || ((((((((itemId == 2794)) || ((itemId == 5472)))) || ((itemId == 9071)))) && ((p.maxMPMax_ == (p.maxMP_ - p.maxMPBoost_))))))) {
+            if ((((((((((((((((((((((itemId == 2591)) || ((itemId == 5465)))) || ((itemId == 9064)))) && ((p.attackMax_ == (Parameters.parse(p.attack_) - Parameters.parse(p.attackBoost_)))))) || ((((((((itemId == 2592)) || ((itemId == 5466)))) || ((itemId == 9065)))) && ((p.defenseMax_ == (Parameters.parse(p.defense_) - Parameters.parse(p.defenseBoost_)))))))) || ((((((((itemId == 2593)) || ((itemId == 5467)))) || ((itemId == 9066)))) && ((p.speedMax_ == (Parameters.parse(p.speed_) - Parameters.parse(p.speedBoost_)))))))) || ((((((((itemId == 2612)) || ((itemId == 5468)))) || ((itemId == 9067)))) && ((p.vitalityMax_ == (Parameters.parse(p.vitality_) - Parameters.parse(p.vitalityBoost_)))))))) || ((((((((itemId == 2613)) || ((itemId == 5469)))) || ((itemId == 9068)))) && ((p.wisdomMax_ == (Parameters.parse(p.wisdom_) - Parameters.parse(p.wisdomBoost_)))))))) || ((((((((itemId == 2636)) || ((itemId == 5470)))) || ((itemId == 9069)))) && ((p.dexterityMax_ == (Parameters.parse(p.dexterity_) - Parameters.parse(p.dexterityBoost_)))))))) || ((((((((itemId == 2793)) || ((itemId == 5471)))) || ((itemId == 9070)))) && ((p.maxHPMax_ == (p.maxHP_ - Parameters.parse(p.maxHPBoost_)))))))) || ((((((((itemId == 2794)) || ((itemId == 5472)))) || ((itemId == 9071)))) && ((p.maxMPMax_ == (p.maxMP_ - Parameters.parse(p.maxMPBoost_)))))))) {
                 return (false);
             }
         }
@@ -1621,28 +1621,28 @@ public class GameServerConnectionConcrete extends GameServerConnection {
                     (_arg1 as SellableObject).setRankReq(_local8);
                     break;
                 case StatData.MAX_HP_BOOST_STAT:
-                    _local4.maxHPBoost_ = _local8;
+                    _local4.maxHPBoost_ = _local8.toString();
                     break;
                 case StatData.MAX_MP_BOOST_STAT:
-                    _local4.maxMPBoost_ = _local8;
+                    _local4.maxMPBoost_ = _local8.toString();
                     break;
                 case StatData.ATTACK_BOOST_STAT:
-                    _local4.attackBoost_ = _local8;
+                    _local4.attackBoost_ = _local8.toString();
                     break;
                 case StatData.DEFENSE_BOOST_STAT:
-                    _local4.defenseBoost_ = _local8;
+                    _local4.defenseBoost_ = _local8.toString();
                     break;
                 case StatData.SPEED_BOOST_STAT:
-                    _local4.speedBoost_ = _local8;
+                    _local4.speedBoost_ = _local8.toString();
                     break;
                 case StatData.VITALITY_BOOST_STAT:
-                    _local4.vitalityBoost_ = _local8;
+                    _local4.vitalityBoost_ = _local8.toString();
                     break;
                 case StatData.WISDOM_BOOST_STAT:
-                    _local4.wisdomBoost_ = _local8;
+                    _local4.wisdomBoost_ = _local8.toString();
                     break;
                 case StatData.DEXTERITY_BOOST_STAT:
-                    _local4.dexterityBoost_ = _local8;
+                    _local4.dexterityBoost_ = _local8.toString();
                     break;
                 case StatData.OWNER_ACCOUNT_ID_STAT:
                     (_arg1 as Container).setOwnerId(_local7.strStatValue_);

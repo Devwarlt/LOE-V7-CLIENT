@@ -33,6 +33,12 @@ public class StatsView extends Sprite {
     protected var _strDexterity:Number;
     protected var _strVitality:Number;
     protected var _strWisdom:Number;
+    protected var _strAttackBoost:Number;
+    protected var _strDefenseBoost:Number;
+    protected var _strSpeedBoost:Number;
+    protected var _strDexterityBoost:Number;
+    protected var _strVitalityBoost:Number;
+    protected var _strWisdomBoost:Number;
 
     private var background:Sprite;
     public var stats_:Vector.<StatView>;
@@ -76,6 +82,30 @@ public class StatsView extends Sprite {
         return this._strWisdom = Parameters.parse(player.wisdom_);
     }
 
+    private function getStrAttackBoost(player:Player):Number {
+        return this._strAttackBoost = Parameters.parse(player.attackBoost_);
+    }
+
+    private function getStrDefenseBoost(player:Player):Number {
+        return this._strDefenseBoost = Parameters.parse(player.defenseBoost_);
+    }
+
+    private function getStrSpeedBoost(player:Player):Number {
+        return this._strSpeedBoost = Parameters.parse(player.speedBoost_);
+    }
+
+    private function getStrDexterityBoost(player:Player):Number {
+        return this._strDexterityBoost = Parameters.parse(player.dexterityBoost_);
+    }
+
+    private function getStrVitalityBoost(player:Player):Number {
+        return this._strVitalityBoost = Parameters.parse(player.vitalityBoost_);
+    }
+
+    private function getStrWisdomBoost(player:Player):Number {
+        return this._strWisdomBoost = Parameters.parse(player.wisdomBoost_);
+    }
+
     private function createStats():void {
         var _local3:StatView;
         var _local1:int;
@@ -117,19 +147,19 @@ public class StatsView extends Sprite {
 
     private function drawStats(player:Player, isCharacterScreenFormat:Boolean):void {
         if (isCharacterScreenFormat) {
-            this.stats_[ATTACK].draw(this.getStrAttack(player), this.specialBoost(player, this.getStrAttack(player)) + player.attackBoost_, player.attackMax_, player.level_);
-            this.stats_[DEFENSE].draw(this.getStrDefense(player), this.specialBoost(player, this.getStrDefense(player)) + player.defenseBoost_, player.defenseMax_, player.level_);
-            this.stats_[SPEED].draw(this.getStrSpeed(player), this.specialBoost(player, this.getStrSpeed(player)) + player.speedBoost_, player.speedMax_, player.level_);
-            this.stats_[DEXTERITY].draw(this.getStrWisdom(player), this.specialBoost(player, this.getStrWisdom(player)) + player.dexterityBoost_, player.dexterityMax_, player.level_);
-            this.stats_[VITALITY].draw(this.getStrDexterity(player), this.specialBoost(player, this.getStrDexterity(player)) + player.vitalityBoost_, player.vitalityMax_, player.level_);
-            this.stats_[WISDOM].draw(this.getStrVitality(player), this.specialBoost(player, this.getStrVitality(player)) + player.wisdomBoost_, player.wisdomMax_, player.level_);
+            this.stats_[ATTACK].draw(this.getStrAttack(player), this.specialBoost(player, this.getStrAttack(player)) + this.getStrAttackBoost(player), player.attackMax_, player.level_);
+            this.stats_[DEFENSE].draw(this.getStrDefense(player), this.specialBoost(player, this.getStrDefense(player)) + this.getStrDefenseBoost(player), player.defenseMax_, player.level_);
+            this.stats_[SPEED].draw(this.getStrSpeed(player), this.specialBoost(player, this.getStrSpeed(player)) + this.getStrSpeedBoost(player), player.speedMax_, player.level_);
+            this.stats_[DEXTERITY].draw(this.getStrWisdom(player), this.specialBoost(player, this.getStrWisdom(player)) + this.getStrWisdomBoost(player), player.dexterityMax_, player.level_);
+            this.stats_[VITALITY].draw(this.getStrDexterity(player), this.specialBoost(player, this.getStrDexterity(player)) + this.getStrDexterityBoost(player), player.vitalityMax_, player.level_);
+            this.stats_[WISDOM].draw(this.getStrVitality(player), this.specialBoost(player, this.getStrVitality(player)) + this.getStrVitalityBoost(player), player.wisdomMax_, player.level_);
         } else {
-            this.stats_[ATTACK].draw(this.getStrAttack(player), player.attackBoost_, player.attackMax_, player.level_);
-            this.stats_[DEFENSE].draw(this.getStrDefense(player), player.defenseBoost_, player.defenseMax_, player.level_);
-            this.stats_[SPEED].draw(this.getStrSpeed(player), player.speedBoost_, player.speedMax_, player.level_);
-            this.stats_[DEXTERITY].draw(this.getStrDexterity(player), player.dexterityBoost_, player.dexterityMax_, player.level_);
-            this.stats_[VITALITY].draw(this.getStrVitality(player), player.vitalityBoost_, player.vitalityMax_, player.level_);
-            this.stats_[WISDOM].draw(this.getStrWisdom(player), player.wisdomBoost_, player.wisdomMax_, player.level_);
+            this.stats_[ATTACK].draw(this.getStrAttack(player), this.getStrAttackBoost(player), player.attackMax_, player.level_);
+            this.stats_[DEFENSE].draw(this.getStrDefense(player), this.getStrDefenseBoost(player), player.defenseMax_, player.level_);
+            this.stats_[SPEED].draw(this.getStrSpeed(player), this.getStrSpeedBoost(player), player.speedMax_, player.level_);
+            this.stats_[DEXTERITY].draw(this.getStrDexterity(player), this.getStrWisdomBoost(player), player.dexterityMax_, player.level_);
+            this.stats_[VITALITY].draw(this.getStrVitality(player), this.getStrDexterityBoost(player), player.vitalityMax_, player.level_);
+            this.stats_[WISDOM].draw(this.getStrWisdom(player), this.getStrVitalityBoost(player), player.wisdomMax_, player.level_);
         }
     }
 
