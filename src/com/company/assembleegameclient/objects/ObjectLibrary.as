@@ -203,6 +203,13 @@ public class ObjectLibrary {
 
     public static function getRedrawnTextureFromType(_arg1:int, _arg2:int, _arg3:Boolean, _arg4:Boolean = true, _arg5:Number = 5):BitmapData {
         var _local6:BitmapData = getBitmapData(_arg1);
+        var _local9:XML = xmlLibrary_[_arg1]|| new XML();
+        if (_local8 == null && _local9.hasOwnProperty("Blue"))
+            return (TextureRedrawer.redraw(_local6, _arg2, _arg3, 0x00FFFF, _arg4, _arg5));
+        if (_local8 == null && _local9.hasOwnProperty("Red"))
+            return (TextureRedrawer.redraw(_local6, _arg2, _arg3, 0xFF0000, _arg4, _arg5));
+        if (_local8 == null && _local9.hasOwnProperty("Green"))
+            return (TextureRedrawer.redraw(_local6, _arg2, _arg3, 0x11CE00, _arg4, _arg5));
         if (((!((Parameters.itemTypes16.indexOf(_arg1) == -1))) || ((_local6.height == 16)))) {
             _arg2 = (_arg2 * 0.5);
         }
@@ -211,7 +218,6 @@ public class ObjectLibrary {
         if (_local8 == null) {
             return (TextureRedrawer.redraw(_local6, _arg2, _arg3, 0, _arg4, _arg5));
         }
-        var _local9:XML = xmlLibrary_[_arg1];
         var _local10:int = ((_local9.hasOwnProperty("Tex1")) ? int(_local9.Tex1) : 0);
         var _local11:int = ((_local9.hasOwnProperty("Tex2")) ? int(_local9.Tex2) : 0);
         _local6 = TextureRedrawer.resize(_local6, _local8, _arg2, _arg3, _local10, _local11, _arg5);
@@ -347,17 +353,17 @@ public class ObjectLibrary {
                 case StatData.LEVEL_STAT:
                     return ((_arg2.level_ >= _local3));
                 case StatData.ATTACK_STAT:
-                    return ((Player.parse(_arg2.attack_) >= _local3));
+                    return ((Parameters.parse(_arg2.attack_) >= _local3));
                 case StatData.DEFENSE_STAT:
-                    return ((Player.parse(_arg2.defense_) >= _local3));
+                    return ((Parameters.parse(_arg2.defense_) >= _local3));
                 case StatData.SPEED_STAT:
-                    return ((Player.parse(_arg2.speed_) >= _local3));
+                    return ((Parameters.parse(_arg2.speed_) >= _local3));
                 case StatData.VITALITY_STAT:
-                    return ((Player.parse(_arg2.vitality_) >= _local3));
+                    return ((Parameters.parse(_arg2.vitality_) >= _local3));
                 case StatData.WISDOM_STAT:
-                    return ((Player.parse(_arg2.wisdom_) >= _local3));
+                    return ((Parameters.parse(_arg2.wisdom_) >= _local3));
                 case StatData.DEXTERITY_STAT:
-                    return ((Player.parse(_arg2.dexterity_) >= _local3));
+                    return ((Parameters.parse(_arg2.dexterity_) >= _local3));
             }
         }
         return (false);

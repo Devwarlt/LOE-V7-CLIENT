@@ -12,8 +12,13 @@ import flash.utils.ByteArray;
 import flash.utils.Timer;
 
 import kabam.lib.net.api.MessageProvider;
+import kabam.rotmg.core.StaticInjectorContext;
 
 import org.osflash.signals.Signal;
+
+import robotlegs.bender.framework.api.ILogger;
+
+import robotlegs.bender.framework.impl.Logger;
 
 public class SocketServer {
 
@@ -206,14 +211,14 @@ public class SocketServer {
             }
             this.messageLen = -1;
             if (message == null) {
-                this.logErrorAndClose("Socket-Server Protocol Error: Unknown message");
+                this.logErrorAndClose("[Protocol Error] Null message with invalid length.");
                 return;
             }
             try {
                 message.parseFromInput(data);
             }
             catch (error:Error) {
-                logErrorAndClose("Socket-Server Protocol Error: {0}", [error.toString()]);
+                // logErrorAndClose("[Protocol Error] Error in message ID " + message.id + ":\n", error);
                 return;
             }
             message.consume();
@@ -221,9 +226,19 @@ public class SocketServer {
         }
     }
 
-    private function logErrorAndClose(errorPrefix:String, errMsgs:Array = null):void {
-        this.error.dispatch(this.parseString(errorPrefix, errMsgs));
-        this.disconnect();
+    [Inject]
+    public static var logger:Logger = StaticInjectorContext.getInjector().getInstance(ILogger);
+
+    private function logErrorAndClose(info:String, error:Error = null):void {
+        this.error.dispatch("An error occurred, please contact LoESoft Games with following game issue.");
+        this.error.dispatch(info);
+        if (error != null) {
+            this.error.dispatch("\t- Error ID: " + error.errorID);
+            this.error.dispatch("\t- Error Name: " + error.name);
+            this.error.dispatch("\t- Error Message: " + error.message);
+            logger.error("[Message Handler Error]\n" + error.getStackTrace());
+        }
+        //this.disconnect();
     }
 
     private function parseString(msgTemplate:String, msgs:Array):String {

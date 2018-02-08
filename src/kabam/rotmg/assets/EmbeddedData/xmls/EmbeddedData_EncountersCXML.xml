@@ -1,7 +1,155 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
-    <Object type="0x736b" id="shtrs Encounter Spawner">
+    <Object type="0x670a" id="Frog Bomb">
+        <DisplayId>Frog Bomb</DisplayId>
+        <Class>Character</Class>
         <Enemy/>
+        <AnimatedTexture>
+            <File>chars8x8dBeach</File>
+            <Index>3</Index>
+        </AnimatedTexture>
+        <HitSound>monster/flaming_skulls_hit</HitSound>
+        <DeathSound>monster/flaming_skulls_death</DeathSound>
+        <Size>100</Size>
+        <MaxHitPoints>10000</MaxHitPoints>
+        <Defense>10</Defense>
+        <StasisImmune/>
+        <StunImmune/>
+        <ParalyzeImmune/>
+        <DazedImmune/>
+        <Projectile id="0">
+            <ObjectId>Poison Fireball</ObjectId>
+            <Speed>50</Speed>
+            <Damage>50</Damage>
+            <ConditionEffect duration="10">Confused</ConditionEffect>
+            <LifetimeMS>4000</LifetimeMS>
+            <Size>100</Size>
+            <MultiHit/>
+            <ArmorPiercing/>
+        </Projectile>
+    </Object>
+    <Object type="0x6709" id="NPC Gazer">
+        <DisplayId>Gazer</DisplayId>
+        <Class>Character</Class>
+        <NPC />
+        <Texture>
+            <File>lofiChar28x8</File>
+            <Index>0x30</Index>
+        </Texture>
+    </Object>
+    <Object type="0x6708" id="Frog Minion">
+        <DisplayId>Frog Minion</DisplayId>
+        <Enemy/>
+        <Class>Character</Class>
+        <AnimatedTexture>
+            <File>chars8x8dBeach</File>
+            <Index>4</Index>
+        </AnimatedTexture>
+        <HitSound>monster/pythons_hit</HitSound>
+        <DeathSound>monster/pythons_death</DeathSound>
+        <Size>100</Size>
+        <MaxHitPoints>5000</MaxHitPoints>
+        <Defense>50</Defense>
+        <XpMult>900.0</XpMult>
+        <Projectile id="0">
+            <ObjectId>Green Blob</ObjectId>
+            <Speed>25</Speed>
+            <Damage>50</Damage>
+            <LifetimeMS>8000</LifetimeMS>
+            <Amplitude>2.9</Amplitude>
+            <Frequency>2.5</Frequency>
+            <Size>100</Size>
+            <MultiHit/>
+        </Projectile>
+        <Projectile id="1">
+            <ObjectId>Green Star</ObjectId>
+            <Speed>75</Speed>
+            <Damage>80</Damage>
+            <LifetimeMS>3000</LifetimeMS>
+            <Amplitude>1</Amplitude>
+            <Frequency>2.5</Frequency>
+            <Size>100</Size>
+            <MultiHit/>
+            <PassesCover/>
+        </Projectile>
+        <Projectile id="2">
+            <ObjectId>Green Spinner</ObjectId>
+            <Speed>100</Speed>
+            <Damage>10</Damage>
+            <LifetimeMS>750</LifetimeMS>
+            <ConditionEffect duration="10">Confused</ConditionEffect>
+            <Size>100</Size>
+            <MultiHit/>
+            <PassesCover/>
+        </Projectile>
+        <Projectile id="3">
+            <ObjectId>Green Missile</ObjectId>
+            <Speed>50</Speed>
+            <Damage>150</Damage>
+            <LifetimeMS>3000</LifetimeMS>
+            <Size>100</Size>
+            <MultiHit/>
+            <PassesCover/>
+        </Projectile>
+    </Object>
+    <Object type="0x6707" id="Frog King">
+        <DisplayId>Frog King</DisplayId>
+        <Enemy/>
+        <Class>Character</Class>
+        <AnimatedTexture>
+            <File>chars16x16dMountains1</File>
+            <Index>0x08</Index>
+        </AnimatedTexture>
+        <HitSound>monster/pythons_hit</HitSound>
+        <DeathSound>monster/pythons_death</DeathSound>
+        <Size>110</Size>
+        <MaxHitPoints>100000</MaxHitPoints>
+        <Defense>60</Defense>
+        <XpMult>1100.0</XpMult>
+        <Projectile id="0">
+            <ObjectId>Puppet Green Wheel</ObjectId>
+            <Speed>25</Speed>
+            <Damage>200</Damage>
+            <LifetimeMS>8000</LifetimeMS>
+            <Amplitude>2.9</Amplitude>
+            <Frequency>2.5</Frequency>
+            <Size>100</Size>
+            <MultiHit/>
+        </Projectile>
+        <Projectile id="1">
+            <ObjectId>Green Star</ObjectId>
+            <Speed>75</Speed>
+            <Damage>150</Damage>
+            <LifetimeMS>3000</LifetimeMS>
+            <Amplitude>1</Amplitude>
+            <Frequency>2.5</Frequency>
+            <Size>100</Size>
+            <MultiHit/>
+            <PassesCover/>
+        </Projectile>
+        <Projectile id="2">
+            <ObjectId>Green Spinner</ObjectId>
+            <Speed>200</Speed>
+            <Damage>0</Damage>
+            <LifetimeMS>750</LifetimeMS>
+            <ConditionEffect duration="10">Confused</ConditionEffect>
+            <Size>100</Size>
+            <MultiHit/>
+            <PassesCover/>
+        </Projectile>
+        <Projectile id="3">
+            <ObjectId>Green Missile</ObjectId>
+            <Speed>50</Speed>
+            <Damage>150</Damage>
+            <LifetimeMS>3000</LifetimeMS>
+            <Size>100</Size>
+            <MultiHit/>
+            <PassesCover/>
+        </Projectile>
+    </Object>
+    <!--0x6706-->
+    <Object type="0x736b" id="shtrs Encounter Spawner">
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiObjBig</File>
@@ -10,22 +158,22 @@
         <MaxHitPoints>1000</MaxHitPoints>
         <XpMult>0</XpMult>
         <Size>0</Size>
-        <NoMiniMap/>
-        <Encounter/>
-        <StasisImmune/>
+        <NoMiniMap />
+        <Encounter />
+        <StasisImmune />
         <PerRealmMax>1</PerRealmMax>
     </Object>
     <Object type="0x734d" id="shtrs Defense System">
         <DisplayId>Avatar of the Forgotten King</DisplayId>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
-        <Quest/>
+        <Quest />
         <Level>20</Level>
-        <God/>
-        <StasisImmune/>
-        <StunImmune/>
-        <ParalyzeImmune/>
-        <DazedImmune/>
+        <God />
+        <StasisImmune />
+        <StunImmune />
+        <ParalyzeImmune />
+        <DazedImmune />
         <HitSound>monster/golems_hit</HitSound>
         <DeathSound>monster/beholder_death</DeathSound>
         <MaxHitPoints>500000</MaxHitPoints>
@@ -62,9 +210,9 @@
     </Object>
     <Object type="0x734e" id="shtrs shadowmans">
         <DisplayId>Shades of the Avatar</DisplayId>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
-        <StasisImmune/>
+        <StasisImmune />
         <HitSound>monster/golems_hit</HitSound>
         <DeathSound>monster/beholder_death</DeathSound>
         <MaxHitPoints>10000</MaxHitPoints>
@@ -85,7 +233,7 @@
         <Projectile id="1">
             <ObjectId>Armor Pierce Bullet</ObjectId>
             <Speed>50</Speed>
-            <ArmorPiercing/>
+            <ArmorPiercing />
             <MinDamage>53</MinDamage>
             <MaxDamage>92</MaxDamage>
             <LifetimeMS>6000</LifetimeMS>
@@ -93,10 +241,10 @@
     </Object>
     <Object type="0x734f" id="shtrs Pillar 1">
         <DisplayId>Killer Pillar</DisplayId>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
-        <StasisImmune/>
-        <StunImmune/>
+        <StasisImmune />
+        <StunImmune />
         <HitSound>monster/golems_hit</HitSound>
         <DeathSound>monster/beholder_death</DeathSound>
         <MaxHitPoints>25000</MaxHitPoints>
@@ -117,7 +265,7 @@
         <Projectile id="1">
             <ObjectId>Armor Pierce Bullet</ObjectId>
             <Speed>50</Speed>
-            <ArmorPiercing/>
+            <ArmorPiercing />
             <MinDamage>163</MinDamage>
             <MaxDamage>213</MaxDamage>
             <LifetimeMS>6000</LifetimeMS>
@@ -125,10 +273,10 @@
     </Object>
     <Object type="0x735a" id="shtrs Pillar 2">
         <DisplayId>Killer Pillar</DisplayId>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
-        <StasisImmune/>
-        <StunImmune/>
+        <StasisImmune />
+        <StunImmune />
         <HitSound>monster/golems_hit</HitSound>
         <DeathSound>monster/beholder_death</DeathSound>
         <MaxHitPoints>25000</MaxHitPoints>
@@ -149,7 +297,7 @@
         <Projectile id="1">
             <ObjectId>Armor Pierce Bullet</ObjectId>
             <Speed>50</Speed>
-            <ArmorPiercing/>
+            <ArmorPiercing />
             <MinDamage>163</MinDamage>
             <MaxDamage>213</MaxDamage>
             <LifetimeMS>6000</LifetimeMS>
@@ -157,10 +305,10 @@
     </Object>
     <Object type="0x735b" id="shtrs Pillar 3">
         <DisplayId>Killer Pillar</DisplayId>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
-        <StasisImmune/>
-        <StunImmune/>
+        <StasisImmune />
+        <StunImmune />
         <HitSound>monster/golems_hit</HitSound>
         <DeathSound>monster/beholder_death</DeathSound>
         <MaxHitPoints>25000</MaxHitPoints>
@@ -181,7 +329,7 @@
         <Projectile id="1">
             <ObjectId>Armor Pierce Bullet</ObjectId>
             <Speed>50</Speed>
-            <ArmorPiercing/>
+            <ArmorPiercing />
             <MinDamage>163</MinDamage>
             <MaxDamage>213</MaxDamage>
             <LifetimeMS>6000</LifetimeMS>
@@ -189,10 +337,10 @@
     </Object>
     <Object type="0x735c" id="shtrs Pillar 4">
         <DisplayId>Killer Pillar</DisplayId>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
-        <StasisImmune/>
-        <StunImmune/>
+        <StasisImmune />
+        <StunImmune />
         <HitSound>monster/golems_hit</HitSound>
         <DeathSound>monster/beholder_death</DeathSound>
         <MaxHitPoints>25000</MaxHitPoints>
@@ -213,7 +361,7 @@
         <Projectile id="1">
             <ObjectId>Armor Pierce Bullet</ObjectId>
             <Speed>50</Speed>
-            <ArmorPiercing/>
+            <ArmorPiercing />
             <MinDamage>163</MinDamage>
             <MaxDamage>213</MaxDamage>
             <LifetimeMS>6000</LifetimeMS>
@@ -221,33 +369,33 @@
     </Object>
     <Object type="0x735d" id="shtrs portal maker">
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <Texture>
             <File>invisible</File>
             <Index>0</Index>
         </Texture>
-        <NoMiniMap/>
+        <NoMiniMap />
         <Size>0</Size>
         <XpMult>0.0</XpMult>
-        <StasisImmune/>
+        <StasisImmune />
     </Object>
     <Object type="0x735e" id="shtrs blobomb maker">
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <Texture>
             <File>invisible</File>
             <Index>0</Index>
         </Texture>
-        <NoMiniMap/>
+        <NoMiniMap />
         <Size>0</Size>
         <XpMult>0.0</XpMult>
-        <StasisImmune/>
+        <StasisImmune />
     </Object>
     <Object type="0x735f" id="shtrs eyeswarmer">
         <DisplayId>Eye of the Avatar</DisplayId>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
-        <StasisImmune/>
+        <StasisImmune />
         <HitSound>monster/golems_hit</HitSound>
         <DeathSound>monster/beholder_death</DeathSound>
         <MaxHitPoints>9000</MaxHitPoints>
@@ -269,8 +417,8 @@
     </Object>
     <Object type="0x736a" id="shtrs encounterportalspawn">
         <Class>Character</Class>
-        <StasisImmune/>
-        <NoMiniMap/>
+        <StasisImmune />
+        <NoMiniMap />
         <Texture>
             <File>invisible</File>
             <Index>0</Index>
@@ -286,7 +434,7 @@
         <DisplayId>shtrs Encounter Loot Chest</DisplayId>
         <Class>Character</Class>
         <Group>Ice Mages</Group>
-        <Enemy/>
+        <Enemy />
         <Texture>
             <File>lofiObj3</File>
             <Index>0x466</Index>
@@ -297,8 +445,8 @@
     </Object>
     <Object type="0x738b" id="shtrs encounterchestspawner">
         <Class>Character</Class>
-        <StasisImmune/>
-        <NoMiniMap/>
+        <StasisImmune />
+        <NoMiniMap />
         <Texture>
             <File>invisible</File>
             <Index>0</Index>
@@ -309,7 +457,7 @@
         <XpMult>0.0</XpMult>
     </Object>
     <Object type="0x5e83" id="Rock Dragon Bat">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiObjBig</File>
@@ -320,7 +468,7 @@
         <XpMult>0</XpMult>
         <Size>100</Size>
         <Z>0.2</Z>
-        <Flying/>
+        <Flying />
         <Size>100</Size>
         <ShadowSize>80</ShadowSize>
         <AltTexture id="1">
@@ -360,7 +508,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e79" id="Body Segment Bomb">
-        <Enemy/>
+        <Enemy />
         <DisplayId>Body Segment Bomb</DisplayId>
         <Class>Character</Class>
         <Texture>
@@ -386,7 +534,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e77" id="Dragon Marker BR">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiObjBig</File>
@@ -395,11 +543,11 @@
         <MaxHitPoints>1000</MaxHitPoints>
         <XpMult>0</XpMult>
         <Size>0</Size>
-        <NoMiniMap/>
-        <StasisImmune/>
+        <NoMiniMap />
+        <StasisImmune />
     </Object>
     <Object type="0x5e76" id="Dragon Marker BL">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiObjBig</File>
@@ -408,11 +556,11 @@
         <MaxHitPoints>1000</MaxHitPoints>
         <XpMult>0</XpMult>
         <Size>0</Size>
-        <NoMiniMap/>
-        <StasisImmune/>
+        <NoMiniMap />
+        <StasisImmune />
     </Object>
     <Object type="0x5e75" id="Dragon Marker TR">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiObjBig</File>
@@ -421,11 +569,11 @@
         <MaxHitPoints>1000</MaxHitPoints>
         <XpMult>0</XpMult>
         <Size>0</Size>
-        <NoMiniMap/>
-        <StasisImmune/>
+        <NoMiniMap />
+        <StasisImmune />
     </Object>
     <Object type="0x5e74" id="Dragon Marker TL">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiObjBig</File>
@@ -434,11 +582,11 @@
         <MaxHitPoints>1000</MaxHitPoints>
         <XpMult>0</XpMult>
         <Size>0</Size>
-        <NoMiniMap/>
-        <StasisImmune/>
+        <NoMiniMap />
+        <StasisImmune />
     </Object>
     <Object type="0x5e73" id="Dragon Head Spawner">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiObjBig</File>
@@ -447,13 +595,13 @@
         <MaxHitPoints>1000</MaxHitPoints>
         <XpMult>0</XpMult>
         <Size>0</Size>
-        <NoMiniMap/>
-        <Encounter/>
-        <StasisImmune/>
+        <NoMiniMap />
+        <Encounter />
+        <StasisImmune />
         <PerRealmMax>1</PerRealmMax>
     </Object>
     <Object type="0x5e72" id="Dragon Head Leader">
-        <Enemy/>
+        <Enemy />
         <DisplayId>Rock Dragon</DisplayId>
         <Class>Character</Class>
         <Texture>
@@ -466,10 +614,10 @@
         <Defense>10</Defense>
         <XpMult>0</XpMult>
         <Size>0</Size>
-        <Flying/>
+        <Flying />
         <Z>0.35</Z>
-        <NoMiniMap/>
-        <StasisImmune/>
+        <NoMiniMap />
+        <StasisImmune />
         <Projectile id="0">
             <ObjectId>Fire Bust Shot</ObjectId>
             <Damage>120</Damage>
@@ -479,7 +627,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e78" id="Dragon Head">
-        <Enemy/>
+        <Enemy />
         <DisplayId>Eye of the Dragon</DisplayId>
         <Class>Character</Class>
         <AnimatedTexture>
@@ -492,13 +640,13 @@
         <Defense>50</Defense>
         <XpMult>1</XpMult>
         <Size>120</Size>
-        <Flying/>
+        <Flying />
         <Z>0.34</Z>
-        <DontFaceAttacks/>
-        <StasisImmune/>
-        <Hero/>
-        <Quest/>
-        <God/>
+        <DontFaceAttacks />
+        <StasisImmune />
+        <Hero />
+        <Quest />
+        <God />
         <Level>20</Level>
         <AltTexture id="1">
             <Texture>
@@ -556,8 +704,8 @@
             <Speed>140</Speed>
             <Size>280</Size>
             <LifetimeMS>1200</LifetimeMS>
-            <MultiHit/>
-            <PassesCover/>
+            <MultiHit />
+            <PassesCover />
         </Projectile>
         <Projectile id="3">
             <ObjectId>Dragon Eye Blast</ObjectId>
@@ -565,11 +713,11 @@
             <Speed>45</Speed>
             <Size>180</Size>
             <LifetimeMS>2000</LifetimeMS>
-            <ParticleTrail/>
+            <ParticleTrail />
         </Projectile>
     </Object>
     <Object type="0x5e71" id="Body Segment A">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Group>Body Segments</Group>
         <Texture>
@@ -608,10 +756,10 @@
         <Defense>10</Defense>
         <XpMult>0</XpMult>
         <Size>100</Size>
-        <Flying/>
+        <Flying />
         <Z>0.35</Z>
-        <DontFaceAttacks/>
-        <StasisImmune/>
+        <DontFaceAttacks />
+        <StasisImmune />
         <Projectile id="0">
             <ObjectId>Invisible</ObjectId>
             <Damage>100</Damage>
@@ -621,7 +769,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e70" id="Body Segment B">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Group>Body Segments</Group>
         <Texture>
@@ -660,10 +808,10 @@
         <Defense>10</Defense>
         <XpMult>0</XpMult>
         <Size>100</Size>
-        <Flying/>
+        <Flying />
         <Z>0.35</Z>
-        <DontFaceAttacks/>
-        <StasisImmune/>
+        <DontFaceAttacks />
+        <StasisImmune />
         <Projectile id="0">
             <ObjectId>Invisible</ObjectId>
             <Damage>100</Damage>
@@ -673,7 +821,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e69" id="Body Segment C">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Group>Body Segments</Group>
         <Texture>
@@ -712,10 +860,10 @@
         <Defense>10</Defense>
         <XpMult>0</XpMult>
         <Size>100</Size>
-        <Flying/>
+        <Flying />
         <Z>0.35</Z>
-        <DontFaceAttacks/>
-        <StasisImmune/>
+        <DontFaceAttacks />
+        <StasisImmune />
         <Projectile id="0">
             <ObjectId>Invisible</ObjectId>
             <Damage>100</Damage>
@@ -725,7 +873,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e68" id="Body Segment D">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Group>Body Segments</Group>
         <Texture>
@@ -764,10 +912,10 @@
         <Defense>10</Defense>
         <XpMult>0</XpMult>
         <Size>100</Size>
-        <Flying/>
+        <Flying />
         <Z>0.35</Z>
-        <DontFaceAttacks/>
-        <StasisImmune/>
+        <DontFaceAttacks />
+        <StasisImmune />
         <Projectile id="0">
             <ObjectId>Invisible</ObjectId>
             <Damage>100</Damage>
@@ -777,7 +925,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e67" id="Body Segment E">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Group>Body Segments</Group>
         <Texture>
@@ -816,10 +964,10 @@
         <Defense>10</Defense>
         <XpMult>0</XpMult>
         <Size>100</Size>
-        <Flying/>
+        <Flying />
         <Z>0.35</Z>
-        <DontFaceAttacks/>
-        <StasisImmune/>
+        <DontFaceAttacks />
+        <StasisImmune />
         <Projectile id="0">
             <ObjectId>Invisible</ObjectId>
             <Damage>100</Damage>
@@ -829,7 +977,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e66" id="Body Segment F">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Group>Body Segments</Group>
         <Texture>
@@ -868,10 +1016,10 @@
         <Defense>10</Defense>
         <XpMult>0</XpMult>
         <Size>100</Size>
-        <Flying/>
+        <Flying />
         <Z>0.35</Z>
-        <DontFaceAttacks/>
-        <StasisImmune/>
+        <DontFaceAttacks />
+        <StasisImmune />
         <Projectile id="0">
             <ObjectId>Invisible</ObjectId>
             <Damage>100</Damage>
@@ -881,7 +1029,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e65" id="Body Segment G">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Group>Body Segments</Group>
         <Texture>
@@ -920,10 +1068,10 @@
         <Defense>10</Defense>
         <XpMult>0</XpMult>
         <Size>100</Size>
-        <Flying/>
+        <Flying />
         <Z>0.35</Z>
-        <DontFaceAttacks/>
-        <StasisImmune/>
+        <DontFaceAttacks />
+        <StasisImmune />
         <Projectile id="0">
             <ObjectId>Invisible</ObjectId>
             <Damage>100</Damage>
@@ -933,7 +1081,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e64" id="Body Segment H">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Group>Body Segments</Group>
         <Texture>
@@ -972,10 +1120,10 @@
         <Defense>10</Defense>
         <XpMult>0</XpMult>
         <Size>100</Size>
-        <Flying/>
+        <Flying />
         <Z>0.35</Z>
-        <DontFaceAttacks/>
-        <StasisImmune/>
+        <DontFaceAttacks />
+        <StasisImmune />
         <Projectile id="0">
             <ObjectId>Invisible</ObjectId>
             <Damage>100</Damage>
@@ -985,7 +1133,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e80" id="Body Segment I">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Group>Body Segments</Group>
         <Texture>
@@ -1024,10 +1172,10 @@
         <Defense>10</Defense>
         <XpMult>0</XpMult>
         <Size>100</Size>
-        <Flying/>
+        <Flying />
         <Z>0.35</Z>
-        <DontFaceAttacks/>
-        <StasisImmune/>
+        <DontFaceAttacks />
+        <StasisImmune />
         <Projectile id="0">
             <ObjectId>Invisible</ObjectId>
             <Damage>100</Damage>
@@ -1037,7 +1185,7 @@
         </Projectile>
     </Object>
     <Object type="0x5e81" id="Body Segment Tail">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <AnimatedTexture>
             <File>chars16x16rEncounters</File>
@@ -1049,9 +1197,9 @@
         <Defense>10</Defense>
         <XpMult>0</XpMult>
         <Size>120</Size>
-        <Flying/>
+        <Flying />
         <Z>0.35</Z>
-        <StasisImmune/>
+        <StasisImmune />
         <Projectile id="0">
             <ObjectId>Invisible</ObjectId>
             <Damage>100</Damage>
@@ -1063,13 +1211,13 @@
     <Object type="0x0d50" id="Lord of the Lost Lands">
         <DisplayId>Lord of the Lost Lands</DisplayId>
         <Group>Knights of the Lost Lands</Group>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
-        <Hero/>
-        <Quest/>
-        <God/>
-        <Encounter/>
-        <StasisImmune/>
+        <Hero />
+        <Quest />
+        <God />
+        <Encounter />
+        <StasisImmune />
         <Level>20</Level>
         <PerRealmMax>1</PerRealmMax>
         <AnimatedTexture>
@@ -1116,8 +1264,8 @@
             <Damage>250</Damage>
             <Size>300</Size>
             <LifetimeMS>5000</LifetimeMS>
-            <MultiHit/>
-            <PassesCover/>
+            <MultiHit />
+            <PassesCover />
             <Amplitude>0.1</Amplitude>
             <Frequency>50</Frequency>
             <ConditionEffect duration="5">Bleeding</ConditionEffect>
@@ -1128,9 +1276,9 @@
     </Object>
     <Object type="0x0d51" id="Protection Crystal">
         <Group>Knights of the Lost Lands</Group>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
-        <StasisImmune/>
+        <StasisImmune />
         <AnimatedTexture>
             <File>chars8x8dEncounters</File>
             <Index>13</Index>
@@ -1151,7 +1299,7 @@
     </Object>
     <Object type="0x0d52" id="Knight of the Lost Lands">
         <Group>Knights of the Lost Lands</Group>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <AnimatedTexture>
             <File>chars8x8rEncounters</File>
@@ -1173,7 +1321,7 @@
     </Object>
     <Object type="0x0d53" id="Guardian of the Lost Lands">
         <Group>Knights of the Lost Lands</Group>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <AnimatedTexture>
             <File>chars16x16dEncounters</File>
@@ -1202,7 +1350,7 @@
         <XpMult>0.2</XpMult>
     </Object>
     <Object type="0x0d54" id="Grand Sphinx">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <AnimatedTexture>
             <File>chars16x16rEncounters</File>
@@ -1213,11 +1361,11 @@
         <Size>160</Size>
         <MaxHitPoints>55000</MaxHitPoints>
         <Defense>25</Defense>
-        <God/>
-        <StasisImmune/>
-        <Hero/>
-        <Quest/>
-        <Encounter/>
+        <God />
+        <StasisImmune />
+        <Hero />
+        <Quest />
+        <Encounter />
         <Level>20</Level>
         <XpMult>0.3</XpMult>
         <PerRealmMax>1</PerRealmMax>
@@ -1228,8 +1376,8 @@
             <Size>110</Size>
             <LifetimeMS>1350</LifetimeMS>
             <ConditionEffect duration="7">Weak</ConditionEffect>
-            <MultiHit/>
-            <PassesCover/>
+            <MultiHit />
+            <PassesCover />
         </Projectile>
         <Projectile id="1">
             <ObjectId>Zedshot</ObjectId>
@@ -1238,8 +1386,8 @@
             <Size>130</Size>
             <LifetimeMS>1900</LifetimeMS>
             <ConditionEffect duration="4">Blind</ConditionEffect>
-            <MultiHit/>
-            <PassesCover/>
+            <MultiHit />
+            <PassesCover />
         </Projectile>
         <Projectile id="2">
             <ObjectId>Hellfire</ObjectId>
@@ -1247,12 +1395,12 @@
             <Damage>120</Damage>
             <Size>125</Size>
             <LifetimeMS>1600</LifetimeMS>
-            <MultiHit/>
-            <PassesCover/>
+            <MultiHit />
+            <PassesCover />
         </Projectile>
     </Object>
     <Object type="0x0d55" id="Horrid Reaper">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <AnimatedTexture>
             <File>chars8x8dEncounters</File>
@@ -1270,7 +1418,7 @@
             <Damage>80</Damage>
             <Size>110</Size>
             <LifetimeMS>1550</LifetimeMS>
-            <MultiHit/>
+            <MultiHit />
         </Projectile>
         <Projectile id="1">
             <ObjectId>Fire Missile</ObjectId>
@@ -1278,7 +1426,7 @@
             <Damage>65</Damage>
             <Size>80</Size>
             <LifetimeMS>1400</LifetimeMS>
-            <MultiHit/>
+            <MultiHit />
         </Projectile>
     </Object>
     <Object type="0x0d56" id="Skull Shrine">
@@ -1293,12 +1441,12 @@
         <Size>120</Size>
         <MaxHitPoints>15000</MaxHitPoints>
         <Defense>40</Defense>
-        <Enemy/>
-        <Hero/>
-        <Quest/>
-        <God/>
-        <Encounter/>
-        <StasisImmune/>
+        <Enemy />
+        <Hero />
+        <Quest />
+        <God />
+        <Encounter />
+        <StasisImmune />
         <Level>20</Level>
         <Projectile id="0">
             <ObjectId>Purple Magic</ObjectId>
@@ -1310,7 +1458,7 @@
     <Object type="0x0d57" id="Red Flaming Skull">
         <Group>Flaming Skulls</Group>
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <DisplayId>Red Flaming Skull</DisplayId>
         <Texture>
             <File>lofiChar8x8</File>
@@ -1320,7 +1468,7 @@
         <DeathSound>monster/flaming_skulls_death</DeathSound>
         <MaxHitPoints>1000</MaxHitPoints>
         <Size>120</Size>
-        <Flying/>
+        <Flying />
         <Z>0.2</Z>
         <XpMult>0.1</XpMult>
         <Projectile id="0">
@@ -1333,7 +1481,7 @@
     <Object type="0x0d58" id="Blue Flaming Skull">
         <Group>Flaming Skulls</Group>
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <DisplayId>Blue Flaming Skull</DisplayId>
         <Texture>
             <File>lofiChar8x8</File>
@@ -1343,7 +1491,7 @@
         <DeathSound>monster/flaming_skulls_death</DeathSound>
         <MaxHitPoints>750</MaxHitPoints>
         <Size>120</Size>
-        <Flying/>
+        <Flying />
         <Z>0.2</Z>
         <XpMult>0.1</XpMult>
         <Projectile id="0">
@@ -1364,11 +1512,11 @@
         <Size>120</Size>
         <MaxHitPoints>15000</MaxHitPoints>
         <Defense>40</Defense>
-        <Enemy/>
-        <Hero/>
-        <Quest/>
-        <God/>
-        <StasisImmune/>
+        <Enemy />
+        <Hero />
+        <Quest />
+        <God />
+        <StasisImmune />
         <Level>20</Level>
         <Projectile id="0">
             <ObjectId>Purple Magic</ObjectId>
@@ -1380,7 +1528,7 @@
     <Object type="0x0e52" id="Green Floating Pumpkin">
         <Group>Floating Pumpkins</Group>
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <AnimatedTexture>
             <File>d3Chars8x8rEmbed</File>
             <Index>11</Index>
@@ -1389,7 +1537,7 @@
         <DeathSound>monster/flaming_skulls_death</DeathSound>
         <MaxHitPoints>1000</MaxHitPoints>
         <Size>120</Size>
-        <Flying/>
+        <Flying />
         <Z>0.2</Z>
         <XpMult>0.1</XpMult>
         <Projectile id="0">
@@ -1402,7 +1550,7 @@
     <Object type="0x0e53" id="Blue Floating Pumpkin">
         <Group>Floating Pumpkins</Group>
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <AnimatedTexture>
             <File>d3Chars8x8rEmbed</File>
             <Index>0x09</Index>
@@ -1411,7 +1559,7 @@
         <DeathSound>monster/flaming_skulls_death</DeathSound>
         <MaxHitPoints>750</MaxHitPoints>
         <Size>120</Size>
-        <Flying/>
+        <Flying />
         <Z>0.2</Z>
         <XpMult>0.1</XpMult>
         <Projectile id="0">
@@ -1431,13 +1579,13 @@
         <DeathSound>monster/cubes_death</DeathSound>
         <Size>120</Size>
         <MaxHitPoints>15000</MaxHitPoints>
-        <Hero/>
-        <Quest/>
-        <God/>
-        <Encounter/>
-        <StasisImmune/>
+        <Hero />
+        <Quest />
+        <God />
+        <Encounter />
+        <StasisImmune />
         <Level>20</Level>
-        <Cube/>
+        <Cube />
         <Projectile id="0">
             <ObjectId>Dark Blue Magic</ObjectId>
             <Speed>100</Speed>
@@ -1451,11 +1599,11 @@
             <LifetimeMS>2500</LifetimeMS>
         </Projectile>
         <Defense>40</Defense>
-        <Enemy/>
+        <Enemy />
     </Object>
     <Object type="0x0d5a" id="Cube Overseer">
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <Texture>
             <File>lofiChar28x8</File>
             <Index>0x40</Index>
@@ -1463,7 +1611,7 @@
         <HitSound>monster/cubes_hit</HitSound>
         <DeathSound>monster/cubes_death</DeathSound>
         <MaxHitPoints>1500</MaxHitPoints>
-        <Cube/>
+        <Cube />
         <Projectile id="0">
             <ObjectId>Orange Magic</ObjectId>
             <Speed>100</Speed>
@@ -1482,7 +1630,7 @@
     <Object type="0x0d5b" id="Cube Defender">
         <Group>Cube Minions</Group>
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <Texture>
             <File>lofiChar28x8</File>
             <Index>0x41</Index>
@@ -1490,13 +1638,13 @@
         <HitSound>monster/cubes_hit</HitSound>
         <DeathSound>monster/cubes_death</DeathSound>
         <MaxHitPoints>1000</MaxHitPoints>
-        <Cube/>
+        <Cube />
         <Projectile id="0">
             <ObjectId>Yellow Magic</ObjectId>
             <Speed>100</Speed>
             <Damage>50</Damage>
             <LifetimeMS>2400</LifetimeMS>
-            <Wavy/>
+            <Wavy />
         </Projectile>
         <Size>100</Size>
         <XpMult>0.1</XpMult>
@@ -1504,7 +1652,7 @@
     <Object type="0x0d5c" id="Cube Blaster">
         <Group>Cube Minions</Group>
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <Texture>
             <File>lofiChar28x8</File>
             <Index>0x42</Index>
@@ -1512,7 +1660,7 @@
         <HitSound>monster/cubes_hit</HitSound>
         <DeathSound>monster/cubes_death</DeathSound>
         <MaxHitPoints>500</MaxHitPoints>
-        <Cube/>
+        <Cube />
         <Projectile id="0">
             <ObjectId>Green Star</ObjectId>
             <Speed>60</Speed>
@@ -1540,10 +1688,10 @@
         <DeathSound>monster/cubes_death</DeathSound>
         <Size>120</Size>
         <MaxHitPoints>15000</MaxHitPoints>
-        <Hero/>
-        <Quest/>
-        <God/>
-        <StasisImmune/>
+        <Hero />
+        <Quest />
+        <God />
+        <StasisImmune />
         <Level>20</Level>
         <Projectile id="0">
             <ObjectId>Dark Blue Magic</ObjectId>
@@ -1558,12 +1706,12 @@
             <LifetimeMS>2500</LifetimeMS>
         </Projectile>
         <Defense>40</Defense>
-        <Enemy/>
+        <Enemy />
     </Object>
     <Object type="0x0e2a" id="Turkey God Overseer">
         <DisplayId>Gobble Overseer</DisplayId>
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <AnimatedTexture>
             <File>chars8x8rEncounters</File>
             <Index>120</Index>
@@ -1590,7 +1738,7 @@
         <DisplayId>Gobble Defender</DisplayId>
         <Group>Turkey God Minions</Group>
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <AnimatedTexture>
             <File>chars8x8rEncounters</File>
             <Index>121</Index>
@@ -1603,7 +1751,7 @@
             <Speed>100</Speed>
             <Damage>50</Damage>
             <LifetimeMS>2400</LifetimeMS>
-            <Wavy/>
+            <Wavy />
         </Projectile>
         <Size>100</Size>
         <XpMult>0.1</XpMult>
@@ -1612,7 +1760,7 @@
         <DisplayId>Gobble Blaster</DisplayId>
         <Group>Turkey God Minions</Group>
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <AnimatedTexture>
             <File>chars8x8rEncounters</File>
             <Index>122</Index>
@@ -1637,7 +1785,7 @@
         <XpMult>0.1</XpMult>
     </Object>
     <Object type="0x0d5d" id="Pentaract Eye">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiChar8x8</File>
@@ -1651,11 +1799,11 @@
             <Speed>150</Speed>
             <Damage>80</Damage>
             <LifetimeMS>500</LifetimeMS>
-            <MultiHit/>
+            <MultiHit />
         </Projectile>
     </Object>
     <Object type="0x0d5e" id="Pentaract Tower">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiChar216x16</File>
@@ -1722,12 +1870,12 @@
         <MaxHitPoints>8000</MaxHitPoints>
         <Size>120</Size>
         <XpMult>0.1</XpMult>
-        <God/>
-        <StasisImmune/>
-        <KeepDamageRecord/>
+        <God />
+        <StasisImmune />
+        <KeepDamageRecord />
     </Object>
     <Object type="0x0d5f" id="Pentaract">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiChar8x8</File>
@@ -1735,14 +1883,14 @@
         </Texture>
         <MaxHitPoints>10000</MaxHitPoints>
         <Size>0</Size>
-        <Hero/>
-        <Quest/>
-        <God/>
-        <Encounter/>
+        <Hero />
+        <Quest />
+        <God />
+        <Encounter />
         <Level>20</Level>
     </Object>
     <Object type="0x0d60" id="Pentaract Tower Corpse">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiChar216x16</File>
@@ -1751,10 +1899,10 @@
         <MaxHitPoints>8000</MaxHitPoints>
         <Size>0</Size>
         <XpMult>0</XpMult>
-        <God/>
+        <God />
     </Object>
     <Object type="0x0e01" id="Pentaract Tower Ultra">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiObjBig</File>
@@ -1813,26 +1961,26 @@
             </Frame>
         </Animation>
         <XpMult>1</XpMult>
-        <Hero/>
-        <Quest/>
-        <God/>
+        <Hero />
+        <Quest />
+        <God />
         <Level>20</Level>
-        <StasisImmune/>
+        <StasisImmune />
         <MaxHitPoints>9000</MaxHitPoints>
         <Size>130</Size>
     </Object>
     <Object type="0x0d61" id="Hermit God">
         <Group>Hermit God Encounter</Group>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
-        <Hero/>
-        <Quest/>
-        <God/>
-        <Encounter/>
-        <StasisImmune/>
+        <Hero />
+        <Quest />
+        <God />
+        <Encounter />
+        <StasisImmune />
         <Level>20</Level>
         <PerRealmMax>1</PerRealmMax>
-        <KeepDamageRecord/>
+        <KeepDamageRecord />
         <AnimatedTexture>
             <File>chars16x16dEncounters2</File>
             <Index>11</Index>
@@ -1894,7 +2042,7 @@
             <Damage>100</Damage>
             <Size>210</Size>
             <LifetimeMS>3200</LifetimeMS>
-            <MultiHit/>
+            <MultiHit />
         </Projectile>
         <Projectile id="3">
             <ObjectId>Deep Sea Blast Yellow</ObjectId>
@@ -1902,13 +2050,13 @@
             <Damage>100</Damage>
             <Size>210</Size>
             <LifetimeMS>3200</LifetimeMS>
-            <MultiHit/>
+            <MultiHit />
         </Projectile>
     </Object>
     <Object type="0x0d62" id="Hermit Minion">
         <Class>Character</Class>
         <Group>Hermit God Encounter</Group>
-        <Enemy/>
+        <Enemy />
         <Size>100</Size>
         <ShadowSize>90</ShadowSize>
         <MaxHitPoints>2200</MaxHitPoints>
@@ -1938,11 +2086,11 @@
     </Object>
     <Object type="0x0d63" id="Whirlpool">
         <Group>Hermit God Encounter</Group>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
-        <StasisImmune/>
+        <StasisImmune />
         <ShadowSize>0</ShadowSize>
-        <Flying/>
+        <Flying />
         <AnimatedTexture>
             <File>chars16x16dEncounters2</File>
             <Index>15</Index>
@@ -1963,7 +2111,7 @@
     </Object>
     <Object type="0x0d64" id="Hermit God Tentacle">
         <Group>Hermit God Encounter</Group>
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <ShadowSize>100</ShadowSize>
         <AnimatedTexture>
@@ -2000,11 +2148,11 @@
     <Object type="0x0d65" id="Hermit God Tentacle Spawner">
         <Group>Hermit God Encounter</Group>
         <Class>Character</Class>
-        <StasisImmune/>
+        <StasisImmune />
         <ShadowSize>0</ShadowSize>
         <Size>0</Size>
-        <Enemy/>
-        <NoMiniMap/>
+        <Enemy />
+        <NoMiniMap />
         <Texture>
             <File>invisible</File>
             <Index>0</Index>
@@ -2019,8 +2167,8 @@
     <Object type="0x0d66" id="Hermit God Drop">
         <Group>Hermit God Encounter</Group>
         <Class>Character</Class>
-        <StasisImmune/>
-        <NoMiniMap/>
+        <StasisImmune />
+        <NoMiniMap />
         <Texture>
             <File>invisible</File>
             <Index>0</Index>
@@ -2033,7 +2181,7 @@
         <XpMult>0.0</XpMult>
     </Object>
     <Object type="0x0e54" id="Zombie Horde">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>invisible</File>
@@ -2047,16 +2195,16 @@
         </Portrait>
         <MaxHitPoints>100000</MaxHitPoints>
         <XpMult>0.0</XpMult>
-        <God/>
-        <Hero/>
-        <Quest/>
+        <God />
+        <Hero />
+        <Quest />
         <Level>20</Level>
         <PerRealmMax>10</PerRealmMax>
     </Object>
     <Object type="0x0e5c" id="Bonegrind 2">
         <DisplayId>Bonegrind the Undead Butcher</DisplayId>
         <Class>Character</Class>
-        <Enemy/>
+        <Enemy />
         <AnimatedTexture>
             <File>d3Chars16x16rEmbed</File>
             <Index>8</Index>
@@ -2072,8 +2220,8 @@
         <Size>20</Size>
         <MaxHitPoints>100000</MaxHitPoints>
         <Defense>60</Defense>
-        <StasisImmune/>
-        <StunImmune/>
+        <StasisImmune />
+        <StunImmune />
         <XpMult>2</XpMult>
         <Projectile id="0">
             <ObjectId>Big Zombie Wave</ObjectId>
@@ -2105,12 +2253,12 @@
             <Damage>110</Damage>
             <Size>150</Size>
             <LifetimeMS>1600</LifetimeMS>
-            <PassesCover/>
+            <PassesCover />
             <ConditionEffect duration="4">Armor Broken</ConditionEffect>
         </Projectile>
     </Object>
     <Object type="0x0e57" id="Horde Spawner">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>invisible</File>
@@ -2118,10 +2266,10 @@
         </Texture>
         <MaxHitPoints>100000</MaxHitPoints>
         <XpMult>0.0</XpMult>
-        <NoMiniMap/>
+        <NoMiniMap />
     </Object>
     <Object type="0x0e56" id="Masked Party God">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>lofiObjBig</File>
@@ -2153,7 +2301,7 @@
         <Defense>10</Defense>
     </Object>
     <Object type="0x0e55" id="Beach Bum">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <AnimatedTexture>
             <File>chars8x8rEncounters</File>
@@ -2167,7 +2315,7 @@
         <Defense>15</Defense>
     </Object>
     <Object type="0x0e4f" id="Water Mine">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <DisplayId>Water Mine</DisplayId>
         <AnimatedTexture>
@@ -2190,7 +2338,7 @@
         </Projectile>
     </Object>
     <Object type="0x0e4e" id="Water Mine Path">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <DisplayId>Water Mine</DisplayId>
         <AnimatedTexture>
@@ -2213,7 +2361,7 @@
         </Projectile>
     </Object>
     <Object type="0x0e3d" id="Beach Spectre">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <DisplayId>Beach Spectre</DisplayId>
         <AnimatedTexture>
@@ -2226,8 +2374,8 @@
         <ShadowSize>100</ShadowSize>
         <MaxHitPoints>800</MaxHitPoints>
         <Defense>5</Defense>
-        <NoMiniMap/>
-        <Flying/>
+        <NoMiniMap />
+        <Flying />
         <Z>0.2</Z>
         <XpMult>0.0</XpMult>
         <Projectile id="0">
@@ -2239,7 +2387,7 @@
         </Projectile>
     </Object>
     <Object type="0x0e3c" id="Beach Spectre Spawner">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <AnimatedTexture>
             <File>chars8x8rEncounters</File>
@@ -2249,10 +2397,10 @@
         <ShadowSize>0</ShadowSize>
         <MaxHitPoints>1000</MaxHitPoints>
         <Defense>100</Defense>
-        <NoMiniMap/>
+        <NoMiniMap />
     </Object>
     <Object type="0x0e3b" id="Tempest Cloud">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <Texture>
             <File>invisible</File>
@@ -2318,7 +2466,7 @@
         <Size>0</Size>
         <MaxHitPoints>800</MaxHitPoints>
         <Defense>15</Defense>
-        <Flying/>
+        <Flying />
         <Z>0.8</Z>
         <Projectile id="0">
             <ObjectId>Lightning Bolt</ObjectId>
@@ -2339,11 +2487,11 @@
         <DeathSound>monster/beholder_death</DeathSound>
         <MaxHitPoints>2000</MaxHitPoints>
         <XpMult>0</XpMult>
-        <Enemy/>
+        <Enemy />
         <Size>0</Size>
         <ShadowSize>80</ShadowSize>
         <Z>0.3</Z>
-        <Flying/>
+        <Flying />
         <Projectile id="0">
             <ObjectId>Ghostly Blast</ObjectId>
             <Speed>85</Speed>
@@ -2353,7 +2501,7 @@
         </Projectile>
     </Object>
     <Object type="0x0e38" id="Ghost Ship Anchor">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <DisplayId>Ghost Ship Whirlpool</DisplayId>
         <AnimatedTexture>
@@ -2366,9 +2514,9 @@
         <ShadowSize>0</ShadowSize>
         <MaxHitPoints>6000</MaxHitPoints>
         <Defense>2000</Defense>
-        <NoMiniMap/>
+        <NoMiniMap />
         <PerRealmMax>1</PerRealmMax>
-        <Encounter/>
+        <Encounter />
         <Projectile id="0">
             <ObjectId>Invisible</ObjectId>
             <MinDamage>50</MinDamage>
@@ -2376,11 +2524,11 @@
             <Speed>0</Speed>
             <Size>100</Size>
             <LifetimeMS>5000</LifetimeMS>
-            <MultiHit/>
+            <MultiHit />
         </Projectile>
     </Object>
     <Object type="0x0e37" id="Ghost Ship">
-        <Enemy/>
+        <Enemy />
         <Class>Character</Class>
         <DisplayId>Ghost Ship</DisplayId>
         <AnimatedTexture>
@@ -2406,20 +2554,20 @@
         <ShadowSize>100</ShadowSize>
         <MaxHitPoints>42000</MaxHitPoints>
         <Defense>40</Defense>
-        <Flying/>
-        <Hero/>
+        <Flying />
+        <Hero />
         <Level>20</Level>
-        <Quest/>
-        <God/>
-        <StasisImmune/>
-        <KeepDamageRecord/>
+        <Quest />
+        <God />
+        <StasisImmune />
+        <KeepDamageRecord />
         <Projectile id="0">
             <ObjectId>Cannonball</ObjectId>
             <Damage>80</Damage>
             <Speed>60</Speed>
             <Size>80</Size>
             <LifetimeMS>4000</LifetimeMS>
-            <MultiHit/>
+            <MultiHit />
         </Projectile>
         <Projectile id="1">
             <ObjectId>Giant Cannonball</ObjectId>
@@ -2427,7 +2575,7 @@
             <Speed>40</Speed>
             <Size>180</Size>
             <LifetimeMS>4000</LifetimeMS>
-            <MultiHit/>
+            <MultiHit />
         </Projectile>
     </Object>
 </Objects>

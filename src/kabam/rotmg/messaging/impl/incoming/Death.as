@@ -31,7 +31,7 @@ public class Death extends IncomingMessage {
     }
 
     override public function toString():String {
-        return (formatToString("DEATH", "accountId_", "charId_", "killedBy_"));
+        return (formatToString("DEATH", "accountId_", "charId_", "killedBy_", "zombieType", "zombieId"));
     }
 
 

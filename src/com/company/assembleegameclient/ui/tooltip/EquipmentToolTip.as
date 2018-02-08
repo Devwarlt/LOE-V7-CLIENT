@@ -972,7 +972,7 @@ public class EquipmentToolTip extends ToolTip {
         if (this.player == null) {
             return;
         }
-        var _local1:Number = (Player.parse(this.player.wisdom_) + this.player.wisdomBoost_);
+        var _local1:Number = (Parameters.parse(this.player.wisdom_) + this.player.wisdomBoost_);
         if (_local1 < 30) {
             return;
         }
@@ -1024,7 +1024,7 @@ public class EquipmentToolTip extends ToolTip {
         var _local6:int;
         var _local7:Number;
         var _local3:String = "-1";
-        var _local4:Number = (Player.parse(this.player.wisdom_) + this.player.wisdomBoost_);
+        var _local4:Number = (Parameters.parse(this.player.wisdom_) + this.player.wisdomBoost_);
         if (_local4 < 30) {
             _local3 = _arg1;
         }

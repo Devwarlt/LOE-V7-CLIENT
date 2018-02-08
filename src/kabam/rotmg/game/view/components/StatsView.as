@@ -1,5 +1,6 @@
 ﻿package kabam.rotmg.game.view.components {
 import com.company.assembleegameclient.objects.Player;
+import com.company.assembleegameclient.parameters.Parameters;
 
 import flash.display.Sprite;
 import flash.events.MouseEvent;
@@ -52,27 +53,27 @@ public class StatsView extends Sprite {
     }
 
     private function getStrAttack(player:Player):Number {
-        return this._strAttack = Player.parse(player.attack_);
+        return this._strAttack = Parameters.parse(player.attack_);
     }
 
     private function getStrDefense(player:Player):Number {
-        return this._strDefense = Player.parse(player.defense_);
+        return this._strDefense = Parameters.parse(player.defense_);
     }
 
     private function getStrSpeed(player:Player):Number {
-        return this._strSpeed = Player.parse(player.speed_);
+        return this._strSpeed = Parameters.parse(player.speed_);
     }
 
     private function getStrDexterity(player:Player):Number {
-        return this._strDexterity = Player.parse(player.dexterity_);
+        return this._strDexterity = Parameters.parse(player.dexterity_);
     }
 
     private function getStrVitality(player:Player):Number {
-        return this._strVitality = Player.parse(player.vitality_);
+        return this._strVitality = Parameters.parse(player.vitality_);
     }
 
     private function getStrWisdom(player:Player):Number {
-        return this._strWisdom = Player.parse(player.wisdom_);
+        return this._strWisdom = Parameters.parse(player.wisdom_);
     }
 
     private function createStats():void {
