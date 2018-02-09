@@ -1,5 +1,7 @@
 ﻿package kabam.rotmg.assets.EmbeddedData {
 public class EmbeddedData {
+    private static const LoEEncounterCXML:Class = EmbeddedData_LoEEncounterCXML;
+    private static const DrrItemsCXML:Class = EmbeddedData_DrrItemsCXML;
     private static const LoERealmEggsCXML:Class = EmbeddedData_LoERealmEggsCXML;
     private static const LoERealmItemsCXML:Class = EmbeddedData_LoERealmItemsCXML;
     private static const LoERealmLegendaryTierCXML:Class = EmbeddedData_LoERealmLegendaryTierCXML;
@@ -112,6 +114,8 @@ public class EmbeddedData {
             ];
     public static const objectFiles:Array =
             [
+                new LoEEncounterCXML(),
+                new DrrItemsCXML(),
                 new LoERealmEdition1EncountersCXML(),
                 new LoERealmEdition1ObjectsCXML(),
                 new LoERealmEdition1ProjectilesCXML(),
