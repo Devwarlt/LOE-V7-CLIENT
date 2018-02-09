@@ -15,6 +15,7 @@ public class EmbeddedData {
     private static const LoERealmEdition1GroundsCXML:Class = EmbeddedData_LoERealmEdition1GroundsCXML;
     private static const LoERealmEdition1ObjectsCXML:Class = EmbeddedData_LoERealmEdition1ObjectsCXML;
     private static const LoERealmEdition1ProjectilesCXML:Class = EmbeddedData_LoERealmEdition1ProjectilesCXML;
+    private static const LoERealmEdition1ItemsCXML:Class = EmbeddedData_LoERealmEdition1ItemsCXML;
     private static const GroundCXML:Class = EmbeddedData_GroundCXML;
     private static const ProjectilesCXML:Class = EmbeddedData_ProjectilesCXML;
     private static const EquipCXML:Class = EmbeddedData_EquipCXML;
@@ -114,6 +115,7 @@ public class EmbeddedData {
                 new LoERealmEdition1EncountersCXML(),
                 new LoERealmEdition1ObjectsCXML(),
                 new LoERealmEdition1ProjectilesCXML(),
+                new LoERealmEdition1ItemsCXML(),
                 new LoERealmGoldenCrownsCXML(),
                 new LoERealmDreamIslandEncountersCXML(),
                 new LoERealmDreamIslandObjectsCXML(),
