@@ -36,12 +36,12 @@
         </Texture>
         <SlotType>9</SlotType>
         <Green/>
-        <SRT/>
+        <FT/>
         <Description>After the Frog King's Death, you took it's crown;Turns out this Crown is the source of the Frog Kings Power! </Description>
-        <ActivateOnEquip stat="0" amount="50">IncrementStat</ActivateOnEquip>
-        <ActivateOnEquip stat="20" amount="10">IncrementStat</ActivateOnEquip>
-        <ActivateOnEquip stat="28" amount="5">IncrementStat</ActivateOnEquip>
-        <ActivateOnEquip stat="21" amount="-10">IncrementStat</ActivateOnEquip>
+        <ActivateOnEquip stat="0" amount="100">IncrementStat</ActivateOnEquip>
+        <ActivateOnEquip stat="20" amount="30">IncrementStat</ActivateOnEquip>
+        <ActivateOnEquip stat="28" amount="50">IncrementStat</ActivateOnEquip>
+        <ActivateOnEquip stat="21" amount="100">IncrementStat</ActivateOnEquip>
         <BagType>6</BagType>
         <feedPower>3400</feedPower>
         <Soulbound/>
