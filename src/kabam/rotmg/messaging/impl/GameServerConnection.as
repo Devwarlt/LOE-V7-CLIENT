@@ -212,7 +212,7 @@ public class GameServerConnection {
     public function groundDamage(_arg1:int, _arg2:Number, _arg3:Number):void {
     }
 
-    public function playerShoot(_arg1:int, _arg2:Projectile):void {
+    public function playerShoot(_arg1:int, _arg2:Projectile, _arg3:Number, _arg4:int):void {
     }
 
     public function playerHit(_arg1:int, _arg2:int):void {
