@@ -640,16 +640,15 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         }
     }
 
-    override public function playerShoot(_arg1:int, _arg2:Projectile, _arg3:Number, _arg4:int):void {
+    override public function playerShoot(_arg1:Projectile, _arg2:Number, _arg3:int):void {
         var playerShoot:PlayerShoot = (this.messages.require(PLAYERSHOOT) as PlayerShoot);
-        playerShoot.time_ = _arg1;
-        playerShoot.bulletId_ = _arg2.bulletId_;
-        playerShoot.containerType_ = _arg2.containerType_;
-        playerShoot.startingPos_.x_ = _arg2.x_;
-        playerShoot.startingPos_.y_ = _arg2.y_;
-        playerShoot.angle_ = _arg2.angle_;
-        playerShoot.attackPeriod_ = _arg3;
-        playerShoot.attackAmount_ = _arg4;
+        playerShoot.bulletId_ = _arg1.bulletId_;
+        playerShoot.containerType_ = _arg1.containerType_;
+        playerShoot.startingPos_.x_ = _arg1.x_;
+        playerShoot.startingPos_.y_ = _arg1.y_;
+        playerShoot.angle_ = _arg1.angle_;
+        playerShoot.attackPeriod_ = _arg2;
+        playerShoot.attackAmount_ = _arg3;
         serverConnection.queueMessage(playerShoot);
     }
 
