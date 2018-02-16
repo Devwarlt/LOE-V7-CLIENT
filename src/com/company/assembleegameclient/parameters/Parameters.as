@@ -167,6 +167,8 @@ public class Parameters {
     }
 
     public static function parse(str:String):int {
+        if (str == null)
+            str = "0";
         for (var i:int = 0; i < str.length; i++) {
             var c:String = str.charAt(i);
             if (c != "0") break;

@@ -69,29 +69,27 @@ public class StatView extends Sprite {
         }
     }
 
-    public function draw(_arg1:int, _arg2:int, _arg3:int, _arg4:int = 0):void {
+    public function draw(statBase:int, statBoost:int, statMax:int, level:int = 0):void {
         var _local5:uint;
-        if ((((((_arg4 == this.level_)) && ((_arg1 == this.val_)))) && ((_arg2 == this.boost_)))) {
+
+        if (level == this.level_ && statBase == this.val_ && statBoost == this.boost_)
             return;
-        }
-        this.val_ = _arg1;
-        this.boost_ = _arg2;
-        this.max_ = _arg3;
-        this.level_ = _arg4;
-        if ((_arg1 - _arg2) >= _arg3) {
+
+        this.val_ = statBase;
+        this.boost_ = statBoost;
+        this.max_ = statMax;
+        this.level_ = level;
+
+        if (statBase - statBoost >= statMax)
             _local5 = 0xFCDF00;
-        }
         else {
-            if (((((this.redOnZero_) && ((this.val_ <= 0)))) || ((this.boost_ < 0)))) {
+            if ((this.redOnZero_ && this.val_ <= 0) || this.boost_ < 0)
                 _local5 = 16726072;
-            }
             else {
-                if (this.boost_ > 0) {
+                if (this.boost_ > 0)
                     _local5 = 6206769;
-                }
-                else {
+                else
                     _local5 = 0xB3B3B3;
-                }
             }
         }
         if (this.valColor_ != _local5) {
@@ -104,15 +102,16 @@ public class StatView extends Sprite {
     public function setNewText(_arg1:Boolean):void {
         var _local3:int;
         var _local2:String = this.val_.toString();
+
         if (_arg1) {
             _local3 = (this.max_ - (this.val_ - this.boost_));
-            if ((((this.level_ >= 20)) && ((_local3 > 0)))) {
+            if (this.level_ >= 20 && _local3 > 0)
                 _local2 = (_local2 + ("|" + _local3.toString()));
-            }
         }
-        if (this.boost_ != 0) {
+
+        if (this.boost_ != 0)
             _local2 = (_local2 + (((" (" + (((this.boost_ > 0)) ? "+" : "")) + this.boost_.toString()) + ")"));
-        }
+
         this.valText_.setStringBuilder(new StaticStringBuilder(_local2));
         this.valText_.x = 24;
     }

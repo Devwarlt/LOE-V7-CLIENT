@@ -143,7 +143,8 @@ public class Player extends Character {
     protected var rotate_:Number = 0;
     protected var relMoveVec_:Point = null;
     protected var moveMultiplier_:Number = 1;
-    public var attackPeriod_:int = 0;
+    public var attackPeriod_:Number = 0;
+    public var attackAmount_:int = 0;
     public var nextAltAttack_:int = 0;
     public var nextTeleportAt_:int = 0;
     public var dropBoost:int = 0;
@@ -978,7 +979,7 @@ public class Player extends Character {
             map_.gs_.gsc_.useItem(_local8, objectId_, 1, _local4, _local6.x, _local6.y, _arg3);
             if (_local5.Activate == ActivationType.SHOOT) {
                 _local9 = Math.atan2(_arg2, _arg1);
-                this.doShoot(_local8, _local4, _local5, (Parameters.data_.cameraAngle + _local9), false);
+                this.doShoot(_local4, _local5, (Parameters.data_.cameraAngle + _local9), false);
             }
         }
         else {
@@ -987,7 +988,7 @@ public class Player extends Character {
                 _local10 = int(_local5.MpEndCost);
                 if (_local10 <= this.mp_) {
                     _local9 = Math.atan2(_arg2, _arg1);
-                    this.doShoot(_local8, _local4, _local5, (Parameters.data_.cameraAngle + _local9), false);
+                    this.doShoot(_local4, _local5, (Parameters.data_.cameraAngle + _local9), false);
                 }
             }
         }
@@ -1013,7 +1014,7 @@ public class Player extends Character {
             return;
         }
 
-        var weapType:int = equipment_[0];
+        var weapType:int = this.equipment_[0];
         if (weapType == -1) {
             return;
         }
@@ -1021,53 +1022,53 @@ public class Player extends Character {
         var weapon:XML = ObjectLibrary.xmlLibrary_[weapType];
         var curTime:int = getTimer();
         var fireRate:Number = Number(weapon.RateOfFire);
-        this.attackPeriod_ = (1 / this.attackFrequency()) * (1 / fireRate);
-        if (curTime < attackStart_ + this.attackPeriod_) {
+        this.attackPeriod_ = (NumberKey.RATEOFFIREVALUE / this.attackFrequency()) * (NumberKey.RATEOFFIREVALUE / fireRate);
+        if (curTime < this.attackStart_ + this.attackPeriod_) {
             return;
         }
 
         doneAction(map_.gs_, Tutorial.ATTACK_ACTION);
-        attackAngle_ = angle;
-        attackStart_ = curTime;
-        this.doShoot(attackStart_, weapType, weapon, attackAngle_, true);
+        this.attackAngle_ = angle;
+        this.attackStart_ = curTime;
+        this.doShoot(weapType, weapon, attackAngle_, true);
     }
 
-    private function doShoot(_arg1:int, _arg2:int, _arg3:XML, _arg4:Number, _arg5:Boolean):void {
+    private function doShoot(weaponType:int, weaponXML:XML, attackAngle:Number, isShooting:Boolean):void {
         var _local11:uint;
         var _local12:Projectile;
         var _local13:int;
         var _local14:int;
         var _local15:Number;
         var _local16:int;
-        var _local6:int = _arg3.hasOwnProperty(TextKey.NUMPROJECTILES) ? int(_arg3.NumProjectiles) : NumberKey.NUMPROJECTILESVALUE;
-        var _local7:Number = (_arg3.hasOwnProperty(TextKey.ARCGAP) ? Number(_arg3.ArcGap) : NumberKey.ARCGAPVALUE) * Trig.toRadians;
-        var _local8:Number = (_local7 * (_local6 - 1));
-        var _local9:Number = (_arg4 - (_local8 / 2));
-        this.isShooting = _arg5;
+        var arcGap:Number = (weaponXML.hasOwnProperty(TextKey.ARCGAP) ? Number(weaponXML.ArcGap) : NumberKey.ARCGAPVALUE) * Trig.toRadians;
+        var _local8:Number = (arcGap * (this.attackAmount_ - 1));
+        var _local9:Number = (attackAngle - (_local8 / 2));
+        this.isShooting = isShooting;
+        this.attackAmount_ = weaponXML.hasOwnProperty(TextKey.NUMPROJECTILES) ? int(weaponXML.NumProjectiles) : NumberKey.NUMPROJECTILESVALUE;
         var _local10:int;
-        while (_local10 < _local6) {
+        while (_local10 < this.attackAmount_) {
             _local11 = getBulletId();
             _local12 = (FreeList.newObject(Projectile) as Projectile);
-            if (((_arg5) && (!((this.projectileIdSetOverrideNew == ""))))) {
-                _local12.reset(_arg2, 0, objectId_, _local11, _local9, _arg1, this.projectileIdSetOverrideNew, this.projectileIdSetOverrideOld);
+            if (((isShooting) && (!((this.projectileIdSetOverrideNew == ""))))) {
+                _local12.reset(weaponType, 0, objectId_, _local11, _local9, this.attackStart_, this.projectileIdSetOverrideNew, this.projectileIdSetOverrideOld);
             }
             else {
-                _local12.reset(_arg2, 0, objectId_, _local11, _local9, _arg1);
+                _local12.reset(weaponType, 0, objectId_, _local11, _local9, this.attackStart_);
             }
             _local13 = int(_local12.projProps_.minDamage_);
             _local14 = int(_local12.projProps_.maxDamage_);
-            _local15 = ((_arg5) ? this.attackMultiplier() : 1);
+            _local15 = ((isShooting) ? this.attackMultiplier() : 1);
             _local16 = (map_.gs_.gsc_.getNextDamage(_local13, _local14) * _local15);
-            if (_arg1 > (map_.gs_.moveRecords_.lastClearTime_ + 600)) {
+            if (this.attackStart_ > (map_.gs_.moveRecords_.lastClearTime_ + 600)) {
                 _local16 = 0;
             }
             _local12.setDamage(_local16);
             if ((((_local10 == 0)) && (!((_local12.sound_ == null))))) {
                 SoundEffectLibrary.play(_local12.sound_, 0.75, false);
             }
-            map_.addObj(_local12, (x_ + (Math.cos(_arg4) * 0.3)), (y_ + (Math.sin(_arg4) * 0.3)));
-            map_.gs_.gsc_.playerShoot(_arg1, _local12);
-            _local9 = (_local9 + _local7);
+            map_.addObj(_local12, (x_ + (Math.cos(attackAngle) * 0.3)), (y_ + (Math.sin(attackAngle) * 0.3)));
+            map_.gs_.gsc_.playerShoot(_local12, this.attackPeriod_, this.attackAmount_);
+            _local9 = (_local9 + arcGap);
             _local10++;
         }
     }

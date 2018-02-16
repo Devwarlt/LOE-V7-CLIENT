@@ -12,8 +12,10 @@ import com.company.util.KeyCodes;
 
 import flash.display.Bitmap;
 import flash.display.BitmapData;
+import flash.events.TimerEvent;
 import flash.filters.DropShadowFilter;
 import flash.utils.Dictionary;
+import flash.utils.Timer;
 import flash.utils.setInterval;
 
 import kabam.rotmg.constants.ActivationType;
@@ -64,6 +66,9 @@ public class EquipmentToolTip extends ToolTip {
     private var powerText:TextFieldDisplayConcrete;
     private var keyInfoResponse:KeyInfoResponseSignal;
     private var originalObjectType:int;
+    private var time:Timer;
+    private var flashtext:TextFieldDisplayConcrete;
+    private var repeat:int = 0;
 
     public function EquipmentToolTip(objectType:int, player:Player, inventoryType:int, inventoryOwnerType:String) {
         var _local8:HUDModel;
@@ -220,6 +225,7 @@ public class EquipmentToolTip extends ToolTip {
         var _local4:Boolean = this.objectXML.hasOwnProperty("Tier");
         var _local5:Boolean = this.objectXML.hasOwnProperty("LT");
         var _local6:Boolean = this.objectXML.hasOwnProperty("SRT");
+        var _local7:Boolean = this.objectXML.hasOwnProperty("FT");
         if (((((_local1) && (_local2))) && (_local3))) {
             this.tierText = new TextFieldDisplayConcrete().setSize(16).setColor(0xFFFFFF).setTextWidth(30).setBold(true);
             if (_local4) {
@@ -232,6 +238,10 @@ public class EquipmentToolTip extends ToolTip {
             else if (_local6) {
                 this.tierText.setColor(0xDED60A);
                 this.tierText.setStringBuilder(new LineBuilder().setParams("SRT"));
+            }
+            else if (_local7) {
+                this.tierText.setStringBuilder(new LineBuilder().setParams("FT"));
+                SetFlash(this.tierText);
             }
             else {
                 if (this.objectXML.hasOwnProperty("@setType")) {
@@ -246,7 +256,22 @@ public class EquipmentToolTip extends ToolTip {
             addChild(this.tierText);
         }
     }
+    private function SetFlash(_arg1:TextFieldDisplayConcrete):void {
+        this.repeat = 0;
+        this.flashtext = _arg1;
+        this.time = new Timer(100);
+        this.time.start();
+        this.time.addEventListener(TimerEvent.TIMER, OnFlash);
+    }
 
+    private function OnFlash(_arg1:TimerEvent):void {
+        if (this.repeat % 2 == 0){
+            this.flashtext.setColor(0xFFFFFF); //you could remake it so that the colors are set through parameters or something like that
+        } else {
+            this.flashtext.setColor(0x000000);
+        }
+        this.repeat++;
+    }
     private function isPet():Boolean {
         var activateTags:XMLList;
         activateTags = this.objectXML.Activate.(text() == "PermaPet");
