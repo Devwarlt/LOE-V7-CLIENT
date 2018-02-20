@@ -266,6 +266,7 @@ public class Projectile extends BasicObject {
                     go.damage(this.containerType_, dmg, this.projProps_.effects_, false, this);
                 }
                 else {
+                    // TODO: This function is causing troubles.
                     if (goIsEnemy) {
                         map_.gs_.gsc_.enemyHit(currentTime, this.bulletId_, go.objectId_, killed);
                         go.damage(this.containerType_, dmg, this.projProps_.effects_, killed, this);
