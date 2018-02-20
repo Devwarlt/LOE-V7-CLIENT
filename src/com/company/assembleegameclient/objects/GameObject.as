@@ -91,7 +91,7 @@ public class GameObject extends BasicObject {
     public var object3d_:Object3DStage3D = null;
     public var effect_:ParticleEffect = null;
     public var animations_:Animations = null;
-    public var dead_:Boolean = false;
+    public var dead_:Boolean = false; // TODO: Investigate invalid death
     protected var portrait_:BitmapData = null;
     protected var texturingCache_:Dictionary = null;
     public var maxHP_:int = 200;
