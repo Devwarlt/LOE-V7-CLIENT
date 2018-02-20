@@ -31,9 +31,9 @@ public class MapOverlay extends Sprite {
     }
 
     public function addQueuedText(_arg1:QueuedStatusText):void {
-        var _local2:int = _arg1.go_.objectId_;
-        var _local3:QueuedStatusTextList = (this.queuedText[_local2] = ((this.queuedText[_local2]) || (this.makeQueuedStatusTextList())));
-        _local3.append(_arg1);
+        var _local1:CharacterStatusText = new CharacterStatusText(_arg1.go_, _arg1.color, _arg1.lifetime);
+        _local1.setStringBuilder(_arg1.stringBuilder);
+        addStatusText(_local1);
     }
 
     private function makeQueuedStatusTextList():QueuedStatusTextList {
