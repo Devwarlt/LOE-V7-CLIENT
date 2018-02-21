@@ -304,7 +304,6 @@ public class Projectile extends BasicObject {
             var dy:Number;
             if ((dx = Math.abs(go.x_ - x)) > go.radius_ ||
                     (dy = Math.abs(go.y_ - y)) > go.radius_ ||
-                    go.dead_ ||
                     go.condition_[ConditionEffect.CE_FIRST_BATCH] & ConditionEffect.PROJ_NOHIT_BITMASK ||
                     map_.goDict_[go.objectId_] == null) {
                 continue;

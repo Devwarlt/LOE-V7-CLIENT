@@ -373,9 +373,6 @@ public class Map extends AbstractMap {
         // visible game objects
         for each (var go:GameObject in goDict_) {
             go.drawn_ = false;
-            if (go.dead_) {
-                continue;
-            }
             sqr = go.square_;
             if (sqr != null && sqr.lastVisible_ == currentTime) {
                 go.drawn_ = true;
