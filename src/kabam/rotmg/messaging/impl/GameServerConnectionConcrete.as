@@ -663,7 +663,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
     override public function enemyHit(_arg1:int, _arg2:int, _arg3:int, _arg4:Boolean):void {
         ENEMYHIT_REQUESTS++;
-        Log.Info("Message 'ENEMYHIT' ID '{0}' has been queued!");
+        Log.Info("Message 'ENEMYHIT' ID '{0}' has been queued!", [ENEMYHIT_REQUESTS]);
         var _local5:EnemyHit = (this.messages.require(ENEMYHIT) as EnemyHit);
         _local5.time_ = _arg1;
         _local5.bulletId_ = _arg2;
