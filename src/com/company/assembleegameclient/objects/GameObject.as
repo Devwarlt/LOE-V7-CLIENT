@@ -695,7 +695,7 @@ public class GameObject extends BasicObject {
         this.myLastTickId_ = _arg4;
     }
 
-    public function damage(_arg1:int, _arg2:int, _arg3:Vector.<uint>, _arg4:Boolean, _arg5:Projectile):void {
+    public function damage(_containerType:int, _damage:int, _projectileEffects:Vector.<uint>, _killed:Boolean, _projectile:Projectile):void {
         var _local7:int;
         var _local8:uint;
         var _local9:ConditionEffect;
@@ -706,15 +706,15 @@ public class GameObject extends BasicObject {
         var _local14:Vector.<uint>;
         var _local15:Boolean;
         var _local6:Boolean;
-        if (_arg4) {
+        if (_killed) {
             this.dead_ = true;
         }
         else {
-            if (_arg3 != null) {
+            if (_projectileEffects != null) {
                 _local7 = 0;
-                for each (_local8 in _arg3) {
+                for each (_local8 in _projectileEffects) {
                     _local9 = null;
-                    if (((((!((_arg5 == null))) && (_arg5.projProps_.isPetEffect_))) && (_arg5.projProps_.isPetEffect_[_local8]))) {
+                    if (((((!((_projectile == null))) && (_projectile.projProps_.isPetEffect_))) && (_projectile.projProps_.isPetEffect_[_local8]))) {
                         _local11 = StaticInjectorContext.getInjector().getInstance(PetsModel);
                         _local12 = _local11.getActivePet();
                         if (_local12 != null) {
@@ -843,17 +843,17 @@ public class GameObject extends BasicObject {
                 map_.addObj(new ExplosionEffect(_local14, this.size_, 30), x_, y_);
             }
             else {
-                if (_arg5 != null) {
-                    map_.addObj(new HitEffect(_local14, this.size_, 10, _arg5.angle_, _arg5.projProps_.speed_), x_, y_);
+                if (_projectile != null) {
+                    map_.addObj(new HitEffect(_local14, this.size_, 10, _projectile.angle_, _projectile.projProps_.speed_), x_, y_);
                 }
                 else {
                     map_.addObj(new ExplosionEffect(_local14, this.size_, 10), x_, y_);
                 }
             }
         }
-        if (_arg2 > 0) {
-            _local15 = ((((this.isArmorBroken()) || (((!((_arg5 == null))) && (_arg5.projProps_.armorPiercing_))))) || (_local6));
-            this.showDamageText(_arg2, _local15);
+        if (_damage > 0) {
+            _local15 = ((((this.isArmorBroken()) || (((!((_projectile == null))) && (_projectile.projProps_.armorPiercing_))))) || (_local6));
+            this.showDamageText(_damage, _local15);
         }
     }
 
