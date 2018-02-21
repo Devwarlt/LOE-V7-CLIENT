@@ -251,6 +251,8 @@ public class Projectile extends BasicObject {
                     (this.damagesPlayers_ || goIsEnemy && this.ownerId_ == player.objectId_);
 
             if (goHit) {
+                Log.Info("New collision received!");
+
                 var dmg:int = GameObject.damageWithDefense(this.damage_, Parameters.parse(go.defense_), this.projProps_.armorPiercing_, go.condition_);
 
                 var killed:Boolean = false;
@@ -262,11 +264,16 @@ public class Projectile extends BasicObject {
                 }
 
                 if (go == player) {
+                    Log.Info("GameObject type: player.");
                     map_.gs_.gsc_.playerHit(this.bulletId_, this.ownerId_);
                     go.damage(this.containerType_, dmg, this.projProps_.effects_, false, this);
                 }
                 else {
+                    // TODO: This function is causing troubles.
                     if (goIsEnemy) {
+                        Log.Info("GameObject type: enemy.");
+                        Log.Warn("Processing message request to the server...");
+                        Log.Warn("Message 'ENEMYHIT' Handler:\n\t- Time: {0}\n\t- Bullet ID: {1}\n\t- Object ID: {2}\n\t- Is Killed? {3}", [currentTime, this.bulletId_, go.objectId_, killed]);
                         map_.gs_.gsc_.enemyHit(currentTime, this.bulletId_, go.objectId_, killed);
                         go.damage(this.containerType_, dmg, this.projProps_.effects_, killed, this);
                     }

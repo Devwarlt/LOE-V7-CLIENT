@@ -111,24 +111,22 @@ public class SocketServer {
         this.socket.removeEventListener(SecurityErrorEvent.SECURITY_ERROR, this.onSecurityError);
     }
 
-    public function sendMessage(msg:Message):void {
+    public function getMessage(msg:Message):void {
+        if (!this.socket.connected)
+            return;
+
         this.tail.next = msg;
         this.tail = msg;
-        this.socket.connected && this.sendPendingMessages();
+
+        this.processMessages();
     }
 
-    public function queueMessage(msg:Message):void {
-        this.tail.next = msg;
-        this.tail = msg;
-    }
-
-    private function sendPendingMessages():void {
+    private function processMessages():void {
         var temp:Message = this.head.next;
         var msg:Message = temp;
 
-        if (!this.socket.connected) {
+        if (!this.socket.connected)
             return;
-        }
 
         var i:int = 0;
         while (msg) {
@@ -222,7 +220,7 @@ public class SocketServer {
                 return;
             }
             message.consume();
-            sendPendingMessages();
+            processMessages();
         }
     }
 
