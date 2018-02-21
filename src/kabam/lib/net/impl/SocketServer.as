@@ -129,6 +129,7 @@ public class SocketServer {
             return;
 
         var i:int = 0;
+
         while (msg) {
             this.data.position = 0;
             this.data.length = 0;

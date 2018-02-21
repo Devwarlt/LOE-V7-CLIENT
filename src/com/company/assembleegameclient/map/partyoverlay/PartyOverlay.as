@@ -55,7 +55,7 @@ public class PartyOverlay extends Sprite {
                 }
                 else {
                     _local7 = _local3.members_[_local5];
-                    if (((((_local7.drawn_) || ((_local7.map_ == null)))) || (_local7.dead_))) {
+                    if (_local7.drawn_ || _local7.map_ == null) {
                         _local6.setGameObject(null);
                     }
                     else {

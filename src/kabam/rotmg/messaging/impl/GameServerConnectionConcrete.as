@@ -1118,7 +1118,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     private function onServerPlayerShoot(_arg1:ServerPlayerShoot):void {
         var _local2:Boolean = (_arg1.ownerId_ == this.playerId_);
         var _local3:GameObject = gs_.map.goDict_[_arg1.ownerId_];
-        if ((((_local3 == null)) || (_local3.dead_))) {
+        if (_local3 == null) {
             if (_local2) {
                 this.shootAck(-1);
             }
@@ -1175,7 +1175,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         var _local4:Projectile;
         var _local5:Number;
         var _local2:GameObject = gs_.map.goDict_[_arg1.ownerId_];
-        if ((((_local2 == null)) || (_local2.dead_))) {
+        if (_local2 == null) {
             this.shootAck(-1);
             return;
         }

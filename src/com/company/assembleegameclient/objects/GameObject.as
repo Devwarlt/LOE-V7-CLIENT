@@ -706,10 +706,9 @@ public class GameObject extends BasicObject {
         var _local14:Vector.<uint>;
         var _local15:Boolean;
         var _local6:Boolean;
-        if (_killed) {
-            this.dead_ = true;
-        }
-        else {
+        this.dead_ = _killed;
+        if (!this.dead_)
+        {
             if (_projectileEffects != null) {
                 _local7 = 0;
                 for each (_local8 in _projectileEffects) {
@@ -840,6 +839,7 @@ public class GameObject extends BasicObject {
         if (!((this.props_.isEnemy_) && (Parameters.data_.disableEnemyParticles))) {
             _local14 = BloodComposition.getBloodComposition(this.objectType_, this.texture_, this.props_.bloodProb_, this.props_.bloodColor_);
             if (this.dead_) {
+                this.hp_ = 0;
                 map_.addObj(new ExplosionEffect(_local14, this.size_, 30), x_, y_);
             }
             else {
@@ -851,9 +851,13 @@ public class GameObject extends BasicObject {
                 }
             }
         }
-        if (_damage > 0) {
-            _local15 = ((((this.isArmorBroken()) || (((!((_projectile == null))) && (_projectile.projProps_.armorPiercing_))))) || (_local6));
-            this.showDamageText(_damage, _local15);
+        if (_damage <= 0)
+            this.showMissText();
+        else {
+            if (_damage > 0 && this.hp_ - _damage > 0) {
+                _local15 = ((((this.isArmorBroken()) || (((!((_projectile == null))) && (_projectile.projProps_.armorPiercing_))))) || (_local6));
+                this.showDamageText(_damage, _local15);
+            }
         }
     }
 
@@ -867,6 +871,13 @@ public class GameObject extends BasicObject {
         var _local3:CharacterStatusText = new CharacterStatusText(this, 0xFF0000, 3000, _arg1);
         _local3.setStringBuilder(new StaticStringBuilder(("Pet " + _arg2)));
         map_.mapOverlay_.addStatusText(_local3);
+    }
+
+    public function showMissText():void {
+        var _local1:String = "Miss!";
+        var _local2:CharacterStatusText = new CharacterStatusText(this, 0xFFFFFF, 3000);
+        _local2.setStringBuilder(new StaticStringBuilder(_local1));
+        map_.mapOverlay_.addStatusText(_local2);
     }
 
     public function showDamageText(_arg1:int, _arg2:Boolean):void {
