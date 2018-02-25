@@ -14,7 +14,6 @@ import flash.text.TextFieldAutoSize;
 
 import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_buttonHover_shapeEmbed_;
 import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_buttonNormal_shapeEmbed_;
-import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.core.model.PlayerModel;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
 import kabam.rotmg.game.view.CreditDisplay;
@@ -31,13 +30,9 @@ import kabam.rotmg.ui.view.components.ScreenBase;
 
 import org.osflash.signals.Signal;
 
-import robotlegs.bender.framework.api.ILogger;
-
 public class CharacterSelectionAndNewsScreen extends Sprite {
     [Inject]
     public var openDialog:OpenDialogSignal;
-    [Inject]
-    public var logger:ILogger;
 
     private static const NEWS_X:int = 475;
     private static const TAB_UNSELECTED:uint = 0xB3B3B3;
@@ -75,7 +70,6 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
     private var BOUNDARY_LINE_ONE_Y:int = 106;
 
     public function CharacterSelectionAndNewsScreen() {
-        this.logger = StaticInjectorContext.getInjector().getInstance(ILogger);
         this.newCharacter = new Signal();
         this.chooseName = new Signal();
         this.playGame = new Signal();

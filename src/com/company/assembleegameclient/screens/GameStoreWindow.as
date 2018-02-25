@@ -68,53 +68,37 @@ public class GameStoreWindow extends Sprite {
         removeChild(this.dialog_);
     }
 
+    private static function toOfferStructure(array:Array, id:int, single:Boolean = false):Array {
+        var offers:Array = [];
+
+        if (single)
+            for each (var val1:String in array[id].split(';'))
+                offers.push({
+                    offerId: val1.split(',')[0],
+                    offerName: val1.split(',')[1]
+                });
+        else
+            for each (var val2:String in array[id].split(';'))
+                offers.push({
+                    offerId: val2.split(',')[0],
+                    objectType: val2.split(',')[1],
+                    price: val2.split(',')[2],
+                    currencyType: val2.split(',')[3]
+                });
+
+        return offers;
+    }
+
     private function show(response:String):void {
         var data:Array = response.split("|");
         var _welcome:String = data[0];
-        var _offers:Array = [];
-        var _offer1:Array = [];
-        var _offer2:Array = [];
-        var _offer3:Array = [];
-        var _offer4:Array = [];
-        var _offer5:Array = [];
-        for each (var _local1:String in data[1].split(';'))
-            _offers.push({offerId: _local1.split(',')[0], offerName: _local1.split(',')[1]});
-        for each (var _local2:String in data[2].split(';'))
-            _offer1.push({
-                offerId: _local2.split(',')[0],
-                objectType: _local2.split(',')[1],
-                price: _local2.split(',')[2],
-                currencyType: _local2.split(',')[3]
-            });
-        for each (var _local3:String in data[3].split(';'))
-            _offer2.push({
-                offerId: _local3.split(',')[0],
-                objectType: _local3.split(',')[1],
-                price: _local3.split(',')[2],
-                currencyType: _local3.split(',')[3]
-            });
-        for each (var _local4:String in data[4].split(';'))
-            _offer3.push({
-                offerId: _local4.split(',')[0],
-                objectType: _local4.split(',')[1],
-                price: _local4.split(',')[2],
-                currencyType: _local4.split(',')[3]
-            });
-        for each (var _local5:String in data[5].split(';'))
-            _offer4.push({
-                offerId: _local5.split(',')[0],
-                objectType: _local5.split(',')[1],
-                price: _local5.split(',')[2],
-                currencyType: _local5.split(',')[3]
-            });
-        for each (var _local6:String in data[6].split(';'))
-            _offer5.push({
-                offerId: _local6.split(',')[0],
-                objectType: _local6.split(',')[1],
-                price: _local6.split(',')[2],
-                currencyType: _local6.split(',')[3]
-            });
-        this.viewBoard_ = new GameStore("", _offers, _offer1.concat(_offer2, _offer3, _offer4, _offer5), _welcome);
+        var _offerName:Array = toOfferStructure(data, 1, true);
+        var _offerOptions0:Array = toOfferStructure(data, 2);
+        var _offerOptions1:Array = toOfferStructure(data, 3);
+        var _offerOptions2:Array = toOfferStructure(data, 4);
+        var _offerOptions3:Array = toOfferStructure(data, 5);
+        var _offerOptions4:Array = toOfferStructure(data, 6);
+        this.viewBoard_ = new GameStore("", _offerName, _offerOptions0.concat(_offerOptions1, _offerOptions2, _offerOptions3, _offerOptions4), _welcome);
         this.viewBoard_.addEventListener(Event.COMPLETE, this.onViewComplete);
         addChild(this.viewBoard_);
     }

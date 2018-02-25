@@ -12,8 +12,6 @@ import kabam.rotmg.core.StaticInjectorContext;
 
 import org.swiftsuspenders.Injector;
 
-import robotlegs.bender.framework.api.ILogger;
-
 public class RemoteTexture {
 
     private static const URL_PATTERN:String = "/picture/get";
@@ -23,7 +21,6 @@ public class RemoteTexture {
     public var id_:String;
     public var instance_:String;
     public var callback_:Function;
-    private var logger:ILogger;
     private var url:String;
 
     public function RemoteTexture(_arg1:String, _arg2:String, _arg3:Function):void {
@@ -31,7 +28,6 @@ public class RemoteTexture {
         this.instance_ = _arg2;
         this.callback_ = _arg3;
         var _local4:Injector = StaticInjectorContext.getInjector();
-        this.logger = _local4.getInstance(ILogger);
         this.url = _local4.getInstance(ApplicationSetup).getAppEngineUrl().concat(URL_PATTERN);
     }
 
@@ -61,7 +57,6 @@ public class RemoteTexture {
 
     public function reportError(_arg1:String):void {
         _arg1 = ERROR_PATTERN.replace("{ERROR}", _arg1).replace("{ID}", this.id_).replace("{INSTANCE}", this.instance_);
-        this.logger.warn("RemoteTexture.reportError: {0}", [_arg1]);
         var _local2:BitmapData = new BitmapDataSpy(1, 1);
         this.callback_(_local2);
     }

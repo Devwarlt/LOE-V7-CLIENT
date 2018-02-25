@@ -10,22 +10,14 @@ import flash.display.BitmapData;
 
 import kabam.rotmg.assets.model.Animation;
 import kabam.rotmg.assets.model.CharacterTemplate;
-import kabam.rotmg.core.StaticInjectorContext;
-
-import robotlegs.bender.framework.api.ILogger;
-
-import robotlegs.bender.framework.impl.Logger;
 
 public class CharacterFactory {
 
     private var texture1:int;
     private var texture2:int;
     private var size:int;
-    [Inject]
-    private var logger:Logger = StaticInjectorContext.getInjector().getInstance(ILogger);
 
     public function makeIcon(_arg1:CharacterTemplate, _arg2:int = 100, _arg3:int = 0, _arg4:int = 0):BitmapData {
-        this.logger.debug("\n\t- File: " + _arg1.file + "\n\t- Index: " + _arg1.index + "\n\t- Textures: " + _arg3 + " and " + _arg4 + "\n\t- Size: " + _arg2);
         this.texture1 = _arg3;
         this.texture2 = _arg4;
         this.size = _arg2;

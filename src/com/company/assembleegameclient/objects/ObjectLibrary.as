@@ -18,6 +18,7 @@ public class ObjectLibrary {
 
     public static const IMAGE_SET_NAME:String = "lofiObj3";
     public static const IMAGE_ID:int = 0xFF;
+    public static const projectileObjectTypeLibrary_:Dictionary = new Dictionary();
     public static const propsLibrary_:Dictionary = new Dictionary();
     public static const xmlLibrary_:Dictionary = new Dictionary();
     public static const idToType_:Dictionary = new Dictionary();
@@ -91,57 +92,78 @@ public class ObjectLibrary {
         }
     }
 
+    private static function SerializeProjectiles(_id:String, _objectType:int, _class:String, _file:String, _index:int):void {
+        projectileObjectTypeLibrary_[Parameters.toHex(_objectType)] = {
+            objectId: _id,
+            objectTypeInt: _objectType,
+            objectTypeHex: Parameters.toHex(_objectType),
+            objectClass: _class,
+            textureFile: _file,
+            textureIndex: _index
+        };
+    }
+
     public static function parseFromXML(_arg1:XML, _arg2:Function = null):void {
-        var _local3:XML;
-        var _local4:String;
-        var _local5:String;
-        var _local6:int;
+        var _xmlDoc:XML;
+        var _id:String;
+        var _displayId:String;
+        var _objectType:int;
         var _local7:Boolean;
         var _local8:int;
-        for each (_local3 in _arg1.Object) {
-            _local4 = String(_local3.@id);
-            _local5 = _local4;
-            if (_local3.hasOwnProperty("DisplayId")) {
-                _local5 = _local3.DisplayId;
+        for each (_xmlDoc in _arg1.Object) {
+            _id = String(_xmlDoc.@id);
+            _displayId = _id;
+            if (_xmlDoc.hasOwnProperty("DisplayId")) {
+                _displayId = _xmlDoc.DisplayId;
             }
-            if (_local3.hasOwnProperty("Group")) {
-                if (_local3.Group == "Hexable") {
-                    hexTransforms_.push(_local3);
+            if (_xmlDoc.hasOwnProperty("Group")) {
+                if (_xmlDoc.Group == "Hexable") {
+                    hexTransforms_.push(_xmlDoc);
                 }
             }
-            _local6 = int(_local3.@type);
-            if (((_local3.hasOwnProperty("PetBehavior")) || (_local3.hasOwnProperty("PetAbility")))) {
-                petXMLDataLibrary_[_local6] = _local3;
+            _objectType = int(_xmlDoc.@type);
+            if (((_xmlDoc.hasOwnProperty("PetBehavior")) || (_xmlDoc.hasOwnProperty("PetAbility")))) {
+                petXMLDataLibrary_[_objectType] = _xmlDoc;
             }
             else {
-                propsLibrary_[_local6] = new ObjectProperties(_local3);
-                xmlLibrary_[_local6] = _local3;
-                idToType_[_local4] = _local6;
-                typeToDisplayId_[_local6] = _local5;
-                if (_arg2 != null) {
-                    (_arg2(_local6, _local3));
+                // store only projectiles
+                if (String(_xmlDoc.Class) == "Projectile") {
+                    var file:String = null;
+                    var index:int = -1;
+                    if (_xmlDoc.hasOwnProperty("Texture")) {
+                        file = String(new XML(_xmlDoc.Texture).File);
+                        index = int(new XML(_xmlDoc.Texture).Index);
+                    }
+                    SerializeProjectiles(_id, _objectType, String(_xmlDoc.Class), file, index);
                 }
-                if (String(_local3.Class) == "Player") {
-                    playerClassAbbr_[_local6] = String(_local3.@id).substr(0, 2);
+                propsLibrary_[_objectType] = new ObjectProperties(_xmlDoc);
+                xmlLibrary_[_objectType] = _xmlDoc;
+                idToType_[_id] = _objectType;
+                typeToDisplayId_[_objectType] = _displayId;
+                if (_arg2 != null) {
+                    (_arg2(_objectType, _xmlDoc));
+                }
+                if (String(_xmlDoc.Class) == "Player") {
+                    playerClassAbbr_[_objectType] = String(_xmlDoc.@id).substr(0, 2);
                     _local7 = false;
                     _local8 = 0;
                     while (_local8 < playerChars_.length) {
-                        if (int(playerChars_[_local8].@type) == _local6) {
-                            playerChars_[_local8] = _local3;
+                        if (int(playerChars_[_local8].@type) == _objectType) {
+                            playerChars_[_local8] = _xmlDoc;
                             _local7 = true;
                         }
                         _local8++;
                     }
                     if (!_local7) {
-                        playerChars_.push(_local3);
+                        playerChars_.push(_xmlDoc);
                     }
                 }
-                typeToTextureData_[_local6] = textureDataFactory.create(_local3);
-                if (_local3.hasOwnProperty("Top")) {
-                    typeToTopTextureData_[_local6] = textureDataFactory.create(XML(_local3.Top));
+                typeToTextureData_[_objectType] = textureDataFactory.create(_xmlDoc);
+                if (_xmlDoc.hasOwnProperty("Top")) {
+                    typeToTopTextureData_[_objectType] = textureDataFactory.create(XML(_xmlDoc.Top));
                 }
-                if (_local3.hasOwnProperty("Animation")) {
-                    typeToAnimationsData_[_local6] = new AnimationsData(_local3);
+                if (_xmlDoc.hasOwnProperty("Animation")) {
+                    typeToAnimationsData_[_objectType] = new AnimationsData(_xmlDoc);
                 }
             }
         }

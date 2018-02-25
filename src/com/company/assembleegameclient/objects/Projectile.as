@@ -36,7 +36,7 @@ public class Projectile extends BasicObject {
     public var texture_:BitmapData;
     public var bulletId_:uint;
     public var ownerId_:int;
-    public var containerType_:int;
+    public var objectType_:int;
     public var bulletType_:uint;
     public var damagesEnemies_:Boolean;
     public var damagesPlayers_:Boolean;
@@ -80,25 +80,25 @@ public class Projectile extends BasicObject {
         objBullIdToObjId_ = new Dictionary();
     }
 
-
-    public function reset(_arg1:int, _arg2:int, _arg3:int, _arg4:int, _arg5:Number, _arg6:int, _arg7:String = "", _arg8:String = ""):void {
+    public function reset(objectType:int, bulletType:int, ownerId:int, bulletId:int, angle:Number, startTime:int, _arg7:String = "", _arg8:String = ""):void
+    {
         var _local11:Number;
         clear();
-        this.containerType_ = _arg1;
-        this.bulletType_ = _arg2;
-        this.ownerId_ = _arg3;
-        this.bulletId_ = _arg4;
-        this.angle_ = Trig.boundToPI(_arg5);
-        this.startTime_ = _arg6;
-        objectId_ = getNewObjId(this.ownerId_, this.bulletId_);
-        z_ = 0.5;
-        this.containerProps_ = ObjectLibrary.propsLibrary_[this.containerType_];
-        this.projProps_ = this.containerProps_.projectiles_[_arg2];
-        var _local9:String = ((((!((_arg7 == ""))) && ((this.projProps_.objectId_ == _arg8)))) ? _arg7 : this.projProps_.objectId_);
-        this.props_ = ObjectLibrary.getPropsFromId(_local9);
-        hasShadow_ = false;//(this.props_.shadowSize_ > 0);
+        this.objectType_ = objectType;
+        this.bulletType_ = bulletType;
+        this.ownerId_ = ownerId;
+        this.bulletId_ = bulletId;
+        this.angle_ = Trig.boundToPI(angle);
+        this.startTime_ = startTime;
+        this.objectId_ = getNewObjId(this.ownerId_, this.bulletId_);
+        this.z_ = 0.5;
+        this.containerProps_ = ObjectLibrary.propsLibrary_[this.objectType_];
+        this.projProps_ = this.containerProps_.projectiles_[this.bulletType_];
+        var _projectileObjectId:String = ((((!((_arg7 == ""))) && ((this.projProps_.objectId_ == _arg8)))) ? _arg7 : this.projProps_.objectId_);
+        this.props_ = ObjectLibrary.getPropsFromId(_projectileObjectId);
+        this.hasShadow_ = false;//(this.props_.shadowSize_ > 0);
         var _local10:TextureData = ObjectLibrary.typeToTextureData_[this.props_.type_];
-        this.texture_ = _local10.getTexture(objectId_);
+        this.texture_ = _local10.getTexture(this.objectId_);
         this.damagesPlayers_ = this.containerProps_.isEnemy_;
         this.damagesEnemies_ = !(this.damagesPlayers_);
         this.sound_ = this.containerProps_.oldSound_;
@@ -107,7 +107,7 @@ public class Projectile extends BasicObject {
             _local11 = this.projProps_.size_;
         }
         else {
-            _local11 = ObjectLibrary.getSizeFromType(this.containerType_);
+            _local11 = ObjectLibrary.getSizeFromType(this.objectType_);
         }
         this.p_.setSize((8 * (_local11 / 100)));
         this.damage_ = 0;
@@ -251,8 +251,6 @@ public class Projectile extends BasicObject {
                     (this.damagesPlayers_ || goIsEnemy && this.ownerId_ == player.objectId_);
 
             if (goHit) {
-                Log.Info("New collision received!");
-
                 var dmg:int = GameObject.damageWithDefense(this.damage_, Parameters.parse(go.defense_), this.projProps_.armorPiercing_, go.condition_);
 
                 var killed:Boolean = false;
@@ -264,18 +262,13 @@ public class Projectile extends BasicObject {
                 }
 
                 if (go == player) {
-                    Log.Info("GameObject type: player.");
                     map_.gs_.gsc_.playerHit(this.bulletId_, this.ownerId_);
-                    go.damage(this.containerType_, dmg, this.projProps_.effects_, false, this);
+                    go.damage(this.objectType_, dmg, this.projProps_.effects_, false, this);
                 }
                 else {
-                    // TODO: This function is causing troubles.
                     if (goIsEnemy) {
-                        Log.Info("GameObject type: enemy.");
-                        Log.Warn("Processing message request to the server...");
-                        Log.Warn("Message 'ENEMYHIT' Handler:\n\t- Time: {0}\n\t- Bullet ID: {1}\n\t- Object ID: {2}\n\t- Is Killed? {3}", [currentTime, this.bulletId_, go.objectId_, killed]);
                         map_.gs_.gsc_.enemyHit(currentTime, this.bulletId_, go.objectId_, killed);
-                        go.damage(this.containerType_, dmg, this.projProps_.effects_, killed, this);
+                        go.damage(this.objectType_, dmg, this.projProps_.effects_, killed, this);
                     }
                     else {
                         if (!this.projProps_.multiHit_) {

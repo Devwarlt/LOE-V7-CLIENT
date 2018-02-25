@@ -1,6 +1,8 @@
 package com.company.assembleegameclient.sound {
 import com.gskinner.motion.GTween;
 
+import flash.events.IOErrorEvent;
+
 import flash.media.Sound;
 import flash.media.SoundChannel;
 import flash.media.SoundTransform;
@@ -16,14 +18,22 @@ public class Song {
     private var channel:SoundChannel;
     private var tween:GTween;
 
-
     public function Song(name:String) {
-        var setup:ApplicationSetup = StaticInjectorContext.getInjector().getInstance(ApplicationSetup);
-        sound = new Sound();
-        sound.load(new URLRequest(setup.getAppEngineUrl() + "/sfx/music/" + name + ".mp3"));
-        transform = new SoundTransform(0);
-        tween = new GTween(transform);
-        tween.onChange = updateTransform;
+        this.sound = new Sound();
+        this.sound.load(new URLRequest(StaticInjectorContext.getInjector().getInstance(ApplicationSetup).getAppEngineUrl() + "/sfx/music/" + name + ".mp3"));
+        this.sound.addEventListener(IOErrorEvent.IO_ERROR, this.onIOError);
+        this.transform = new SoundTransform(0);
+        this.tween = new GTween(transform);
+        this.tween.onChange = updateTransform;
+    }
+
+    private function onIOError(e:IOErrorEvent):void {
+        this.sound = new Sound();
+        this.sound.load(new URLRequest(StaticInjectorContext.getInjector().getInstance(ApplicationSetup).getAppEngineUrl() + "/sfx/music/main.mp3"));
+        this.sound.removeEventListener(IOErrorEvent.IO_ERROR, this.onIOError);
+        this.transform = new SoundTransform(0);
+        this.tween = new GTween(transform);
+        this.tween.onChange = updateTransform;
     }
 
     public function play(volume:Number = 1.0, fadeTime:Number = 2, loops:int = int.MAX_VALUE):void {
