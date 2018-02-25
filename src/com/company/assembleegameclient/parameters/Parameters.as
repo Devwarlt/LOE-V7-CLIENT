@@ -177,6 +177,52 @@ public class Parameters {
         return int(str.substr(i));
     }
 
+    public static function toHex(value:Number):String {
+        var _hex:String = value.toString(16);
+        var _append:String = null;
+
+        switch (_hex.length) {
+            case 1: _append = "000"; break;
+            case 2: _append = "00"; break;
+            case 3: _append = "0"; break;
+            case 4: _append = ""; break;
+            default: _append = "-1"; break;
+        }
+
+        return _append == "-1" ? "NaN" : "0x" + _append + _hex;
+    }
+
+    public static function skipAndConcat(array:Array, number:Number, mediator:String = null):String {
+        var _skipArray:Array = skip(array, number);
+        var _concat:String = null;
+
+        for (var i:int = 0; i < _skipArray.length; i++)
+            _concat = _concat + mediator + " " + _skipArray[i];
+
+        return _concat;
+    }
+
+    public static function skip(array:Array, number:Number):Array {
+        var _skipArray:Array = [];
+
+        if (number >= array.length)
+            return array;
+
+        for (var i:int = 0; i < array.length; i++)
+            if (i > number)
+                _skipArray.push(array[i]);
+
+        return _skipArray;
+    }
+
+    public static function toRadiansToDegrees(value:Number):Number {
+        return value * (180 / Math.PI);
+    }
+
+    public static function toRadiansToDegreesString(value:Number):String {
+        return value * (180 / Math.PI) + "º";
+    }
+
     public static function formatValue(value:Number, places:Number, dotToComma:Boolean = false):String {
         return appendValues(value, places, dotToComma);
     }
@@ -184,12 +230,17 @@ public class Parameters {
     private static function appendValues(value:Number, places:Number, dotToComma:Boolean):String {
         var string:String = null;
         var valueData:Array = [ String(int(value)), String(value - int(value)).substr(2)];
+
         for (var i:Number = 0; i < places; i++)
             valueData.push((valueData[1]).charAt(i)); // append all strings properly to right length
+
         string = valueData[0] + (dotToComma ? "," : ".") + valueData[2];
+
         for (i = 3; i < valueData.length; i++)
             string = string + valueData[i];
+
         var stringData:Array = string.split((dotToComma ? "," : "."));
+
         return stringData[1] == null || stringData[1] == "" ? stringData[0] : string;
     }
 

@@ -643,7 +643,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     override public function playerShoot(_arg1:Projectile, _arg2:Number, _arg3:int):void {
         var playerShoot:PlayerShoot = (this.messages.require(PLAYERSHOOT) as PlayerShoot);
         playerShoot.bulletId_ = _arg1.bulletId_;
-        playerShoot.containerType_ = _arg1.containerType_;
+        playerShoot.containerType_ = _arg1.objectType_;
         playerShoot.startingPos_.x_ = _arg1.x_;
         playerShoot.startingPos_.y_ = _arg1.y_;
         playerShoot.angle_ = _arg1.angle_;
@@ -1177,9 +1177,13 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         }
         var _local3:int;
         while (_local3 < _arg1.numShots_) {
+            var _containerProps:ObjectProperties = ObjectLibrary.propsLibrary_[_local2.objectType_];
+            var _projectileProps:ProjectileProperties = _containerProps.projectiles_[_arg1.bulletType_];
+            var _projectileObjectId:String = _projectileProps.objectId_;
+            var _projectileProps2:ObjectProperties = ObjectLibrary.getPropsFromId(_projectileObjectId);
             _local4 = (FreeList.newObject(Projectile) as Projectile);
             _local5 = (_arg1.angle_ + (_arg1.angleInc_ * _local3));
-            _local4.reset(_local2.objectType_, _arg1.bulletType_, _arg1.ownerId_, ((_arg1.bulletId_ + _local3) % 0x0100), _local5, gs_.lastUpdate_);
+            _local4.reset(_local2.objectType_, _arg1.bulletType_, _arg1.ownerId_, (_arg1.bulletId_ + _local3) % 0x0100, _local5, gs_.lastUpdate_);
             _local4.setDamage(_arg1.damage_);
             gs_.map.addObj(_local4, _arg1.startingPos_.x_, _arg1.startingPos_.y_);
             _local3++;
