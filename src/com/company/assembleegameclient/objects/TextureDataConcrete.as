@@ -84,9 +84,13 @@ public class TextureDataConcrete extends TextureData {
             case "Texture":
                 try {
                     texture_ = AssetLibrary.getImageFromSet(String(xml.File), int(xml.Index));
+                    file_ = String(xml.File);
+                    index_ = String(xml.Index);
+                    error_ = "No error.";
                 }
                 catch (error:Error) {
-                    throw (new Error(((("Error loading Texture - name: " + String(xml.File)) + " - idx: ") + int(xml.Index))));
+                    error_ = "Error loading Texture - name: " + String(xml.File) + " - idx: " + int(xml.Index);
+                    throw (new Error(error_));
                 }
                 return;
             case "Mask":
@@ -103,7 +107,8 @@ public class TextureDataConcrete extends TextureData {
                     mask_ = image.mask_;
                 }
                 catch (error:Error) {
-                    throw (new Error(((("Error loading AnimatedTexture - name: " + String(xml.File)) + " - idx: ") + int(xml.Index))));
+                    error_ = "Error loading AnimatedTexture - name: " + String(xml.File) + " - idx: " + int(xml.Index);
+                    throw (new Error(error_));
                 }
                 return;
             case "RemoteTexture":
