@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <application xmlns="http://ns.adobe.com/air/application/15.0">
     <id>LoEApp</id>
-    <filename>LoE</filename>
-    <name>LoE Application</name>
-    <versionNumber>0.0.2</versionNumber>
+    <filename>LoE Realm</filename>
+    <name>LoE Realm - Desktop Client</name>
+    <versionNumber>1.6.1</versionNumber>
     <description>A LoE AIR desktop application.</description>
     <copyright>Developed by LoESoft Games © 2015-2018</copyright>
     <initialWindow>

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module type="Flex" version="4">
-  <component name="FlexBuildConfigurationManager" active="LoE">
+  <component name="FlexBuildConfigurationManager" active="LoE Client">
     <configurations>
-      <configuration name="LoE" target-platform="Desktop" main-class="LoE" output-file="LoE.swf" output-folder="$MODULE_DIR$/release">
+      <configuration name="LoE Client" target-platform="Desktop" main-class="LoE" output-file="LoE.swf" output-folder="$MODULE_DIR$/release">
         <dependencies>
           <entries>
             <entry library-id="2ca4c9c9-f56b-49f7-affe-9c56a9e14e5c">
@@ -12,6 +12,16 @@
           <sdk name="Flex SDK 4.9.1" />
         </dependencies>
         <compiler-options>
+          <map>
+            <entry key="compiler.debug.swf" value="false" />
+            <entry key="metadata.contributor" value="Devwarlt" />
+            <entry key="metadata.creator" value="Devwarlt" />
+            <entry key="metadata.date" value="26 February 2018 09:51" />
+            <entry key="metadata.description" value="LoE Realm desktop client" />
+            <entry key="metadata.language" value="English" />
+            <entry key="metadata.publisher" value="LoESoft Games" />
+            <entry key="metadata.title" value="LoE Realm" />
+          </map>
           <option name="resourceFilesMode" value="None" />
         </compiler-options>
         <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/LoE-app.xml" package-file-name="LoE">
