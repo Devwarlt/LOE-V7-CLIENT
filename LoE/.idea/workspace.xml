@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="AirPackageProjectParameters">
-    <option name="desktopPackageType" value="native installer (*.exe)" />
+    <option name="desktopPackageType" value="captive runtime bundle" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="76bab4a3-63c0-4e8d-a75a-9fb8190b121d" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LoE.iml" afterPath="$PROJECT_DIR$/LoE.iml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LoE-app.xml" afterPath="$PROJECT_DIR$/LoE-app.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/WebMain.as" afterPath="$PROJECT_DIR$/../src/WebMain.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/com/company/assembleegameclient/parameters/Parameters.as" afterPath="$PROJECT_DIR$/../src/com/company/assembleegameclient/parameters/Parameters.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/application/impl/LoERealmSetup.as" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/application/impl/LoERealmSetup.as" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -18,7 +21,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="LoE.mxml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoE.mxml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/LoE.mxml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
@@ -28,11 +31,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoE-app.xml" pinned="false" current-in-tab="false">
+      <file leaf-file-name="LoE-app.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LoE-app.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+            <state relative-caret-position="68">
+              <caret line="4" column="43" lean-forward="true" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
               <folding />
             </state>
           </provider>
@@ -76,7 +79,7 @@
     <detection-done>true</detection-done>
     <sorting>DEFINITION_ORDER</sorting>
   </component>
-  <component name="ProjectFrameBounds" extendedState="7">
+  <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="59" />
     <option name="y" value="-8" />
     <option name="width" value="1309" />
@@ -100,7 +103,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -123,8 +126,8 @@
         </subPane>
       </pane>
       <pane id="Scratches" />
-      <pane id="Scope" />
       <pane id="AndroidView" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -287,15 +290,17 @@
       <workItem from="1514557552039" duration="8033000" />
       <workItem from="1514652664551" duration="6432000" />
       <workItem from="1517412175535" duration="612000" />
-      <workItem from="1519648617080" duration="959000" />
+      <workItem from="1519648617080" duration="1557000" />
+      <workItem from="1519664746757" duration="623000" />
+      <workItem from="1519672348970" duration="1182000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="23495000" />
+    <option name="totallyTimeSpent" value="25898000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="59" y="-8" width="1309" height="784" extended-state="7" />
+    <frame x="59" y="-8" width="1309" height="784" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -339,6 +344,38 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/LoE.mxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LoE-app.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/LoE.mxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LoE-app.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/LoE.mxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
@@ -422,18 +459,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/LoE-app.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="24" lean-forward="false" selection-start-line="7" selection-start-column="24" selection-end-line="7" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/LoE.mxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
           <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LoE-app.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="43" lean-forward="true" selection-start-line="4" selection-start-column="43" selection-end-line="4" selection-end-column="43" />
           <folding />
         </state>
       </provider>
