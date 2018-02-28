@@ -132,7 +132,6 @@ public class UIConfig implements IConfig {
     [Inject]
     public var startup:StartupSequence;
 
-
     public function configure():void {
         this.injector.map(NameChangedSignal).asSingleton();
         this.injector.map(PotionInventoryModel).asSingleton();

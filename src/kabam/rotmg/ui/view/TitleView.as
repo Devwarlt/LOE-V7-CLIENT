@@ -32,7 +32,6 @@ public class TitleView extends Sprite {
     public static var queuePasswordPrompt:Boolean = false;
     public static var queuePasswordPromptFull:Boolean = false;
     public static var queueRegistrationPrompt:Boolean = false;
-    public static var kabammigrateOpened:Boolean = false;
 
     private var versionText:TextFieldDisplayConcrete;
     private var copyrightText:TextFieldDisplayConcrete;

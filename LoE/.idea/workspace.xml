@@ -1,10 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AirPackageProjectParameters">
-    <option name="desktopPackageType" value="native installer (*.exe)" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="76bab4a3-63c0-4e8d-a75a-9fb8190b121d" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/assets/EmbeddedAssets/spritesheets/EmbeddedAssets_LoERealmEquipmentsEmbed_.png" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/assets/EmbeddedAssets/spritesheets/EmbeddedAssets_LoERealmEquipmentsEmbed_.png" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/LoE-app.xml" afterPath="$PROJECT_DIR$/LoE-app.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/com/company/assembleegameclient/objects/Player.as" afterPath="$PROJECT_DIR$/../src/com/company/assembleegameclient/objects/Player.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/com/company/assembleegameclient/parameters/Parameters.as" afterPath="$PROJECT_DIR$/../src/com/company/assembleegameclient/parameters/Parameters.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/assets/EmbeddedData/xmls/EmbeddedData_EncountersCXML.xml" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/assets/EmbeddedData/xmls/EmbeddedData_EncountersCXML.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/assets/EmbeddedData/xmls/EmbeddedData_LoERealmItemsCXML.xml" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/assets/EmbeddedData/xmls/EmbeddedData_LoERealmItemsCXML.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/game/view/components/StatsView.as" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/game/view/components/StatsView.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/messaging/impl/GameServerConnection.as" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/messaging/impl/GameServerConnection.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/messaging/impl/GameServerConnectionConcrete.as" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/messaging/impl/GameServerConnectionConcrete.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/messaging/impl/outgoing/PlayerShoot.as" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/messaging/impl/outgoing/PlayerShoot.as" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/ui/UIConfig.as" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/ui/UIConfig.as" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../src/kabam/rotmg/ui/view/TitleView.as" afterPath="$PROJECT_DIR$/../src/kabam/rotmg/ui/view/TitleView.as" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -30,8 +38,8 @@
       <file leaf-file-name="LoE-app.xml" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/LoE-app.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+            <state relative-caret-position="204">
+              <caret line="12" column="40" lean-forward="true" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
               <folding />
             </state>
           </provider>
@@ -46,6 +54,12 @@
         <option value="Tag Library Descriptor" />
       </list>
     </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>lofiChar28x8</find>
+      <find>npc gazer</find>
+    </findStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -99,10 +113,9 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="Scratches" />
-      <pane id="Scope" />
+      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -124,6 +137,7 @@
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -290,11 +304,12 @@
       <workItem from="1519664746757" duration="623000" />
       <workItem from="1519672348970" duration="1182000" />
       <workItem from="1519674043082" duration="276000" />
+      <workItem from="1519838078035" duration="1874000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26174000" />
+    <option name="totallyTimeSpent" value="28048000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="59" y="-8" width="1309" height="784" extended-state="6" />
@@ -308,26 +323,26 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297546" sideWeight="0.50280225" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3297546" sideWeight="0.49719775" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25380304" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25780624" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24979983" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Theme Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" x="159" y="92" width="1109" height="584" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,6 +356,22 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/LoE.mxml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" column="16" lean-forward="false" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/LoE-app.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/LoE.mxml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
@@ -482,8 +513,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/LoE-app.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="40" lean-forward="false" selection-start-line="5" selection-start-column="40" selection-end-line="5" selection-end-column="40" />
+        <state relative-caret-position="204">
+          <caret line="12" column="40" lean-forward="true" selection-start-line="12" selection-start-column="40" selection-end-line="12" selection-end-column="40" />
           <folding />
         </state>
       </provider>

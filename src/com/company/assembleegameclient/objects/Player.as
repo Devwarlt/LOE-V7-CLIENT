@@ -65,8 +65,6 @@ public class Player extends Character {
     private static const NAME_OFFSET_MATRIX:Matrix = new Matrix(1, 0, 0, 1, 20, 1);
     private static const MIN_MOVE_SPEED:Number = 0.004;
     private static const MAX_MOVE_SPEED:Number = 0.0096;
-    private static const MIN_ATTACK_FREQ:Number = 0.0015;
-    private static const MAX_ATTACK_FREQ:Number = 0.008;
     private static const MIN_ATTACK_MULT:Number = 0.5;
     private static const MAX_ATTACK_MULT:Number = 2;
     private static const LOW_HEALTH_CT_OFFSET:int = 128;
@@ -145,6 +143,11 @@ public class Player extends Character {
     protected var moveMultiplier_:Number = 1;
     public var attackPeriod_:Number = 0;
     public var attackAmount_:int = 0;
+    public var isDazed_:Boolean = false;
+    public var isBerserk_:Boolean = false;
+    public var minAttackFrequency_:Number = 0;
+    public var maxAttackFrequency_:Number = 0;
+    public var weaponRateOfFire_:Number = 0;
     public var nextAltAttack_:int = 0;
     public var nextTeleportAt_:int = 0;
     public var dropBoost:int = 0;
@@ -165,6 +168,8 @@ public class Player extends Character {
     private var slideVec_:Vector3D;
 
     public function Player(_arg1:XML) {
+        this.minAttackFrequency_ = 0.0015;
+        this.maxAttackFrequency_ = 0.008;
         this.ip_ = new IntPoint();
         var _local2:Injector = StaticInjectorContext.getInjector();
         this.addTextLine = _local2.getInstance(AddTextLineSignal);
@@ -778,14 +783,18 @@ public class Player extends Character {
     }
 
     public function attackFrequency():Number {
-        if (isDazed()) {
-            return (MIN_ATTACK_FREQ);
-        }
-        var _local1:Number = (MIN_ATTACK_FREQ + ((Parameters.parse(this.dexterity_) / 75) * (MAX_ATTACK_FREQ - MIN_ATTACK_FREQ)));
-        if (isBerserk()) {
-            _local1 = (_local1 * 1.5);
-        }
-        return (_local1);
+        this.isDazed_ = isDazed();
+        this.isBerserk_ = isBerserk();
+
+        if (this.isDazed_)
+            return this.minAttackFrequency_;
+
+        var _rateOfFire:Number = this.minAttackFrequency_ + ((Parameters.parse(this.dexterity_) / 75) * (this.maxAttackFrequency_ - this.minAttackFrequency_));
+
+        if (this.isBerserk_)
+            _rateOfFire *= 1.5;
+
+        return (_rateOfFire);
     }
 
     private function attackMultiplier():Number {
@@ -1010,24 +1019,25 @@ public class Player extends Character {
     }
 
     private function shoot(angle:Number):void {
-        if (map_ == null || isStunned() || isPaused() || isPetrified()) {
+        if (map_ == null || isStunned() || isPaused() || isPetrified())
             return;
-        }
 
         var weapType:int = this.equipment_[0];
-        if (weapType == -1) {
+
+        if (weapType == -1)
             return;
-        }
 
         var weapon:XML = ObjectLibrary.xmlLibrary_[weapType];
         var curTime:int = getTimer();
-        var fireRate:Number = Number(weapon.RateOfFire);
-        this.attackPeriod_ = (NumberKey.RATEOFFIREVALUE / this.attackFrequency()) * (NumberKey.RATEOFFIREVALUE / fireRate);
-        if (curTime < this.attackStart_ + this.attackPeriod_) {
+
+        this.weaponRateOfFire_ = Number(weapon.RateOfFire);
+        this.attackPeriod_ = (NumberKey.RATEOFFIREVALUE / this.attackFrequency()) * (NumberKey.RATEOFFIREVALUE / this.weaponRateOfFire_);
+
+        if (curTime < this.attackStart_ + this.attackPeriod_)
             return;
-        }
 
         doneAction(map_.gs_, Tutorial.ATTACK_ACTION);
+
         this.attackAngle_ = angle;
         this.attackStart_ = curTime;
         this.doShoot(weapType, weapon, attackAngle_, true);
@@ -1067,7 +1077,7 @@ public class Player extends Character {
                 SoundEffectLibrary.play(_local12.sound_, 0.75, false);
             }
             map_.addObj(_local12, (x_ + (Math.cos(attackAngle) * 0.3)), (y_ + (Math.sin(attackAngle) * 0.3)));
-            map_.gs_.gsc_.playerShoot(_local12, this.attackPeriod_, this.attackAmount_);
+            map_.gs_.gsc_.playerShoot(_local12, this.attackAmount_, this.isDazed_, this.isBerserk_, this.minAttackFrequency_, this.maxAttackFrequency_, this.weaponRateOfFire_);
             _local9 = (_local9 + arcGap);
             _local10++;
         }
