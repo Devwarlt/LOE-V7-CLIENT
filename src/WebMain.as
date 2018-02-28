@@ -99,15 +99,15 @@ public class WebMain extends Sprite {
     }
 
     private function setEnvironment():void {
-        ENVIRONMENT = stage.loaderInfo.parameters["env"];
-        if (!Parameters.IS_PRODUCTION)
-            ENVIRONMENT = Parameters.ENVIRONMENT_VARIABLE;
-        else {
-            if (ENVIRONMENT != null && (ENVIRONMENT == BuildEnvironments.LOESOFTPRODUCTION || ENVIRONMENT == BuildEnvironments.LOESOFTTESTING))
-                ENVIRONMENT = stage.loaderInfo.parameters["env"];
-            else
-                ENVIRONMENT = null;
-        }
+        //ENVIRONMENT = stage.loaderInfo.parameters["env"];
+        //if (!Parameters.IS_PRODUCTION)
+        ENVIRONMENT = Parameters.ENVIRONMENT_VARIABLE;
+        //else {
+        //    if (ENVIRONMENT != null && (ENVIRONMENT == BuildEnvironments.LOESOFTPRODUCTION || ENVIRONMENT == BuildEnvironments.LOESOFTTESTING))
+        //        ENVIRONMENT = stage.loaderInfo.parameters["env"];
+        //    else
+        //        ENVIRONMENT = null;
+        //}
     }
 
     private function hackParameters():void {
