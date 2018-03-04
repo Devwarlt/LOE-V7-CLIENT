@@ -24,7 +24,11 @@
           </map>
           <option name="resourceFilesMode" value="None" />
         </compiler-options>
-        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/LoE-app.xml" package-file-name="LoE" />
+        <packaging-air-desktop use-generated-descriptor="false" custom-descriptor-path="$MODULE_DIR$/LoE-app.xml" package-file-name="LoE">
+          <files-to-package>
+            <FilePathAndPathInPackage file-path="$MODULE_DIR$/src/resources" path-in-package="resources" />
+          </files-to-package>
+        </packaging-air-desktop>
         <packaging-android />
         <packaging-ios />
       </configuration>
