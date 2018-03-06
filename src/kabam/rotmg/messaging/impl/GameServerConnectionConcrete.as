@@ -1118,7 +1118,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         }
 
         if (gs_.map && gs_.map.name_ == "Arena") {
-            serverConnection.queueMessage(this.messages.require(ACCEPT_ARENA_DEATH));
+            serverConnection.sendMessage(this.messages.require(ACCEPT_ARENA_DEATH));
 
             return;
         }
@@ -1184,7 +1184,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         hello.keyTime_ = keyTime_;
         hello.key_.length = 0;
 
-        (key_ != null && hello.key_.writeBytes(key_));
+        ((!((key_ == null))) && (hello.key_.writeBytes(key_)));
 
         hello.mapJSON_ = (((mapJSON_ == null)) ? "" : mapJSON_);
         hello.entrytag_ = account.getEntryTag();
@@ -1193,7 +1193,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         hello.playPlatform = account.playPlatform();
         hello.platformToken = account.getPlatformToken();
 
-        serverConnection.queueMessage(hello);
+        serverConnection.sendMessage(hello);
     }
 
     private function onCreateSuccess(_arg1:CreateSuccess):void {
