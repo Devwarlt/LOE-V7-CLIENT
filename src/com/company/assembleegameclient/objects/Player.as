@@ -88,6 +88,7 @@ public class Player extends Character {
     public var petAttackDamageMin:int = 0;
     public var petAttackDamageMax:int = 0;
 
+    public var isTrading:Boolean = false;
     public var xpTimer:int;
     public var skinId:int;
     public var skin:AnimatedChar;
@@ -985,7 +986,9 @@ public class Player extends Character {
                 _local11 = (Number(_local5.Cooldown) * NumberKey.COOLDOWNVALUE);
             }
             this.nextAltAttack_ = (_local8 + _local11);
-            map_.gs_.gsc_.useItem(_local8, objectId_, 1, _local4, _local6.x, _local6.y, _arg3);
+
+            map_.gs_.gsc_.useItem(_local8, objectId_, 1, _local4, _local6.x, _local6.y, _arg3, isTrading);
+
             if (_local5.Activate == ActivationType.SHOOT) {
                 _local9 = Math.atan2(_arg2, _arg1);
                 this.doShoot(_local4, _local5, (Parameters.data_.cameraAngle + _local9), false);
@@ -993,7 +996,8 @@ public class Player extends Character {
         }
         else {
             if (_local5.hasOwnProperty("MultiPhase")) {
-                map_.gs_.gsc_.useItem(_local8, objectId_, 1, _local4, _local6.x, _local6.y, _arg3);
+                map_.gs_.gsc_.useItem(_local8, objectId_, 1, _local4, _local6.x, _local6.y, _arg3, isTrading);
+
                 _local10 = int(_local5.MpEndCost);
                 if (_local10 <= this.mp_) {
                     _local9 = Math.atan2(_arg2, _arg1);

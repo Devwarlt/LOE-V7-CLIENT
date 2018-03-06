@@ -155,7 +155,7 @@ public class GameServerConnection {
     public function escape():void {
     }
 
-    public function useItem(_arg1:int, _arg2:int, _arg3:int, _arg4:int, _arg5:Number, _arg6:Number, _arg7:int):void {
+    public function useItem(_arg1:int, _arg2:int, _arg3:int, _arg4:int, _arg5:Number, _arg6:Number, _arg7:int, _arg8:Boolean):void {
     }
 
     public function useItem_new(_arg1:GameObject, _arg2:int):Boolean {
