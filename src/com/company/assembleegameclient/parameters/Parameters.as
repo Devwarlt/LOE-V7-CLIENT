@@ -13,7 +13,7 @@ import kabam.rotmg.build.impl.BuildEnvironments;
 
 public class Parameters {
 
-    public static const IS_PRODUCTION:Boolean = true;
+    public static const IS_PRODUCTION:Boolean = false;
     public static const DISCORD_PERMANENTLY_INVITE:String = "https://discord.gg/jHNTjun";
     public static const CONNECTION_SECURITY_PROTOCOL:String = "http";
     public static const CLIENT_NAME:String = "LoE Realm";
