@@ -25,7 +25,7 @@ public class CrystalMain extends Sprite {
     private var animationDuration_:Number = 210;
     private var startFrame_:Number = 0;
     private var numFramesofLoop_:Number;
-    public var size_:int = 150;
+    public var size_:int = 72;
 
     public function CrystalMain() {
         var _local1:BitmapData;

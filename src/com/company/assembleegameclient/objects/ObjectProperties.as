@@ -32,8 +32,8 @@ public class ObjectProperties {
     public var shadowColor_:uint = 0;
     public var sounds_:Object = null;
     public var portrait_:TextureData = null;
-    public var minSize_:int = 100;
-    public var maxSize_:int = 100;
+    public var minSize_:int = 72;
+    public var maxSize_:int = 72;
     public var sizeStep_:int = 5;
     public var whileMoving_:WhileMovingProperties = null;
     public var belonedDungeon:String = "";

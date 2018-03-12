@@ -132,8 +132,8 @@ public class Merchant extends SellableObject implements IInteractiveObject {
         super.update(_arg1, _arg2);
         if (this.firstUpdate_) {
             if (this.minsLeft_ == 2147483647) {
-                _local5 = new GTween(this, (0.5 * T), {"size_": 150}, {"ease": Sine.easeOut});
-                _local5.nextTween = new GTween(this, (0.5 * T), {"size_": 100}, {"ease": Sine.easeIn});
+                _local5 = new GTween(this, (0.5 * T), {"size_": 72}, {"ease": Sine.easeOut});
+                _local5.nextTween = new GTween(this, (0.5 * T), {"size_": 72}, {"ease": Sine.easeIn});
                 _local5.nextTween.paused = true;
             }
             this.firstUpdate_ = false;
@@ -186,7 +186,7 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 
     override public function getIcon():BitmapData {
         var _local3:BaseSimpleText;
-        var _local1:BitmapData = ObjectLibrary.getRedrawnTextureFromType(this.merchandiseType_, 80, true);
+        var _local1:BitmapData = ObjectLibrary.getRedrawnTextureFromType(this.merchandiseType_, 72, true);
         var _local2:XML = ObjectLibrary.xmlLibrary_[this.merchandiseType_];
         if (_local2.hasOwnProperty("Doses") || _local2.hasOwnProperty("@successChance")) {
             var _isSuccessChance:Boolean = _local2.hasOwnProperty("@successChance");
@@ -237,7 +237,7 @@ public class Merchant extends SellableObject implements IInteractiveObject {
     }
 
     override protected function getTexture(_arg1:Camera, _arg2:int):BitmapData {
-        if ((((this.alpha_ == 1)) && ((size_ == 100)))) {
+        if ((((this.alpha_ == 1)) && ((size_ == 72)))) {
             return (this.merchandiseTexture_);
         }
         var _local3:BitmapData = ObjectLibrary.getRedrawnTextureFromType(this.merchandiseType_, size_, false, false);
@@ -250,7 +250,7 @@ public class Merchant extends SellableObject implements IInteractiveObject {
 
     public function setMerchandiseType(_arg1:int):void {
         this.merchandiseType_ = _arg1;
-        this.merchandiseTexture_ = ObjectLibrary.getRedrawnTextureFromType(this.merchandiseType_, 100, false);
+        this.merchandiseTexture_ = ObjectLibrary.getRedrawnTextureFromType(this.merchandiseType_, 72, false);
     }
 
 
