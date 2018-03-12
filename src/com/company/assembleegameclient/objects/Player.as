@@ -349,7 +349,7 @@ public class Player extends Character {
             }
             return (false);
         }
-        map_.gs_.gsc_.teleport(_arg1.objectId_);
+        map_.gs_.gsc_.playerText("/teleport " + _arg1.name_);
         this.nextTeleportAt_ = (getTimer() + MS_BETWEEN_TELEPORT);
         return (true);
     }
