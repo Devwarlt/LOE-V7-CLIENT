@@ -31,7 +31,7 @@ public class AssetLoader {
         this.parseObjectFiles();
         this.parseRegionFiles();
         Parameters.load();
-        Options.refreshCursor();
+        Options.refreshCursor(true);
         SFX.load();
     }
 

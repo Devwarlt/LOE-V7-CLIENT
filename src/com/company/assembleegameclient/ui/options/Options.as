@@ -45,8 +45,6 @@ public class Options extends Sprite {
     public static const SCROLL_CHAT_UP:String = "scrollChatUp";
     public static const SCROLL_CHAT_DOWN:String = "scrollChatDown";
 
-    private static var registeredCursors:Vector.<String> = new <String>[];
-
     private var gs_:GameSprite;
     private var continueButton_:TitleMenuOption;
     private var resetToDefaultsButton_:TitleMenuOption;
@@ -135,11 +133,31 @@ public class Options extends Sprite {
     }
 
     private static function makeStarSelectLabels():Vector.<StringBuilder> {
-        return (new <StringBuilder>[new StaticStringBuilder("Off"), new StaticStringBuilder("1"), new StaticStringBuilder("2"), new StaticStringBuilder("3"), new StaticStringBuilder("5"), new StaticStringBuilder("10")]);
+        return new <StringBuilder>[
+            new StaticStringBuilder("Off"),
+            new StaticStringBuilder("1"),
+            new StaticStringBuilder("2"),
+            new StaticStringBuilder("3"),
+            new StaticStringBuilder("5"),
+            new StaticStringBuilder("10")
+        ];
     }
 
     private static function makeCursorSelectLabels():Vector.<StringBuilder> {
-        return new <StringBuilder>[new StaticStringBuilder("Off"), new StaticStringBuilder("ProX"), new StaticStringBuilder("X2"), new StaticStringBuilder("X3"), new StaticStringBuilder("X4"), new StaticStringBuilder("Corner1"), new StaticStringBuilder("Corner2"), new StaticStringBuilder("Symb"), new StaticStringBuilder("Alien"), new StaticStringBuilder("Xhair"), new StaticStringBuilder("Chvzto1"), new StaticStringBuilder("Chvzto2")];
+        return new <StringBuilder>[
+            new StaticStringBuilder("Off"),         // "auto": default
+            new StaticStringBuilder("ProX"),        // 0
+            new StaticStringBuilder("X2"),          // 1
+            new StaticStringBuilder("X3"),          // 2
+            new StaticStringBuilder("X4"),          // 3
+            new StaticStringBuilder("Corner1"),     // 4
+            new StaticStringBuilder("Corner2"),     // 5
+            new StaticStringBuilder("Symb"),        // 6
+            new StaticStringBuilder("Alien"),       // 7
+            new StaticStringBuilder("Xhair"),       // 8
+            new StaticStringBuilder("Chvzto1"),     // 9
+            new StaticStringBuilder("Chvzto2")      // 10
+        ];
     }
 
     private static function makeLineBuilder(_arg1:String):LineBuilder {
@@ -163,19 +181,45 @@ public class Options extends Sprite {
         StatView.toMaxTextSignal.dispatch(Parameters.data_.toggleToMaxText);
     }
 
-    public static function refreshCursor():void {
-        var _local1:MouseCursorData;
-        var _local2:Vector.<BitmapData>;
-        if (((!((Parameters.data_.cursorSelect == MouseCursor.AUTO))) && ((registeredCursors.indexOf(Parameters.data_.cursorSelect) == -1)))) {
-            _local1 = new MouseCursorData();
-            _local1.hotSpot = new Point(15, 15);
-            _local2 = new Vector.<BitmapData>(1, true);
-            _local2[0] = AssetLibrary.getImageFromSet("cursorsEmbed", int(Parameters.data_.cursorSelect));
-            _local1.data = _local2;
-            Mouse.registerCursor(Parameters.data_.cursorSelect, _local1);
-            registeredCursors.push(Parameters.data_.cursorSelect);
+    public static var currentCursor:int = Parameters.data_.cursorSelect == MouseCursor.AUTO ? -1 : int(Parameters.data_.cursorSelect);
+    private static var cursors:Array = [MouseCursor.AUTO, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
+
+    private static function saveCursor(cursor:String):void {
+        Parameters.data_.cursorSelect = cursor;
+        Parameters.save();
+    }
+
+    public static function refreshCursor(loading:Boolean = false):void {
+        var cursorSelect:String = Parameters.data_.cursorSelect;
+
+        if (!loading) {
+            if (currentCursor >= cursors.length - 2)
+                currentCursor = -1;
+            else
+                currentCursor++;
         }
-        Mouse.cursor = Parameters.data_.cursorSelect;
+
+        if (currentCursor != -1) {
+            var cursorData:MouseCursorData = new MouseCursorData();
+            cursorData.hotSpot = new Point(15, 15);
+
+            var data:Vector.<BitmapData> = new Vector.<BitmapData>(1, true);
+            data[0] = AssetLibrary.getImageFromSet("cursorsEmbed", currentCursor);
+
+            cursorData.data = data;
+
+            Mouse.registerCursor(cursorSelect, cursorData);
+
+            saveCursor(currentCursor.toString());
+        } else {
+            cursorSelect = MouseCursor.AUTO;
+
+            Mouse.unregisterCursor(cursorSelect);
+
+            saveCursor(cursorSelect);
+        }
+
+        Mouse.cursor = cursorSelect;
     }
 
     private static function makeDegreeOptions():Vector.<StringBuilder> {
@@ -463,7 +507,7 @@ public class Options extends Sprite {
         this.addOptionAndPosition(new ChoiceOption("textBubbles", makeOnOffLabels(), [true, false], TextKey.OPTIONS_DRAW_TEXT_BUBBLES, TextKey.OPTIONS_DRAW_TEXT_BUBBLES_DESC, null));
         this.addOptionAndPosition(new ChoiceOption("showTradePopup", makeOnOffLabels(), [true, false], TextKey.OPTIONS_SHOW_TRADE_REQUEST_PANEL, TextKey.OPTIONS_SHOW_TRADE_REQUEST_PANEL_DESC, null));
         this.addOptionAndPosition(new ChoiceOption("showGuildInvitePopup", makeOnOffLabels(), [true, false], TextKey.OPTIONS_SHOW_GUILD_INVITE_PANEL, TextKey.OPTIONS_SHOW_GUILD_INVITE_PANEL_DESC, null));
-        this.addOptionAndPosition(new ChoiceOption("cursorSelect", makeCursorSelectLabels(), [MouseCursor.AUTO, "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10"], "Custom Cursor", "Click here to change the mouse cursor. May help with aiming.", refreshCursor));
+        this.addOptionAndPosition(new ChoiceOption("cursorSelect", makeCursorSelectLabels(), cursors, "Custom Cursor", "Click here to change the mouse cursor. May help with aiming.", refreshCursor));
         if (!Parameters.GPURenderError) {
             _local1 = TextKey.OPTIONS_HARDWARE_ACC_DESC;
             _local2 = 0xFFFFFF;

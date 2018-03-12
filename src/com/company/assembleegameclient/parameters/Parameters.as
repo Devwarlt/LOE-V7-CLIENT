@@ -13,12 +13,12 @@ import kabam.rotmg.build.impl.BuildEnvironments;
 
 public class Parameters {
 
-    public static const IS_PRODUCTION:Boolean = false;
+    public static const IS_PRODUCTION:Boolean = true;
     public static const DISCORD_PERMANENTLY_INVITE:String = "https://discord.gg/jHNTjun";
     public static const CONNECTION_SECURITY_PROTOCOL:String = "http";
     public static const CLIENT_NAME:String = "LoE Realm";
     public static const ENABLE_CROSSDOMAIN:Boolean = IS_PRODUCTION;
-    public static const ENVIRONMENT_VARIABLE:String = IS_PRODUCTION ? BuildEnvironments.LOESOFTPRODUCTION : BuildEnvironments.LOESOFTTESTING;
+    public static const ENVIRONMENT_VARIABLE:String = /*IS_PRODUCTION ? BuildEnvironments.LOESOFTPRODUCTION : */BuildEnvironments.LOESOFTTESTING;
     public static const ENVIRONMENT_DNS:String = IS_PRODUCTION ? "testing.loesoft.org" : "localhost";
     public static const ENVIRONMENT_PORT:String = IS_PRODUCTION ? "5555" : "3000";
     public static const BUILD_VERSION:String = "v6-1";
