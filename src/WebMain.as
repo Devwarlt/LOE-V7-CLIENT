@@ -90,11 +90,11 @@ public class WebMain extends Sprite {
     }
 
     private function dispatchSetup():void {
-        /*if (Parameters.IS_PRODUCTION)
+        if (Parameters.IS_PRODUCTION)
             if (!validateEnvironment(Capabilities.playerType)) {
                 NotDesktop();
                 return;
-            }*/
+            }
 
         this.setup();
     }

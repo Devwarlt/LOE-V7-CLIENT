@@ -5,7 +5,7 @@
        xmlns:mx="library://ns.adobe.com/flex/mx" preloader="loader.ProgressBar">
     <mx:SWFLoader source="@Embed('client-resource/client-release.swf')" width="800" height="600"/>
     <s:Panel width="100%" height="24" y="600"/>
-    <s:Label id="title" text="Developed by LoESoft Games" fontWeight="bold" x="32" y="608" color="gray"/>
+    <s:Label id="title" text="LoESoft Games" fontWeight="bold" x="32" y="608" color="gray"/>
     <s:Label id="copyright" text="© 2015-2018" textAlign="left" x="716" y="608" color="gray"/>
     <s:Image source="@Embed('resources/favicon-8.png')" x="8" y="604"/>
 </s:Application>
