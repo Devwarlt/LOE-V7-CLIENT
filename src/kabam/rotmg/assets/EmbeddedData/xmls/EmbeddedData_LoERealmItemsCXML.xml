@@ -869,4 +869,164 @@
 		<OldSound>bladeSwing</OldSound>
 		<DisplayId>Royal Blade</DisplayId>
 	</Object>
+	<Object type="0x5107" id="K is Bae Skin">
+		<Class>Equipment</Class>
+		<Item />
+		<AnimatedTexture>
+			<File>playerskins</File>
+			<Index>166</Index>
+		</AnimatedTexture>
+		<SlotType>10</SlotType>
+		<Description>K is Bae! Thanks to: Devwarlt (and the frog).</Description>
+		<Activate skinType="36865">UnlockSkin</Activate>
+		<Consumable />
+		<BagType>6</BagType>
+		<DisplayId>K is Bae Skin</DisplayId>
+	</Object>
+	<Object type="0x5106" id="Deverino Skin">
+		<Class>Equipment</Class>
+		<Item />
+		<AnimatedTexture>
+			<File>playerskins</File>
+			<Index>167</Index>
+		</AnimatedTexture>
+		<SlotType>10</SlotType>
+		<LT />
+		<Description>Rare skin around the LoE Realm!</Description>
+		<Activate skinType="36864">UnlockSkin</Activate>
+		<Consumable />
+		<BagType>6</BagType>
+		<DisplayId>Deverino Skin</DisplayId>
+	</Object>
+	<Object type="0x5083" id="Happy Clown Skin">
+		<Class>Equipment</Class>
+		<Item />
+		<AnimatedTexture>
+			<File>playerskins</File>
+			<Index>168</Index>
+		</AnimatedTexture>
+		<SlotType>10</SlotType>
+		<Description>It's time to play and to laugh! Have fun with your friends using this incredible and cheerful skin. Thanks to: NPEtoPPEx.</Description>
+		<Activate skinType="36869">UnlockSkin</Activate>
+		<Consumable />
+		<BagType>6</BagType>
+		<DisplayId>Happy Clown Skin</DisplayId>
+	</Object>
+	<Object type="0x5073" id="Uzumaki Naruto Skin">
+		<Class>Equipment</Class>
+		<Item />
+		<AnimatedTexture>
+			<File>playerskins</File>
+			<Index>169</Index>
+		</AnimatedTexture>
+		<SlotType>10</SlotType>
+		<Description>Only the strongest of all ninja is worthy of this skin! Thanks to: NPEtoPPEx and Devwarlt(and the frog).</Description>
+		<Activate skinType="36870">UnlockSkin</Activate>
+		<Consumable />
+		<BagType>6</BagType>
+		<DisplayId>Uzumaki Naruto Skin</DisplayId>
+	</Object>
+	<Object type="0x5067" id="Dragon Skin">
+		<Class>Equipment</Class>
+		<Item />
+		<AnimatedTexture>
+			<File>playerskins</File>
+			<Index>171</Index>
+		</AnimatedTexture>
+		<SlotType>10</SlotType>
+		<Description>Customize your Wizard with the Dragon Skin.</Description>
+		<Activate skinType="36867">UnlockSkin</Activate>
+		<Consumable />
+		<BagType>6</BagType>
+		<DisplayId>Dragon Skin</DisplayId>
+	</Object>
+	<Object type="0x5066" id="Frog King Skin">
+		<Class>Equipment</Class>
+		<Item />
+		<AnimatedTexture>
+			<File>playerskins</File>
+			<Index>172</Index>
+		</AnimatedTexture>
+		<SlotType>10</SlotType>
+		<Description>Customize your Assassin with the Frog King Skin.</Description>
+		<Activate skinType="36871">UnlockSkin</Activate>
+		<Consumable />
+		<BagType>6</BagType>
+		<DisplayId>Frog King Skin</DisplayId>
+	</Object>
+	<Object type="0x5065" id="Lil'Athena Skin">
+		<Class>Equipment</Class>
+		<Item />
+		<AnimatedTexture>
+			<File>playerskins</File>
+			<Index>170</Index>
+		</AnimatedTexture>
+		<SlotType>10</SlotType>
+		<Description>Only the strongest of all Palidin can attain this! Thanks to:Filisha.</Description>
+		<Activate skinType="36866">UnlockSkin</Activate>
+		<Consumable />
+		<BagType>6</BagType>
+		<DisplayId>Lil'Athena Skin</DisplayId>
+	</Object>
+	<Object type="0x518e" id="Warden Two-handed Sword" setType="0x0009" setName="Forgotten Sentinel Set">
+		<Class>Equipment</Class>
+		<Item/>
+		<Texture>
+			<File>LRE</File>
+			<Index>0</Index>
+		</Texture>
+		<SlotType>1</SlotType>
+		<Description>Two-Handed Sword of the forgotten sentinel.</Description>
+		<RateOfFire>0.6</RateOfFire>
+		<Sound>weapon/glass_sword</Sound>
+		<Projectile>
+			<ObjectId>White Orb</ObjectId>
+			<Speed>85</Speed>
+			<MinDamage>340</MinDamage>
+			<MaxDamage>390</MaxDamage>
+			<LifetimeMS>400</LifetimeMS>
+		</Projectile>
+		<BagType>6</BagType>
+		<FameBonus>4</FameBonus>
+		<OldSound>bladeSwing</OldSound>
+		<DisplayId>Warden Two-handed Sword</DisplayId>
+	</Object>
+	<Object type="0x518f" id="Warden Helmet" setType="0x0009" setName="Forgotten Sentinel Set">
+		<Class>Equipment</Class>
+		<Item/>
+		<Texture>
+			<File>LRE</File>
+			<Index>1</Index>
+		</Texture>
+		<SlotType>16</SlotType>
+		<Description>Helmet of the forgotten sentinel.</Description>
+		<ActivateOnEquip stat="21" amount="10">IncrementStat</ActivateOnEquip>
+		<ActivateOnEquip stat="22" amount="5">IncrementStat</ActivateOnEquip>
+		<Usable/>
+		<BagType>6</BagType>
+		<FameBonus>6</FameBonus>
+		<MpCost>110</MpCost>
+		<Activate effect="Healing" duration="4.5" range="4" useWisMod="true">ConditionEffectAura</Activate>
+		<Activate effect="Invulnerable" duration="1.2" useWisMod="true">ConditionEffectSelf</Activate>
+		<Cooldown>6</Cooldown>
+		<DisplayId>Warden Helmet</DisplayId>
+	</Object>
+	<Object type="0x518d" id="The Sentinel Warden" setType="0x0009" setName="Forgotten Sentinel Set">
+		<Class>Equipment</Class>
+		<Item/>
+		<Texture>
+			<File>LRE</File>
+			<Index>2</Index>
+		</Texture>
+		<SlotType>7</SlotType>
+		<Description>Armor of the forgotten sentinel.</Description>
+		<ActivateOnEquip stat="20" amount="2">IncrementStat</ActivateOnEquip>
+		<ActivateOnEquip stat="21" amount="20">IncrementStat</ActivateOnEquip>
+		<ActivateOnEquip stat="26" amount="6">IncrementStat</ActivateOnEquip>
+		<ActivateOnEquip stat="0" amount="60">IncrementStat</ActivateOnEquip>
+		<BagType>6</BagType>
+		<FameBonus>5</FameBonus>
+		<Legacy/>
+		<DisplayId>The Sentinel Warden</DisplayId>
+	</Object>
 </Objects>

@@ -72,6 +72,16 @@
 		<UnlockSpecial>Skin of Admin K</UnlockSpecial>
 		<DisplayId>K is Bae</DisplayId>
 	</Object>
+	<Object type="0x5191" id="Twin Succubus">
+		<Class>Skin</Class>
+		<AnimatedTexture>
+			<File>LRES8x8</File>
+			<Index>0</Index>
+		</AnimatedTexture>
+		<PlayerClassType>0x0321</PlayerClassType>
+		<UnlockSpecial>Edition 1 special skin. Special thanks to: Davy and John.</UnlockSpecial>
+		<DisplayId>Twin Succubus Skin</DisplayId>
+	</Object>
 	<Object type="0x9000" id="Deverino">
 		<Skin />
 		<Class>Skin</Class>
@@ -82,5 +92,27 @@
 		<PlayerClassType>0x0324</PlayerClassType>
 		<UnlockSpecial>Skin of Admin and Founder Devwarlt</UnlockSpecial>
 		<DisplayId>Deverino</DisplayId>
+	</Object>
+	<Object type="0x5190" id="Forgotten Sentinel Set">
+		<Class>Skin</Class>
+		<AnimatedTexture>
+			<File>LRES8x8</File>
+			<Index>1</Index>
+		</AnimatedTexture>
+		<PlayerClassType>0x031d</PlayerClassType>
+		<UnlockSpecial>Set Skin</UnlockSpecial>
+		<NoSkinSelect/>
+		<DisplayId>Forgotten Sentinel Set</DisplayId>
+	</Object>
+	<Object type="0x517d" id="The Rusher">
+		<Skin/>
+		<Class>Skin</Class>
+		<AnimatedTexture>
+			<File>LRES8x8</File>
+			<Index>2</Index>
+		</AnimatedTexture>
+		<PlayerClassType>0x031d</PlayerClassType>
+		<UnlockSpecial>Unlocked during pre-beta Test Server.</UnlockSpecial>
+		<DisplayId>The Rusher</DisplayId>
 	</Object>
 </Objects>

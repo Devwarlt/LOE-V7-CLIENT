@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<Object>
+<Objects>
 	<Object type="0x670a" id="Frog Bomb">
 		<DisplayId>Frog Bomb</DisplayId>
 		<Class>Character</Class>
@@ -138,4 +138,4 @@
 			<PassesCover />
 		</Projectile>
 	</Object>
-</Object>
+</Objects>

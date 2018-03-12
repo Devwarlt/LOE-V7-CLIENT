@@ -22,7 +22,7 @@ public class Parameters {
     public static const ENVIRONMENT_DNS:String = IS_PRODUCTION ? "testing.loesoft.org" : "localhost";
     public static const ENVIRONMENT_PORT:String = IS_PRODUCTION ? "5555" : "3000";
     public static const BUILD_VERSION:String = "v6-1";
-    public static const MINOR_VERSION:String = "6.6 edition 1: pre-beta";
+    public static const MINOR_VERSION:String = "6.7 edition 1: pre-beta";
     public static const FULL_BUILD:String = BUILD_VERSION + "." + MINOR_VERSION;
     public static const ENABLE_ENCRYPTION:Boolean = true;
     public static const PORT:int = 2050;

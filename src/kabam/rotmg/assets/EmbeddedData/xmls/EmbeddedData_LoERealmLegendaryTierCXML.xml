@@ -935,4 +935,47 @@
 		<feedPower>750</feedPower>
 		<DisplayId>Ancient Mantle of Skuld</DisplayId>
 	</Object>
+	<Object type="0x5086" id="Midnight Star of Extreme Darkness">
+		<Class>Equipment</Class>
+		<Item />
+		<Texture>
+			<File>lofiObj5</File>
+			<Index>0xf5</Index>
+		</Texture>
+		<SlotType>25</SlotType>
+		<LT />
+		<Description>A legendary shuriken that absorbs the light around it and turns it into darkness.</Description>
+		<Sound>spell/fire_spray</Sound>
+		<ExtraTooltipData>
+			<EffectInfo name="While Key Held" description="" />
+			<EffectInfo name="" description="Speedy on self" />
+			<EffectInfo name="" description="Drain 10 MP/sec" />
+			<EffectInfo name="When Key Released" description="" />
+		</ExtraTooltipData>
+		<Projectile>
+			<ObjectId>Darkness Star prj</ObjectId>
+			<Speed>160</Speed>
+			<MinDamage>400</MinDamage>
+			<MaxDamage>700</MaxDamage>
+			<NumProjectiles>2</NumProjectiles>
+			<LifetimeMS>1200</LifetimeMS>
+			<Size>140</Size>
+			<ConditionEffect duration="8">Paralyzed</ConditionEffect>
+			<PassesCover />
+		</Projectile>
+		<ExtraTooltipData>
+			<EffectInfo name="Additional Info" description="This item is a Super Rare version of Midnight Star." />
+			<EffectInfo name="Black Bag Item" description="This stuff give +50% additional bonus original equipment stats and +1% fame bonus." />
+		</ExtraTooltipData>
+		<ConditionEffect duration="8">Paralyzed</ConditionEffect>
+		<Usable />
+		<BagType>9</BagType>
+		<FameBonus>6</FameBonus>
+		<MpCost>5</MpCost>
+		<MpEndCost>100</MpEndCost>
+		<MultiPhase />
+		<Activate>ShurikenAbility</Activate>
+		<feedPower>1200</feedPower>
+		<Soulbound />
+	</Object>
 </Objects>

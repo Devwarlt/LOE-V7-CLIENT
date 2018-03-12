@@ -232,11 +232,11 @@ public class EquipmentToolTip extends ToolTip {
                 this.tierText.setStringBuilder(new LineBuilder().setParams(TextKey.TIER_ABBR, {"tier": this.objectXML.Tier}));
             }
             else if (_local5) {
-                this.tierText.setColor(0x34BA2A);
+                this.tierText.setColor(0xFF6347);
                 this.tierText.setStringBuilder(new LineBuilder().setParams("LT"));
             }
             else if (_local6) {
-                this.tierText.setColor(0xDED60A);
+                this.tierText.setColor(0xFFD700);
                 this.tierText.setStringBuilder(new LineBuilder().setParams("SRT"));
             }
             else if (_local7) {
