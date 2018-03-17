@@ -12,17 +12,16 @@ import flash.utils.Dictionary;
 import kabam.rotmg.build.impl.BuildEnvironments;
 
 public class Parameters {
-
-    public static const IS_PRODUCTION:Boolean = true;
+    public static const IS_DEVELOPER_MODE:Boolean = true;
     public static const DISCORD_PERMANENTLY_INVITE:String = "https://discord.gg/jHNTjun";
     public static const CONNECTION_SECURITY_PROTOCOL:String = "http";
     public static const CLIENT_NAME:String = "LoE Realm";
-    public static const ENABLE_CROSSDOMAIN:Boolean = IS_PRODUCTION;
-    public static const ENVIRONMENT_VARIABLE:String = IS_PRODUCTION ? BuildEnvironments.LOESOFTPRODUCTION : BuildEnvironments.LOESOFTTESTING;
-    public static const ENVIRONMENT_DNS:String = IS_PRODUCTION ? "testing.loesoft.org" : "localhost";
-    public static const ENVIRONMENT_PORT:String = IS_PRODUCTION ? "5555" : "3000";
+    public static const ENABLE_CROSSDOMAIN:Boolean = true;
+    public static const ENVIRONMENT_VARIABLE:String = IS_DEVELOPER_MODE ? BuildEnvironments.LOESOFTTESTING : BuildEnvironments.LOESOFTPRODUCTION;
+    public static const ENVIRONMENT_DNS:String = !IS_DEVELOPER_MODE ? "testing.loesoftgames.ignorelist.com" : "localhost";
+    public static const ENVIRONMENT_PORT:String = !IS_DEVELOPER_MODE ? "5555" : "3000";
     public static const BUILD_VERSION:String = "v6-1";
-    public static const MINOR_VERSION:String = "6.7 edition 1: pre-beta";
+    public static const MINOR_VERSION:String = "6.8 edition 1: pre-beta";
     public static const FULL_BUILD:String = BUILD_VERSION + "." + MINOR_VERSION;
     public static const ENABLE_ENCRYPTION:Boolean = true;
     public static const PORT:int = 2050;
@@ -36,7 +35,6 @@ public class Parameters {
     public static const ERROR_CHAT_NAME:String = "*Error*";
     public static const HELP_CHAT_NAME:String = "*Help*";
     public static const GUILD_CHAT_NAME:String = "*Guild*";
-    public static const NEWS_TIMESTAMP_DEFAULT:Number = 1.1;
     public static const NAME_CHANGE_PRICE:int = 1000;
     public static const GUILD_CREATION_PRICE:int = 1000;
     public static const TUTORIAL_GAMEID:int = -1;

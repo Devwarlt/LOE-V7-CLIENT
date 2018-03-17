@@ -25,7 +25,6 @@ import kabam.rotmg.application.EnvironmentConfig;
 import kabam.rotmg.arena.ArenaConfig;
 import kabam.rotmg.assets.AssetsConfig;
 import kabam.rotmg.build.BuildConfig;
-import kabam.rotmg.build.impl.BuildEnvironments;
 import kabam.rotmg.characters.CharactersConfig;
 import kabam.rotmg.classes.ClassesConfig;
 import kabam.rotmg.core.CoreConfig;
@@ -80,17 +79,14 @@ public class WebMain extends Sprite {
     protected var context:IContext;
 
     public function WebMain() {
-        //MonsterDebugger.initialize(this);
-        if (stage) {
+        if (stage)
             this.dispatchSetup();
-        }
-        else {
+        else
             addEventListener(Event.ADDED_TO_STAGE, this.onAddedToStage);
-        }
     }
 
     private function dispatchSetup():void {
-        if (Parameters.IS_PRODUCTION)
+        if (!Parameters.IS_DEVELOPER_MODE)
             if (!validateEnvironment(Capabilities.playerType)) {
                 NotDesktop();
                 return;
@@ -116,21 +112,9 @@ public class WebMain extends Sprite {
         UIUtils.toggleQuality(Parameters.data_.uiQuality);
     }
 
-    private function setEnvironment():void {
-        //ENVIRONMENT = stage.loaderInfo.parameters["env"];
-        //if (!Parameters.IS_PRODUCTION)
-        ENVIRONMENT = Parameters.ENVIRONMENT_VARIABLE;
-        //else {
-        //    if (ENVIRONMENT != null && (ENVIRONMENT == BuildEnvironments.LOESOFTPRODUCTION || ENVIRONMENT == BuildEnvironments.LOESOFTTESTING))
-        //        ENVIRONMENT = stage.loaderInfo.parameters["env"];
-        //    else
-        //        ENVIRONMENT = null;
-        //}
-    }
+    private function setEnvironment():void { ENVIRONMENT = Parameters.ENVIRONMENT_VARIABLE; }
 
-    private function hackParameters():void {
-        Parameters.root = stage.root;
-    }
+    private function hackParameters():void { Parameters.root = stage.root; }
 
     private function createContext():void {
         this.context = new StaticInjectorContext();

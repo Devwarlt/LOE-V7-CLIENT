@@ -2267,7 +2267,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     private function retry(_arg1:int):void {
-        this.retryTimer_ = new Timer((_arg1 * (Parameters.IS_PRODUCTION ? 3000 : 250)), 1);
+        this.retryTimer_ = new Timer((_arg1 * (Parameters.IS_DEVELOPER_MODE ? 250 : 3000)), 1);
         this.retryTimer_.addEventListener(TimerEvent.TIMER_COMPLETE, this.onRetryTimer);
         this.retryTimer_.start();
     }
