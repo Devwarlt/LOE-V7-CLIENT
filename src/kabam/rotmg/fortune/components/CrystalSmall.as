@@ -50,7 +50,7 @@ public class CrystalSmall extends Sprite {
     private var dtBuildup_:Number = 0;
     private var numFramesofLoop_:Number;
     public var currentAnimation:int;
-    public var size_:int = 50;
+    public var size_:int = 100;
     private var itemNameField:TextField;
     private var originX:Number = 0;
     private var originY:Number = 0;
