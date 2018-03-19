@@ -751,13 +751,25 @@ public class EquipmentToolTip extends ToolTip {
     private var first:Number = -1;
     private var last:Number = -1;
     private var next:Number = -1;
+    private var animatedTimer:Timer;
 
-    private function makeAnimation():void {
-        this.icon.bitmapData = AssetLibrary.getImageFromSet(this.spriteFile, this.next);
-        this.icon.scaleX = this.icon.scaleY = ((this.iconSize - 12) * (Parameters.itemTypes16.indexOf(this.objectType) == -1 ? 0.5 : 1)) / 8;
-        this.icon.filters = [TextureRedrawer.OUTLINE_FILTER];
-        this.icon.x = this.icon.y = 8;
+    private function makeAnimation(event:TimerEvent = null):void {
+        if (this.spriteFile == null)
+            return;
+
+        var size:int = this.iconSize;
+        var bitmapData:BitmapData = AssetLibrary.getImageFromSet(this.spriteFile, this.next);
+
+        if (Parameters.itemTypes16.indexOf(this.objectType) != -1 || bitmapData.height == 16)
+            size = (size * 0.5);
+
+        bitmapData = TextureRedrawer.redraw(bitmapData, size, true, 0, true, 5);
+
+        this.icon.bitmapData = bitmapData;
+        this.icon.x = this.icon.y = - 4;
+
         this.next++;
+
         if (this.next > this.last)
             this.next = this.first;
     }
@@ -767,6 +779,7 @@ public class EquipmentToolTip extends ToolTip {
         var _local3:Boolean;
         var _local4:int;
         var _local5:int;
+
         this.restrictions = new Vector.<Restriction>();
 
         var spritePeriod:int = -1;
@@ -783,20 +796,24 @@ public class EquipmentToolTip extends ToolTip {
 
         if (hasPeriod)
             spritePeriod = 1000 / this.objectXML.attribute("spritePeriod");
+
         if (hasFile)
             spriteFile = this.objectXML.attribute("spriteFile");
+
         if (hasArray) {
             spriteArray = String(this.objectXML.attribute("spriteArray")).split('-');
             first = parse(spriteArray[0]);
             last = parse(spriteArray[1]);
         }
+
         if (hasAnimatedSprites && spritePeriod != -1 && spriteFile != null && spriteArray != null && first != -1 && last != -1) {
             this.spriteFile = spriteFile;
             this.first = first;
             this.last = last;
             this.next = this.first;
-
-            setInterval(this.makeAnimation, spritePeriod);
+            this.animatedTimer = new Timer(spritePeriod);
+            this.animatedTimer.addEventListener(TimerEvent.TIMER, this.makeAnimation);
+            this.animatedTimer.start();
         }
 
         if (((((this.objectXML.hasOwnProperty("VaultItem")) && (!((this.invType == -1))))) && (!((this.invType == ObjectLibrary.idToType_["Vault Chest"]))))) {

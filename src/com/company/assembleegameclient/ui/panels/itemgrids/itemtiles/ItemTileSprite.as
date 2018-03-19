@@ -9,8 +9,10 @@ import com.company.util.AssetLibrary;
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.Sprite;
+import flash.events.TimerEvent;
 import flash.filters.ColorMatrixFilter;
 import flash.geom.Matrix;
+import flash.utils.Timer;
 import flash.utils.setInterval;
 
 import kabam.rotmg.constants.ItemConstants;
@@ -34,7 +36,6 @@ public class ItemTileSprite extends Sprite {
         this.itemBitmap = new Bitmap();
         addChild(this.itemBitmap);
         this.itemId = -1;
-        this.spritePeriod = -1;
         this.spriteFile = null;
         this.first = -1;
         this.last = -1;
@@ -48,12 +49,6 @@ public class ItemTileSprite extends Sprite {
     public function setType(_arg1:int):void {
         this.itemId = _arg1;
         this.drawTile();
-    }
-
-    public function renewItemBitmap():void {
-        removeChild(this.itemBitmap);
-        this.itemBitmap = new Bitmap();
-        addChild(this.itemBitmap);
     }
 
     public function drawTile():void {
@@ -88,8 +83,10 @@ public class ItemTileSprite extends Sprite {
                 _local4 = this.bitmapFactory.make(new StaticStringBuilder(String(_local3.Quantity)), 12, 0xFFFFFF, false, IDENTITY_MATRIX, false);
                 _local2.draw(_local4, DOSE_MATRIX);
             }
+
             var spriteFile:String = null;
             var spriteArray:Array = null;
+            var spritePeriod:Number = -1;
             var first:Number = -1;
             var last:Number = -1;
             var next:Number = -1;
@@ -100,30 +97,42 @@ public class ItemTileSprite extends Sprite {
             var hasAnimatedSprites:Boolean = hasPeriod && hasFile && hasArray;
 
             if (hasPeriod)
-                this.spritePeriod = 1000 / _local3.attribute("spritePeriod");
+                spritePeriod = 1000 / _local3.attribute("spritePeriod");
+
             if (hasFile)
                 spriteFile = _local3.attribute("spriteFile");
+
             if (hasArray) {
                 spriteArray = String(_local3.attribute("spriteArray")).split('-');
                 first = Parameters.parse(spriteArray[0]);
                 last = Parameters.parse(spriteArray[1]);
             }
-            if (hasAnimatedSprites && this.spritePeriod != -1 && spriteFile != null && spriteArray != null && first != -1 && last != -1) {
+
+            this.itemBitmap.bitmapData = _local2;
+            this.itemBitmap.x = this.itemBitmap.y = -(this.itemBitmap.width / 2);
+
+            if (hasAnimatedSprites && spritePeriod != -1 && spriteFile != null && spriteArray != null && first != -1 && last != -1) {
                 this.spriteFile = spriteFile;
                 this.first = first;
                 this.last = last;
                 this.next = this.first;
-                setInterval(this.makeAnimation, this.spritePeriod);
+                var animatedTimer:Timer = new Timer(spritePeriod);
+                animatedTimer.addEventListener(TimerEvent.TIMER, this.makeAnimation);
+                animatedTimer.start();
             } else {
                 this.spriteFile = null;
                 this.first = this.last = this.next = -1;
-                this.itemBitmap.bitmapData = _local2;
-                this.itemBitmap.x = (-(_local2.width) / 2);
-                this.itemBitmap.y = (-(_local2.height) / 2);
             }
+
             visible = true;
         }
         else {
+            this.itemId = -1;
+            this.spriteFile = null;
+            this.first = -1;
+            this.last = -1;
+            this.next = -1;
+
             visible = false;
         }
     }
@@ -133,20 +142,27 @@ public class ItemTileSprite extends Sprite {
     }
 
     private var iconSize:Number = 60;
-    private var spritePeriod:Number;
     private var spriteFile:String;
     private var first:Number;
     private var last:Number;
     private var next:Number;
 
-    private function makeAnimation():void {
+    private function makeAnimation(event:TimerEvent = null):void {
         if (this.spriteFile == null)
             return;
-        this.itemBitmap.bitmapData = AssetLibrary.getImageFromSet(this.spriteFile, this.next);
-        this.itemBitmap.scaleX = this.itemBitmap.scaleY = ((this.iconSize - 24) * (Parameters.itemTypes16.indexOf(this.itemId) == -1 ? 0.5 : 1)) / 8;
-        this.itemBitmap.filters = [TextureRedrawer.OUTLINE_FILTER];
-        this.itemBitmap.x = this.itemBitmap.y = -(this.itemBitmap.width / 2);
+
+        var size:int = this.iconSize;
+        var bitmapData:BitmapData = AssetLibrary.getImageFromSet(this.spriteFile, this.next);
+
+        if (Parameters.itemTypes16.indexOf(this.itemId) != -1 || bitmapData.height == 16)
+            size = (size * 0.5);
+
+        bitmapData = TextureRedrawer.redraw(bitmapData, size, true, 0, true, 5);
+
+        this.itemBitmap.bitmapData = bitmapData;
+
         this.next++;
+
         if (this.next > this.last)
             this.next = this.first;
     }

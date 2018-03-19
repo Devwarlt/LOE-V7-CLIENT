@@ -62,7 +62,6 @@ public class ItemTile extends Sprite {
         if (this.blockingItemUpdates) {
             return (true);
         }
-        this.itemSprite.renewItemBitmap();
         this.itemSprite.setType(_arg1);
         this.updateUseability(this.ownerGrid.curPlayer);
         return (true);
