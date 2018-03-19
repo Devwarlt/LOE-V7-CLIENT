@@ -4,7 +4,7 @@
     <filename>LoE Realm</filename>
     <name>LoE Realm - Desktop Client</name>
     <versionLabel>1.6 pre-beta</versionLabel>
-    <versionNumber>1.6.7</versionNumber>
+    <versionNumber>1.6.8</versionNumber>
     <description>A LoE Realm desktop game client AIR application.</description>
     <copyright>Developed by LoESoft Games © 2015-2018</copyright>
     <initialWindow>
@@ -30,6 +30,6 @@
         <image48x48>resources/favicon-6.png</image48x48>
     </icon>
     <customUpdateUI>false</customUpdateUI>
-    <allowBrowserInvocation>false</allowBrowserInvocation>
+    <allowBrowserInvocation>true</allowBrowserInvocation>
     <publisherID>B146A943FBD637B68C334022D304CEA226D129B4.1</publisherID>
 </application>

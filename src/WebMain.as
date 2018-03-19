@@ -86,11 +86,17 @@ public class WebMain extends Sprite {
     }
 
     private function dispatchSetup():void {
-        if (!Parameters.IS_DEVELOPER_MODE)
-            if (!validateEnvironment(Capabilities.playerType)) {
-                NotDesktop();
-                return;
+        if (!Parameters.IS_DEVELOPER_MODE) {
+            switch (getHash(Capabilities.playerType)) {
+                case DESKTOP_TOKEN:
+                case BROWSER_PLUGIN_TOKEN:
+                case STANDALONE_TOKEN:
+                    break;
+                default:
+                    InvalidToken(Capabilities.playerType);
+                    return;
             }
+        }
 
         this.setup();
     }
@@ -175,7 +181,7 @@ public class WebMain extends Sprite {
         }
     }
 
-    private function NotDesktop():void {
+    private function InvalidToken(playerType:String):void {
         var _local0:FontModel = new FontModel();
         var _local1:TextFormat = new TextFormat();
         var _local2:TextField = new TextField();
@@ -190,7 +196,7 @@ public class WebMain extends Sprite {
         _local3.font = _local0.getFont().getName();
         _local2.selectable = false;
         _local2.defaultTextFormat = _local1;
-        _local2.htmlText = "<b>Game is not responding!</b>";
+        _local2.htmlText = "<b>Game is not responding!</b> You are trying to run an invalid player type.";
         _local2.width = 792;
         _local2.x = 4;
         _local2.y = 4;
@@ -198,7 +204,7 @@ public class WebMain extends Sprite {
         _local4.defaultTextFormat = _local3;
         _local4.htmlText = "<b>Official Notification</b>" +
                 "\nOn 3rd Mar 2018, the LoESoft Games updated game client to version 1.6.5 (v6-1.6.5 edition1: pre-beta), " +
-                "and unfortunately Flash Projector and Web Game Client have been disabled and not supported anymore. Since " +
+                "and unfortunately player type <b>" + playerType + "</b> has been disabled and not supported anymore. Since " +
                 "announcement from Adobe about Flash will be discontinued, we migrated our whole game engine to <b>Adobe AIR</b>, " +
                 "which allow us to bring way better game contents and visual for your game-play experience." +
                 "\n\nSorry for inconvenience." +
@@ -207,8 +213,8 @@ public class WebMain extends Sprite {
                 "\n<img width='48px' height='48px' src='http://loesoft-games.github.io/loesoft.png' />\n\n" +
                 "\n\n<font color='#FFFF00'><b><i>How to avoid this screen?</i></b></font>" +
                 "\n\t<font color='#FFFF00'><b>Option 1.</b></font>\tDownload <b>Adobe AIR</b>, click <b><a href='https://get.adobe.com/air/'><font color='#FF6347'>here</font></a></b>." +
-                "\n\t<font color='#FFFF00'><b>Option 2.</b></font>\tDo not run game using your browser, as instead run installer of LoE Realm client or run shortcut of program (commonly located at your desktop environment)." +
-                "\n\t<font color='#FFFF00'><b>Option 3.</b></font>\tDo not run game using your <b>Adobe Flash Projector</b>, our game engine only support <b>Adobe AIR</b> and it already contains all framework settings able to run game client properly with good performance.";
+                "\n\t<font color='#FFFF00'><b>Option 2.</b></font>\tGame could be run via browser, click <b><a href='https://loesoft-games.github.io/play'><font color='#FF6347'>here</font></a></b> to play." +
+                "\n\t<font color='#FFFF00'><b>Option 3.</b></font>\tDo not run game using your <b>Adobe Flash Projector</b>, our game engine support only <b>Adobe AIR</b>, browser invocation and stand-alone Flash Player, it already contains all framework settings able to run properly with good performance.";
         _local4.wordWrap = true;
         _local4.width = 792;
         _local4.height = 520;
@@ -218,15 +224,27 @@ public class WebMain extends Sprite {
         addChild(_local4);
     }
 
-    private static const KEY_A:String = "9bd88f2485acbb";
-    private static const KEY_B:String = "9426ad3dd9e068";
-    private static const KEY_C:String = "42ede8c7516d0b";
-    private static const KEY_D:String = "a8559298675f09";
-    private static const KEY_E:String = "419681fa";
+    private static const DESKTOP_KEY_A:String = "9bd88f2485acbb";
+    private static const DESKTOP_KEY_B:String = "9426ad3dd9e068";
+    private static const DESKTOP_KEY_C:String = "42ede8c7516d0b";
+    private static const DESKTOP_KEY_D:String = "a8559298675f09";
+    private static const DESKTOP_KEY_E:String = "419681fa";
 
-    private static function validateEnvironment(param1:String):Boolean { return getHash(param1) == TOKEN; }
+    private static const BROWSER_PLUGIN_KEY_A:String = "55c3b08d33ece6";
+    private static const BROWSER_PLUGIN_KEY_B:String = "d7197e6e6734e5";
+    private static const BROWSER_PLUGIN_KEY_C:String = "d718bdeed174f8";
+    private static const BROWSER_PLUGIN_KEY_D:String = "e9fb27538d94fe";
+    private static const BROWSER_PLUGIN_KEY_E:String = "1d5b0831";
 
-    private static const TOKEN:String = KEY_A + KEY_B + KEY_C + KEY_D + KEY_E;
+    private static const STANDALONE_KEY_A:String = "33535b8cb18433";
+    private static const STANDALONE_KEY_B:String = "d73519ee8b4cc3";
+    private static const STANDALONE_KEY_C:String = "1c578c99fef1b1";
+    private static const STANDALONE_KEY_D:String = "923758fb125467";
+    private static const STANDALONE_KEY_E:String = "7ee11a41";
+
+    private static const DESKTOP_TOKEN:String = DESKTOP_KEY_A + DESKTOP_KEY_B + DESKTOP_KEY_C + DESKTOP_KEY_D + DESKTOP_KEY_E;
+    private static const BROWSER_PLUGIN_TOKEN:String = BROWSER_PLUGIN_KEY_A + BROWSER_PLUGIN_KEY_B + BROWSER_PLUGIN_KEY_C + BROWSER_PLUGIN_KEY_D + BROWSER_PLUGIN_KEY_E;
+    private static const STANDALONE_TOKEN:String = STANDALONE_KEY_A + STANDALONE_KEY_B + STANDALONE_KEY_C + STANDALONE_KEY_D + STANDALONE_KEY_E;
 
     private static function getHash(param1:String):String { return SHA256.hash(param1); }
 }
