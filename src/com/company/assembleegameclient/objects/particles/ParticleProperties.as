@@ -7,7 +7,7 @@ public class ParticleProperties {
 
     public var id_:String;
     public var textureData_:TextureData;
-    public var size_:int = 100;
+    public var size_:int = 72;
     public var z_:Number = 0;
     public var duration_:Number = 0;
     public var animationsData_:AnimationsData = null;

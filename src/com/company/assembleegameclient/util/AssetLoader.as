@@ -31,7 +31,7 @@ public class AssetLoader {
         this.parseObjectFiles();
         this.parseRegionFiles();
         Parameters.load();
-        Options.refreshCursor();
+        Options.refreshCursor(true);
         SFX.load();
     }
 
@@ -109,6 +109,7 @@ public class AssetLoader {
         AnimatedChars.add("LRDIE24x24", new EmbeddedAssets.LoERealmDreamIslandEncounters24x24Embed_().bitmapData, null, 24, 24, 168, 24, AnimatedChar.DOWN);
         AnimatedChars.add("LRDIE32x32", new EmbeddedAssets.LoERealmDreamIslandEncounters32x32Embed_().bitmapData, null, 32, 32, 224, 32, AnimatedChar.DOWN);
         AnimatedChars.add("LREE16x16", new EmbeddedAssets.LoERealmEditionsEncounters16x16Embed_().bitmapData, null, 16, 16, 112, 16, AnimatedChar.DOWN);
+        AnimatedChars.add("LRES8x8", new EmbeddedAssets.LoERealmEditionsSkins8x8Embed_().bitmapData, null, 8, 8, 56, 24, AnimatedChar.RIGHT);
         AnimatedChars.add("chars8x8rBeach", new EmbeddedAssets.chars8x8rBeachEmbed_().bitmapData, null, 8, 8, 56, 8, AnimatedChar.RIGHT);
         AnimatedChars.add("chars8x8dBeach", new EmbeddedAssets.chars8x8dBeachEmbed_().bitmapData, null, 8, 8, 56, 8, AnimatedChar.DOWN);
         AnimatedChars.add("chars8x8rLow1", new EmbeddedAssets.chars8x8rLow1Embed_().bitmapData, null, 8, 8, 56, 8, AnimatedChar.RIGHT);

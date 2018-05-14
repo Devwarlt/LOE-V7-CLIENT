@@ -199,12 +199,14 @@ public class HUDView extends Sprite implements UnFocusAble {
 
     public function tradeChanged(_arg1:TradeChanged):void {
         if (this.tradePanel) {
+            this.player.isTrading = true;
             this.tradePanel.setYourOffer(_arg1.offer_);
         }
     }
 
     public function tradeAccepted(_arg1:TradeAccepted):void {
         if (this.tradePanel) {
+            this.player.isTrading = true;
             this.tradePanel.youAccepted(_arg1.myOffer_, _arg1.yourOffer_);
         }
     }
@@ -216,8 +218,11 @@ public class HUDView extends Sprite implements UnFocusAble {
     private function removeTradePanel():void {
         if (this.tradePanel) {
             SpriteUtil.safeRemoveChild(this, this.tradePanel);
+
+            this.player.isTrading = false;
             this.tradePanel.removeEventListener(Event.CANCEL, this.onTradeCancel);
             this.tradePanel = null;
+
             this.setNonTradePanelAssetsVisible(true);
         }
     }

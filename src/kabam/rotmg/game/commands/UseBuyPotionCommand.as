@@ -79,7 +79,7 @@ public class UseBuyPotionCommand {
     private function sendServerRequest():void {
         var _local1:int = PotionInventoryModel.getPotionSlot(this.vo.objectId);
         var _local2:int = Parameters.data_.contextualPotionBuy;
-        this.gsc.useItem(getTimer(), this.player.objectId_, _local1, this.potionId, this.player.x_, this.player.y_, _local2);
+        this.gsc.useItem(getTimer(), this.player.objectId_, _local1, this.potionId, this.player.x_, this.player.y_, _local2, this.player.isTrading);
         if (this.player.getPotionCount(this.vo.objectId) == 0) {
             this.potInventoryModel.getPotionModel(this.vo.objectId).purchasedPot();
         }

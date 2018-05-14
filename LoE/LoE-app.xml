@@ -3,11 +3,12 @@
     <id>LoEApp</id>
     <filename>LoE Realm</filename>
     <name>LoE Realm - Desktop Client</name>
-    <versionNumber>1.6.2</versionNumber>
-    <description>A LoE AIR desktop application.</description>
+    <versionLabel>1.6 pre-beta</versionLabel>
+    <versionNumber>1.6.8</versionNumber>
+    <description>A LoE Realm desktop game client AIR application.</description>
     <copyright>Developed by LoESoft Games © 2015-2018</copyright>
     <initialWindow>
-        <content>LoE.swf</content>
+        <content>AssembleeLoERealmGameClient.swf</content>
         <title>LoE Realm</title>
         <systemChrome>standard</systemChrome>
         <transparent>false</transparent>
@@ -17,15 +18,18 @@
         <resizable>false</resizable>
         <minSize>800 600</minSize>
         <autoOrients>false</autoOrients>
-        <renderMode>auto</renderMode>
+        <renderMode>direct</renderMode>
         <softKeyboardBehavior>pan</softKeyboardBehavior>
         <requestedDisplayResolution>standard</requestedDisplayResolution>
     </initialWindow>
+    <installFolder>LoESoft Games/LoE Realm</installFolder>
+    <programMenuFolder>LoESoft Games</programMenuFolder>
     <icon>
         <image16x16>resources/favicon-8.png</image16x16>
         <image32x32>resources/favicon-7.png</image32x32>
         <image48x48>resources/favicon-6.png</image48x48>
     </icon>
     <customUpdateUI>false</customUpdateUI>
-    <allowBrowserInvocation>false</allowBrowserInvocation>
+    <allowBrowserInvocation>true</allowBrowserInvocation>
+    <publisherID>B146A943FBD637B68C334022D304CEA226D129B4.1</publisherID>
 </application>

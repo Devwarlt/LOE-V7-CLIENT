@@ -17,6 +17,7 @@ public class EmbeddedAssets {
     public static var LoERealmEditionsEquipmentsEmbed_:Class = EmbeddedAssets_LoERealmEditionsEquipmentsEmbed_;
     public static var LoERealmEditionsProjectiles8x8Embed_:Class = EmbeddedAssets_LoERealmEditionsProjectiles8x8Embed_;
     public static var LoERealmEditionsProjectiles16x16Embed_:Class = EmbeddedAssets_LoERealmEditionsProjectiles16x16Embed_;
+    public static var LoERealmEditionsSkins8x8Embed_:Class = EmbeddedAssets_LoERealmEditionsSkins8x8Embed_;
     public static const StarburstSpinner:Class = EmbeddedAssets_StarburstSpinner;
     public static const EvolveBackground:Class = EmbeddedAssets_EvolveBackground;
     public static const DarknessBackground:Class = EmbeddedAssets_DarknessBackground;

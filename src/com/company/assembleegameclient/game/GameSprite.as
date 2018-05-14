@@ -198,7 +198,7 @@ public class GameSprite extends AGameSprite {
         if (this.evalIsNotInCombatMapArea()) {
             this.showSafeAreaDisplays();
         }
-        if (map.name_ == "Arena") {
+        if (map.name_ == "Arena" || map.name_ == "Public Arena") {
             this.showTimer();
             this.showWaveCounter();
         }
@@ -245,7 +245,7 @@ public class GameSprite extends AGameSprite {
             this.startTutorial();
         }
         else {
-            if (((((((((((((!((map.name_ == "Arena"))) && (!((map.name_ == "Kitchen"))))) && (!((map.name_ == "Nexus Explanation"))))) && (!((map.name_ == "Vault Explanation"))))) && (!((map.name_ == "Guild Explanation"))))) && (!(this.evalIsNotInCombatMapArea())))) && (Parameters.data_.showProtips))) {
+            if (((((((((((((!((map.name_ == "Arena"))) && (!((map.name_ == "Public Arena"))) && (!((map.name_ == "Kitchen"))))) && (!((map.name_ == "Nexus Explanation"))))) && (!((map.name_ == "Vault Explanation"))))) && (!((map.name_ == "Guild Explanation"))))) && (!(this.evalIsNotInCombatMapArea())))) && (Parameters.data_.showProtips))) {
                 _local4 = StaticInjectorContext.getInjector().getInstance(ShowProTipSignal);
                 ((_local4) && (_local4.dispatch()));
             }

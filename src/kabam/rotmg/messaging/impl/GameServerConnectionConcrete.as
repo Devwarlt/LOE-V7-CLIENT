@@ -481,7 +481,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         var qp:QueuePong = (this.messages.require(QUEUE_PONG) as QueuePong);
         qp.serial_ = _arg1.serial_;
         qp.time_ = getTimer();
-        serverConnection.getMessage(qp);
+        serverConnection.queueMessage(qp);
     }
 
     private function onHatchPet(_arg1:HatchPetMessage):void {
@@ -517,82 +517,82 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     private function unmapMessages():void {
-        var _local1:MessageMap = this.injector.getInstance(MessageMap);
-        _local1.unmap(CREATE);
-        _local1.unmap(PLAYERSHOOT);
-        _local1.unmap(MOVE);
-        _local1.unmap(PLAYERTEXT);
-        _local1.unmap(UPDATEACK);
-        _local1.unmap(INVSWAP);
-        _local1.unmap(USEITEM);
-        _local1.unmap(HELLO);
-        _local1.unmap(INVDROP);
-        _local1.unmap(PONG);
-        _local1.unmap(LOAD);
-        _local1.unmap(SETCONDITION);
-        _local1.unmap(TELEPORT);
-        _local1.unmap(USEPORTAL);
-        _local1.unmap(BUY);
-        _local1.unmap(PLAYERHIT);
-        _local1.unmap(ENEMYHIT);
-        _local1.unmap(AOEACK);
-        _local1.unmap(SHOOTACK);
-        _local1.unmap(OTHERHIT);
-        _local1.unmap(SQUAREHIT);
-        _local1.unmap(GOTOACK);
-        _local1.unmap(GROUNDDAMAGE);
-        _local1.unmap(CHOOSENAME);
-        _local1.unmap(CREATEGUILD);
-        _local1.unmap(GUILDREMOVE);
-        _local1.unmap(GUILDINVITE);
-        _local1.unmap(REQUESTTRADE);
-        _local1.unmap(CHANGETRADE);
-        _local1.unmap(ACCEPTTRADE);
-        _local1.unmap(CANCELTRADE);
-        _local1.unmap(CHECKCREDITS);
-        _local1.unmap(ESCAPE);
-        _local1.unmap(QUEST_ROOM_MSG);
-        _local1.unmap(JOINGUILD);
-        _local1.unmap(CHANGEGUILDRANK);
-        _local1.unmap(EDITACCOUNTLIST);
-        _local1.unmap(FAILURE);
-        _local1.unmap(CREATE_SUCCESS);
-        _local1.unmap(SERVERPLAYERSHOOT);
-        _local1.unmap(DAMAGE);
-        _local1.unmap(UPDATE);
-        _local1.unmap(NOTIFICATION);
-        _local1.unmap(GLOBAL_NOTIFICATION);
-        _local1.unmap(NEWTICK);
-        _local1.unmap(SHOWEFFECT);
-        _local1.unmap(GOTO);
-        _local1.unmap(INVRESULT);
-        _local1.unmap(RECONNECT);
-        _local1.unmap(PING);
-        _local1.unmap(MAPINFO);
-        _local1.unmap(PIC);
-        _local1.unmap(DEATH);
-        _local1.unmap(BUYRESULT);
-        _local1.unmap(AOE);
-        _local1.unmap(ACCOUNTLIST);
-        _local1.unmap(QUESTOBJID);
-        _local1.unmap(NAMERESULT);
-        _local1.unmap(GUILDRESULT);
-        _local1.unmap(ALLYSHOOT);
-        _local1.unmap(ENEMYSHOOT);
-        _local1.unmap(TRADEREQUESTED);
-        _local1.unmap(TRADESTART);
-        _local1.unmap(TRADECHANGED);
-        _local1.unmap(TRADEDONE);
-        _local1.unmap(TRADEACCEPTED);
-        _local1.unmap(CLIENTSTAT);
-        _local1.unmap(FILE);
-        _local1.unmap(INVITEDTOGUILD);
-        _local1.unmap(PLAYSOUND);
-        _local1.unmap(SERVER_FULL);
-        _local1.unmap(QUEUE_PING);
-        _local1.unmap(QUEUE_PONG);
-        _local1.unmap(SET_FOCUS);
-        _local1.unmap(SWITCH_MUSIC);
+        var messageMap:MessageMap = this.injector.getInstance(MessageMap);
+        messageMap.unmap(CREATE);
+        messageMap.unmap(PLAYERSHOOT);
+        messageMap.unmap(MOVE);
+        messageMap.unmap(PLAYERTEXT);
+        messageMap.unmap(UPDATEACK);
+        messageMap.unmap(INVSWAP);
+        messageMap.unmap(USEITEM);
+        messageMap.unmap(HELLO);
+        messageMap.unmap(INVDROP);
+        messageMap.unmap(PONG);
+        messageMap.unmap(LOAD);
+        messageMap.unmap(SETCONDITION);
+        messageMap.unmap(TELEPORT);
+        messageMap.unmap(USEPORTAL);
+        messageMap.unmap(BUY);
+        messageMap.unmap(PLAYERHIT);
+        messageMap.unmap(ENEMYHIT);
+        messageMap.unmap(AOEACK);
+        messageMap.unmap(SHOOTACK);
+        messageMap.unmap(OTHERHIT);
+        messageMap.unmap(SQUAREHIT);
+        messageMap.unmap(GOTOACK);
+        messageMap.unmap(GROUNDDAMAGE);
+        messageMap.unmap(CHOOSENAME);
+        messageMap.unmap(CREATEGUILD);
+        messageMap.unmap(GUILDREMOVE);
+        messageMap.unmap(GUILDINVITE);
+        messageMap.unmap(REQUESTTRADE);
+        messageMap.unmap(CHANGETRADE);
+        messageMap.unmap(ACCEPTTRADE);
+        messageMap.unmap(CANCELTRADE);
+        messageMap.unmap(CHECKCREDITS);
+        messageMap.unmap(ESCAPE);
+        messageMap.unmap(QUEST_ROOM_MSG);
+        messageMap.unmap(JOINGUILD);
+        messageMap.unmap(CHANGEGUILDRANK);
+        messageMap.unmap(EDITACCOUNTLIST);
+        messageMap.unmap(FAILURE);
+        messageMap.unmap(CREATE_SUCCESS);
+        messageMap.unmap(SERVERPLAYERSHOOT);
+        messageMap.unmap(DAMAGE);
+        messageMap.unmap(UPDATE);
+        messageMap.unmap(NOTIFICATION);
+        messageMap.unmap(GLOBAL_NOTIFICATION);
+        messageMap.unmap(NEWTICK);
+        messageMap.unmap(SHOWEFFECT);
+        messageMap.unmap(GOTO);
+        messageMap.unmap(INVRESULT);
+        messageMap.unmap(RECONNECT);
+        messageMap.unmap(PING);
+        messageMap.unmap(MAPINFO);
+        messageMap.unmap(PIC);
+        messageMap.unmap(DEATH);
+        messageMap.unmap(BUYRESULT);
+        messageMap.unmap(AOE);
+        messageMap.unmap(ACCOUNTLIST);
+        messageMap.unmap(QUESTOBJID);
+        messageMap.unmap(NAMERESULT);
+        messageMap.unmap(GUILDRESULT);
+        messageMap.unmap(ALLYSHOOT);
+        messageMap.unmap(ENEMYSHOOT);
+        messageMap.unmap(TRADEREQUESTED);
+        messageMap.unmap(TRADESTART);
+        messageMap.unmap(TRADECHANGED);
+        messageMap.unmap(TRADEDONE);
+        messageMap.unmap(TRADEACCEPTED);
+        messageMap.unmap(CLIENTSTAT);
+        messageMap.unmap(FILE);
+        messageMap.unmap(INVITEDTOGUILD);
+        messageMap.unmap(PLAYSOUND);
+        messageMap.unmap(SERVER_FULL);
+        messageMap.unmap(QUEUE_PING);
+        messageMap.unmap(QUEUE_PONG);
+        messageMap.unmap(SET_FOCUS);
+        messageMap.unmap(SWITCH_MUSIC);
     }
 
     private function encryptConnection():void {
@@ -623,197 +623,269 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     private function create():void {
-        var _local1:CharacterClass = this.classesModel.getSelected();
-        var _local2:Create = (this.messages.require(CREATE) as Create);
-        _local2.classType = _local1.id;
-        _local2.skinType = _local1.skins.getSelectedSkin().id;
-        serverConnection.getMessage(_local2);
+        var characterClass:CharacterClass = this.classesModel.getSelected();
+        var create:Create = (this.messages.require(CREATE) as Create);
+        create.classType = characterClass.id;
+        create.skinType = characterClass.skins.getSelectedSkin().id;
+
+        serverConnection.queueMessage(create);
     }
 
     private function load():void {
-        var _local1:Load = (this.messages.require(LOAD) as Load);
-        _local1.charId_ = charId_;
-        _local1.isFromArena_ = isFromArena_;
-        serverConnection.getMessage(_local1);
+        var load:Load = (this.messages.require(LOAD) as Load);
+        load.charId_ = charId_;
+        load.isFromArena_ = isFromArena_;
+
+        serverConnection.queueMessage(load);
+
         if (isFromArena_) {
             this.openDialog.dispatch(new BattleSummaryDialog());
         }
     }
 
-    override public function playerShoot(_arg1:Projectile, _arg2:Number, _arg3:int):void {
+    override public function playerShoot(projectile:Projectile, attackAmount:int, isDazed:Boolean, isBeserk:Boolean, minAttackFrequency:Number, maxAttackFrequency:Number, weaponRateOfFire:Number):void {
         var playerShoot:PlayerShoot = (this.messages.require(PLAYERSHOOT) as PlayerShoot);
-        playerShoot.bulletId_ = _arg1.bulletId_;
-        playerShoot.containerType_ = _arg1.objectType_;
-        playerShoot.startingPos_.x_ = _arg1.x_;
-        playerShoot.startingPos_.y_ = _arg1.y_;
-        playerShoot.angle_ = _arg1.angle_;
-        playerShoot.attackPeriod_ = _arg2;
-        playerShoot.attackAmount_ = _arg3;
-        serverConnection.getMessage(playerShoot);
+        playerShoot.bulletId_ = projectile.bulletId_;
+        playerShoot.containerType_ = projectile.objectType_;
+        playerShoot.startingPos_.x_ = projectile.x_;
+        playerShoot.startingPos_.y_ = projectile.y_;
+        playerShoot.angle_ = projectile.angle_;
+        playerShoot.attackAmount_ = attackAmount;
+        playerShoot.isDazed_ = isDazed;
+        playerShoot.isBeserk_ = isBeserk;
+        playerShoot.minAttackFrequency_ = minAttackFrequency;
+        playerShoot.maxAttackFrequency_ = maxAttackFrequency;
+        playerShoot.weaponRateOfFire_ = weaponRateOfFire;
+
+        serverConnection.queueMessage(playerShoot);
     }
 
-    override public function playerHit(_arg1:int, _arg2:int):void {
-        var _local3:PlayerHit = (this.messages.require(PLAYERHIT) as PlayerHit);
-        _local3.bulletId_ = _arg1;
-        _local3.objectId_ = _arg2;
-        serverConnection.getMessage(_local3);
+    override public function playerHit(bulletId:int, objectId:int):void {
+        var playerHit:PlayerHit = (this.messages.require(PLAYERHIT) as PlayerHit);
+        playerHit.bulletId_ = bulletId;
+        playerHit.objectId_ = objectId;
+
+        serverConnection.queueMessage(playerHit);
     }
 
-    override public function enemyHit(_arg1:int, _arg2:int, _arg3:int, _arg4:Boolean):void {
-        var _local5:EnemyHit = (this.messages.require(ENEMYHIT) as EnemyHit);
-        _local5.time_ = _arg1;
-        _local5.bulletId_ = _arg2;
-        _local5.targetId_ = _arg3;
-        _local5.kill_ = _arg4;
-        serverConnection.getMessage(_local5);
+    override public function enemyHit(time:int, bulletId:int, targetId:int, kill:Boolean):void {
+        var enemyHit:EnemyHit = (this.messages.require(ENEMYHIT) as EnemyHit);
+        enemyHit.time_ = time;
+        enemyHit.bulletId_ = bulletId;
+        enemyHit.targetId_ = targetId;
+        enemyHit.kill_ = kill;
+
+        serverConnection.queueMessage(enemyHit);
     }
 
-    override public function otherHit(_arg1:int, _arg2:int, _arg3:int, _arg4:int):void {
-        var _local5:OtherHit = (this.messages.require(OTHERHIT) as OtherHit);
-        _local5.time_ = _arg1;
-        _local5.bulletId_ = _arg2;
-        _local5.objectId_ = _arg3;
-        _local5.targetId_ = _arg4;
-        serverConnection.getMessage(_local5);
+    override public function otherHit(time:int, bulletId:int, objectId:int, targetId:int):void {
+        var otherHit:OtherHit = (this.messages.require(OTHERHIT) as OtherHit);
+        otherHit.time_ = time;
+        otherHit.bulletId_ = bulletId;
+        otherHit.objectId_ = objectId;
+        otherHit.targetId_ = targetId;
+
+        serverConnection.queueMessage(otherHit);
     }
 
-    override public function squareHit(_arg1:int, _arg2:int, _arg3:int):void {
-        var _local4:SquareHit = (this.messages.require(SQUAREHIT) as SquareHit);
-        _local4.time_ = _arg1;
-        _local4.bulletId_ = _arg2;
-        _local4.objectId_ = _arg3;
-        serverConnection.getMessage(_local4);
+    override public function squareHit(time:int, bulletId:int, objectId:int):void {
+        var squareHit:SquareHit = (this.messages.require(SQUAREHIT) as SquareHit);
+        squareHit.time_ = time;
+        squareHit.bulletId_ = bulletId;
+        squareHit.objectId_ = objectId;
+
+        serverConnection.queueMessage(squareHit);
     }
 
-    public function aoeAck(_arg1:int, _arg2:Number, _arg3:Number):void {
-        var _local4:AoeAck = (this.messages.require(AOEACK) as AoeAck);
-        _local4.time_ = _arg1;
-        _local4.position_.x_ = _arg2;
-        _local4.position_.y_ = _arg3;
-        serverConnection.getMessage(_local4);
+    public function aoeAck(time:int, X:Number, Y:Number):void {
+        var aoeAck:AoeAck = (this.messages.require(AOEACK) as AoeAck);
+        aoeAck.time_ = time;
+        aoeAck.position_.x_ = X;
+        aoeAck.position_.y_ = Y;
+
+        serverConnection.queueMessage(aoeAck);
     }
 
-    override public function groundDamage(_arg1:int, _arg2:Number, _arg3:Number):void {
-        var _local4:GroundDamage = (this.messages.require(GROUNDDAMAGE) as GroundDamage);
-        _local4.time_ = _arg1;
-        _local4.position_.x_ = _arg2;
-        _local4.position_.y_ = _arg3;
-        serverConnection.getMessage(_local4);
+    override public function groundDamage(time:int, X:Number, Y:Number):void {
+        var groundDamage:GroundDamage = (this.messages.require(GROUNDDAMAGE) as GroundDamage);
+        groundDamage.time_ = time;
+        groundDamage.position_.x_ = X;
+        groundDamage.position_.y_ = Y;
+
+        serverConnection.queueMessage(groundDamage);
     }
 
-    public function shootAck(_arg1:int):void {
-        var _local2:ShootAck = (this.messages.require(SHOOTACK) as ShootAck);
-        _local2.time_ = _arg1;
-        serverConnection.getMessage(_local2);
+    public function shootAck(time:int):void {
+        var shootAck:ShootAck = (this.messages.require(SHOOTACK) as ShootAck);
+        shootAck.time_ = time;
+
+        serverConnection.queueMessage(shootAck);
     }
 
-    override public function playerText(_arg1:String):void {
-        var _local2:PlayerText = (this.messages.require(PLAYERTEXT) as PlayerText);
-        _local2.text_ = _arg1;
-        serverConnection.getMessage(_local2);
+    override public function playerText(text:String):void {
+        var playerText:PlayerText = (this.messages.require(PLAYERTEXT) as PlayerText);
+        playerText.text_ = text;
+
+        serverConnection.queueMessage(playerText);
     }
 
-    override public function invSwap(plr:Player,
-                                     go1:GameObject, go1Slot:int, go1ObjType:int,
-                                     go2:GameObject, go2Slot:int, go2ObjType:int):Boolean {
-
+    override public function invSwap(player:Player, gameObject1:GameObject, slotId1:int, objectType1:int, gameObject2:GameObject, slotId2:int, objectType2:int):Boolean {
         if (!gs_)
             return false;
 
-        var swap:InvSwap = (this.messages.require(INVSWAP) as InvSwap);
-        swap.time_ = gs_.lastUpdate_;
-        swap.position_.x_ = plr.x_;
-        swap.position_.y_ = plr.y_;
-        swap.slotObject1_.objectId_ = go1.objectId_;
-        swap.slotObject1_.slotId_ = go1Slot;
-        swap.slotObject1_.objectType_ = go1ObjType;
-        swap.slotObject2_.objectId_ = go2.objectId_;
-        swap.slotObject2_.slotId_ = go2Slot;
-        swap.slotObject2_.objectType_ = go2ObjType;
-        serverConnection.getMessage(swap);
+        if (player.isTrading) {
+            this.addTextLine.dispatch(ChatMessage.make("", "You cannot swap items while trading."));
 
-        var temp:int = go1.equipment_[go1Slot];
-        go1.equipment_[go1Slot] = go2.equipment_[go2Slot];
-        go2.equipment_[go2Slot] = temp;
+            SoundEffectLibrary.play("error");
+
+            return false;
+        }
+
+        var invSwap:InvSwap = (this.messages.require(INVSWAP) as InvSwap);
+        invSwap.time_ = gs_.lastUpdate_;
+        invSwap.position_.x_ = player.x_;
+        invSwap.position_.y_ = player.y_;
+        invSwap.slotObject1_.objectId_ = gameObject1.objectId_;
+        invSwap.slotObject1_.slotId_ = slotId1;
+        invSwap.slotObject1_.objectType_ = objectType1;
+        invSwap.slotObject2_.objectId_ = gameObject2.objectId_;
+        invSwap.slotObject2_.slotId_ = slotId2;
+        invSwap.slotObject2_.objectType_ = objectType2;
+
+        serverConnection.queueMessage(invSwap);
+
+        var temporarilyInventorySwap:int = gameObject1.equipment_[slotId1];
+        gameObject1.equipment_[slotId1] = gameObject2.equipment_[slotId2];
+        gameObject2.equipment_[slotId2] = temporarilyInventorySwap;
 
         SoundEffectLibrary.play("inventory_move_item");
+
         return true;
     }
 
-    override public function invSwapPotion(_arg1:Player, _arg2:GameObject, _arg3:int, _arg4:int, _arg5:GameObject, _arg6:int, _arg7:int):Boolean {
-        if (!gs_) {
+    override public function invSwapPotion(player:Player, gameObject1:GameObject, slotId1:int, objectType1:int, gameObject2:GameObject, slotId2:int, objectType2:int):Boolean {
+        if (!gs_)
             return (false);
+
+        if (player.isTrading) {
+            this.addTextLine.dispatch(ChatMessage.make("", "You cannot swap potions while trading."));
+
+            SoundEffectLibrary.play("error");
+
+            return false;
         }
-        var _local8:InvSwap = (this.messages.require(INVSWAP) as InvSwap);
-        _local8.time_ = gs_.lastUpdate_;
-        _local8.position_.x_ = _arg1.x_;
-        _local8.position_.y_ = _arg1.y_;
-        _local8.slotObject1_.objectId_ = _arg2.objectId_;
-        _local8.slotObject1_.slotId_ = _arg3;
-        _local8.slotObject1_.objectType_ = _arg4;
-        _local8.slotObject2_.objectId_ = _arg5.objectId_;
-        _local8.slotObject2_.slotId_ = _arg6;
-        _local8.slotObject2_.objectType_ = _arg7;
-        _arg2.equipment_[_arg3] = ItemConstants.NO_ITEM;
-        if (_arg4 == PotionInventoryModel.HEALTH_POTION_ID) {
-            _arg1.healthPotionCount_++;
-        }
-        else {
-            if (_arg4 == PotionInventoryModel.MAGIC_POTION_ID) {
-                _arg1.magicPotionCount_++;
-            }
-        }
-        serverConnection.getMessage(_local8);
+
+        var invSwap:InvSwap = (this.messages.require(INVSWAP) as InvSwap);
+        invSwap.time_ = gs_.lastUpdate_;
+        invSwap.position_.x_ = player.x_;
+        invSwap.position_.y_ = player.y_;
+        invSwap.slotObject1_.objectId_ = gameObject1.objectId_;
+        invSwap.slotObject1_.slotId_ = slotId1;
+        invSwap.slotObject1_.objectType_ = objectType1;
+        invSwap.slotObject2_.objectId_ = gameObject2.objectId_;
+        invSwap.slotObject2_.slotId_ = slotId2;
+        invSwap.slotObject2_.objectType_ = objectType2;
+
+        gameObject1.equipment_[slotId1] = ItemConstants.NO_ITEM;
+
+        if (objectType1 == PotionInventoryModel.HEALTH_POTION_ID)
+            player.healthPotionCount_++;
+
+        if (objectType1 == PotionInventoryModel.MAGIC_POTION_ID)
+            player.magicPotionCount_++;
+
+        serverConnection.queueMessage(invSwap);
+
         SoundEffectLibrary.play("inventory_move_item");
+
         return (true);
     }
 
-    override public function invDrop(_arg1:GameObject, _arg2:int, _arg3:int):void {
-        var _local4:InvDrop = (this.messages.require(INVDROP) as InvDrop);
-        _local4.slotObject_.objectId_ = _arg1.objectId_;
-        _local4.slotObject_.slotId_ = _arg2;
-        _local4.slotObject_.objectType_ = _arg3;
-        serverConnection.getMessage(_local4);
-        if (((!((_arg2 == PotionInventoryModel.HEALTH_POTION_SLOT))) && (!((_arg2 == PotionInventoryModel.MAGIC_POTION_SLOT))))) {
-            _arg1.equipment_[_arg2] = ItemConstants.NO_ITEM;
+    override public function invDrop(gameObject:GameObject, slotId:int, objectType:int):void {
+        if (gameObject is Player) {
+            var player:Player = gameObject as Player;
+
+            if (player.isTrading) {
+                this.addTextLine.dispatch(ChatMessage.make("", "You cannot drop items while trading."));
+
+                SoundEffectLibrary.play("error");
+
+                return;
+            }
         }
+
+        var invDrop:InvDrop = (this.messages.require(INVDROP) as InvDrop);
+        invDrop.slotObject_.objectId_ = gameObject.objectId_;
+        invDrop.slotObject_.slotId_ = slotId;
+        invDrop.slotObject_.objectType_ = objectType;
+
+        serverConnection.queueMessage(invDrop);
+
+        if (((!((slotId == PotionInventoryModel.HEALTH_POTION_SLOT))) && (!((slotId == PotionInventoryModel.MAGIC_POTION_SLOT)))))
+            gameObject.equipment_[slotId] = ItemConstants.NO_ITEM;
     }
 
-    override public function useItem(_arg1:int, _arg2:int, _arg3:int, _arg4:int, _arg5:Number, _arg6:Number, _arg7:int):void {
-        var _local8:UseItem = (this.messages.require(USEITEM) as UseItem);
-        _local8.time_ = _arg1;
-        _local8.slotObject_.objectId_ = _arg2;
-        _local8.slotObject_.slotId_ = _arg3;
-        _local8.slotObject_.objectType_ = _arg4;
-        _local8.itemUsePos_.x_ = _arg5;
-        _local8.itemUsePos_.y_ = _arg6;
-        _local8.useType_ = _arg7;
-        serverConnection.getMessage(_local8);
+    override public function useItem(time:int, objectId:int, slotId:int, objectType:int, X:Number, Y:Number, useType:int, isTrading:Boolean):void {
+        if (isTrading) {
+            this.addTextLine.dispatch(ChatMessage.make("", "You cannot use items while trading."));
+
+            SoundEffectLibrary.play("error");
+
+            return;
+        }
+
+        var useItem:UseItem = (this.messages.require(USEITEM) as UseItem);
+        useItem.time_ = time;
+        useItem.slotObject_.objectId_ = objectId;
+        useItem.slotObject_.slotId_ = slotId;
+        useItem.slotObject_.objectType_ = objectType;
+        useItem.itemUsePos_.x_ = X;
+        useItem.itemUsePos_.y_ = Y;
+        useItem.useType_ = useType;
+
+        serverConnection.queueMessage(useItem);
     }
 
-    override public function useItem_new(_arg1:GameObject, _arg2:int):Boolean {
-        var _local4:XML;
-        var _local3:int = _arg1.equipment_[_arg2];
-        if ((((_local3 >= 0x9000)) && ((_local3 < 0xF000)))) {
-            _local4 = ObjectLibrary.xmlLibrary_[36863];
-        }
-        else {
-            _local4 = ObjectLibrary.xmlLibrary_[_local3];
-        }
-        if (((((_local4) && (!(_arg1.isPaused())))) && (((_local4.hasOwnProperty("Consumable")) || (_local4.hasOwnProperty("InvUse")))))) {
-            if (!this.validStatInc(_local3, _arg1)) {
-                this.addTextLine.dispatch(ChatMessage.make("", (_local4.attribute("id") + " not consumed. Already at Max.")));
-                return (false);
+    override public function useItem_new(gameObject:GameObject, slotId:int):Boolean {
+        if (gameObject is Player) {
+            var player:Player = gameObject as Player;
+
+            if (player.isTrading) {
+                this.addTextLine.dispatch(ChatMessage.make("", "You cannot use items while trading."));
+
+                SoundEffectLibrary.play("error");
+
+                return false;
             }
-            if (isStatPotion(_local3)) {
-                this.addTextLine.dispatch(ChatMessage.make("", (_local4.attribute("id") + " Consumed ++")));
+        }
+
+        var xml:XML;
+        var itemSlot:int = gameObject.equipment_[slotId];
+
+        if ((((itemSlot >= 0x9000)) && ((itemSlot < 0xF000))))
+            xml = ObjectLibrary.xmlLibrary_[36863];
+        else
+            xml = ObjectLibrary.xmlLibrary_[itemSlot];
+
+        if (((((xml) && (!(gameObject.isPaused())))) && (((xml.hasOwnProperty("Consumable")) || (xml.hasOwnProperty("InvUse")))))) {
+            if (!this.validStatInc(itemSlot, gameObject)) {
+                this.addTextLine.dispatch(ChatMessage.make("", (xml.attribute("id") + " not consumed. Already at Max.")));
+                return false;
             }
-            this.applyUseItem(_arg1, _arg2, _local3, _local4);
+
+            if (isStatPotion(itemSlot))
+                this.addTextLine.dispatch(ChatMessage.make("", (xml.attribute("id") + " Consumed ++")));
+
+            this.applyUseItem(gameObject, slotId, itemSlot, xml);
+
             SoundEffectLibrary.play("use_potion");
-            return (true);
+
+            return true;
         }
+
         SoundEffectLibrary.play("error");
-        return (false);
+
+        return false;
     }
 
     private function validStatInc(itemId:int, itemOwner:GameObject):Boolean {
@@ -835,193 +907,219 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         return (true);
     }
 
-    private function applyUseItem(_arg1:GameObject, _arg2:int, _arg3:int, _arg4:XML):void {
-        var _local5:UseItem = (this.messages.require(USEITEM) as UseItem);
-        _local5.time_ = getTimer();
-        _local5.slotObject_.objectId_ = _arg1.objectId_;
-        _local5.slotObject_.slotId_ = _arg2;
-        _local5.slotObject_.objectType_ = _arg3;
-        _local5.itemUsePos_.x_ = 0;
-        _local5.itemUsePos_.y_ = 0;
-        serverConnection.getMessage(_local5);
-        if (_arg4.hasOwnProperty("Consumable")) {
-            _arg1.equipment_[_arg2] = -1;
-            if (((_arg4.hasOwnProperty("Activate")) && ((_arg4.Activate == "UnlockSkin")))) {
+    private function applyUseItem(gameObject:GameObject, slotId:int, objectType:int, xml:XML):void {
+        var useItem:UseItem = (this.messages.require(USEITEM) as UseItem);
+        useItem.time_ = getTimer();
+        useItem.slotObject_.objectId_ = gameObject.objectId_;
+        useItem.slotObject_.slotId_ = slotId;
+        useItem.slotObject_.objectType_ = objectType;
+        useItem.itemUsePos_.x_ = 0;
+        useItem.itemUsePos_.y_ = 0;
+
+        serverConnection.queueMessage(useItem);
+
+        if (xml.hasOwnProperty("Consumable")) {
+            gameObject.equipment_[slotId] = -1;
+
+            if (((xml.hasOwnProperty("Activate")) && ((xml.Activate == "UnlockSkin")))) { }
+        }
+    }
+
+    override public function setCondition(conditionEffect:uint, conditionDuration:Number):void {
+        var setCondition:SetCondition = (this.messages.require(SETCONDITION) as SetCondition);
+        setCondition.conditionEffect_ = conditionEffect;
+        setCondition.conditionDuration_ = conditionDuration;
+
+        serverConnection.queueMessage(setCondition);
+    }
+
+    public function move(tickId:int, player:Player):void {
+        var moveRecords:int;
+        var moveCounter:int;
+        var newX:Number = -1;
+        var newY:Number = -1;
+
+        if (((player) && (!(player.isPaused())))) {
+            newX = player.x_;
+            newY = player.y_;
+        }
+
+        var move:Move = (this.messages.require(MOVE) as Move);
+        move.tickId_ = tickId;
+        move.time_ = gs_.lastUpdate_;
+        move.newPosition_.x_ = newX;
+        move.newPosition_.y_ = newY;
+        move.records_.length = 0;
+
+        var lastClearTime:int = gs_.moveRecords_.lastClearTime_;
+
+        if ((((lastClearTime >= 0)) && (((move.time_ - lastClearTime) > 200)))) {
+            moveRecords = Math.min(10, gs_.moveRecords_.records_.length);
+            moveCounter = 0;
+
+            while (moveCounter < moveRecords) {
+                if (gs_.moveRecords_.records_[moveCounter].time_ >= (move.time_ - 25))
+                    break;
+
+                move.records_.push(gs_.moveRecords_.records_[moveCounter]);
+
+                moveCounter++;
             }
         }
+
+        gs_.moveRecords_.clear(move.time_);
+
+        serverConnection.queueMessage(move);
+
+        (player && player.onMove());
     }
 
-    override public function setCondition(_arg1:uint, _arg2:Number):void {
-        var _local3:SetCondition = (this.messages.require(SETCONDITION) as SetCondition);
-        _local3.conditionEffect_ = _arg1;
-        _local3.conditionDuration_ = _arg2;
-        serverConnection.getMessage(_local3);
+    override public function teleport(objectId:int):void {
+        var teleport:Teleport = (this.messages.require(TELEPORT) as Teleport);
+        teleport.objectId_ = objectId;
+
+        serverConnection.queueMessage(teleport);
     }
 
-    public function move(_arg1:int, _arg2:Player):void {
-        var _local7:int;
-        var _local8:int;
-        var _local3:Number = -1;
-        var _local4:Number = -1;
-        if (((_arg2) && (!(_arg2.isPaused())))) {
-            _local3 = _arg2.x_;
-            _local4 = _arg2.y_;
-        }
-        var _local5:Move = (this.messages.require(MOVE) as Move);
-        _local5.tickId_ = _arg1;
-        _local5.time_ = gs_.lastUpdate_;
-        _local5.newPosition_.x_ = _local3;
-        _local5.newPosition_.y_ = _local4;
-        var _local6:int = gs_.moveRecords_.lastClearTime_;
-        _local5.records_.length = 0;
-        if ((((_local6 >= 0)) && (((_local5.time_ - _local6) > 125)))) {
-            _local7 = Math.min(10, gs_.moveRecords_.records_.length);
-            _local8 = 0;
-            while (_local8 < _local7) {
-                if (gs_.moveRecords_.records_[_local8].time_ >= (_local5.time_ - 25)) break;
-                _local5.records_.push(gs_.moveRecords_.records_[_local8]);
-                _local8++;
-            }
-        }
-        gs_.moveRecords_.clear(_local5.time_);
-        serverConnection.getMessage(_local5);
-        ((_arg2) && (_arg2.onMove()));
-    }
+    override public function usePortal(objectId:int):void {
+        var usePortal:UsePortal = (this.messages.require(USEPORTAL) as UsePortal);
+        usePortal.objectId_ = objectId;
 
-    override public function teleport(_arg1:int):void {
-        var _local2:Teleport = (this.messages.require(TELEPORT) as Teleport);
-        _local2.objectId_ = _arg1;
-        serverConnection.getMessage(_local2);
-    }
+        serverConnection.queueMessage(usePortal);
 
-    override public function usePortal(_arg1:int):void {
-        var _local2:UsePortal = (this.messages.require(USEPORTAL) as UsePortal);
-        _local2.objectId_ = _arg1;
-        serverConnection.getMessage(_local2);
         this.checkDavyKeyRemoval();
     }
 
     private function checkDavyKeyRemoval():void {
-        if (((gs_.map) && ((gs_.map.name_ == "Davy Jones' Locker")))) {
+        if (gs_.map && gs_.map.name_ == "Davy Jones' Locker")
             ShowHideKeyUISignal.instance.dispatch();
-        }
     }
 
     override public function buy(sellableObjectId:int, quantity:int):void {
         var sObj:SellableObject;
         var converted:Boolean;
-        if (outstandingBuy_) {
+        if (outstandingBuy_)
             return;
-        }
+
         sObj = gs_.map.goDict_[sellableObjectId];
-        if (sObj == null) {
+
+        if (sObj == null)
             return;
-        }
+
         converted = false;
-        if (sObj.currency_ == Currency.GOLD) {
+
+        if (sObj.currency_ == Currency.GOLD)
             converted = ((((gs_.model.getConverted()) || ((this.player.credits_ > 100)))) || ((sObj.price_ > this.player.credits_)));
-        }
-        if (sObj.soldObjectName() == TextKey.VAULT_CHEST) {
+
+        if (sObj.soldObjectName() == TextKey.VAULT_CHEST)
             this.openDialog.dispatch(new PurchaseConfirmationDialog(function ():void {
-                buyConfirmation(sObj, converted, sellableObjectId, quantity);
+                buyConfirmation(sellableObjectId, quantity);
             }));
-        }
-        else {
-            this.buyConfirmation(sObj, converted, sellableObjectId, quantity);
-        }
+        else
+            this.buyConfirmation(sellableObjectId, quantity);
     }
 
-    private function buyConfirmation(_arg1:SellableObject, _arg2:Boolean, _arg3:int, _arg4:int):void {
+    private function buyConfirmation(objectId:int, quantity:int):void {
         outstandingBuy_ = true;
-        var _local5:Buy = (this.messages.require(BUY) as Buy);
-        _local5.objectId_ = _arg3;
-        _local5.quantity_ = _arg4;
-        serverConnection.getMessage(_local5);
+
+        var buy:Buy = (this.messages.require(BUY) as Buy);
+        buy.objectId_ = objectId;
+        buy.quantity_ = quantity;
+
+        serverConnection.queueMessage(buy);
     }
 
-    public function gotoAck(_arg1:int):void {
-        var _local2:GotoAck = (this.messages.require(GOTOACK) as GotoAck);
-        _local2.time_ = _arg1;
-        serverConnection.getMessage(_local2);
+    public function gotoAck(time:int):void {
+        var gotoAck:GotoAck = (this.messages.require(GOTOACK) as GotoAck);
+        gotoAck.time_ = time;
+
+        serverConnection.queueMessage(gotoAck);
     }
 
-    override public function editAccountList(_arg1:int, _arg2:Boolean, _arg3:int):void {
-        var _local4:EditAccountList = (this.messages.require(EDITACCOUNTLIST) as EditAccountList);
-        _local4.accountListId_ = _arg1;
-        _local4.add_ = _arg2;
-        _local4.objectId_ = _arg3;
-        serverConnection.getMessage(_local4);
+    override public function editAccountList(accountListId:int, add:Boolean, objectId:int):void {
+        var editAccountList:EditAccountList = (this.messages.require(EDITACCOUNTLIST) as EditAccountList);
+        editAccountList.accountListId_ = accountListId;
+        editAccountList.add_ = add;
+        editAccountList.objectId_ = objectId;
+
+        serverConnection.queueMessage(editAccountList);
     }
 
-    override public function chooseName(_arg1:String):void {
-        var _local2:ChooseName = (this.messages.require(CHOOSENAME) as ChooseName);
-        _local2.name_ = _arg1;
-        serverConnection.getMessage(_local2);
+    override public function chooseName(name:String):void {
+        var chooseName:ChooseName = (this.messages.require(CHOOSENAME) as ChooseName);
+        chooseName.name_ = name;
+
+        serverConnection.queueMessage(chooseName);
     }
 
-    override public function createGuild(_arg1:String):void {
-        var _local2:CreateGuild = (this.messages.require(CREATEGUILD) as CreateGuild);
-        _local2.name_ = _arg1;
-        serverConnection.getMessage(_local2);
+    override public function createGuild(name:String):void {
+        var createGuild:CreateGuild = (this.messages.require(CREATEGUILD) as CreateGuild);
+        createGuild.name_ = name;
+
+        serverConnection.queueMessage(createGuild);
     }
 
     override public function guildRemove(_arg1:String):void {
         var _local2:GuildRemove = (this.messages.require(GUILDREMOVE) as GuildRemove);
         _local2.name_ = _arg1;
-        serverConnection.getMessage(_local2);
+        serverConnection.queueMessage(_local2);
     }
 
-    override public function guildInvite(_arg1:String):void {
-        var _local2:GuildInvite = (this.messages.require(GUILDINVITE) as GuildInvite);
-        _local2.name_ = _arg1;
-        serverConnection.getMessage(_local2);
+    override public function guildInvite(name:String):void {
+        var guildInvite:GuildInvite = (this.messages.require(GUILDINVITE) as GuildInvite);
+        guildInvite.name_ = name;
+
+        serverConnection.queueMessage(guildInvite);
     }
 
-    override public function requestTrade(_arg1:String):void {
-        var _local2:RequestTrade = (this.messages.require(REQUESTTRADE) as RequestTrade);
-        _local2.name_ = _arg1;
-        serverConnection.getMessage(_local2);
+    override public function requestTrade(name:String):void {
+        var requestTrade:RequestTrade = (this.messages.require(REQUESTTRADE) as RequestTrade);
+        requestTrade.name_ = name;
+
+        serverConnection.queueMessage(requestTrade);
     }
 
-    override public function changeTrade(_arg1:Vector.<Boolean>):void {
-        var _local2:ChangeTrade = (this.messages.require(CHANGETRADE) as ChangeTrade);
-        _local2.offer_ = _arg1;
-        serverConnection.getMessage(_local2);
+    override public function changeTrade(offer:Vector.<Boolean>):void {
+        var changeTrade:ChangeTrade = (this.messages.require(CHANGETRADE) as ChangeTrade);
+        changeTrade.offer_ = offer;
+
+        serverConnection.queueMessage(changeTrade);
     }
 
-    override public function acceptTrade(_arg1:Vector.<Boolean>, _arg2:Vector.<Boolean>):void {
-        var _local3:AcceptTrade = (this.messages.require(ACCEPTTRADE) as AcceptTrade);
-        _local3.myOffer_ = _arg1;
-        _local3.yourOffer_ = _arg2;
-        serverConnection.getMessage(_local3);
+    override public function acceptTrade(myOffer:Vector.<Boolean>, yourOffer:Vector.<Boolean>):void {
+        var acceptTrade:AcceptTrade = (this.messages.require(ACCEPTTRADE) as AcceptTrade);
+        acceptTrade.myOffer_ = myOffer;
+        acceptTrade.yourOffer_ = yourOffer;
+
+        serverConnection.queueMessage(acceptTrade);
     }
 
     override public function cancelTrade():void {
-        serverConnection.getMessage(this.messages.require(CANCELTRADE));
+        serverConnection.queueMessage(this.messages.require(CANCELTRADE));
     }
 
     override public function checkCredits():void {
-        serverConnection.getMessage(this.messages.require(CHECKCREDITS));
+        serverConnection.queueMessage(this.messages.require(CHECKCREDITS));
     }
 
     override public function escape():void {
-        if (this.playerId_ == -1) {
+        if (this.playerId_ == -1)
             return;
-        }
 
-        // -2 is Nexus. Allows disconnecting to character select screen when nexus key is pressed in nexus.
-        // gameId is used over name so that marketplace only servers allow disconnect to char select screen via nexus key.
         if (gameId_ == -2) {
-            var _:AddTextLineSignal = StaticInjectorContext.getInjector().getInstance(AddTextLineSignal);
-            var __:ChatMessage = new ChatMessage();
-            __.name = Parameters.SERVER_CHAT_NAME;
-            __.text = "server.already_nexus";
-            _.dispatch(__);
+            var addTextLineSignal:AddTextLineSignal = StaticInjectorContext.getInjector().getInstance(AddTextLineSignal);
+            var chatMessage:ChatMessage = new ChatMessage();
+            chatMessage.name = Parameters.SERVER_CHAT_NAME;
+            chatMessage.text = "server.already_nexus";
+
+            addTextLineSignal.dispatch(chatMessage);
+
             return;
         }
 
         if (gs_.map && gs_.map.name_ == "Arena") {
-            serverConnection.getMessage(this.messages.require(ACCEPT_ARENA_DEATH));
+            serverConnection.sendMessage(this.messages.require(ACCEPT_ARENA_DEATH));
+
             return;
         }
 
@@ -1031,60 +1129,71 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     private function reconnect2Nexus():void {
-        var svr:Server = new Server();
-        svr.setName("Nexus");
-        svr.setAddress(server_.address);
-        svr.setPort(server_.port);
-        var reconEvt:ReconnectEvent = new ReconnectEvent(svr, -2, false, charId_, 0, null, isFromArena_);
-        gs_.dispatchEvent(reconEvt);
+        var server:Server = new Server();
+        server.setName("Nexus");
+        server.setAddress(server_.address);
+        server.setPort(server_.port);
+
+        var reconnectEvent:ReconnectEvent = new ReconnectEvent(server, -2, false, charId_, 0, null, isFromArena_);
+        gs_.dispatchEvent(reconnectEvent);
     }
 
     override public function gotoQuestRoom():void {
-        serverConnection.getMessage(this.messages.require(QUEST_ROOM_MSG));
+        serverConnection.queueMessage(this.messages.require(QUEST_ROOM_MSG));
     }
 
-    override public function joinGuild(_arg1:String):void {
-        var _local2:JoinGuild = (this.messages.require(JOINGUILD) as JoinGuild);
-        _local2.guildName_ = _arg1;
-        serverConnection.getMessage(_local2);
+    override public function joinGuild(guildName:String):void {
+        var joinGuild:JoinGuild = (this.messages.require(JOINGUILD) as JoinGuild);
+        joinGuild.guildName_ = guildName;
+
+        serverConnection.queueMessage(joinGuild);
     }
 
-    override public function changeGuildRank(_arg1:String, _arg2:int):void {
-        var _local3:ChangeGuildRank = (this.messages.require(CHANGEGUILDRANK) as ChangeGuildRank);
-        _local3.name_ = _arg1;
-        _local3.guildRank_ = _arg2;
-        serverConnection.getMessage(_local3);
+    override public function changeGuildRank(name:String, guildRank:int):void {
+        var changeGuildRank:ChangeGuildRank = (this.messages.require(CHANGEGUILDRANK) as ChangeGuildRank);
+        changeGuildRank.name_ = name;
+        changeGuildRank.guildRank_ = guildRank;
+
+        serverConnection.queueMessage(changeGuildRank);
     }
 
     private function rsaEncrypt(_arg1:String):String {
-        var _local2:RSAKey = PEM.readRSAPublicKey(Parameters.RSA_PUBLIC_KEY);
-        var _local3:ByteArray = new ByteArray();
-        _local3.writeUTFBytes(_arg1);
-        var _local4:ByteArray = new ByteArray();
-        _local2.encrypt(_local3, _local4, _local3.length);
-        return (Base64.encodeByteArray(_local4));
+        var rsaKey:RSAKey = PEM.readRSAPublicKey(Parameters.RSA_PUBLIC_KEY);
+        var byteArray:ByteArray = new ByteArray();
+        byteArray.writeUTFBytes(_arg1);
+
+        var byteArray2:ByteArray = new ByteArray();
+        rsaKey.encrypt(byteArray, byteArray2, byteArray.length);
+
+        return Base64.encodeByteArray(byteArray2);
     }
 
     private function onConnected():void {
-        var _local1:Account = StaticInjectorContext.getInjector().getInstance(Account);
+        var account:Account = StaticInjectorContext.getInjector().getInstance(Account);
+
         this.addTextLine.dispatch(ChatMessage.make(Parameters.CLIENT_CHAT_NAME, TextKey.CHAT_CONNECTED));
+
         this.encryptConnection();
-        var _local2:Hello = (this.messages.require(HELLO) as Hello);
-        _local2.buildVersion_ = Parameters.FULL_BUILD;
-        _local2.gameId_ = gameId_;
-        _local2.guid_ = this.rsaEncrypt(_local1.getUserId());
-        _local2.password_ = this.rsaEncrypt(_local1.getPassword());
-        _local2.secret_ = this.rsaEncrypt(_local1.getSecret());
-        _local2.keyTime_ = keyTime_;
-        _local2.key_.length = 0;
-        ((!((key_ == null))) && (_local2.key_.writeBytes(key_)));
-        _local2.mapJSON_ = (((mapJSON_ == null)) ? "" : mapJSON_);
-        _local2.entrytag_ = _local1.getEntryTag();
-        _local2.gameNet = _local1.gameNetwork();
-        _local2.gameNetUserId = _local1.gameNetworkUserId();
-        _local2.playPlatform = _local1.playPlatform();
-        _local2.platformToken = _local1.getPlatformToken();
-        serverConnection.getMessage(_local2);
+
+        var hello:Hello = (this.messages.require(HELLO) as Hello);
+        hello.buildVersion_ = Parameters.FULL_BUILD;
+        hello.gameId_ = gameId_;
+        hello.guid_ = this.rsaEncrypt(account.getUserId());
+        hello.password_ = this.rsaEncrypt(account.getPassword());
+        hello.secret_ = this.rsaEncrypt(account.getSecret());
+        hello.keyTime_ = keyTime_;
+        hello.key_.length = 0;
+
+        ((!((key_ == null))) && (hello.key_.writeBytes(key_)));
+
+        hello.mapJSON_ = (((mapJSON_ == null)) ? "" : mapJSON_);
+        hello.entrytag_ = account.getEntryTag();
+        hello.gameNet = account.gameNetwork();
+        hello.gameNetUserId = account.gameNetworkUserId();
+        hello.playPlatform = account.playPlatform();
+        hello.platformToken = account.getPlatformToken();
+
+        serverConnection.sendMessage(hello);
     }
 
     private function onCreateSuccess(_arg1:CreateSuccess):void {
@@ -1261,48 +1370,57 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         }
     }
 
-    private function onUpdate(_arg1:Update):void {
-        var _local3:int;
-        var _local4:GroundTileData;
-        var _local2:Message = this.messages.require(UPDATEACK);
-        serverConnection.getMessage(_local2);
-        _local3 = 0;
-        while (_local3 < _arg1.tiles_.length) {
-            _local4 = _arg1.tiles_[_local3];
-            gs_.map.setGroundTile(_local4.x_, _local4.y_, _local4.type_);
-            this.updateGroundTileSignal.dispatch(new UpdateGroundTileVO(_local4.x_, _local4.y_, _local4.type_));
-            _local3++;
+    private function onUpdate(update:Update):void {
+        var updateCounter:int;
+        var groundTileData:GroundTileData;
+        var message:Message = this.messages.require(UPDATEACK);
+
+        serverConnection.queueMessage(message);
+
+        updateCounter = 0;
+
+        while (updateCounter < update.tiles_.length) {
+            groundTileData = update.tiles_[updateCounter];
+            gs_.map.setGroundTile(groundTileData.x_, groundTileData.y_, groundTileData.type_);
+            this.updateGroundTileSignal.dispatch(new UpdateGroundTileVO(groundTileData.x_, groundTileData.y_, groundTileData.type_));
+            updateCounter++;
         }
-        _local3 = 0;
-        while (_local3 < _arg1.newObjs_.length) {
-            this.addObject(_arg1.newObjs_[_local3]);
-            _local3++;
+
+        updateCounter = 0;
+
+        while (updateCounter < update.newObjs_.length) {
+            this.addObject(update.newObjs_[updateCounter]);
+            updateCounter++;
         }
-        _local3 = 0;
-        while (_local3 < _arg1.drops_.length) {
-            gs_.map.removeObj(_arg1.drops_[_local3]);
-            _local3++;
+
+        updateCounter = 0;
+
+        while (updateCounter < update.drops_.length) {
+            gs_.map.removeObj(update.drops_[updateCounter]);
+            updateCounter++;
         }
     }
 
-    private function onNotification(_arg1:Notification):void {
-        var _local3:LineBuilder;
-        var _local4:CharacterStatusText;
-        var _local5:QueuedStatusText;
-        var _local2:GameObject = gs_.map.goDict_[_arg1.objectId_];
-        if (_local2 != null) {
-            _local3 = LineBuilder.fromJSON(_arg1.message);
-            if (_local3.key == "server.plus_symbol") {
-                _local4 = new CharacterStatusText(_local2, _arg1.color_, 1000);
-                _local4.setStringBuilder(_local3);
-                gs_.map.mapOverlay_.addStatusText(_local4);
+    private function onNotification(notification:Notification):void {
+        var lineBuilder:LineBuilder;
+        var characterStatusText:CharacterStatusText;
+        var queuedStatusText:QueuedStatusText;
+        var gameObject:GameObject = gs_.map.goDict_[notification.objectId_];
+
+        if (gameObject != null) {
+            lineBuilder = LineBuilder.fromJSON(notification.message);
+
+            if (lineBuilder.key == "server.plus_symbol") {
+                characterStatusText = new CharacterStatusText(gameObject, notification.color_, 1000);
+                characterStatusText.setStringBuilder(lineBuilder);
+                gs_.map.mapOverlay_.addStatusText(characterStatusText);
             }
             else {
-                _local5 = new QueuedStatusText(_local2, _local3, _arg1.color_, 2000);
-                gs_.map.mapOverlay_.addQueuedText(_local5);
-                if ((((_local2 == this.player)) && ((_local3.key == "server.quest_complete")))) {
+                queuedStatusText = new QueuedStatusText(gameObject, lineBuilder, notification.color_, 2000);
+                gs_.map.mapOverlay_.addQueuedText(queuedStatusText);
+
+                if ((((gameObject == this.player)) && ((lineBuilder.key == "server.quest_complete"))))
                     gs_.map.quest_.completed();
-                }
             }
         }
     }
@@ -1875,11 +1993,12 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         gs_.dispatchEvent(_local8);
     }
 
-    private function onPing(_arg1:Ping):void {
-        var _local2:Pong = (this.messages.require(PONG) as Pong);
-        _local2.serial_ = _arg1.serial_;
-        _local2.time_ = getTimer();
-        serverConnection.getMessage(_local2);
+    private function onPing(ping:Ping):void {
+        var pong:Pong = (this.messages.require(PONG) as Pong);
+        pong.serial_ = ping.serial_;
+        pong.time_ = getTimer();
+
+        serverConnection.queueMessage(pong);
     }
 
     private function parseXML(_arg1:String):void {
@@ -2090,7 +2209,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     override public function questFetch():void {
-        serverConnection.getMessage(this.messages.require(QUEST_FETCH_ASK));
+        serverConnection.queueMessage(this.messages.require(QUEST_FETCH_ASK));
     }
 
     private function onQuestFetchResponse(_arg1:QuestFetchResponse):void {
@@ -2101,18 +2220,20 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         this.questRedeemComplete.dispatch(_arg1);
     }
 
-    override public function questRedeem(_arg1:int, _arg2:int, _arg3:int):void {
-        var _local4:QuestRedeem = (this.messages.require(QUEST_REDEEM) as QuestRedeem);
-        _local4.slotObject.objectId_ = _arg1;
-        _local4.slotObject.slotId_ = _arg2;
-        _local4.slotObject.objectType_ = _arg3;
-        serverConnection.getMessage(_local4);
+    override public function questRedeem(objectId:int, slotId:int, objectType:int):void {
+        var questRedeem:QuestRedeem = (this.messages.require(QUEST_REDEEM) as QuestRedeem);
+        questRedeem.slotObject.objectId_ = objectId;
+        questRedeem.slotObject.slotId_ = slotId;
+        questRedeem.slotObject.objectType_ = objectType;
+
+        serverConnection.queueMessage(questRedeem);
     }
 
-    override public function keyInfoRequest(_arg1:int):void {
-        var _local2:KeyInfoRequest = (this.messages.require(KEY_INFO_REQUEST) as KeyInfoRequest);
-        _local2.itemType_ = _arg1;
-        serverConnection.getMessage(_local2);
+    override public function keyInfoRequest(itemType:int):void {
+        var keyInfoRequest:KeyInfoRequest = (this.messages.require(KEY_INFO_REQUEST) as KeyInfoRequest);
+        keyInfoRequest.itemType_ = itemType;
+
+        serverConnection.queueMessage(keyInfoRequest);
     }
 
     private function onKeyInfoResponse(_arg1:KeyInfoResponse):void {
@@ -2146,7 +2267,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     private function retry(_arg1:int):void {
-        this.retryTimer_ = new Timer((_arg1 * 3000), 1);
+        this.retryTimer_ = new Timer((_arg1 * (Parameters.IS_DEVELOPER_MODE ? 250 : 3000)), 1);
         this.retryTimer_.addEventListener(TimerEvent.TIMER_COMPLETE, this.onRetryTimer);
         this.retryTimer_.start();
     }
@@ -2156,6 +2277,10 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     private function onError(_arg1:String):void {
+        // remove loading screen
+        var hideLoadingScreen:Signal = this.injector.getInstance(HideMapLoadingSignal);
+        hideLoadingScreen && hideLoadingScreen.dispatch();
+
         this.addTextLine.dispatch(ChatMessage.make(Parameters.ERROR_CHAT_NAME, _arg1));
     }
 
