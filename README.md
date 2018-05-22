@@ -1,5 +1,5 @@
-# LOE-V6-CLIENT
-LoE Realm version 6 production client source code project.
+# LOE-V7-CLIENT
+LoE Realm version 7 production client source code project.
 
 # Discord:
 - [![Join Us!](https://discordapp.com/api/guilds/345060662260531202/embed.png)](https://discord.gg/jHNTjun)
