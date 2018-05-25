@@ -73,7 +73,6 @@ public class HUDView extends Sprite implements UnFocusAble {
         this.statMeters = new StatMetersView();
         this.gradientOverlay = new GradientOverlay();
         this.hurtOverlay_ = new HurtOverlay();
-        this.darkness = new EmbeddedAssets.DarknessBackground();
         this.darkness.alpha = 0.95;
     }
 
