@@ -32,18 +32,6 @@ public class ParseSkinsXmlCommand {
     }
 
 
-    public function execute():void {
-        var _skinsArray:Array = EmbeddedData.skinsXML;
-        var _skinXMLList:XMLList;
-        var _skinXML:XML;
-        for each (_skinXMLList in _skinsArray)
-            for each (_skinXML in _skinXMLList)
-                this.parseNode(_skinXML);
-        _skinXML = new XML();
-        _skinXMLList = EmbeddedData.skinsEquipmentSetsXML.children();
-        for each (_skinXML in _skinXMLList)
-            parseNodeEquipment(_skinXML);
-    }
 
     private function parseNode(_arg1:XML):void {
         var _local2:String = _arg1.AnimatedTexture.File;
