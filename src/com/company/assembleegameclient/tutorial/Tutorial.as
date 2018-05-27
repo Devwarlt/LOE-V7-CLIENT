@@ -42,7 +42,7 @@ public class Tutorial extends Sprite {
     private var boxes_:Shape;
     private var tutorialMessage_:TutorialMessage = null;
 
-    /*public function Tutorial(_arg1:GameSprite) {
+    public function Tutorial(_arg1:GameSprite) {
         var _local2:XML;
         var _local3:Graphics;
         this.steps_ = new Vector.<Step>();
@@ -51,7 +51,7 @@ public class Tutorial extends Sprite {
         this.boxes_ = new Shape();
         super();
         this.gs_ = _arg1;
-        for each (_local2 in EmbeddedData..Step) {
+        for each (_local2 in EmbeddedData.tutorialXML.Step) {
             this.steps_.push(new Step(_local2));
         }
         addChild(this.boxesBack_);
@@ -65,7 +65,7 @@ public class Tutorial extends Sprite {
         Parameters.save();
         addEventListener(Event.ADDED_TO_STAGE, this.onAddedToStage);
         addEventListener(Event.REMOVED_FROM_STAGE, this.onRemovedFromStage);
-    }*/
+    }
 
     private function onAddedToStage(_arg1:Event):void {
         addEventListener(Event.ENTER_FRAME, this.onEnterFrame);
