@@ -242,7 +242,7 @@ public class GameSprite extends AGameSprite {
                 _local3["fteStepCompleted"] = 100;
                 _local2.sendRequest("/log/logFteStep", _local3);
             }
-            /*this.startTutorial();*/
+            //this.startTutorial();
         }
         else {
             if (((((((((((((!((map.name_ == "Arena"))) && (!((map.name_ == "Public Arena"))) && (!((map.name_ == "Kitchen"))))) && (!((map.name_ == "Nexus Explanation"))))) && (!((map.name_ == "Vault Explanation"))))) && (!((map.name_ == "Guild Explanation"))))) && (!(this.evalIsNotInCombatMapArea())))) && (Parameters.data_.showProtips))) {
@@ -391,6 +391,11 @@ public class GameSprite extends AGameSprite {
         }
         catch (err:Error) {
         }
+    }
+
+    private function startTutorial():void {
+        tutorial_ = new Tutorial(this);
+        addChild(tutorial_);
     }
 
     private function updateNearestInteractive():void {

@@ -1106,17 +1106,6 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         if (this.playerId_ == -1)
             return;
 
-        if (gameId_ == -2) {
-            var addTextLineSignal:AddTextLineSignal = StaticInjectorContext.getInjector().getInstance(AddTextLineSignal);
-            var chatMessage:ChatMessage = new ChatMessage();
-            chatMessage.name = Parameters.SERVER_CHAT_NAME;
-            chatMessage.text = "server.already_nexus";
-
-            addTextLineSignal.dispatch(chatMessage);
-
-            return;
-        }
-
         if (gs_.map && gs_.map.name_ == "Arena") {
             serverConnection.sendMessage(this.messages.require(ACCEPT_ARENA_DEATH));
 

@@ -12,7 +12,7 @@ import flash.utils.Dictionary;
 import kabam.rotmg.build.impl.BuildEnvironments;
 
 public class Parameters {
-    public static const IS_DEVELOPER_MODE:Boolean = false;
+    public static const IS_DEVELOPER_MODE:Boolean = true;
     public static const DISCORD_PERMANENTLY_INVITE:String = "https://discord.gg/jHNTjun";
     public static const CONNECTION_SECURITY_PROTOCOL:String = "http";
     public static const CLIENT_NAME:String = "LoE Realm";
@@ -20,8 +20,8 @@ public class Parameters {
     public static const ENVIRONMENT_VARIABLE:String = IS_DEVELOPER_MODE ? BuildEnvironments.LOESOFTTESTING : BuildEnvironments.LOESOFTPRODUCTION;
     public static const ENVIRONMENT_DNS:String = !IS_DEVELOPER_MODE ? "testing.loesoftgames.ignorelist.com" : "localhost";
     public static const ENVIRONMENT_PORT:String = !IS_DEVELOPER_MODE ? "5555" : "3000";
-    public static const BUILD_VERSION:String = "v6-1";
-    public static const MINOR_VERSION:String = "6.8 edition 1: pre-beta";
+    public static const BUILD_VERSION:String = "0";
+    public static const MINOR_VERSION:String = "0.1";
     public static const FULL_BUILD:String = BUILD_VERSION + "." + MINOR_VERSION;
     public static const ENABLE_ENCRYPTION:Boolean = true;
     public static const PORT:int = 2050;
@@ -334,7 +334,7 @@ public class Parameters {
         setDefault("contextualPotionBuy", true);
         setDefault("inventorySwap", true);
         setDefault("particleEffect", false);
-        setDefault("uiQuality", true);
+        setDefault("uiQuality", false);
         setDefault("disableEnemyParticles", false);
         setDefault("disableAllyParticles", false);
         setDefault("disablePlayersHitParticles", false);

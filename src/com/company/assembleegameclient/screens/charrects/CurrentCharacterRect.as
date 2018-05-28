@@ -1,15 +1,12 @@
 ﻿package com.company.assembleegameclient.screens.charrects {
 import com.company.assembleegameclient.appengine.CharacterStats;
 import com.company.assembleegameclient.appengine.SavedCharacter;
-import com.company.assembleegameclient.objects.Player;
 import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.screens.events.DeleteCharacterEvent;
 import com.company.assembleegameclient.ui.tooltip.MyPlayerToolTip;
 import com.company.assembleegameclient.util.FameUtil;
 import com.company.assembleegameclient.util.TextureRedrawer;
 import com.company.rotmg.graphics.DeleteXGraphic;
-import com.gskinner.motion.GTween;
-import com.gskinner.motion.plugins.ColorAdjustPlugin;
 
 import flash.display.DisplayObject;
 import flash.display.Sprite;
@@ -19,33 +16,16 @@ import flash.events.MouseEvent;
 import kabam.rotmg.classes.model.CharacterClass;
 import kabam.rotmg.fortune.components.ItemWithTooltip;
 import kabam.rotmg.text.model.TextKey;
-import kabam.rotmg.text.view.TextFieldDisplayConcrete;
 import kabam.rotmg.text.view.stringBuilder.LineBuilder;
-import kabam.rotmg.text.view.stringBuilder.StaticStringBuilder;
 
 import org.osflash.signals.Signal;
 
 public class CurrentCharacterRect extends CharacterRect {
 
-    private static var toolTip_:MyPlayerToolTip = null;
-
     public const selected:Signal = new Signal();
     public const deleteCharacter:Signal = new Signal();
     public const showToolTip:Signal = new Signal(Sprite);
     public const hideTooltip:Signal = new Signal();
-
-    public var charName:String;
-    public var charStats:CharacterStats;
-    public var char:SavedCharacter;
-    public var myPlayerToolTipFactory:MyPlayerToolTipFactory;
-    private var charType:CharacterClass;
-    private var deleteButton:Sprite;
-    private var icon:DisplayObject;
-    private var newPetIcon:ItemWithTooltip;
-    private var samplePetIcons:Array = [0x4700, 0x4701, 0x4702, 0x4703, 0x4704, 0x4705, 0x4705, 0x4706, 0x4707];
-    protected var statsMaxedText:TextFieldDisplayConcrete;
-    protected var statsMaxedTextLabel:TextFieldDisplayConcrete;
-    protected var statsMaxedTextLabelSprite:Sprite;
 
     public function CurrentCharacterRect(_arg1:String, _arg2:CharacterClass, _arg3:SavedCharacter, _arg4:CharacterStats) {
         this.myPlayerToolTipFactory = new MyPlayerToolTipFactory();
@@ -67,23 +47,18 @@ public class CurrentCharacterRect extends CharacterRect {
         this.makeTaglineText();
         this.makeDeleteButton();
         this.makeNewPetIcon(_local7);
-        this.makeStatsMaxedText();
         this.addEventListeners();
     }
-
-    private function addEventListeners():void {
-        addEventListener(Event.REMOVED_FROM_STAGE, this.onRemovedFromStage);
-        selectContainer.addEventListener(MouseEvent.CLICK, this.onSelect);
-        this.deleteButton.addEventListener(MouseEvent.CLICK, this.onDelete);
-    }
-
-    private function onSelect(_arg1:MouseEvent):void {
-        this.selected.dispatch(this.char);
-    }
-
-    private function onDelete(_arg1:MouseEvent):void {
-        this.deleteCharacter.dispatch(this.char);
-    }
+    public var charName:String;
+    public var charStats:CharacterStats;
+    public var char:SavedCharacter;
+    public var myPlayerToolTipFactory:MyPlayerToolTipFactory;
+    private var toolTip_:MyPlayerToolTip = null;
+    private var charType:CharacterClass;
+    private var deleteButton:Sprite;
+    private var icon:DisplayObject;
+    private var newPetIcon:ItemWithTooltip;
+    private var samplePetIcons:Array = [0x4700, 0x4701, 0x4702, 0x4703, 0x4704, 0x4705, 0x4705, 0x4706, 0x4707];
 
     public function setIcon(_arg1:DisplayObject):void {
         ((this.icon) && (selectContainer.removeChild(this.icon)));
@@ -91,6 +66,12 @@ public class CurrentCharacterRect extends CharacterRect {
         this.icon.x = 4;
         this.icon.y = 4;
         ((this.icon) && (selectContainer.addChild(this.icon)));
+    }
+
+    private function addEventListeners():void {
+        addEventListener(Event.REMOVED_FROM_STAGE, this.onRemovedFromStage);
+        selectContainer.addEventListener(MouseEvent.CLICK, this.onSelect);
+        this.deleteButton.addEventListener(MouseEvent.CLICK, this.onDelete);
     }
 
     private function makeNewPetIcon(_arg1:int):void {
@@ -104,31 +85,11 @@ public class CurrentCharacterRect extends CharacterRect {
     }
 
     private function makeTaglineText():void {
-        if ((this.getNextStarFame() > 0) && (Player.accountType_ <= 1)) {
-            super.makeTagline(new LineBuilder().setParams(TextKey.CURRENT_CHARACTER_TAGLINE, {
-                "quest": (((this.charStats == null)) ? 0 : this.charStats.numStars())
-            }), new LineBuilder().setParams(TextKey.CURRENT_CHARACTER_TAGLINEFAME, {
-                "fame": Parameters.addComma(this.char.fame()),
-                "nextStarFame": Parameters.addComma(this.getNextStarFame())
-            }), new LineBuilder().setParams(TextKey.CURRENT_CHARACTER_TAGLINEEXP, {
-                "experience": Parameters.addComma(this.char.xp())
-            }));
-        } else {
-            super.makeTagline(new LineBuilder().setParams(TextKey.CURRENT_CHARACTER_TAGLINE, {
-                "quest": 5
-            }), new LineBuilder().setParams(TextKey.CURRENT_CHARACTER_TAGLINEFAME_NOQUEST, {
-                "fame": Parameters.addComma(this.char.fame())
-            }), new LineBuilder().setParams(TextKey.CURRENT_CHARACTER_TAGLINEEXP, {
-                "experience": Parameters.addComma(this.char.xp())
-            }), true);
-        }
-        taglineClassText.x = (taglineClassText.x + taglineClassIcon.width);
-        taglineFameText.x = (taglineFameText.x + taglineFameIcon.width);
+        super.makeTagline(
+            new LineBuilder().setParams(TextKey.CURRENT_CHARACTER_TAGLINEEXP, {
+            "experience": Parameters.addComma(this.char.xp())
+        }));
         taglineExpText.x = (taglineExpText.x + tagLineExpIcon.width);
-    }
-
-    private function getNextStarFame():int {
-        return (FameUtil.nextStarFame((((this.charStats == null)) ? 0 : this.charStats.bestFame()), this.char.fame()));
     }
 
     private function makeDeleteButton():void {
@@ -139,65 +100,16 @@ public class CurrentCharacterRect extends CharacterRect {
         addChild(this.deleteButton);
     }
 
-    private function makeStatsMaxedText():void {
-        var _local1:int = this.getMaxedStats();
-        var _local2:uint = 0xB3B3B3;
-        if (_local1 == 8)
-            _local2 = 0xFCDF00;
-        this.statsMaxedText = new TextFieldDisplayConcrete().setSize(14).setColor(0xFFFFFF);
-        this.statsMaxedText.setBold(true);
-        this.statsMaxedText.setColor(_local2);
-        this.statsMaxedText.setStringBuilder(new StaticStringBuilder((_local1 + "/8")));
-        this.statsMaxedText.filters = makeDropShadowFilter();
-        this.statsMaxedText.x = 10;
-        this.statsMaxedText.y = 40;
-        if (_local1 == 8) {
-            this.statsMaxedTextLabelSprite = new Sprite();
-            this.statsMaxedTextLabel = new TextFieldDisplayConcrete();
-            this.statsMaxedTextLabel.setSize(9).setColor(10092390).setBold(true);
-            this.statsMaxedTextLabel.setStringBuilder(new LineBuilder().setParams("MAX"));
-            this.statsMaxedTextLabel.filters = makeDropShadowFilter();
-            this.statsMaxedTextLabelSprite.addChild(this.statsMaxedTextLabel);
-            this.statsMaxedTextLabelSprite.x = (this.statsMaxedText.x + 24);
-            this.statsMaxedTextLabelSprite.y = (this.statsMaxedText.y - 2);
-            addChild(this.statsMaxedTextLabelSprite);
-            ColorAdjustPlugin.install();
-            new GTween(this.statsMaxedTextLabelSprite, 3, {contrast: 100}, {repeatCount: 0, reflect: true});
-        }
-        selectContainer.addChild(this.statsMaxedText);
-    }
-
-    private function getMaxedStats():int {
-        var _local1:int;
-        //Patch?
-        var weirdMaxDexterity:int = this.charType.hpRegeneration.max;
-        var weirdMaxVitality:int = this.charType.mpRegeneration.max;
-        var weirdMaxWisdom:int = this.charType.dexterity.max;
-        if (this.char.hp() == this.charType.hp.max)
-            _local1++;
-        if (this.char.mp() == this.charType.mp.max)
-            _local1++;
-        if (this.char.att() == this.charType.attack.max)
-            _local1++;
-        if (this.char.def() == this.charType.defense.max)
-            _local1++;
-        if (this.char.spd() == this.charType.speed.max)
-            _local1++;
-        if (this.char.dex() == weirdMaxDexterity)
-            _local1++;
-        if (this.char.vit() == weirdMaxVitality)
-            _local1++;
-        if (this.char.wis() == weirdMaxWisdom)
-            _local1++;
-        return (_local1);
+    private function removeToolTip():void {
+        this.hideTooltip.dispatch();
     }
 
     override protected function onMouseOver(_arg1:MouseEvent):void {
         super.onMouseOver(_arg1);
         this.removeToolTip();
-        toolTip_ = this.myPlayerToolTipFactory.create(this.charName, this.char.charXML_, this.charStats);
-        toolTip_.createUI();
-        this.showToolTip.dispatch(toolTip_);
+        this.toolTip_ = this.myPlayerToolTipFactory.create(this.charName, this.char.charXML_, this.charStats);
+        this.toolTip_.createUI();
+        this.showToolTip.dispatch(this.toolTip_);
     }
 
     override protected function onRollOut(_arg1:MouseEvent):void {
@@ -205,12 +117,16 @@ public class CurrentCharacterRect extends CharacterRect {
         this.removeToolTip();
     }
 
-    private function onRemovedFromStage(_arg1:Event):void {
-        this.removeToolTip();
+    private function onSelect(_arg1:MouseEvent):void {
+        this.selected.dispatch(this.char);
     }
 
-    private function removeToolTip():void {
-        this.hideTooltip.dispatch();
+    private function onDelete(_arg1:MouseEvent):void {
+        this.deleteCharacter.dispatch(this.char);
+    }
+
+    private function onRemovedFromStage(_arg1:Event):void {
+        this.removeToolTip();
     }
 
     private function onDeleteDown(_arg1:MouseEvent):void {

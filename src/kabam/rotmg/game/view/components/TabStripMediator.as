@@ -60,7 +60,7 @@ public class TabStripMediator extends Mediator {
         this.statsDocked.add(this.onStatsDocked);
         this.statsTabHotKeyInput.add(this.onTabHotkey);
         this.notifyActivePetUpdated.add(this.onNotifyActivePetUpdated);
-        this.view.initFriendList(this.imageFactory, this.iconButtonFactory, this.onFriendsBtnClicked);
+        //this.view.initFriendList(this.imageFactory, this.iconButtonFactory, this.onFriendsBtnClicked);
     }
 
     private function onStatsDocked():void {

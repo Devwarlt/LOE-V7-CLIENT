@@ -56,14 +56,14 @@ public class ClassesConfig implements IConfig {
         this.commandMap.map(ParseClassesXMLSignal).toCommand(ParseClassesXmlCommand);
         this.commandMap.map(ParseClassesXMLSignal).toCommand(ParseSkinsXmlCommand);
         this.commandMap.map(BuyCharacterSkinSignal).toCommand(BuyCharacterSkinCommand).withGuards(IsAccountRegisteredToBuyGoldGuard);
-        /*this.context.lifecycle.afterInitializing(this.init);*/
+        this.context.lifecycle.afterInitializing(this.init);
     }
 
-    /*private function init():void {
-        var _local1:XML = XML(new EmbeddedData.Players.Step());
+    private function init():void {
+        var _local1:XML = XML(new EmbeddedData.PlayersCXML());
         var _local2:ParseClassesXMLSignal = this.injector.getInstance(ParseClassesXMLSignal);
         _local2.dispatch(_local1);
-    }*/
+    }
 
 
 }
