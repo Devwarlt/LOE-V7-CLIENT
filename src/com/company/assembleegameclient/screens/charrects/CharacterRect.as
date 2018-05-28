@@ -92,47 +92,19 @@ public class CharacterRect extends Sprite {
         this.selectContainer.addChild(this.classNameText);
     }
 
-    protected function makeTagline(_arg1:StringBuilder, _arg2:StringBuilder = null, _arg3:StringBuilder = null, _arg4:Boolean = false):void {
-        this.taglineClassIcon = new StarGraphic();
-        this.taglineClassIcon.transform.colorTransform = _arg4 ? new ColorTransform((255 / 0xFF), (255 / 0xFF), (0 / 0xFF)) : new ColorTransform((179 / 0xFF), (179 / 0xFF), (179 / 0xFF));
-        this.taglineClassIcon.scaleX = 1.2;
-        this.taglineClassIcon.scaleY = 1.2;
-        this.taglineClassIcon.x = CharacterRectConstants.LABELS_REFERENCE_X;
-        this.taglineClassIcon.y = 24;
-        this.taglineClassIcon.filters = [new DropShadowFilter(0, 0, 0)];
-        this.selectContainer.addChild(this.taglineClassIcon);
-        this.taglineClassText = new TextFieldDisplayConcrete().setSize(14).setColor(_arg4 ? 0xFFFF00 : 0xB3B3B3);
-        this.taglineClassText.setStringBuilder(_arg1);
-        this.taglineClassText.filters = makeDropShadowFilter();
-        this.taglineClassText.x = CharacterRectConstants.LABELS_REFERENCE_X + 2;
-        this.taglineClassText.y = 24;
-        this.selectContainer.addChild(this.taglineClassText);
-        if (_arg2 != null) {
-            this.taglineFameIcon = new Bitmap(AssetLibrary.getImageFromSet("lofiInterfaceBig", 30));
-            this.taglineFameIcon.transform.colorTransform = new ColorTransform((179 / 0xFF), (179 / 0xFF), (179 / 0xFF));
-            this.taglineFameIcon.filters = [new DropShadowFilter(0, 0, 0)];
-            this.taglineFameIcon.x = CharacterRectConstants.LABELS_REFERENCE_X + 108;
-            this.taglineFameIcon.y = 24;
-            this.selectContainer.addChild(this.taglineFameIcon);
-            this.taglineFameText = new TextFieldDisplayConcrete().setSize(14).setColor(0xB3B3B3);
-            this.taglineFameText.setStringBuilder(_arg2);
-            this.taglineFameText.filters = makeDropShadowFilter();
-            this.taglineFameText.x = CharacterRectConstants.LABELS_REFERENCE_X + 2 + 108;
-            this.taglineFameText.y = 24;
-            this.selectContainer.addChild(this.taglineFameText);
-        }
-        if (_arg3 != null) {
+    protected function makeTagline(_arg1:StringBuilder = null):void {
+        if (_arg1 != null) {
             this.tagLineExpIcon = new Bitmap(AssetLibrary.getImageFromSet("lofiInterfaceBig", 15));
             this.tagLineExpIcon.transform.colorTransform = new ColorTransform((179 / 0xFF), (179 / 0xFF), (179 / 0xFF));
             this.tagLineExpIcon.filters = [new DropShadowFilter(0, 0, 0)];
             this.tagLineExpIcon.x = CharacterRectConstants.LABELS_REFERENCE_X - 1;
-            this.tagLineExpIcon.y = 40;
+            this.tagLineExpIcon.y = 30;
             this.selectContainer.addChild(this.tagLineExpIcon);
             this.taglineExpText = new TextFieldDisplayConcrete().setSize(14).setColor(0xB3B3B3);
-            this.taglineExpText.setStringBuilder(_arg3);
+            this.taglineExpText.setStringBuilder(_arg1);
             this.taglineExpText.filters = makeDropShadowFilter();
             this.taglineExpText.x = CharacterRectConstants.LABELS_REFERENCE_X + 1;
-            this.taglineExpText.y = 40;
+            this.taglineExpText.y = 30;
             this.selectContainer.addChild(this.taglineExpText);
         }
     }

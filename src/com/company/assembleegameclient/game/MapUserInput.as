@@ -297,7 +297,7 @@ public class MapUserInput {
             this.currentString = "";
             UIUtils.SHOW_EXPERIMENTAL_MENU = true;
             UIUtils.SHOW_EXPERIMENTAL_MENU_NOTIFICATION = true;
-            _local5.text = "Experimental menu activated as default.";
+            _local5.text = "Experimental menu activated by default.";
             _local4.dispatch(_local5);
         }
         switch (_arg1.keyCode) {
