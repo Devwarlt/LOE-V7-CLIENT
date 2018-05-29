@@ -5,7 +5,6 @@ import com.company.assembleegameclient.map.mapoverlay.CharacterStatusText;
 import com.company.assembleegameclient.objects.particles.HealingEffect;
 import com.company.assembleegameclient.objects.particles.LevelUpEffect;
 import com.company.assembleegameclient.parameters.Parameters;
-import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.sound.SoundEffectLibrary;
 import com.company.assembleegameclient.tutorial.Tutorial;
 import com.company.assembleegameclient.tutorial.doneAction;
@@ -68,14 +67,58 @@ public class Player extends Character {
     private static const MIN_ATTACK_MULT:Number = 0.5;
     private static const MAX_ATTACK_MULT:Number = 2;
     private static const LOW_HEALTH_CT_OFFSET:int = 128;
-
-    private static var lowHealthCT:Dictionary = new Dictionary();
     public static var empiresCoin_:int = 0;
     public static var accountType_:int = 0;
     public static var isAdmin:Boolean = false;
     public static var isMod:Boolean = false;
+    private static var lowHealthCT:Dictionary = new Dictionary();
     private static var newP:Point = new Point();
 
+    public static function fromPlayerXML(name:String, playerXML:XML):Player {
+        var _local3:int = int(playerXML.ObjectType);
+        var _local4:XML = ObjectLibrary.xmlLibrary_[_local3];
+        var _local5:Player = new Player(_local4);
+        _local5.name_ = name;
+        _local5.level_ = int(playerXML.Level);
+        _local5.exp_ = int(playerXML.Exp);
+        _local5.equipment_ = ConversionUtil.toIntVector(playerXML.Equipment);
+        _local5.calculateStatBoosts();
+        _local5.lockedSlot = new Vector.<int>(_local5.equipment_.length);
+        _local5.maxHP_ = (Parameters.parse(_local5.maxHPBoost_) + int(playerXML.MaxHitPoints));
+        _local5.hp_ = int(playerXML.HitPoints);
+        _local5.maxMP_ = (Parameters.parse(_local5.maxMPBoost_) + int(playerXML.MaxMagicPoints));
+        _local5.mp_ = int(playerXML.MagicPoints);
+        _local5.attack_ = (Parameters.parse(_local5.attackBoost_) + int(playerXML.Attack)).toString();
+        _local5.defense_ = (Parameters.parse(_local5.defenseBoost_) + int(playerXML.Defense)).toString();
+        _local5.speed_ = (Parameters.parse(_local5.speedBoost_) + int(playerXML.Speed)).toString();
+        _local5.dexterity_ = (Parameters.parse(_local5.vitalityBoost_) + int(playerXML.Dexterity)).toString();
+        _local5.vitality_ = (Parameters.parse(_local5.wisdomBoost_) + int(playerXML.HpRegen)).toString();
+        _local5.wisdom_ = (Parameters.parse(_local5.dexterityBoost_) + int(playerXML.MpRegen)).toString();
+        _local5.tex1Id_ = int(playerXML.Tex1);
+        _local5.tex2Id_ = int(playerXML.Tex2);
+        _local5.hasBackpack_ = int(playerXML.HasBackpack) != 0;
+        return (_local5);
+    }
+
+    public function Player(_arg1:XML) {
+        this.minAttackFrequency_ = 0.0015;
+        this.maxAttackFrequency_ = 0.008;
+        this.ip_ = new IntPoint();
+        var _local2:Injector = StaticInjectorContext.getInjector();
+        this.addTextLine = _local2.getInstance(AddTextLineSignal);
+        this.factory = _local2.getInstance(CharacterFactory);
+        super(_arg1);
+        this.attackMax_ = int(_arg1.Attack.@max);
+        this.defenseMax_ = int(_arg1.Defense.@max);
+        this.speedMax_ = int(_arg1.Speed.@max);
+        this.dexterityMax_ = int(_arg1.Dexterity.@max);
+        this.vitalityMax_ = int(_arg1.HpRegen.@max);
+        this.wisdomMax_ = int(_arg1.MpRegen.@max);
+        this.maxHPMax_ = int(_arg1.MaxHitPoints.@max);
+        this.maxMPMax_ = int(_arg1.MaxMagicPoints.@max);
+        texturingCache_ = new Dictionary();
+        this.slideVec_ = new Vector3D();
+    }
     public var petObjectId:int = 0;
     public var petHpHealingAverageMin:int = 0;
     public var petHpHealingAverageMax:int = 0;
@@ -87,7 +130,6 @@ public class Player extends Character {
     public var petAttackChance:int = 0;
     public var petAttackDamageMin:int = 0;
     public var petAttackDamageMax:int = 0;
-
     public var isTrading:Boolean = false;
     public var xpTimer:int;
     public var skinId:int;
@@ -139,9 +181,6 @@ public class Player extends Character {
     public var starred_:Boolean = false;
     public var ignored_:Boolean = false;
     public var distSqFromThisPlayer_:Number = 0;
-    protected var rotate_:Number = 0;
-    protected var relMoveVec_:Point = null;
-    protected var moveMultiplier_:Number = 1;
     public var attackPeriod_:Number = 0;
     public var attackAmount_:int = 0;
     public var isDazed_:Boolean = false;
@@ -153,11 +192,14 @@ public class Player extends Character {
     public var nextTeleportAt_:int = 0;
     public var dropBoost:int = 0;
     public var tierBoost:int = 0;
-    protected var healingEffect_:HealingEffect = null;
-    protected var nearestMerchant_:Merchant = null;
     public var isDefaultAnimatedChar:Boolean = true;
     public var projectileIdSetOverrideNew:String = "";
     public var projectileIdSetOverrideOld:String = "";
+    protected var rotate_:Number = 0;
+    protected var relMoveVec_:Point = null;
+    protected var moveMultiplier_:Number = 1;
+    protected var healingEffect_:HealingEffect = null;
+    protected var nearestMerchant_:Merchant = null;
     private var addTextLine:AddTextLineSignal;
     private var factory:CharacterFactory;
     private var ip_:IntPoint;
@@ -168,50 +210,246 @@ public class Player extends Character {
     private var hallucinatingMaskedImage_:MaskedImage = null;
     private var slideVec_:Vector3D;
 
-    public function Player(_arg1:XML) {
-        this.minAttackFrequency_ = 0.0015;
-        this.maxAttackFrequency_ = 0.008;
-        this.ip_ = new IntPoint();
-        var _local2:Injector = StaticInjectorContext.getInjector();
-        this.addTextLine = _local2.getInstance(AddTextLineSignal);
-        this.factory = _local2.getInstance(CharacterFactory);
-        super(_arg1);
-        this.attackMax_ = int(_arg1.Attack.@max);
-        this.defenseMax_ = int(_arg1.Defense.@max);
-        this.speedMax_ = int(_arg1.Speed.@max);
-        this.dexterityMax_ = int(_arg1.Dexterity.@max);
-        this.vitalityMax_ = int(_arg1.HpRegen.@max);
-        this.wisdomMax_ = int(_arg1.MpRegen.@max);
-        this.maxHPMax_ = int(_arg1.MaxHitPoints.@max);
-        this.maxMPMax_ = int(_arg1.MaxMagicPoints.@max);
-        texturingCache_ = new Dictionary();
-        this.slideVec_ = new Vector3D();
+    override public function moveTo(_arg1:Number, _arg2:Number):Boolean {
+        var _local3:Boolean = super.moveTo(_arg1, _arg2);
+        if (map_.gs_.evalIsNotInCombatMapArea()) {
+            this.nearestMerchant_ = this.getNearbyMerchant();
+        }
+        return (_local3);
     }
 
-    public static function fromPlayerXML(name:String, playerXML:XML):Player {
-        var _local3:int = int(playerXML.ObjectType);
-        var _local4:XML = ObjectLibrary.xmlLibrary_[_local3];
-        var _local5:Player = new Player(_local4);
-        _local5.name_ = name;
-        _local5.level_ = int(playerXML.Level);
-        _local5.exp_ = int(playerXML.Exp);
-        _local5.equipment_ = ConversionUtil.toIntVector(playerXML.Equipment);
-        _local5.calculateStatBoosts();
-        _local5.lockedSlot = new Vector.<int>(_local5.equipment_.length);
-        _local5.maxHP_ = (Parameters.parse(_local5.maxHPBoost_) + int(playerXML.MaxHitPoints));
-        _local5.hp_ = int(playerXML.HitPoints);
-        _local5.maxMP_ = (Parameters.parse(_local5.maxMPBoost_) + int(playerXML.MaxMagicPoints));
-        _local5.mp_ = int(playerXML.MagicPoints);
-        _local5.attack_ = (Parameters.parse(_local5.attackBoost_) + int(playerXML.Attack)).toString();
-        _local5.defense_ = (Parameters.parse(_local5.defenseBoost_) + int(playerXML.Defense)).toString();
-        _local5.speed_ = (Parameters.parse(_local5.speedBoost_) + int(playerXML.Speed)).toString();
-        _local5.dexterity_ = (Parameters.parse(_local5.vitalityBoost_) + int(playerXML.Dexterity)).toString();
-        _local5.vitality_ = (Parameters.parse(_local5.wisdomBoost_) + int(playerXML.HpRegen)).toString();
-        _local5.wisdom_ = (Parameters.parse(_local5.dexterityBoost_) + int(playerXML.MpRegen)).toString();
-        _local5.tex1Id_ = int(playerXML.Tex1);
-        _local5.tex2Id_ = int(playerXML.Tex2);
-        _local5.hasBackpack_ = int(playerXML.HasBackpack) != 0;
-        return (_local5);
+    override public function update(currentTime:int, deltaMS:int):Boolean {
+        if (this.tierBoost && !isPaused()) {
+            this.tierBoost = this.tierBoost - deltaMS;
+            if (this.tierBoost < 0) {
+                this.tierBoost = 0;
+            }
+        }
+        if (this.dropBoost && !isPaused()) {
+            this.dropBoost = this.dropBoost - deltaMS;
+            if (this.dropBoost < 0) {
+                this.dropBoost = 0;
+            }
+        }
+        if (this.xpTimer && !isPaused()) {
+            this.xpTimer = this.xpTimer - deltaMS;
+            if (this.xpTimer < 0) {
+                this.xpTimer = 0;
+            }
+        }
+
+        if (isHealing() && !isPaused()) {
+            if (this.healingEffect_ == null) {
+                this.healingEffect_ = new HealingEffect(this);
+                map_.addObj(this.healingEffect_, x_, y_);
+            }
+        }
+        else {
+            if (this.healingEffect_ != null) {
+                map_.removeObj(this.healingEffect_.objectId_);
+                this.healingEffect_ = null;
+            }
+        }
+
+        var angle:Number = Parameters.data_.cameraAngle;
+        if (this.rotate_ != 0) {
+            angle = angle + deltaMS * Parameters.PLAYER_ROTATE_SPEED * this.rotate_;
+            Parameters.data_.cameraAngle = angle;
+        }
+
+        if (map_.player_ == this && isPaused()) {
+            return true;
+        }
+
+        if (this.relMoveVec_ != null) {
+            if (this.relMoveVec_.x != 0 || this.relMoveVec_.y != 0) {
+                var mvSpd:Number = this.getMoveSpeed();
+                var mvAngle:Number = Math.atan2(this.relMoveVec_.y, this.relMoveVec_.x);
+                if (square_.props_.slideAmount_ > 0) {
+                    slideVec_.x = mvSpd * Math.cos(angle + mvAngle);
+                    slideVec_.y = mvSpd * Math.sin(angle + mvAngle);
+                    slideVec_.z = 0;
+                    moveVec_.scaleBy(square_.props_.slideAmount_);
+                    if (moveVec_.length < slideVec_.length) {
+                        slideVec_.scaleBy(1 - square_.props_.slideAmount_);
+                        moveVec_ = moveVec_.add(slideVec_);
+                    }
+                }
+                else {
+                    moveVec_.x = mvSpd * Math.cos(angle + mvAngle);
+                    moveVec_.y = mvSpd * Math.sin(angle + mvAngle);
+                }
+            }
+            else {
+                if (moveVec_.length > 0.00012 && square_.props_.slideAmount_ > 0) {
+                    moveVec_.scaleBy(square_.props_.slideAmount_);
+                }
+                else {
+                    moveVec_.x = 0;
+                    moveVec_.y = 0;
+                }
+            }
+            if (square_ != null && square_.props_.push_) {
+                moveVec_.x = moveVec_.x - square_.props_.animate_.dx_ / 1000;
+                moveVec_.y = moveVec_.y - square_.props_.animate_.dy_ / 1000;
+            }
+            this.walkTo(x_ + deltaMS * moveVec_.x, y_ + deltaMS * moveVec_.y);
+        }
+        else {
+            if (!super.update(currentTime, deltaMS)) {
+                return false;
+            }
+        }
+        if (map_.player_ == this &&
+                square_.props_.maxDamage_ > 0 &&
+                (square_.lastDamage_ + 500) < currentTime &&
+                !isInvincible() &&
+                (square_.obj_ == null || !square_.obj_.props_.protectFromGroundDamage_)) {
+            var dmg:int = map_.gs_.gsc_.getNextDamage(square_.props_.minDamage_, square_.props_.maxDamage_);
+            var conditionEffects:Vector.<uint> = new Vector.<uint>();
+            conditionEffects.push(ConditionEffect.GROUND_DAMAGE);
+            damage(-1, dmg, conditionEffects, hp_ <= dmg, null);
+            map_.gs_.gsc_.groundDamage(currentTime, x_, y_);
+            square_.lastDamage_ = currentTime;
+        }
+        return true;
+    }
+
+    override protected function makeNameBitmapData():BitmapData {
+        var _local1:StringBuilder = new StaticStringBuilder(name_);
+        var _local2:BitmapTextFactory = StaticInjectorContext.getInjector().getInstance(BitmapTextFactory);
+        var _local3:BitmapData = _local2.make(_local1, 16, this.getNameColor(), true, NAME_OFFSET_MATRIX, true);
+        _local3.draw(FameUtil.numStarsToIcon(this.numStars_), RANK_OFFSET_MATRIX);
+        return (_local3);
+    }
+
+    override public function draw(_arg1:Vector.<IGraphicsData>, _arg2:Camera, _arg3:int):void {
+        super.draw(_arg1, _arg2, _arg3);
+        if (this != map_.player_) {
+            if (!Parameters.screenShotMode_) {
+                drawName(_arg1, _arg2);
+            }
+        }
+        else {
+            if (this.breath_ >= 0) {
+                this.drawBreathBar(_arg1, _arg3);
+            }
+        }
+    }
+
+    override protected function getTexture(camera:Camera, currentTime:int):BitmapData {
+        var pos:Number = 0;
+        var action:int = AnimatedChar.STAND;
+
+        if (this.isShooting || currentTime < (attackStart_ + this.attackPeriod_)) {
+            facing_ = attackAngle_;
+            pos = ((currentTime - attackStart_) % this.attackPeriod_) / this.attackPeriod_;
+            action = AnimatedChar.ATTACK;
+        }
+        else {
+            if (moveVec_.x != 0 || moveVec_.y != 0) {
+                var movPeriod:int = 3.5 / this.getMoveSpeed();
+                if (moveVec_.y != 0 || moveVec_.x != 0) {
+                    facing_ = Math.atan2(moveVec_.y, moveVec_.x);
+                }
+                pos = (currentTime % movPeriod) / movPeriod;
+                action = AnimatedChar.WALK;
+            }
+        }
+
+        if (this.isHexed()) {
+            this.isDefaultAnimatedChar && this.setToRandomAnimatedCharacter();
+        }
+        else {
+            if (!this.isDefaultAnimatedChar) {
+                this.makeSkinTexture();
+            }
+        }
+
+        var maskImg:MaskedImage;
+        if (camera.isHallucinating_) {
+            maskImg = getHallucinatingMaskedImage();
+        }
+        else {
+            maskImg = animatedChar_.imageFromFacing(facing_, camera, action, pos);
+        }
+
+        var tex1Id:int = tex1Id_;
+        var tex2Id:int = tex2Id_;
+        var tex:BitmapData;
+        if (this.nearestMerchant_) {
+            var merchDict:Dictionary = texturingCache_[this.nearestMerchant_];
+            if (merchDict == null) {
+                texturingCache_[this.nearestMerchant_] = new Dictionary();
+            }
+            else {
+                tex = merchDict[maskImg];
+            }
+            tex1Id = this.nearestMerchant_.getTex1Id(tex1Id_);
+            tex2Id = this.nearestMerchant_.getTex2Id(tex2Id_);
+        }
+        else {
+            tex = texturingCache_[maskImg];
+        }
+        if (tex == null) {
+            tex = TextureRedrawer.resize(maskImg.image_, maskImg.mask_, size_, false, tex1Id, tex2Id);
+            if (this.nearestMerchant_ != null) {
+                texturingCache_[this.nearestMerchant_][maskImg] = tex;
+            }
+            else {
+                texturingCache_[maskImg] = tex;
+            }
+        }
+
+        if (hp_ < maxHP_ * 0.2) {
+            var intensity:Number = int(Math.abs(Math.sin(currentTime / 200)) * 10) / 10;
+            var ct:ColorTransform = lowHealthCT[intensity];
+            if (ct == null) {
+                ct = new ColorTransform(1, 1, 1, 1,
+                        intensity * LOW_HEALTH_CT_OFFSET,
+                        -intensity * LOW_HEALTH_CT_OFFSET,
+                        -intensity * LOW_HEALTH_CT_OFFSET);
+                lowHealthCT[intensity] = ct;
+            }
+            tex = CachingColorTransformer.transformBitmapData(tex, ct);
+        }
+
+        var plrTex:BitmapData = texturingCache_[tex];
+        if (plrTex == null) {
+            plrTex = GlowRedrawer.outlineGlow(tex, this.glowColor_);
+            texturingCache_[tex] = plrTex;
+        }
+        if (isPaused() || isStasis() || isPetrified()) {
+            plrTex = CachingColorTransformer.filterBitmapData(plrTex, PAUSED_FILTER);
+        }
+        else {
+            if (isInvisible()) {
+                plrTex = CachingColorTransformer.alphaBitmapData(plrTex, 40);
+            }
+        }
+        return plrTex;
+    }
+
+    override public function getPortrait():BitmapData {
+        var _local1:MaskedImage;
+        var _local2:int;
+        if (portrait_ == null) {
+            _local1 = animatedChar_.imageFromDir(AnimatedChar.RIGHT, AnimatedChar.STAND, 0);
+            _local2 = ((4 / _local1.image_.width) * 100);
+            portrait_ = TextureRedrawer.resize(_local1.image_, _local1.mask_, _local2, true, tex1Id_, tex2Id_);
+            portrait_ = GlowRedrawer.outlineGlow(portrait_, 0);
+        }
+        return (portrait_);
+    }
+
+    override public function setAttack(_arg1:int, _arg2:Number):void {
+        var _local3:XML = ObjectLibrary.xmlLibrary_[_arg1];
+        if ((((_local3 == null)) || (!(_local3.hasOwnProperty(TextKey.RATEOFFIRE))))) {
+            return;
+        }
+        var _local4:Number = Number(_local3.RateOfFire);
+        this.attackPeriod_ = ((NumberKey.RATEOFFIREVALUE / this.attackFrequency()) * (NumberKey.RATEOFFIREVALUE / _local4));
+        super.setAttack(_arg1, _arg2);
     }
 
     public function calculateStatBoosts():void {
@@ -354,10 +592,6 @@ public class Player extends Character {
         return (true);
     }
 
-    private function makeErrorMessage(_arg1:String, _arg2:Object = null):ChatMessage {
-        return (ChatMessage.make(Parameters.ERROR_CHAT_NAME, _arg1, -1, -1, "", false, _arg2));
-    }
-
     public function levelUpEffect(_arg1:String, _arg2:Boolean = true):void {
         if (_arg2) {
             this.levelUpParticleEffect();
@@ -366,15 +600,9 @@ public class Player extends Character {
         map_.mapOverlay_.addQueuedText(_local3);
     }
 
-    public function handleLevelUp(_arg1:Boolean):void {
+    public function handleLevelUp():void {
         SoundEffectLibrary.play("level_up");
-        if (_arg1) {
-            this.levelUpEffect(TextKey.PLAYER_NEWCLASSUNLOCKED, false);
-            this.levelUpEffect(TextKey.PLAYER_LEVELUP);
-        }
-        else {
-            this.levelUpEffect(TextKey.PLAYER_LEVELUP);
-        }
+        this.levelUpEffect(TextKey.PLAYER_LEVELUP);
     }
 
     public function levelUpParticleEffect(_arg1:uint = 0xFF00FF00):void {
@@ -382,41 +610,14 @@ public class Player extends Character {
     }
 
     public function handleExpUp(_arg1:int):void {
-        if (level_ == 20) {
-            return;
-        }
         var _local2:CharacterStatusText = new CharacterStatusText(this, 0xFF00, 1000);
         _local2.setStringBuilder(new LineBuilder().setParams(TextKey.PLAYER_EXP, {"exp": _arg1}));
         map_.mapOverlay_.addStatusText(_local2);
     }
 
-    private function getNearbyMerchant():Merchant {
-        var _local3:Point;
-        var _local4:Merchant;
-        var _local1:int = ((((x_ - int(x_))) > 0.5) ? 1 : -1);
-        var _local2:int = ((((y_ - int(y_))) > 0.5) ? 1 : -1);
-        for each (_local3 in NEARBY) {
-            this.ip_.x_ = (x_ + (_local1 * _local3.x));
-            this.ip_.y_ = (y_ + (_local2 * _local3.y));
-            _local4 = map_.merchLookup_[this.ip_];
-            if (_local4 != null) {
-                return ((((PointUtil.distanceSquaredXY(_local4.x_, _local4.y_, x_, y_) < 1)) ? _local4 : null));
-            }
-        }
-        return (null);
-    }
-
     public function walkTo(_arg1:Number, _arg2:Number):Boolean {
         this.modifyMove(_arg1, _arg2, newP);
         return (this.moveTo(newP.x, newP.y));
-    }
-
-    override public function moveTo(_arg1:Number, _arg2:Number):Boolean {
-        var _local3:Boolean = super.moveTo(_arg1, _arg2);
-        if (map_.gs_.evalIsNotInCombatMapArea()) {
-            this.nearestMerchant_ = this.getNearbyMerchant();
-        }
-        return (_local3);
     }
 
     public function modifyMove(_arg1:Number, _arg2:Number, _arg3:Point):void {
@@ -514,16 +715,6 @@ public class Player extends Character {
         _arg3.y = _local7;
     }
 
-    private function resetMoveVector(_arg1:Boolean):void {
-        moveVec_.scaleBy(-0.5);
-        if (_arg1) {
-            moveVec_.y = (moveVec_.y * -1);
-        }
-        else {
-            moveVec_.x = (moveVec_.x * -1);
-        }
-    }
-
     public function isValidPosition(_arg1:Number, _arg2:Number):Boolean {
         var _local3:Square = map_.getSquare(_arg1, _arg2);
         if (((!((square_ == _local3))) && ((((_local3 == null)) || (!(_local3.isWalkable())))))) {
@@ -589,103 +780,6 @@ public class Player extends Character {
         return ((((((_local3 == null)) || ((_local3.tileType_ == 0xFF)))) || (((!((_local3.obj_ == null))) && (_local3.obj_.props_.fullOccupy_)))));
     }
 
-    override public function update(currentTime:int, deltaMS:int):Boolean {
-        if (this.tierBoost && !isPaused()) {
-            this.tierBoost = this.tierBoost - deltaMS;
-            if (this.tierBoost < 0) {
-                this.tierBoost = 0;
-            }
-        }
-        if (this.dropBoost && !isPaused()) {
-            this.dropBoost = this.dropBoost - deltaMS;
-            if (this.dropBoost < 0) {
-                this.dropBoost = 0;
-            }
-        }
-        if (this.xpTimer && !isPaused()) {
-            this.xpTimer = this.xpTimer - deltaMS;
-            if (this.xpTimer < 0) {
-                this.xpTimer = 0;
-            }
-        }
-
-        if (isHealing() && !isPaused()) {
-            if (this.healingEffect_ == null) {
-                this.healingEffect_ = new HealingEffect(this);
-                map_.addObj(this.healingEffect_, x_, y_);
-            }
-        }
-        else {
-            if (this.healingEffect_ != null) {
-                map_.removeObj(this.healingEffect_.objectId_);
-                this.healingEffect_ = null;
-            }
-        }
-
-        var angle:Number = Parameters.data_.cameraAngle;
-        if (this.rotate_ != 0) {
-            angle = angle + deltaMS * Parameters.PLAYER_ROTATE_SPEED * this.rotate_;
-            Parameters.data_.cameraAngle = angle;
-        }
-
-        if (map_.player_ == this && isPaused()) {
-            return true;
-        }
-
-        if (this.relMoveVec_ != null) {
-            if (this.relMoveVec_.x != 0 || this.relMoveVec_.y != 0) {
-                var mvSpd:Number = this.getMoveSpeed();
-                var mvAngle:Number = Math.atan2(this.relMoveVec_.y, this.relMoveVec_.x);
-                if (square_.props_.slideAmount_ > 0) {
-                    slideVec_.x = mvSpd * Math.cos(angle + mvAngle);
-                    slideVec_.y = mvSpd * Math.sin(angle + mvAngle);
-                    slideVec_.z = 0;
-                    moveVec_.scaleBy(square_.props_.slideAmount_);
-                    if (moveVec_.length < slideVec_.length) {
-                        slideVec_.scaleBy(1 - square_.props_.slideAmount_);
-                        moveVec_ = moveVec_.add(slideVec_);
-                    }
-                }
-                else {
-                    moveVec_.x = mvSpd * Math.cos(angle + mvAngle);
-                    moveVec_.y = mvSpd * Math.sin(angle + mvAngle);
-                }
-            }
-            else {
-                if (moveVec_.length > 0.00012 && square_.props_.slideAmount_ > 0) {
-                    moveVec_.scaleBy(square_.props_.slideAmount_);
-                }
-                else {
-                    moveVec_.x = 0;
-                    moveVec_.y = 0;
-                }
-            }
-            if (square_ != null && square_.props_.push_) {
-                moveVec_.x = moveVec_.x - square_.props_.animate_.dx_ / 1000;
-                moveVec_.y = moveVec_.y - square_.props_.animate_.dy_ / 1000;
-            }
-            this.walkTo(x_ + deltaMS * moveVec_.x, y_ + deltaMS * moveVec_.y);
-        }
-        else {
-            if (!super.update(currentTime, deltaMS)) {
-                return false;
-            }
-        }
-        if (map_.player_ == this &&
-                square_.props_.maxDamage_ > 0 &&
-                (square_.lastDamage_ + 500) < currentTime &&
-                !isInvincible() &&
-                (square_.obj_ == null || !square_.obj_.props_.protectFromGroundDamage_)) {
-            var dmg:int = map_.gs_.gsc_.getNextDamage(square_.props_.minDamage_, square_.props_.maxDamage_);
-            var conditionEffects:Vector.<uint> = new Vector.<uint>();
-            conditionEffects.push(ConditionEffect.GROUND_DAMAGE);
-            damage(-1, dmg, conditionEffects, hp_ <= dmg, null);
-            map_.gs_.gsc_.groundDamage(currentTime, x_, y_);
-            square_.lastDamage_ = currentTime;
-        }
-        return true;
-    }
-
     public function onMove():void {
         if (map_ == null) {
             return;
@@ -701,88 +795,6 @@ public class Player extends Character {
         }
     }
 
-    override protected function makeNameBitmapData():BitmapData {
-        var _local1:StringBuilder = new StaticStringBuilder(name_);
-        var _local2:BitmapTextFactory = StaticInjectorContext.getInjector().getInstance(BitmapTextFactory);
-        var _local3:BitmapData = _local2.make(_local1, 16, this.getNameColor(), true, NAME_OFFSET_MATRIX, true);
-        _local3.draw(FameUtil.numStarsToIcon(this.numStars_), RANK_OFFSET_MATRIX);
-        return (_local3);
-    }
-
-    private function getNameColor():uint {
-        if (this.isFellowGuild_) {
-            return (Parameters.FELLOW_GUILD_COLOR);
-        }
-        if (this.nameChosen_) {
-            return (Parameters.NAME_CHOSEN_COLOR);
-        }
-        return (0xFFFFFF);
-    }
-
-    protected function drawBreathBar(_arg1:Vector.<IGraphicsData>, _arg2:int):void {
-        var _local7:Number;
-        var _local8:Number;
-        if (this.breathPath_ == null) {
-            this.breathBackFill_ = new GraphicsSolidFill();
-            this.breathBackPath_ = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector.<Number>());
-            this.breathFill_ = new GraphicsSolidFill(2542335);
-            this.breathPath_ = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector.<Number>());
-        }
-        if (this.breath_ <= Parameters.BREATH_THRESH) {
-            _local7 = ((Parameters.BREATH_THRESH - this.breath_) / Parameters.BREATH_THRESH);
-            this.breathBackFill_.color = MoreColorUtil.lerpColor(0x545454, 0xFF0000, (Math.abs(Math.sin((_arg2 / 300))) * _local7));
-        }
-        else {
-            this.breathBackFill_.color = 0x545454;
-        }
-        var _local3:int = 20;
-        var _local4:int = 8;
-        var _local5:int = 6;
-        var _local6:Vector.<Number> = (this.breathBackPath_.data as Vector.<Number>);
-        _local6.length = 0;
-        _local6.push((posS_[0] - _local3), (posS_[1] + _local4), (posS_[0] + _local3), (posS_[1] + _local4), (posS_[0] + _local3), ((posS_[1] + _local4) + _local5), (posS_[0] - _local3), ((posS_[1] + _local4) + _local5));
-        _arg1.push(this.breathBackFill_);
-        _arg1.push(this.breathBackPath_);
-        _arg1.push(GraphicsUtil.END_FILL);
-        if (this.breath_ > 0) {
-            _local8 = (((this.breath_ / 100) * 2) * _local3);
-            this.breathPath_.data.length = 0;
-            _local6 = (this.breathPath_.data as Vector.<Number>);
-            _local6.length = 0;
-            _local6.push((posS_[0] - _local3), (posS_[1] + _local4), ((posS_[0] - _local3) + _local8), (posS_[1] + _local4), ((posS_[0] - _local3) + _local8), ((posS_[1] + _local4) + _local5), (posS_[0] - _local3), ((posS_[1] + _local4) + _local5));
-            _arg1.push(this.breathFill_);
-            _arg1.push(this.breathPath_);
-            _arg1.push(GraphicsUtil.END_FILL);
-        }
-        GraphicsFillExtra.setSoftwareDrawSolid(this.breathFill_, true);
-        GraphicsFillExtra.setSoftwareDrawSolid(this.breathBackFill_, true);
-    }
-
-    override public function draw(_arg1:Vector.<IGraphicsData>, _arg2:Camera, _arg3:int):void {
-        super.draw(_arg1, _arg2, _arg3);
-        if (this != map_.player_) {
-            if (!Parameters.screenShotMode_) {
-                drawName(_arg1, _arg2);
-            }
-        }
-        else {
-            if (this.breath_ >= 0) {
-                this.drawBreathBar(_arg1, _arg3);
-            }
-        }
-    }
-
-    private function getMoveSpeed():Number {
-        if (isSlowed()) {
-            return ((MIN_MOVE_SPEED * this.moveMultiplier_));
-        }
-        var _local1:Number = (MIN_MOVE_SPEED + ((Parameters.parse(this.speed_) / 75) * (MAX_MOVE_SPEED - MIN_MOVE_SPEED)));
-        if (((isSpeedy()) || (isNinjaSpeedy()))) {
-            _local1 = (_local1 * 1.5);
-        }
-        return ((_local1 * this.moveMultiplier_));
-    }
-
     public function attackFrequency():Number {
         this.isDazed_ = isDazed();
         this.isBerserk_ = isBerserk();
@@ -796,148 +808,6 @@ public class Player extends Character {
             _rateOfFire *= 1.5;
 
         return (_rateOfFire);
-    }
-
-    private function attackMultiplier():Number {
-        if (isWeak()) {
-            return (MIN_ATTACK_MULT);
-        }
-        var _local1:Number = (MIN_ATTACK_MULT + ((Parameters.parse(this.attack_) / 75) * (MAX_ATTACK_MULT - MIN_ATTACK_MULT)));
-        if (isDamaging()) {
-            _local1 = (_local1 * 1.5);
-        }
-        return (_local1);
-    }
-
-    private function makeSkinTexture():void {
-        var _local1:MaskedImage = this.skin.imageFromAngle(0, AnimatedChar.STAND, 0);
-        animatedChar_ = this.skin;
-        texture_ = _local1.image_;
-        mask_ = _local1.mask_;
-        this.isDefaultAnimatedChar = true;
-    }
-
-    private function setToRandomAnimatedCharacter():void {
-        var _local1:Vector.<XML> = ObjectLibrary.hexTransforms_;
-        var _local2:uint = Math.floor((Math.random() * _local1.length));
-        var _local3:int = _local1[_local2].@type;
-        var _local4:TextureData = ObjectLibrary.typeToTextureData_[_local3];
-        texture_ = _local4.texture_;
-        mask_ = _local4.mask_;
-        animatedChar_ = _local4.animatedChar_;
-        this.isDefaultAnimatedChar = false;
-    }
-
-    override protected function getTexture(camera:Camera, currentTime:int):BitmapData {
-        var pos:Number = 0;
-        var action:int = AnimatedChar.STAND;
-
-        if (this.isShooting || currentTime < (attackStart_ + this.attackPeriod_)) {
-            facing_ = attackAngle_;
-            pos = ((currentTime - attackStart_) % this.attackPeriod_) / this.attackPeriod_;
-            action = AnimatedChar.ATTACK;
-        }
-        else {
-            if (moveVec_.x != 0 || moveVec_.y != 0) {
-                var movPeriod:int = 3.5 / this.getMoveSpeed();
-                if (moveVec_.y != 0 || moveVec_.x != 0) {
-                    facing_ = Math.atan2(moveVec_.y, moveVec_.x);
-                }
-                pos = (currentTime % movPeriod) / movPeriod;
-                action = AnimatedChar.WALK;
-            }
-        }
-
-        if (this.isHexed()) {
-            this.isDefaultAnimatedChar && this.setToRandomAnimatedCharacter();
-        }
-        else {
-            if (!this.isDefaultAnimatedChar) {
-                this.makeSkinTexture();
-            }
-        }
-
-        var maskImg:MaskedImage;
-        if (camera.isHallucinating_) {
-            maskImg = getHallucinatingMaskedImage();
-        }
-        else {
-            maskImg = animatedChar_.imageFromFacing(facing_, camera, action, pos);
-        }
-
-        var tex1Id:int = tex1Id_;
-        var tex2Id:int = tex2Id_;
-        var tex:BitmapData;
-        if (this.nearestMerchant_) {
-            var merchDict:Dictionary = texturingCache_[this.nearestMerchant_];
-            if (merchDict == null) {
-                texturingCache_[this.nearestMerchant_] = new Dictionary();
-            }
-            else {
-                tex = merchDict[maskImg];
-            }
-            tex1Id = this.nearestMerchant_.getTex1Id(tex1Id_);
-            tex2Id = this.nearestMerchant_.getTex2Id(tex2Id_);
-        }
-        else {
-            tex = texturingCache_[maskImg];
-        }
-        if (tex == null) {
-            tex = TextureRedrawer.resize(maskImg.image_, maskImg.mask_, size_, false, tex1Id, tex2Id);
-            if (this.nearestMerchant_ != null) {
-                texturingCache_[this.nearestMerchant_][maskImg] = tex;
-            }
-            else {
-                texturingCache_[maskImg] = tex;
-            }
-        }
-
-        if (hp_ < maxHP_ * 0.2) {
-            var intensity:Number = int(Math.abs(Math.sin(currentTime / 200)) * 10) / 10;
-            var ct:ColorTransform = lowHealthCT[intensity];
-            if (ct == null) {
-                ct = new ColorTransform(1, 1, 1, 1,
-                        intensity * LOW_HEALTH_CT_OFFSET,
-                        -intensity * LOW_HEALTH_CT_OFFSET,
-                        -intensity * LOW_HEALTH_CT_OFFSET);
-                lowHealthCT[intensity] = ct;
-            }
-            tex = CachingColorTransformer.transformBitmapData(tex, ct);
-        }
-
-        var plrTex:BitmapData = texturingCache_[tex];
-        if (plrTex == null) {
-            plrTex = GlowRedrawer.outlineGlow(tex, this.glowColor_);
-            texturingCache_[tex] = plrTex;
-        }
-        if (isPaused() || isStasis() || isPetrified()) {
-            plrTex = CachingColorTransformer.filterBitmapData(plrTex, PAUSED_FILTER);
-        }
-        else {
-            if (isInvisible()) {
-                plrTex = CachingColorTransformer.alphaBitmapData(plrTex, 40);
-            }
-        }
-        return plrTex;
-    }
-
-    private function getHallucinatingMaskedImage():MaskedImage {
-        if (hallucinatingMaskedImage_ == null) {
-            hallucinatingMaskedImage_ = new MaskedImage(getHallucinatingTexture(), null);
-        }
-        return hallucinatingMaskedImage_;
-    }
-
-    override public function getPortrait():BitmapData {
-        var _local1:MaskedImage;
-        var _local2:int;
-        if (portrait_ == null) {
-            _local1 = animatedChar_.imageFromDir(AnimatedChar.RIGHT, AnimatedChar.STAND, 0);
-            _local2 = ((4 / _local1.image_.width) * 100);
-            portrait_ = TextureRedrawer.resize(_local1.image_, _local1.mask_, _local2, true, tex1Id_, tex2Id_);
-            portrait_ = GlowRedrawer.outlineGlow(portrait_, 0);
-        }
-        return (portrait_);
     }
 
     public function useAltWeapon(_arg1:Number, _arg2:Number, _arg3:int):Boolean {
@@ -1010,81 +880,6 @@ public class Player extends Character {
 
     public function attemptAttackAngle(_arg1:Number):void {
         this.shoot((Parameters.data_.cameraAngle + _arg1));
-    }
-
-    override public function setAttack(_arg1:int, _arg2:Number):void {
-        var _local3:XML = ObjectLibrary.xmlLibrary_[_arg1];
-        if ((((_local3 == null)) || (!(_local3.hasOwnProperty(TextKey.RATEOFFIRE))))) {
-            return;
-        }
-        var _local4:Number = Number(_local3.RateOfFire);
-        this.attackPeriod_ = ((NumberKey.RATEOFFIREVALUE / this.attackFrequency()) * (NumberKey.RATEOFFIREVALUE / _local4));
-        super.setAttack(_arg1, _arg2);
-    }
-
-    private function shoot(angle:Number):void {
-        if (map_ == null || isStunned() || isPaused() || isPetrified())
-            return;
-
-        var weapType:int = this.equipment_[0];
-
-        if (weapType == -1)
-            return;
-
-        var weapon:XML = ObjectLibrary.xmlLibrary_[weapType];
-        var curTime:int = getTimer();
-
-        this.weaponRateOfFire_ = Number(weapon.RateOfFire);
-        this.attackPeriod_ = (NumberKey.RATEOFFIREVALUE / this.attackFrequency()) * (NumberKey.RATEOFFIREVALUE / this.weaponRateOfFire_);
-
-        if (curTime < this.attackStart_ + this.attackPeriod_)
-            return;
-
-        doneAction(map_.gs_, Tutorial.ATTACK_ACTION);
-
-        this.attackAngle_ = angle;
-        this.attackStart_ = curTime;
-        this.doShoot(weapType, weapon, attackAngle_, true);
-    }
-
-    private function doShoot(weaponType:int, weaponXML:XML, attackAngle:Number, isShooting:Boolean):void {
-        var _local11:uint;
-        var _local12:Projectile;
-        var _local13:int;
-        var _local14:int;
-        var _local15:Number;
-        var _local16:int;
-        var arcGap:Number = (weaponXML.hasOwnProperty(TextKey.ARCGAP) ? Number(weaponXML.ArcGap) : NumberKey.ARCGAPVALUE) * Trig.toRadians;
-        var _local8:Number = (arcGap * (this.attackAmount_ - 1));
-        var _local9:Number = (attackAngle - (_local8 / 2));
-        this.isShooting = isShooting;
-        this.attackAmount_ = weaponXML.hasOwnProperty(TextKey.NUMPROJECTILES) ? int(weaponXML.NumProjectiles) : NumberKey.NUMPROJECTILESVALUE;
-        var _local10:int;
-        while (_local10 < this.attackAmount_) {
-            _local11 = getBulletId();
-            _local12 = (FreeList.newObject(Projectile) as Projectile);
-            if (((isShooting) && (!((this.projectileIdSetOverrideNew == ""))))) {
-                _local12.reset(weaponType, 0, objectId_, _local11, _local9, this.attackStart_, this.projectileIdSetOverrideNew, this.projectileIdSetOverrideOld);
-            }
-            else {
-                _local12.reset(weaponType, 0, objectId_, _local11, _local9, this.attackStart_);
-            }
-            _local13 = int(_local12.projProps_.minDamage_);
-            _local14 = int(_local12.projProps_.maxDamage_);
-            _local15 = ((isShooting) ? this.attackMultiplier() : 1);
-            _local16 = (map_.gs_.gsc_.getNextDamage(_local13, _local14) * _local15);
-            if (this.attackStart_ > (map_.gs_.moveRecords_.lastClearTime_ + 600)) {
-                _local16 = 0;
-            }
-            _local12.setDamage(_local16);
-            if ((((_local10 == 0)) && (!((_local12.sound_ == null))))) {
-                SoundEffectLibrary.play(_local12.sound_, 0.75, false);
-            }
-            map_.addObj(_local12, (x_ + (Math.cos(attackAngle) * 0.3)), (y_ + (Math.sin(attackAngle) * 0.3)));
-            map_.gs_.gsc_.playerShoot(_local12, this.attackAmount_, this.isDazed_, this.isBerserk_, this.minAttackFrequency_, this.maxAttackFrequency_, this.weaponRateOfFire_);
-            _local9 = (_local9 + arcGap);
-            _local10++;
-        }
     }
 
     public function isHexed():Boolean {
@@ -1171,6 +966,198 @@ public class Player extends Character {
 
     public function getTex2():int {
         return (tex2Id_);
+    }
+
+    protected function drawBreathBar(_arg1:Vector.<IGraphicsData>, _arg2:int):void {
+        var _local7:Number;
+        var _local8:Number;
+        if (this.breathPath_ == null) {
+            this.breathBackFill_ = new GraphicsSolidFill();
+            this.breathBackPath_ = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector.<Number>());
+            this.breathFill_ = new GraphicsSolidFill(2542335);
+            this.breathPath_ = new GraphicsPath(GraphicsUtil.QUAD_COMMANDS, new Vector.<Number>());
+        }
+        if (this.breath_ <= Parameters.BREATH_THRESH) {
+            _local7 = ((Parameters.BREATH_THRESH - this.breath_) / Parameters.BREATH_THRESH);
+            this.breathBackFill_.color = MoreColorUtil.lerpColor(0x545454, 0xFF0000, (Math.abs(Math.sin((_arg2 / 300))) * _local7));
+        }
+        else {
+            this.breathBackFill_.color = 0x545454;
+        }
+        var _local3:int = 20;
+        var _local4:int = 8;
+        var _local5:int = 6;
+        var _local6:Vector.<Number> = (this.breathBackPath_.data as Vector.<Number>);
+        _local6.length = 0;
+        _local6.push((posS_[0] - _local3), (posS_[1] + _local4), (posS_[0] + _local3), (posS_[1] + _local4), (posS_[0] + _local3), ((posS_[1] + _local4) + _local5), (posS_[0] - _local3), ((posS_[1] + _local4) + _local5));
+        _arg1.push(this.breathBackFill_);
+        _arg1.push(this.breathBackPath_);
+        _arg1.push(GraphicsUtil.END_FILL);
+        if (this.breath_ > 0) {
+            _local8 = (((this.breath_ / 100) * 2) * _local3);
+            this.breathPath_.data.length = 0;
+            _local6 = (this.breathPath_.data as Vector.<Number>);
+            _local6.length = 0;
+            _local6.push((posS_[0] - _local3), (posS_[1] + _local4), ((posS_[0] - _local3) + _local8), (posS_[1] + _local4), ((posS_[0] - _local3) + _local8), ((posS_[1] + _local4) + _local5), (posS_[0] - _local3), ((posS_[1] + _local4) + _local5));
+            _arg1.push(this.breathFill_);
+            _arg1.push(this.breathPath_);
+            _arg1.push(GraphicsUtil.END_FILL);
+        }
+        GraphicsFillExtra.setSoftwareDrawSolid(this.breathFill_, true);
+        GraphicsFillExtra.setSoftwareDrawSolid(this.breathBackFill_, true);
+    }
+
+    private function makeErrorMessage(_arg1:String, _arg2:Object = null):ChatMessage {
+        return (ChatMessage.make(Parameters.ERROR_CHAT_NAME, _arg1, -1, -1, "", false, _arg2));
+    }
+
+    private function getNearbyMerchant():Merchant {
+        var _local3:Point;
+        var _local4:Merchant;
+        var _local1:int = ((((x_ - int(x_))) > 0.5) ? 1 : -1);
+        var _local2:int = ((((y_ - int(y_))) > 0.5) ? 1 : -1);
+        for each (_local3 in NEARBY) {
+            this.ip_.x_ = (x_ + (_local1 * _local3.x));
+            this.ip_.y_ = (y_ + (_local2 * _local3.y));
+            _local4 = map_.merchLookup_[this.ip_];
+            if (_local4 != null) {
+                return ((((PointUtil.distanceSquaredXY(_local4.x_, _local4.y_, x_, y_) < 1)) ? _local4 : null));
+            }
+        }
+        return (null);
+    }
+
+    private function resetMoveVector(_arg1:Boolean):void {
+        moveVec_.scaleBy(-0.5);
+        if (_arg1) {
+            moveVec_.y = (moveVec_.y * -1);
+        }
+        else {
+            moveVec_.x = (moveVec_.x * -1);
+        }
+    }
+
+    private function getNameColor():uint {
+        if (this.isFellowGuild_) {
+            return (Parameters.FELLOW_GUILD_COLOR);
+        }
+        if (this.nameChosen_) {
+            return (Parameters.NAME_CHOSEN_COLOR);
+        }
+        return (0xFFFFFF);
+    }
+
+    private function getMoveSpeed():Number {
+        if (isSlowed()) {
+            return ((MIN_MOVE_SPEED * this.moveMultiplier_));
+        }
+        var _local1:Number = (MIN_MOVE_SPEED + ((Parameters.parse(this.speed_) / 75) * (MAX_MOVE_SPEED - MIN_MOVE_SPEED)));
+        if (((isSpeedy()) || (isNinjaSpeedy()))) {
+            _local1 = (_local1 * 1.5);
+        }
+        return ((_local1 * this.moveMultiplier_));
+    }
+
+    private function attackMultiplier():Number {
+        if (isWeak()) {
+            return (MIN_ATTACK_MULT);
+        }
+        var _local1:Number = (MIN_ATTACK_MULT + ((Parameters.parse(this.attack_) / 75) * (MAX_ATTACK_MULT - MIN_ATTACK_MULT)));
+        if (isDamaging()) {
+            _local1 = (_local1 * 1.5);
+        }
+        return (_local1);
+    }
+
+    private function makeSkinTexture():void {
+        var _local1:MaskedImage = this.skin.imageFromAngle(0, AnimatedChar.STAND, 0);
+        animatedChar_ = this.skin;
+        texture_ = _local1.image_;
+        mask_ = _local1.mask_;
+        this.isDefaultAnimatedChar = true;
+    }
+
+    private function setToRandomAnimatedCharacter():void {
+        var _local1:Vector.<XML> = ObjectLibrary.hexTransforms_;
+        var _local2:uint = Math.floor((Math.random() * _local1.length));
+        var _local3:int = _local1[_local2].@type;
+        var _local4:TextureData = ObjectLibrary.typeToTextureData_[_local3];
+        texture_ = _local4.texture_;
+        mask_ = _local4.mask_;
+        animatedChar_ = _local4.animatedChar_;
+        this.isDefaultAnimatedChar = false;
+    }
+
+    private function getHallucinatingMaskedImage():MaskedImage {
+        if (hallucinatingMaskedImage_ == null) {
+            hallucinatingMaskedImage_ = new MaskedImage(getHallucinatingTexture(), null);
+        }
+        return hallucinatingMaskedImage_;
+    }
+
+    private function shoot(angle:Number):void {
+        if (map_ == null || isStunned() || isPaused() || isPetrified())
+            return;
+
+        var weapType:int = this.equipment_[0];
+
+        if (weapType == -1)
+            return;
+
+        var weapon:XML = ObjectLibrary.xmlLibrary_[weapType];
+        var curTime:int = getTimer();
+
+        this.weaponRateOfFire_ = Number(weapon.RateOfFire);
+        this.attackPeriod_ = (NumberKey.RATEOFFIREVALUE / this.attackFrequency()) * (NumberKey.RATEOFFIREVALUE / this.weaponRateOfFire_);
+
+        if (curTime < this.attackStart_ + this.attackPeriod_)
+            return;
+
+        doneAction(map_.gs_, Tutorial.ATTACK_ACTION);
+
+        this.attackAngle_ = angle;
+        this.attackStart_ = curTime;
+        this.doShoot(weapType, weapon, attackAngle_, true);
+    }
+
+    private function doShoot(weaponType:int, weaponXML:XML, attackAngle:Number, isShooting:Boolean):void {
+        var _local11:uint;
+        var _local12:Projectile;
+        var _local13:int;
+        var _local14:int;
+        var _local15:Number;
+        var _local16:int;
+        var arcGap:Number = (weaponXML.hasOwnProperty(TextKey.ARCGAP) ? Number(weaponXML.ArcGap) : NumberKey.ARCGAPVALUE) * Trig.toRadians;
+        var _local8:Number = (arcGap * (this.attackAmount_ - 1));
+        var _local9:Number = (attackAngle - (_local8 / 2));
+        this.isShooting = isShooting;
+        this.attackAmount_ = weaponXML.hasOwnProperty(TextKey.NUMPROJECTILES) ? int(weaponXML.NumProjectiles) : NumberKey.NUMPROJECTILESVALUE;
+        var _local10:int;
+        while (_local10 < this.attackAmount_) {
+            _local11 = getBulletId();
+            _local12 = (FreeList.newObject(Projectile) as Projectile);
+            if (((isShooting) && (!((this.projectileIdSetOverrideNew == ""))))) {
+                _local12.reset(weaponType, 0, objectId_, _local11, _local9, this.attackStart_, this.projectileIdSetOverrideNew, this.projectileIdSetOverrideOld);
+            }
+            else {
+                _local12.reset(weaponType, 0, objectId_, _local11, _local9, this.attackStart_);
+            }
+            _local13 = int(_local12.projProps_.minDamage_);
+            _local14 = int(_local12.projProps_.maxDamage_);
+            _local15 = ((isShooting) ? this.attackMultiplier() : 1);
+            _local16 = (map_.gs_.gsc_.getNextDamage(_local13, _local14) * _local15);
+            if (this.attackStart_ > (map_.gs_.moveRecords_.lastClearTime_ + 600)) {
+                _local16 = 0;
+            }
+            _local12.setDamage(_local16);
+            if ((((_local10 == 0)) && (!((_local12.sound_ == null))))) {
+                SoundEffectLibrary.play(_local12.sound_, 0.75, false);
+            }
+            map_.addObj(_local12, (x_ + (Math.cos(attackAngle) * 0.3)), (y_ + (Math.sin(attackAngle) * 0.3)));
+            map_.gs_.gsc_.playerShoot(_local12, this.attackAmount_, this.isDazed_, this.isBerserk_, this.minAttackFrequency_, this.maxAttackFrequency_, this.weaponRateOfFire_);
+            _local9 = (_local9 + arcGap);
+            _local10++;
+        }
     }
 
 

@@ -1944,7 +1944,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
             if (((!((_local8 == -1))) && ((_local7.level_ > _local8)))) {
                 if (_local6) {
                     _local18 = gs_.model.getNewUnlocks(_local7.objectType_, _local7.level_);
-                    _local7.handleLevelUp(!((_local18.length == 0)));
+                    _local7.handleLevelUp();
                 }
                 else {
                     _local7.levelUpEffect(TextKey.PLAYER_LEVELUP);

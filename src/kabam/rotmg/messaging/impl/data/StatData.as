@@ -114,6 +114,15 @@ public class StatData {
     public static const PET_ATTACK_CHANCE:int = 108;
     public static const PET_ATTACK_DAMAGE_MIN:int = 109;
     public static const PET_ATTACK_DAMAGE_MAX:int = 110;
+    public static const CHAR_LEVEL:int = 111;
+    public static const CHAR_EXPERIENCE:int = 112;
+    public static const CHAR_HEALTH_POINTS:int = 113;
+    public static const CHAR_MAGIC_POINTS:int = 114;
+    public static const CHAR_ATTACK_LEVEL:int = 115;
+    public static const CHAR_ATTACK_EXPERIENCE:int = 116;
+    public static const CHAR_DEFENSE_LEVEL:int = 117;
+    public static const CHAR_DEFENSE_EXPERIENCE:int = 118;
+    public static const CHAR_SPEED:int = 119;
 
     public var statType_:uint = 0;
     public var statValue_:int;
