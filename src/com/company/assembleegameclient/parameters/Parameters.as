@@ -104,7 +104,7 @@ public class Parameters {
     public static var root:DisplayObject;
     public static var data_:Object = null;
     public static var GPURenderError:Boolean = false;
-    public static var blendType_:int = 0; //1 active borders
+    public static var blendType_:int = 1; //1 active borders
     public static var projColorType_:int = 6;//0 disable projectile outline
     public static var drawProj_:Boolean = true;
     public static var screenShotMode_:Boolean = false;
