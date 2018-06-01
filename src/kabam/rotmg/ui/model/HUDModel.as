@@ -12,7 +12,7 @@ public class HUDModel {
     }
 
     public function getButtonType():String {
-        return ((((this.gameSprite.gsc_.gameId_ == Parameters.NEXUS_GAMEID)) ? "OPTIONS_BUTTON" : "NEXUS_BUTTON"));
+        return ((((this.gameSprite.gsc_.gameId_ == Parameters.ISLE_OF_APPRENTICES_ID)) ? "OPTIONS_BUTTON" : "NEXUS_BUTTON"));
     }
 
 

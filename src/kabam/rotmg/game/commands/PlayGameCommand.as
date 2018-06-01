@@ -76,19 +76,7 @@ public class PlayGameCommand {
     }
 
     private function getInitialGameId():int {
-        var _local1:int;
-        if (Parameters.data_.needsTutorial) {
-            _local1 = Parameters.TUTORIAL_GAMEID;
-        }
-        else {
-            if (Parameters.data_.needsRandomRealm) {
-                _local1 = Parameters.RANDOM_REALM_GAMEID;
-            }
-            else {
-                _local1 = Parameters.NEXUS_GAMEID;
-            }
-        }
-        return (_local1);
+        return (Parameters.ISLE_OF_APPRENTICES_ID);
     }
 
 

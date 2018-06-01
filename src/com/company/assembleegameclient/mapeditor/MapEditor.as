@@ -34,7 +34,7 @@ public class MapEditor extends Sprite {
 
     private function onMapTest(_arg1:MapTestEvent):void {
         removeChild(this.editingScreen_);
-        this.gameSprite_ = new GameSprite(this.server, Parameters.MAPTEST_GAMEID, false, this.model.getSavedCharacters()[0].charId(), -1, null, this.model, _arg1.mapJSON_, false);
+        this.gameSprite_ = new GameSprite(this.server, Parameters.TEST_ID, false, this.model.getSavedCharacters()[0].charId(), -1, null, this.model, _arg1.mapJSON_, false);
         this.gameSprite_.isEditor = true;
         this.gameSprite_.addEventListener(Event.COMPLETE, this.onMapTestDone);
         this.gameSprite_.addEventListener(ReconnectEvent.RECONNECT, this.onMapTestDone);
