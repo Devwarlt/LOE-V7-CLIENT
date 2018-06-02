@@ -332,7 +332,7 @@ public class Parameters {
         setDefault("contextualPotionBuy", true);
         setDefault("inventorySwap", true);
         setDefault("particleEffect", false);
-        setDefault("uiQuality", false);
+        setDefault("uiQuality", true);
         setDefault("disableEnemyParticles", false);
         setDefault("disableAllyParticles", false);
         setDefault("disablePlayersHitParticles", false);

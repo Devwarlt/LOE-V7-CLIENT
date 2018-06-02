@@ -169,6 +169,9 @@ public class StatData {
             case PET_NAME_STAT:
             case ACCOUNT_ID_STAT:
             case OWNER_ACCOUNT_ID_STAT:
+            case CHAR_EXPERIENCE:
+            case CHAR_ATTACK_EXPERIENCE:
+            case CHAR_DEFENSE_EXPERIENCE:
                 return (true);
         }
         return (false);

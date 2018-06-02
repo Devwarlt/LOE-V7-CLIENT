@@ -75,14 +75,19 @@ public class TabStripMediator extends Mediator {
             var _local1:int = (this.view.currentTabIndex + 1);
             _local1 %= this.view.tabs.length;
             this.view.setSelectedTab(_local1);
-        } catch (e:Error) {
         }
+        catch (e:Error) { }
     }
 
     override public function destroy():void {
-        this.view.tabSelected.remove(this.onTabSelected);
-        this.updateBackpack.remove(this.onUpdateBackPack);
-        this.view.friendsBtn.removeEventListener(MouseEvent.CLICK, this.onFriendsBtnClicked);
+        if (this.view != null) {
+            if (this.updateBackpack != null)
+                this.updateBackpack.remove(this.onUpdateBackPack);
+            if (this.view.tabSelected != null)
+                this.view.tabSelected.remove(this.onTabSelected);
+            if (this.view.friendsBtn != null)
+                this.view.friendsBtn.removeEventListener(MouseEvent.CLICK, this.onFriendsBtnClicked);
+        }
     }
 
     private function onFriendsBtnClicked(_arg1:MouseEvent):void {
