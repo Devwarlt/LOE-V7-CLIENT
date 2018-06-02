@@ -59,10 +59,22 @@ public class HUDView extends Sprite implements UnFocusAble {
     public var interactPanel:InteractPanel;
     public var tradePanel:TradePanel;
 
+    /*
+    * New Game UI layout
+    * Author: DV
+    * */
+    public var loe_topToolsOverlay:Sprite;
+
     public function HUDView() {
+        this.initializeNewUI();
+
         this.createAssets();
         this.addAssets();
         this.positionAssets();
+    }
+
+    private function initializeNewUI():void {
+        this.loe_topToolsOverlay = new Sprite();
     }
 
     private function createAssets():void {
