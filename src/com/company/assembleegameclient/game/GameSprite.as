@@ -186,70 +186,50 @@ public class GameSprite extends AGameSprite {
 
     public function hudModelInitialized():void {
         hudView = new HUDView();
-        hudView.x = 600;
         addChild(hudView);
     }
 
     override public function initialize():void {
         var _local1:Account;
         var _local4:ShowProTipSignal;
+
         map.initialize();
+
         this.modelInitialized.dispatch();
-        if (this.evalIsNotInCombatMapArea()) {
+
+        if (this.evalIsNotInCombatMapArea())
             this.showSafeAreaDisplays();
-        }
+
         if (map.name_ == "Arena" || map.name_ == "Public Arena") {
             this.showTimer();
             this.showWaveCounter();
         }
+
         _local1 = StaticInjectorContext.getInjector().getInstance(Account);
+
         if (map.name_ == Map.NEXUS) {
             this.addToQueueSignal.dispatch(PopupNamesConfig.DAILY_LOGIN_POPUP, this.openDailyCalendarPopupSignal, -1, null);
-            if (this.beginnersPackageModel.isBeginnerAvailable()) {
+
+            if (this.beginnersPackageModel.isBeginnerAvailable())
                 this.addToQueueSignal.dispatch(PopupNamesConfig.BEGINNERS_OFFER_POPUP, this.showBeginnersPackage, 1, null);
-            }
-            else {
+            else
                 this.addToQueueSignal.dispatch(PopupNamesConfig.PACKAGES_OFFER_POPUP, this.showPackage, 1, null);
-            }
+
             this.flushQueueSignal.dispatch();
         }
-        this.isNexus_ = (map.name_ == Map.NEXUS);
+
         this.creditDisplay_ = new CreditDisplay(this);
         this.creditDisplay_.x = 594;
         this.creditDisplay_.y = 0;
-        addChild(this.creditDisplay_);
-        var _local2:AppEngineClient = StaticInjectorContext.getInjector().getInstance(AppEngineClient);
+        //addChild(this.creditDisplay_);
+
         var _local3:Object = {
             "game_net_user_id": _local1.gameNetworkUserId(),
             "game_net": _local1.gameNetwork(),
             "play_platform": _local1.playPlatform()
         };
         MoreObjectUtil.addToObject(_local3, _local1.getCredentials());
-        if (((((((!((map.name_ == "Kitchen"))) && (!((map.name_ == "Tutorial"))))) && (!((map.name_ == "Nexus Explanation"))))) && ((Parameters.data_.watchForTutorialExit == true)))) {
-            Parameters.data_.watchForTutorialExit = false;
-            this.callTracking('rotmg.Marketing.track("tutorialComplete")');
-            _local3["fteStepCompleted"] = 9900;
-            _local2.sendRequest("/log/logFteStep", _local3);
-        }
-        if (map.name_ == "Kitchen") {
-            _local3["fteStepCompleted"] = 200;
-            _local2.sendRequest("/log/logFteStep", _local3);
-        }
-        if (map.name_ == "Tutorial") {
-            if (Parameters.data_.needsTutorial == true) {
-                Parameters.data_.watchForTutorialExit = true;
-                this.callTracking('rotmg.Marketing.track("install")');
-                _local3["fteStepCompleted"] = 100;
-                _local2.sendRequest("/log/logFteStep", _local3);
-            }
-            //this.startTutorial();
-        }
-        else {
-            if (((((((((((((!((map.name_ == "Arena"))) && (!((map.name_ == "Public Arena"))) && (!((map.name_ == "Kitchen"))))) && (!((map.name_ == "Nexus Explanation"))))) && (!((map.name_ == "Vault Explanation"))))) && (!((map.name_ == "Guild Explanation"))))) && (!(this.evalIsNotInCombatMapArea())))) && (Parameters.data_.showProtips))) {
-                _local4 = StaticInjectorContext.getInjector().getInstance(ShowProTipSignal);
-                ((_local4) && (_local4.dispatch()));
-            }
-        }
+
         if (map.name_ == "Daily Quest Room") {
             QuestRewardsPanel.checkQuests();
         }

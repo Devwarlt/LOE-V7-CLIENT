@@ -61,24 +61,7 @@ public class Camera {
     }
 
     public function configureCamera(_arg1:GameObject, _arg2:Boolean):void {
-        var playerRect:Rectangle = ((Parameters.data_.centerOnPlayer) ? CENTER_SCREEN_RECT : OFFSET_SCREEN_RECT);
-        var clipRect:Rectangle = playerRect.clone();
-        if (Parameters.data_.fullscreenMod) {
-            clipRect.x = -(Parameters.data_.mscale * 50 * (1 / 2));
-            clipRect.y = -(Parameters.data_.mscale * 50 * (clipRect.y / -600));
-            clipRect.width = Parameters.data_.mscale * 50;
-            clipRect.height = Parameters.data_.mscale * 50;
-        }
-        if (Parameters.screenShotMode_) {
-            if (!Parameters.screenShotSlimMode_) {
-                clipRect = SCREENSHOT_SCREEN_RECT;
-            }
-            else {
-                clipRect = SLIM_SCREENSHOT_SCREEN_RECT;
-            }
-        }
-        var _local4:Number = Parameters.data_.cameraAngle;
-        this.configure(_arg1.x_, _arg1.y_, 12, _local4, clipRect);
+        this.configure(_arg1.x_, _arg1.y_, 12, 0, SCREENSHOT_SCREEN_RECT.clone());
         this.isHallucinating_ = _arg2;
     }
 
