@@ -1,5 +1,4 @@
 ﻿package com.company.assembleegameclient.screens.charrects {
-import com.company.rotmg.graphics.StarGraphic;
 import com.company.util.AssetLibrary;
 
 import flash.display.Bitmap;
@@ -22,8 +21,6 @@ public class CharacterRect extends Sprite {
     private var box:Shape;
     protected var taglineClassIcon:Sprite;
     protected var taglineClassText:TextFieldDisplayConcrete;
-    protected var taglineFameIcon:Bitmap;
-    protected var taglineFameText:TextFieldDisplayConcrete;
     protected var classNameText:TextFieldDisplayConcrete;
     protected var className:StringBuilder;
     protected var tagLineExpIcon:Bitmap;

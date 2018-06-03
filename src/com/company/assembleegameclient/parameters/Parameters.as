@@ -40,6 +40,7 @@ public class Parameters {
     public static const ISLE_OF_APPRENTICES_ID:int = -1;
     public static const TEST_ID:int = -2;
     public static const MAX_SINK_LEVEL:Number = 18;
+    public static const APPRENTICE:int = 0x0300;
     public static const TERMS_OF_USE_URL:String = "http://legal.decagames.io/tos";
     public static const PRIVACY_POLICY_URL:String = "http://legal.decagames.io/privacy";
     public static const USER_GENERATED_CONTENT_TERMS:String = "/UGDTermsofUse.html";

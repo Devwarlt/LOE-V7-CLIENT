@@ -18,8 +18,6 @@ import kabam.rotmg.classes.view.CharacterSkinListItemFactory;
 import kabam.rotmg.classes.view.CharacterSkinListItemMediator;
 import kabam.rotmg.classes.view.CharacterSkinListMediator;
 import kabam.rotmg.classes.view.CharacterSkinListView;
-import kabam.rotmg.classes.view.CharacterSkinMediator;
-import kabam.rotmg.classes.view.CharacterSkinView;
 import kabam.rotmg.classes.view.ClassDetailMediator;
 import kabam.rotmg.classes.view.ClassDetailView;
 
@@ -49,7 +47,6 @@ public class ClassesConfig implements IConfig {
         this.injector.map(BuySkinTask);
         this.mediatorMap.map(CharacterSkinListItem).toMediator(CharacterSkinListItemMediator);
         this.mediatorMap.map(CharacterSkinListView).toMediator(CharacterSkinListMediator);
-        this.mediatorMap.map(CharacterSkinView).toMediator(CharacterSkinMediator);
         this.mediatorMap.map(ClassDetailView).toMediator(ClassDetailMediator);
         this.commandMap.map(LogoutSignal).toCommand(ResetClassDataCommand);
         this.commandMap.map(CharListDataSignal).toCommand(ParseCharListXmlCommand);

@@ -41,7 +41,6 @@ public class TitleView extends Sprite {
     public var serversClicked:Signal;
     public var accountClicked:Signal;
     public var legendsClicked:Signal;
-    public var languagesClicked:Signal;
     public var supportClicked:Signal;
     public var kabamTransferClicked:Signal;
     public var editorClicked:Signal;

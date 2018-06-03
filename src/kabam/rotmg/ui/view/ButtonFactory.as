@@ -25,10 +25,7 @@ public class ButtonFactory {
     private static var quitButton:TitleMenuOption;
     private static var doneButton:TitleMenuOption;
     private static var mainButton:TitleMenuOption;
-    private static var classesButton:TitleMenuOption;
-    private static var transferAccountButton:TitleMenuOption;
     private static var textureEditorButton:TitleMenuOption;
-
 
     public static function getPlayButton():TitleMenuOption {
         return ((playButton = ((playButton) || (makeButton(ScreenTypes.PLAY, BUTTON_SIZE_LARGE, CENTER, true)))));
@@ -38,12 +35,8 @@ public class ButtonFactory {
         return ((textureEditorButton = ((textureEditorButton) || (makeButton(ScreenTypes.TEXTURE_EDITOR, BUTTON_SIZE_SMALL, LEFT)))));
     }
 
-    public static function getClassesButton():TitleMenuOption {
-        return ((classesButton = ((classesButton) || (makeButton(TextKey.SCREENS_CLASSES, BUTTON_SIZE_SMALL, LEFT)))));
-    }
-
-    public static function getMainButton():TitleMenuOption {
-        return ((mainButton = ((mainButton) || (makeButton(TextKey.SCREENS_MAIN, BUTTON_SIZE_SMALL, RIGHT)))));
+    public static function getMainButton(_arg1:Boolean = false):TitleMenuOption {
+        return ((mainButton = ((mainButton) || (makeButton(TextKey.SCREENS_MAIN, !_arg1 ? BUTTON_SIZE_SMALL : BUTTON_SIZE_LARGE, !_arg1 ? RIGHT : CENTER, _arg1)))));
     }
 
     public static function getDoneButton():TitleMenuOption {
@@ -76,10 +69,6 @@ public class ButtonFactory {
 
     public static function getQuitButton():TitleMenuOption {
         return ((quitButton = ((quitButton) || (makeButton(ScreenTypes.QUIT, BUTTON_SIZE_SMALL, LEFT)))));
-    }
-
-    public static function getTransferButton():TitleMenuOption {
-        return ((transferAccountButton = ((transferAccountButton) || (makeButton(ScreenTypes.TRANSFER_ACCOUNT, BUTTON_SIZE_SMALL, RIGHT)))));
     }
 
     private static function makeButton(_arg1:String, _arg2:int, _arg3:String, _arg4:Boolean = false):TitleMenuOption {

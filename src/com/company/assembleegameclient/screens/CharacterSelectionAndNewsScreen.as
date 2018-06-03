@@ -44,10 +44,8 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
     private const DROP_SHADOW:DropShadowFilter = new DropShadowFilter(0, 0, 0, 1, 8, 8);
 
     public var close:Signal;
-    public var showClasses:Signal;
     public var newCharacter:Signal;
     public var chooseName:Signal;
-    public var playGame:Signal;
     public var beginnersPackageButton:BeginnersPackageButton;
     private var model:PlayerModel;
     private var isInitialized:Boolean;
@@ -63,8 +61,6 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
     private var lines:Shape;
     private var scrollBar:Scrollbar;
     private var packageButton:PackageButton;
-    private var playButton:TitleMenuOption;
-    private var classesButton:TitleMenuOption;
     private var backButton:TitleMenuOption;
     private var menuOptionsBar:MenuOptionsBar;
     private var BOUNDARY_LINE_ONE_Y:int = 106;
@@ -72,13 +68,9 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
     public function CharacterSelectionAndNewsScreen() {
         this.newCharacter = new Signal();
         this.chooseName = new Signal();
-        this.playGame = new Signal();
-        this.playButton = ButtonFactory.getPlayButton();
-        this.classesButton = ButtonFactory.getClassesButton();
-        this.backButton = ButtonFactory.getMainButton();
+        this.backButton = ButtonFactory.getMainButton(true);
         super();
         this.close = this.backButton.clicked;
-        this.showClasses = this.classesButton.clicked;
         addChild(new ScreenBase());
         addChild(new AccountScreen());
     }
@@ -113,11 +105,8 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
     }
 
     private function makeMenuOptionsBar():void {
-        this.playButton.clicked.add(this.onPlayClick);
         this.menuOptionsBar = new MenuOptionsBar();
-        this.menuOptionsBar.addButton(this.playButton, MenuOptionsBar.CENTER);
-        this.menuOptionsBar.addButton(this.backButton, MenuOptionsBar.LEFT);
-        this.menuOptionsBar.addButton(this.classesButton, MenuOptionsBar.RIGHT);
+        this.menuOptionsBar.addButton(this.backButton, MenuOptionsBar.CENTER);
         addChild(this.menuOptionsBar);
     }
 
@@ -300,15 +289,6 @@ public class CharacterSelectionAndNewsScreen extends Sprite {
     private function removeIfAble(_arg1:DisplayObject):void {
         if (((_arg1) && (contains(_arg1)))) {
             removeChild(_arg1);
-        }
-    }
-
-    private function onPlayClick():void {
-        if (this.model.getCharacterCount() == 0) {
-            this.newCharacter.dispatch();
-        }
-        else {
-            this.playGame.dispatch();
         }
     }
 

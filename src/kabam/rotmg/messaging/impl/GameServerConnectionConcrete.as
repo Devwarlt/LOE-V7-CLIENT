@@ -625,8 +625,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     private function create():void {
         var characterClass:CharacterClass = this.classesModel.getSelected();
         var create:Create = (this.messages.require(CREATE) as Create);
-        create.classType = characterClass.id;
-        create.skinType = characterClass.skins.getSelectedSkin().id;
+        create.classType = Parameters.APPRENTICE;
 
         serverConnection.queueMessage(create);
     }
