@@ -20,6 +20,8 @@ import kabam.rotmg.core.model.PlayerModel;
 import org.osflash.signals.Signal;
 import org.swiftsuspenders.Injector;
 
+import robotlegs.bender.framework.api.ILogger;
+
 public class CharacterRectList extends Sprite {
 
     private var classes:ClassesModel;
@@ -27,8 +29,11 @@ public class CharacterRectList extends Sprite {
     private var assetFactory:CharacterFactory;
     public var newCharacter:Signal;
     public var buyCharacterSlot:Signal;
+    [Inject]
+    private var logger:ILogger;
 
     public function CharacterRectList() {
+        this.logger = StaticInjectorContext.getInjector().getInstance(ILogger);
         var _local5:SavedCharacter;
         var _local6:BuyCharacterRect;
         var _local7:CharacterClass;
@@ -60,16 +65,21 @@ public class CharacterRectList extends Sprite {
             addChild(_local9);
             _local3 = (_local3 + (CharacterRect.HEIGHT + 4));
         }
-        if (this.model.hasAvailableCharSlot()) {
-            _local10 = 0;
-            while (_local10 < this.model.getAvailableCharSlots()) {
-                _local11 = new CreateNewCharacterRect(this.model);
-                _local11.addEventListener(MouseEvent.MOUSE_DOWN, this.onNewChar);
-                _local11.y = _local3;
-                addChild(_local11);
-                _local3 = (_local3 + (CharacterRect.HEIGHT + 4));
-                _local10++;
+        try {
+            if (this.model.hasAvailableCharSlot()) {
+                _local10 = 0;
+                while (_local10 < this.model.getAvailableCharSlots()) {
+                    _local11 = new CreateNewCharacterRect(this.model);
+                    _local11.addEventListener(MouseEvent.MOUSE_DOWN, this.onNewChar);
+                    _local11.y = _local3;
+                    addChild(_local11);
+                    _local3 = (_local3 + (CharacterRect.HEIGHT + 4));
+                    _local10++;
+                }
             }
+        }
+        catch (error:Error) {
+            this.logger.info(error.getStackTrace());
         }
         _local6 = new BuyCharacterRect(this.model);
         _local6.addEventListener(MouseEvent.MOUSE_DOWN, this.onBuyCharSlot);

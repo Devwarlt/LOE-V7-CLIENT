@@ -38,19 +38,6 @@ public class ParseChatMessageCommand {
                 case "help":
                     this.SendHelp(TextKey.HELP_COMMAND);
                     return;
-                case "mscale":
-                    if (command.length > 1) {
-                        var mscale:Number = Number(command[1]);
-                        if (mscale >= 1 && mscale <= 5) {
-                            var newMscale:Number = mscale * 10;
-                            Parameters.data_.mscale = newMscale;
-                            Parameters.save();
-                            this.SendHelp("Map scale: " + mscale);
-                        } else
-                            this.SendInfo("Map scale only accept values between 1.0 to 5.0.");
-                    } else
-                        this.SendHelp("Map scale: " + Parameters.data_.mscale / 10);
-                    return;
                 case "props":
                     if (command[1] == "proj") {
                         if (command[2] == "" || command[2] == null) {

@@ -1,4 +1,5 @@
 ﻿package com.company.assembleegameclient.ui.dialogs {
+import com.company.assembleegameclient.account.ui.TextInputField;
 import com.company.assembleegameclient.ui.DeprecatedTextButton;
 import com.company.assembleegameclient.util.StageProxy;
 import com.company.util.GraphicsUtil;
@@ -17,6 +18,9 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.filters.DropShadowFilter;
 import flash.text.TextFieldAutoSize;
+import flash.text.TextFieldAutoSize;
+
+import kabam.rotmg.text.model.TextKey;
 
 import kabam.rotmg.text.view.TextFieldDisplayConcrete;
 import kabam.rotmg.text.view.stringBuilder.LineBuilder;
@@ -28,6 +32,7 @@ public class Dialog extends Sprite {
     public static const LEFT_BUTTON:String = "dialogLeftButton";
     public static const RIGHT_BUTTON:String = "dialogRightButton";
     public static const GREY:int = 0xB3B3B3;
+    public static const ORANGE:int = 0xFFA500;
     public static const WIDTH:int = 300;
 
     public var box_:Sprite = new Sprite();
@@ -53,12 +58,18 @@ public class Dialog extends Sprite {
     private var rightButtonKey:String;
     private var replaceTokens:Object;
     private var titleColor:uint;
+    private var cttUI:Boolean;
+    private var cttAuthTitle:TextInputField;
+    private var cttAuthInput:TextInputField;
 
     protected const graphicsData_:Vector.<IGraphicsData> = new <IGraphicsData>[lineStyle_, backgroundFill_, path_, GraphicsUtil.END_FILL, GraphicsUtil.END_STROKE];
 
-    public function Dialog(_arg1:String, _arg2:String, _arg3:String, _arg4:String, _arg5:Object = null, _arg6:uint = 5746018) {
-        this.dialogWidth = this.setDialogWidth();
-        this.titleColor = _arg6;
+    public function Dialog(_arg1:String, _arg2:String, _arg3:String, _arg4:String, _arg5:Object = null, _arg6:uint = 5746018, _arg7:Boolean = false) {
+        this.cttUI = _arg7;
+        if (this.cttUI)
+            this.bottomSpace = 20;
+        this.dialogWidth = this.cttUI ? WIDTH + 120 : this.setDialogWidth();
+        this.titleColor = this.cttUI ? ORANGE : _arg6;
         this.replaceTokens = _arg5;
         this.leftButtonKey = _arg3;
         this.rightButtonKey = _arg4;
@@ -70,12 +81,21 @@ public class Dialog extends Sprite {
         addChild(this.box_);
     }
 
-    public function getLeftButtonKey():String {
-        return (this.leftButtonKey);
+    public function getCTTAuth():String {
+        return this.cttAuthInput.text();
     }
 
-    public function getRightButtonKey():String {
-        return (this.rightButtonKey);
+    public function setCTTAuthError():Boolean {
+        if (this.getCTTAuth().length != 64 || this.getCTTAuth() == null || this.getCTTAuth() == "" || /\s/.test(this.getCTTAuth())) {
+            this.cttAuthInput.setError("Please insert a valid token to proceed.");
+
+            return false;
+        }
+        return true;
+    }
+
+    protected function setDialogWidth():int {
+        return WIDTH;
     }
 
     public function setTextParams(_arg1:String, _arg2:Object):void {
@@ -84,10 +104,6 @@ public class Dialog extends Sprite {
 
     public function setTitleStringBuilder(_arg1:StringBuilder):void {
         this.titleText_.setStringBuilder(_arg1);
-    }
-
-    protected function setDialogWidth():int {
-        return (WIDTH);
     }
 
     private function _makeUIAndAdd(_arg1:String, _arg2:String):void {
@@ -113,6 +129,14 @@ public class Dialog extends Sprite {
         this.textText_.setStringBuilder(_local2);
         this.textText_.mouseEnabled = true;
         this.textText_.filters = [new DropShadowFilter(0, 0, 0, 1, 6, 6, 1)];
+
+        this.cttAuthTitle = new TextInputField(TextKey.CTT_LABEL_REQUEST, false, 238, 30, 18, -1, false, true);
+        this.cttAuthTitle.nameText_.setTextWidth(this.dialogWidth - 40);
+        this.cttAuthTitle.nameText_.setAutoSize(TextFieldAutoSize.CENTER);
+        this.cttAuthTitle.nameText_.setHTML(true);
+        this.cttAuthTitle.nameText_.setStringBuilder(new LineBuilder().setParams(TextKey.CTT_LABEL_REQUEST).setPrefix('<p align="center">').setPostfix("</p>"));
+
+        this.cttAuthInput = new TextInputField("");
     }
 
     private function addTextFieldDisplay(_arg1:TextFieldDisplayConcrete):void {
@@ -173,8 +197,7 @@ public class Dialog extends Sprite {
         this.box_.filters = [new DropShadowFilter(0, 0, 0, 1, 16, 16, 1)];
     }
 
-    protected function drawGraphicsTemplate():void {
-    }
+    protected function drawGraphicsTemplate():void { }
 
     private function drawBackground():void {
         GraphicsUtil.clearPath(this.path_);
@@ -190,6 +213,20 @@ public class Dialog extends Sprite {
 
     private function addButtonsAndLayout():void {
         var _local1:int;
+
+        if (this.cttUI) {
+            _local1 = this.box_.height + this.buttonSpace;
+
+            this.cttAuthTitle.x = 20;
+            this.cttAuthTitle.y = _local1;
+
+            this.cttAuthInput.x = (this.dialogWidth / 2) - (this.cttAuthInput.width / 2);
+            this.cttAuthInput.y = this.cttAuthTitle.y;
+
+            this.box_.addChild(this.cttAuthTitle);
+            this.box_.addChild(this.cttAuthInput);
+        }
+
         if (this.leftButton != null) {
             _local1 = (this.box_.height + this.buttonSpace);
             this.box_.addChild(this.leftButton);

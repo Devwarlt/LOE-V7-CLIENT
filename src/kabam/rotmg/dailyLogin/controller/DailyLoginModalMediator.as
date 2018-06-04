@@ -60,16 +60,13 @@ public class DailyLoginModalMediator extends Mediator {
     }
 
     override public function destroy():void {
-        if (this.hudModel.gameSprite.map.name_ != Map.DAILY_QUEST_ROOM) {
-            this.view.claimButton.removeEventListener(MouseEvent.CLICK, this.onClaimClickHandler);
-            this.view.removeEventListener(MouseEvent.CLICK, this.onPopupClickHandler);
-        }
+        this.view.claimButton.removeEventListener(MouseEvent.CLICK, this.onClaimClickHandler);
+        this.view.removeEventListener(MouseEvent.CLICK, this.onPopupClickHandler);
         super.destroy();
     }
 
     private function enterPortal():void {
         this.closeDialogs.dispatch();
-        this.hudModel.gameSprite.gsc_.gotoQuestRoom();
     }
 
     private function onClaimClickHandler(_arg1:MouseEvent):void {

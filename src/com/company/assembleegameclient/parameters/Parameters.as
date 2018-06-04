@@ -12,7 +12,7 @@ import flash.utils.Dictionary;
 import kabam.rotmg.build.impl.BuildEnvironments;
 
 public class Parameters {
-    public static const IS_DEVELOPER_MODE:Boolean = true;
+    public static const IS_DEVELOPER_MODE:Boolean = false;
     public static const DISCORD_PERMANENTLY_INVITE:String = "https://discord.gg/jHNTjun";
     public static const CONNECTION_SECURITY_PROTOCOL:String = "http";
     public static const CLIENT_NAME:String = "LoE Realm";
@@ -298,7 +298,6 @@ public class Parameters {
         setDefaultKey("useMagicPotion", KeyCodes.V);
         setDefaultKey("switchTabs", KeyCodes.B);
         setDefaultKey("particleEffect", KeyCodes.P);
-        setDefaultKey("toggleHPBar", KeyCodes.H);
         setDefault("playerObjectType", 782);
         setDefault("playMusic", true);
         setDefault("playSFX", true);
@@ -307,20 +306,20 @@ public class Parameters {
         setDefault("preferredServer", null);
         setDefault("needsTutorial", true);
         setDefault("needsRandomRealm", false);
-        setDefault("cameraAngle", 7 * Math.PI / 4);
-        setDefault("defaultCameraAngle", 7 * Math.PI / 4);
-        setDefault("showQuestPortraits", true);
+        setDefault("cameraAngle", 0);
+        setDefault("defaultCameraAngle", 0);
+        setDefault("showQuestPortraits", false);
         setDefault("fullscreenMode", false);
-        setDefault("showProtips", true);
+        setDefault("showProtips", false);
         setDefault("protipIndex", 0);
         setDefault("joinDate", MoreDateUtil.getDayStringInPT());
         setDefault("lastDailyAnalytics", null);
-        setDefault("allowRotation", true);
+        setDefault("allowRotation", false);
         setDefault("allowMiniMapRotation", false);
         setDefault("charIdUseMap", {});
         setDefault("drawShadows", true);
         setDefault("textBubbles", true);
-        setDefault("showTradePopup", true);
+        setDefault("showTradePopup", false);
         setDefault("paymentMethod", null);
         setDefault("filterLanguage", true);
         setDefault("showGuildInvitePopup", true);
@@ -351,7 +350,7 @@ public class Parameters {
         setDefault("chatGuild", true);
         setDefault("chatTrade", true);
         setDefault("toggleBarText", true);
-        setDefault("toggleToMaxText", true);
+        setDefault("toggleToMaxText", false);
         setDefault("particleEffect", true);
         if (data_.hasOwnProperty("playMusic") && data_.playMusic == true)
             setDefault("musicVolume", 1);
@@ -366,7 +365,7 @@ public class Parameters {
         setDefault("chatFriend", false);
         setDefault("friendStarRequirement", 0);
         setDefault("HPBar", true);
-        setDefault("newMiniMapColors", false);
+        setDefault("newMiniMapColors", true);
         setDefault("fullscreenMod", true);
         setDefault("mscale", 12);
         if (!data_.hasOwnProperty("needsSurvey")) {

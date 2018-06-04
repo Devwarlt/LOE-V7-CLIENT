@@ -7,6 +7,9 @@ import flash.display.LineScaleMode;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.filters.DropShadowFilter;
+import flash.text.TextFieldAutoSize;
+
+import kabam.rotmg.text.model.TextKey;
 
 import kabam.rotmg.text.view.TextFieldDisplayConcrete;
 import kabam.rotmg.text.view.stringBuilder.LineBuilder;
@@ -23,7 +26,7 @@ public class TextInputField extends Sprite {
     public var errorText_:TextFieldDisplayConcrete;
     private var textInputFieldWidth:int = 0;
 
-    public function TextInputField(_arg1:String, _arg2:Boolean = false, _arg3:Number = 238, _arg4:Number = 30, _arg5:Number = 18, _arg6:int = -1, _arg7:Boolean = false) {
+    public function TextInputField(_arg1:String, _arg2:Boolean = false, _arg3:Number = 238, _arg4:Number = 30, _arg5:Number = 18, _arg6:int = -1, _arg7:Boolean = false, _arg8:Boolean = false) {
         this.nameText_ = new TextFieldDisplayConcrete().setSize(18).setColor(0xB3B3B3);
         this.inputText_ = new BaseSimpleText(_arg5, 0xB3B3B3, true, _arg3, _arg4);
         if (_arg1 != "") {
@@ -46,29 +49,31 @@ public class TextInputField extends Sprite {
         this.nameText_.setStringBuilder(new LineBuilder().setParams(_arg1));
         this.nameText_.filters = [new DropShadowFilter(0, 0, 0)];
         addChild(this.nameText_);
-        this.inputText_ = new BaseSimpleText(20, 0xB3B3B3, true, 238, 30);
-        this.inputText_.y = 30;
-        this.inputText_.x = 6;
-        this.inputText_.border = false;
-        this.inputText_.displayAsPassword = _arg2;
-        this.inputText_.updateMetrics();
-        this.inputText_.setMultiLine(_arg7);
-        if (_arg6 > 1) {
-            this.inputText_.maxChars = _arg6;
+        if (!_arg8) {
+            this.inputText_ = new BaseSimpleText(20, 0xB3B3B3, true, 238, 30);
+            this.inputText_.y = 30;
+            this.inputText_.x = 6;
+            this.inputText_.border = false;
+            this.inputText_.displayAsPassword = _arg2;
+            this.inputText_.updateMetrics();
+            this.inputText_.setMultiLine(_arg7);
+            if (_arg6 > 1) {
+                this.inputText_.maxChars = _arg6;
+            }
+            addChild(this.inputText_);
+            graphics.lineStyle(2, 0x454545, 1, false, LineScaleMode.NORMAL, CapsStyle.ROUND, JointStyle.ROUND);
+            graphics.beginFill(0x333333, 1);
+            graphics.drawRect(0, this.inputText_.y, _arg3, _arg4);
+            graphics.endFill();
+            graphics.lineStyle();
+            this.drawInputBorders(false);
+            this.inputText_.addEventListener(Event.CHANGE, this.onInputChange);
+            this.errorText_ = new TextFieldDisplayConcrete().setSize(12).setColor(16549442);
+            this.errorText_.setMultiLine(true);
+            this.errorText_.y = ((this.inputText_.y + _arg4) + 1);
+            this.errorText_.filters = [new DropShadowFilter(0, 0, 0)];
+            addChild(this.errorText_);
         }
-        addChild(this.inputText_);
-        graphics.lineStyle(2, 0x454545, 1, false, LineScaleMode.NORMAL, CapsStyle.ROUND, JointStyle.ROUND);
-        graphics.beginFill(0x333333, 1);
-        graphics.drawRect(0, this.inputText_.y, _arg3, _arg4);
-        graphics.endFill();
-        graphics.lineStyle();
-        this.drawInputBorders(false);
-        this.inputText_.addEventListener(Event.CHANGE, this.onInputChange);
-        this.errorText_ = new TextFieldDisplayConcrete().setSize(12).setColor(16549442);
-        this.errorText_.setMultiLine(true);
-        this.errorText_.y = ((this.inputText_.y + _arg4) + 1);
-        this.errorText_.filters = [new DropShadowFilter(0, 0, 0)];
-        addChild(this.errorText_);
     }
 
     public function text():String {

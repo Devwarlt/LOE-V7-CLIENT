@@ -339,16 +339,6 @@ public class MapUserInput {
                 doneAction(this.gs_, Tutorial.MOVE_RIGHT_ACTION);
                 this.moveRight_ = true;
                 break;
-            case Parameters.data_.rotateLeft:
-                if (!Parameters.data_.allowRotation) break;
-                doneAction(this.gs_, Tutorial.ROTATE_LEFT_ACTION);
-                this.rotateLeft_ = true;
-                break;
-            case Parameters.data_.rotateRight:
-                if (!Parameters.data_.allowRotation) break;
-                doneAction(this.gs_, Tutorial.ROTATE_RIGHT_ACTION);
-                this.rotateRight_ = true;
-                break;
             case Parameters.data_.resetToDefaultCameraAngle:
                 Parameters.data_.cameraAngle = Parameters.data_.defaultCameraAngle;
                 Parameters.save();
@@ -373,9 +363,6 @@ public class MapUserInput {
                 break;
             case Parameters.data_.autofireToggle:
                 this.gs_.map.player_.isShooting = (this.autofire_ = !(this.autofire_));
-                break;
-            case Parameters.data_.toggleHPBar:
-                Parameters.data_.HPBar = !(Parameters.data_.HPBar);
                 break;
             case Parameters.data_.useInvSlot1:
                 this.useItem(4);
@@ -453,9 +440,6 @@ public class MapUserInput {
                     Parameters.save();
                     _local2.displayState = ((Parameters.data_.fullscreenMode) ? "fullScreenInteractive" : StageDisplayState.NORMAL);
                 }
-                break;
-            case Parameters.data_.switchTabs:
-                this.statsTabHotKeyInputSignal.dispatch();
                 break;
             case Parameters.data_.testOne:
                 break;

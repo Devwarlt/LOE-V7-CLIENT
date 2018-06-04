@@ -113,6 +113,7 @@ import kabam.rotmg.messaging.impl.incoming.ActivePet;
 import kabam.rotmg.messaging.impl.incoming.AllyShoot;
 import kabam.rotmg.messaging.impl.incoming.Aoe;
 import kabam.rotmg.messaging.impl.incoming.BuyResult;
+import kabam.rotmg.messaging.impl.incoming.CTTSend;
 import kabam.rotmg.messaging.impl.incoming.ClientStat;
 import kabam.rotmg.messaging.impl.incoming.CreateSuccess;
 import kabam.rotmg.messaging.impl.incoming.Damage;
@@ -164,6 +165,7 @@ import kabam.rotmg.messaging.impl.outgoing.AcceptTrade;
 import kabam.rotmg.messaging.impl.outgoing.ActivePetUpdateRequest;
 import kabam.rotmg.messaging.impl.outgoing.AoeAck;
 import kabam.rotmg.messaging.impl.outgoing.Buy;
+import kabam.rotmg.messaging.impl.outgoing.CTTReceive;
 import kabam.rotmg.messaging.impl.outgoing.CancelTrade;
 import kabam.rotmg.messaging.impl.outgoing.ChangeGuildRank;
 import kabam.rotmg.messaging.impl.outgoing.ChangeTrade;
@@ -399,7 +401,6 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         _local1.map(CANCELTRADE).toMessage(CancelTrade);
         _local1.map(CHECKCREDITS).toMessage(CheckCredits);
         _local1.map(ESCAPE).toMessage(Escape);
-        _local1.map(QUEST_ROOM_MSG).toMessage(GoToQuestRoom);
         _local1.map(JOINGUILD).toMessage(JoinGuild);
         _local1.map(CHANGEGUILDRANK).toMessage(ChangeGuildRank);
         _local1.map(EDITACCOUNTLIST).toMessage(EditAccountList);
@@ -407,12 +408,11 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         _local1.map(PETUPGRADEREQUEST).toMessage(PetUpgradeRequest);
         _local1.map(ENTER_ARENA).toMessage(EnterArena);
         _local1.map(ACCEPT_ARENA_DEATH).toMessage(OutgoingMessage);
-        _local1.map(QUEST_FETCH_ASK).toMessage(OutgoingMessage);
-        _local1.map(QUEST_REDEEM).toMessage(QuestRedeem);
         _local1.map(KEY_INFO_REQUEST).toMessage(KeyInfoRequest);
         _local1.map(PET_CHANGE_FORM_MSG).toMessage(ReskinPet);
         _local1.map(CLAIM_LOGIN_REWARD_MSG).toMessage(ClaimDailyRewardMessage);
         _local1.map(FAILURE).toMessage(Failure).toMethod(this.onFailure);
+        _local1.map(CTT_SEND).toMessage(CTTSend).toMethod(this.onCTTSend);
         _local1.map(CREATE_SUCCESS).toMessage(CreateSuccess).toMethod(this.onCreateSuccess);
         _local1.map(SERVERPLAYERSHOOT).toMessage(ServerPlayerShoot).toMethod(this.onServerPlayerShoot);
         _local1.map(DAMAGE).toMessage(Damage).toMethod(this.onDamage);
@@ -455,33 +455,15 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         _local1.map(ARENA_DEATH).toMessage(ArenaDeath).toMethod(this.onArenaDeath);
         _local1.map(VERIFY_EMAIL).toMessage(VerifyEmail).toMethod(this.onVerifyEmail);
         _local1.map(RESKIN_UNLOCK).toMessage(ReskinUnlock).toMethod(this.onReskinUnlock);
-        _local1.map(PASSWORD_PROMPT).toMessage(PasswordPrompt).toMethod(this.onPasswordPrompt);
-        _local1.map(QUEST_FETCH_RESPONSE).toMessage(QuestFetchResponse).toMethod(this.onQuestFetchResponse);
         _local1.map(QUEST_REDEEM_RESPONSE).toMessage(QuestRedeemResponse).toMethod(this.onQuestRedeemResponse);
         _local1.map(KEY_INFO_RESPONSE).toMessage(KeyInfoResponse).toMethod(this.onKeyInfoResponse);
         _local1.map(LOGIN_REWARD_MSG).toMessage(ClaimDailyRewardResponse).toMethod(this.onLoginRewardResponse);
-        _local1.map(SET_FOCUS).toMessage(SetFocus).toMethod(this.setFocus);
-        _local1.map(QUEUE_PONG).toMessage(QueuePong);
-        _local1.map(SERVER_FULL).toMessage(ServerFull).toMethod(this.HandleServerFull);
-        _local1.map(QUEUE_PING).toMessage(QueuePing).toMethod(this.HandleQueuePing);
         _local1.map(SWITCH_MUSIC).toMessage(SwitchMusic).toMethod(this.onSwitchMusic);
+        _local1.map(CTT_RECEIVE).toMessage(CTTReceive);
     }
 
     private function onSwitchMusic(sm:SwitchMusic):void {
         Music.load(sm.music);
-    }
-
-    private function HandleServerFull(_arg1:ServerFull):void {
-        this.injector.getInstance(ShowQueueSignal).dispatch();
-        this.injector.getInstance(UpdateQueueSignal).dispatch(_arg1.position_, _arg1.count_);
-    }
-
-    private function HandleQueuePing(_arg1:QueuePing):void {
-        this.injector.getInstance(UpdateQueueSignal).dispatch(_arg1.position_, _arg1.count_);
-        var qp:QueuePong = (this.messages.require(QUEUE_PONG) as QueuePong);
-        qp.serial_ = _arg1.serial_;
-        qp.time_ = getTimer();
-        serverConnection.queueMessage(qp);
     }
 
     private function onHatchPet(_arg1:HatchPetMessage):void {
@@ -551,7 +533,6 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         messageMap.unmap(CANCELTRADE);
         messageMap.unmap(CHECKCREDITS);
         messageMap.unmap(ESCAPE);
-        messageMap.unmap(QUEST_ROOM_MSG);
         messageMap.unmap(JOINGUILD);
         messageMap.unmap(CHANGEGUILDRANK);
         messageMap.unmap(EDITACCOUNTLIST);
@@ -588,11 +569,8 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         messageMap.unmap(FILE);
         messageMap.unmap(INVITEDTOGUILD);
         messageMap.unmap(PLAYSOUND);
-        messageMap.unmap(SERVER_FULL);
-        messageMap.unmap(QUEUE_PING);
-        messageMap.unmap(QUEUE_PONG);
-        messageMap.unmap(SET_FOCUS);
         messageMap.unmap(SWITCH_MUSIC);
+        messageMap.unmap(CTT_RECEIVE);
     }
 
     private function encryptConnection():void {
@@ -1124,10 +1102,6 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
         var reconnectEvent:ReconnectEvent = new ReconnectEvent(server, -2, false, charId_, 0, null, isFromArena_);
         gs_.dispatchEvent(reconnectEvent);
-    }
-
-    override public function gotoQuestRoom():void {
-        serverConnection.queueMessage(this.messages.require(QUEST_ROOM_MSG));
     }
 
     override public function joinGuild(guildName:String):void {
@@ -2200,21 +2174,8 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         serverConnection.queueMessage(this.messages.require(QUEST_FETCH_ASK));
     }
 
-    private function onQuestFetchResponse(_arg1:QuestFetchResponse):void {
-        this.questFetchComplete.dispatch(_arg1);
-    }
-
     private function onQuestRedeemResponse(_arg1:QuestRedeemResponse):void {
         this.questRedeemComplete.dispatch(_arg1);
-    }
-
-    override public function questRedeem(objectId:int, slotId:int, objectType:int):void {
-        var questRedeem:QuestRedeem = (this.messages.require(QUEST_REDEEM) as QuestRedeem);
-        questRedeem.slotObject.objectId_ = objectId;
-        questRedeem.slotObject.slotId_ = slotId;
-        questRedeem.slotObject.objectType_ = objectType;
-
-        serverConnection.queueMessage(questRedeem);
     }
 
     override public function keyInfoRequest(itemType:int):void {
@@ -2270,6 +2231,26 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         hideLoadingScreen && hideLoadingScreen.dispatch();
 
         this.addTextLine.dispatch(ChatMessage.make(Parameters.ERROR_CHAT_NAME, _arg1));
+    }
+
+    private function onCTTSend(_arg1:CTTSend):void {
+        var ctt:Object = JSON.parse(_arg1.CTTSendMessage);
+        var cttDlg:Dialog = new Dialog(ctt.name, ctt.message, "Send Token", "Cancel", null, 0, true);
+        cttDlg.addEventListener(Dialog.LEFT_BUTTON, this.onCTTSendTokenRequest);
+        cttDlg.addEventListener(Dialog.RIGHT_BUTTON, this.onDoClientUpdate);
+        this.gs_.addChild(cttDlg);
+    }
+
+    private function onCTTSendTokenRequest(_arg1:Event):void {
+        var _local1:Dialog = (_arg1.currentTarget as Dialog);
+        var cttReceive:CTTReceive = (this.messages.require(CTT_RECEIVE) as CTTReceive);
+        cttReceive.CTTAuth = _local1.getCTTAuth();
+
+        if (_local1.setCTTAuthError()) {
+            _local1.parent.removeChild(_local1);
+
+            serverConnection.sendMessage(cttReceive);
+        }
     }
 
     private function onFailure(_arg1:Failure):void {
@@ -2331,6 +2312,9 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     private function handleDefaultFailure(_arg1:Failure):void {
+        var hideLoadingScreen:Signal = this.injector.getInstance(HideMapLoadingSignal);
+        hideLoadingScreen && hideLoadingScreen.dispatch();
+
         var _local2:String = LineBuilder.getLocalizedStringFromJSON(_arg1.errorDescription_);
         if (_local2 == "") {
             _local2 = _arg1.errorDescription_;
@@ -2346,15 +2330,6 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
     override public function isConnected():Boolean {
         return (serverConnection.isConnected());
-    }
-
-    private function setFocus(pkt:SetFocus):void {
-        var goDict:Dictionary = this.gs_.map.goDict_;
-        if (goDict) {
-            var go:GameObject = goDict[pkt.objectId_];
-            gs_.setFocus(go);
-            gs_.hudView.setMiniMapFocus(go);
-        }
     }
 
 

@@ -13,6 +13,7 @@ import flash.utils.Timer;
 
 import kabam.lib.net.api.MessageProvider;
 import kabam.rotmg.core.StaticInjectorContext;
+import kabam.rotmg.messaging.impl.GameServerConnection;
 
 import org.osflash.signals.Signal;
 
@@ -211,6 +212,7 @@ public class SocketServer {
                 data.position = 0;
             }
             this.messageLen = -1;
+
             if (message == null) {
                 this.logErrorAndClose("[Protocol Error] Null message with invalid length.");
                 return;
@@ -219,10 +221,17 @@ public class SocketServer {
                 message.parseFromInput(data);
             }
             catch (error:Error) {
-                // logErrorAndClose("[Protocol Error] Error in message ID " + message.id + ":\n", error);
+                if (message.id != GameServerConnection.TEXT)
+                    logErrorAndClose("[Protocol Error] Error in message ID " + message.id + ":\n", error);
                 return;
             }
-            message.consume();
+            try {
+                message.consume();
+            }
+            catch (error:Error) {
+                if (message.id != GameServerConnection.TEXT)
+                    logErrorAndClose("[Protocol Error] Error in message ID " + message.id + ":\n", error);
+            }
             sendPendingMessages();
         }
     }

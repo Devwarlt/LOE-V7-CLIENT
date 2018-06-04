@@ -3,8 +3,8 @@
     <id>LoEApp</id>
     <filename>LoE Realm</filename>
     <name>LoE Realm - Desktop Client</name>
-    <versionLabel>1.6 pre-beta</versionLabel>
-    <versionNumber>1.6.8</versionNumber>
+    <versionLabel>0.0.1 - Closed Test Server</versionLabel>
+    <versionNumber>0.0.1</versionNumber>
     <description>A LoE Realm desktop game client AIR application.</description>
     <copyright>Developed by LoESoft Games © 2015-2018</copyright>
     <initialWindow>

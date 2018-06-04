@@ -206,7 +206,6 @@ public class QuestRewardsMediator extends Mediator {
             this.exchangeButton.setOutLineColor(0x545454);
             this.exchangeButton.draw();
             this.state_tinkering = true;
-            this.gsc.questRedeem(this.itemslot.objectId, this.itemslot.slotId, this.itemslot.itemId);
             this.view.onExchangeClick();
         }
     }
