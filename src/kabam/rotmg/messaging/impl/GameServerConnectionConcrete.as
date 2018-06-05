@@ -1079,31 +1079,6 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         serverConnection.queueMessage(this.messages.require(CHECKCREDITS));
     }
 
-    override public function escape():void {
-        if (this.playerId_ == -1)
-            return;
-
-        if (gs_.map && gs_.map.name_ == "Arena") {
-            serverConnection.sendMessage(this.messages.require(ACCEPT_ARENA_DEATH));
-
-            return;
-        }
-
-        this.checkDavyKeyRemoval();
-
-        reconnect2Nexus();
-    }
-
-    private function reconnect2Nexus():void {
-        var server:Server = new Server();
-        server.setName("Nexus");
-        server.setAddress(server_.address);
-        server.setPort(server_.port);
-
-        var reconnectEvent:ReconnectEvent = new ReconnectEvent(server, -2, false, charId_, 0, null, isFromArena_);
-        gs_.dispatchEvent(reconnectEvent);
-    }
-
     override public function joinGuild(guildName:String):void {
         var joinGuild:JoinGuild = (this.messages.require(JOINGUILD) as JoinGuild);
         joinGuild.guildName_ = guildName;
@@ -1276,18 +1251,13 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         this.addTextLine.dispatch(ChatMessage.make("", ((((_arg1.name_ + " wants to ") + 'trade with you.  Type "/trade ') + _arg1.name_) + '" to trade.')));
     }
 
-    private function onTradeStart(_arg1:TradeStart):void {
-        gs_.hudView.startTrade(gs_, _arg1);
-    }
+    private function onTradeStart(_arg1:TradeStart):void { }
 
-    private function onTradeChanged(_arg1:TradeChanged):void {
-        gs_.hudView.tradeChanged(_arg1);
-    }
+    private function onTradeChanged(_arg1:TradeChanged):void { }
 
     private function onTradeDone(_arg1:TradeDone):void {
         var _local3:Object;
         var _local4:Object;
-        gs_.hudView.tradeDone();
         var _local2:String = "";
         try {
             _local4 = JSON.parse(_arg1.description_);
@@ -1299,9 +1269,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         this.addTextLine.dispatch(ChatMessage.make(Parameters.SERVER_CHAT_NAME, _local2, -1, -1, "", false, _local3));
     }
 
-    private function onTradeAccepted(_arg1:TradeAccepted):void {
-        gs_.hudView.tradeAccepted(_arg1);
-    }
+    private function onTradeAccepted(_arg1:TradeAccepted):void { }
 
     private function addObject(_arg1:ObjectData):void {
         var _local2:AbstractMap = gs_.map;

@@ -93,8 +93,6 @@ import kabam.rotmg.ui.view.CreditsMediator;
 import kabam.rotmg.ui.view.CurrentCharacterMediator;
 import kabam.rotmg.ui.view.CurrentCharacterRectMediator;
 import kabam.rotmg.ui.view.ErrorDialogMediator;
-import kabam.rotmg.ui.view.HUDMediator;
-import kabam.rotmg.ui.view.HUDView;
 import kabam.rotmg.ui.view.KeysMediator;
 import kabam.rotmg.ui.view.KeysView;
 import kabam.rotmg.ui.view.LoadingMediator;
@@ -177,7 +175,6 @@ public class UIConfig implements IConfig {
         this.mediatorMap.map(LanguageOptionOverlay).toMediator(LanguageOptionOverlayMediator);
         this.mediatorMap.map(ArenaPortalPanel).toMediator(ArenaPortalPanelMediator);
         this.mediatorMap.map(StatMetersView).toMediator(StatMetersMediator);
-        this.mediatorMap.map(HUDView).toMediator(HUDMediator);
         this.mediatorMap.map(PotionSlotView).toMediator(PotionSlotMediator);
         this.mediatorMap.map(ResurrectionView).toMediator(ResurrectionViewMediator);
         this.mediatorMap.map(GameObjectArrow).toMediator(GameObjectArrowMediator);

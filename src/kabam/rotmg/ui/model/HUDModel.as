@@ -6,7 +6,6 @@ public class HUDModel {
 
     public var gameSprite:GameSprite;
 
-
     public function getPlayerName():String {
         return (((this.gameSprite.model.getName()) ? this.gameSprite.model.getName() : this.gameSprite.map.player_.name_));
     }

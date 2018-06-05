@@ -185,7 +185,7 @@ public class GameSprite extends AGameSprite {
     }
 
     public function hudModelInitialized():void {
-        hudView = new HUDView();
+        hudView = new HUDView(this);
         addChild(hudView);
     }
 
@@ -448,55 +448,60 @@ public class GameSprite extends AGameSprite {
     }
 
     private function onEnterFrame(_arg1:Event):void {
-        var _local7:Number;
-        var _local2:int = getTimer();
-        var _local3:int = (_local2 - lastUpdate_);
-        if (this.idleWatcher_.update(_local3)) {
-            closed.dispatch();
-            return;
-        }
-        LoopedProcess.runProcesses(_local2);
-        var _local4:int = getTimer();
-        map.update(_local2, _local3);
-        this.monitor.dispatch("Map.update", (getTimer() - _local4));
-        camera_.update(_local3);
-        var _local5:Player = map.player_;
-        if (this.focus) {
-            camera_.configureCamera(this.focus, ((_local5) ? _local5.isHallucinating() : false));
-            map.draw(camera_, _local2);
-        }
-        if (_local5 != null) {
-            this.creditDisplay_.draw(_local5.credits_, _local5.fame_, _local5.tokens_);
-            this.drawCharacterWindow.dispatch(_local5);
-            if (this.evalIsNotInCombatMapArea()) {
-                this.rankText_.draw(_local5.numStars_);
-                this.rankText2_.draw2(_local5.accountType_);
-                this.rankText2_.x = 600 - this.rankText2_.width - 16;
-                this.rankText2_.y = this.creditDisplay_.y + 48;
-                this.guildText_.draw(_local5.guildName_, _local5.guildRank_);
-                this.guildText_.x = this.rankText2_.width + 16;
+        try {
+            var _local7:Number;
+            var _local2:int = getTimer();
+            var _local3:int = (_local2 - lastUpdate_);
+            if (this.idleWatcher_.update(_local3)) {
+                closed.dispatch();
+                return;
             }
-            if (_local5.isPaused()) {
-                hudView.filters = [PAUSED_FILTER];
-                map.mouseEnabled = false;
-                map.mouseChildren = false;
-                hudView.mouseEnabled = false;
-                hudView.mouseChildren = false;
+            LoopedProcess.runProcesses(_local2);
+            var _local4:int = getTimer();
+            map.update(_local2, _local3);
+            this.monitor.dispatch("Map.update", (getTimer() - _local4));
+            camera_.update(_local3);
+            var _local5:Player = map.player_;
+            if (this.focus) {
+                camera_.configureCamera(this.focus, ((_local5) ? _local5.isHallucinating() : false));
+                map.draw(camera_, _local2);
             }
-            else {
-                if (hudView.filters.length > 0) {
-                    hudView.filters = [];
-                    map.mouseEnabled = true;
-                    map.mouseChildren = true;
-                    hudView.mouseEnabled = true;
-                    hudView.mouseChildren = true;
+            if (_local5 != null) {
+                this.creditDisplay_.draw(_local5.credits_, _local5.fame_, _local5.tokens_);
+                this.drawCharacterWindow.dispatch(_local5);
+                if (this.evalIsNotInCombatMapArea()) {
+                    this.rankText_.draw(_local5.numStars_);
+                    this.rankText2_.draw2(_local5.accountType_);
+                    this.rankText2_.x = 600 - this.rankText2_.width - 16;
+                    this.rankText2_.y = this.creditDisplay_.y + 48;
+                    this.guildText_.draw(_local5.guildName_, _local5.guildRank_);
+                    this.guildText_.x = this.rankText2_.width + 16;
                 }
+                if (_local5.isPaused()) {
+                    hudView.filters = [PAUSED_FILTER];
+                    map.mouseEnabled = false;
+                    map.mouseChildren = false;
+                    hudView.mouseEnabled = false;
+                    hudView.mouseChildren = false;
+                }
+                else {
+                    if (hudView.filters.length > 0) {
+                        hudView.filters = [];
+                        map.mouseEnabled = true;
+                        map.mouseChildren = true;
+                        hudView.mouseEnabled = true;
+                        hudView.mouseChildren = true;
+                    }
+                }
+                moveRecords_.addRecord(_local2, _local5.x_, _local5.y_);
             }
-            moveRecords_.addRecord(_local2, _local5.x_, _local5.y_);
+            lastUpdate_ = _local2;
+            var _local6:int = (getTimer() - _local2);
+            this.monitor.dispatch("GameSprite.loop", _local6);
         }
-        lastUpdate_ = _local2;
-        var _local6:int = (getTimer() - _local2);
-        this.monitor.dispatch("GameSprite.loop", _local6);
+        catch (error:Error) {
+            trace(error.getStackTrace());
+        }
     }
 
     public function showPetToolTip(_arg1:Boolean):void {

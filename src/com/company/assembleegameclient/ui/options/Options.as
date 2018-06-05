@@ -304,14 +304,6 @@ public class Options extends Sprite {
     }
 
     private function onKeyDown(_arg1:KeyboardEvent):void {
-        if ((((Capabilities.playerType == "Desktop")) && ((_arg1.keyCode == KeyCodes.ESCAPE)))) {
-            Parameters.data_.fullscreenMode = false;
-            Parameters.save();
-            this.refresh();
-        }
-        if (_arg1.keyCode == Parameters.data_.options) {
-            this.close();
-        }
         _arg1.stopImmediatePropagation();
     }
 

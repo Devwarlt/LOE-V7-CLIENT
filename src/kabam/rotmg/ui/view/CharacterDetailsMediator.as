@@ -39,7 +39,6 @@ public class CharacterDetailsMediator extends Mediator {
         this.updateHUD.addOnce(this.onUpdateHUD);
         this.updateHUD.add(this.onDraw);
         this.nameChanged.add(this.onNameChange);
-        this.view.gotoNexus.add(this.onGotoNexus);
         this.view.gotoOptions.add(this.onGotoOptions);
     }
 
@@ -51,15 +50,7 @@ public class CharacterDetailsMediator extends Mediator {
     override public function destroy():void {
         this.updateHUD.remove(this.onDraw);
         this.nameChanged.remove(this.onNameChange);
-        this.view.gotoNexus.remove(this.onGotoNexus);
         this.view.gotoOptions.remove(this.onGotoOptions);
-    }
-
-    private function onGotoNexus():void {
-        this.tellModel.clearRecipients();
-        this.hudModel.gameSprite.gsc_.escape();
-        Parameters.data_.needsRandomRealm = false;
-        Parameters.save();
     }
 
     private function onGotoOptions():void {

@@ -82,7 +82,7 @@ public class GuildHallPortalPanel extends Panel {
     }
 
     private function onKeyDown(_arg1:KeyboardEvent):void {
-        if ((((_arg1.keyCode == Parameters.data_.interact)) && ((stage.focus == null)))) {
+        if (stage.focus == null) {
             this.enterPortal();
         }
     }

@@ -84,44 +84,24 @@ public class GetCharListTask extends BaseTask {
     }
 
     private function onListComplete(_arg1:String):void {
-        var _local3:Number;
-        var _local4:MigrationDialog;
-        var _local5:XML;
-        var _local2:XML = new XML(_arg1);
-        if (_local2.hasOwnProperty("MigrateStatus")) {
-            _local3 = _local2.MigrateStatus;
-            if (_local3 == 5) {
-                this.sendRequest();
-            }
-            _local4 = new MigrationDialog(this.account, _local3);
-            this.fromMigration = true;
-            _local4.done.addOnce(this.sendRequest);
-            _local4.cancel.addOnce(this.clearAccountAndReloadCharacters);
-            this.openDialog.dispatch(_local4);
-        }
-        else {
-            if (_local2.hasOwnProperty("Account")) {
-                if ((this.account is WebAccount)) {
-                    WebAccount(this.account).userDisplayName = _local2.Account[0].Name;
-                    WebAccount(this.account).paymentProvider = _local2.Account[0].PaymentProvider;
-                    if (_local2.Account[0].hasOwnProperty("PaymentData")) {
-                        WebAccount(this.account).paymentData = _local2.Account[0].PaymentData;
-                    }
-                }
-                if (_local2.Account[0].hasOwnProperty("SecurityQuestions")) {
-                    this.securityQuestionsModel.showSecurityQuestionsOnStartup = (_local2.Account[0].SecurityQuestions[0].ShowSecurityQuestionsDialog[0] == "1");
-                    this.securityQuestionsModel.clearQuestionsList();
-                    for each (_local5 in _local2.Account[0].SecurityQuestions[0].SecurityQuestionsKeys[0].SecurityQuestionsKey) {
-                        this.securityQuestionsModel.addSecurityQuestion(_local5.toString());
-                    }
+        var _local1:XML = new XML(_arg1);
+
+        if (_local1.hasOwnProperty("Account")) {
+            if ((this.account is WebAccount)) {
+                WebAccount(this.account).userDisplayName = _local1.Account[0].Name;
+                WebAccount(this.account).paymentProvider = _local1.Account[0].PaymentProvider;
+                if (_local1.Account[0].hasOwnProperty("PaymentData")) {
+                    WebAccount(this.account).paymentData = _local1.Account[0].PaymentData;
                 }
             }
-            this.charListData.dispatch(XML(_arg1));
-            completeTask(true);
         }
-        if (this.retryTimer != null) {
+
+        this.charListData.dispatch(XML(_arg1));
+
+        completeTask(true);
+
+        if (this.retryTimer != null)
             this.stopRetryTimer();
-        }
     }
 
     private function onTextError(_arg1:String):void {

@@ -68,7 +68,6 @@ public class ContinueOrQuitMediator extends Mediator {
 
     private function onQuit():void {
         this.closeDialogs.dispatch();
-        this.hudModel.gameSprite.gsc_.escape();
     }
 
 

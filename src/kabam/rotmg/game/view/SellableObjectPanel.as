@@ -136,7 +136,7 @@ public class SellableObjectPanel extends Panel implements TooltipAble {
     }
 
     private function onKeyDown(_arg1:KeyboardEvent):void {
-        if ((((((_arg1.keyCode == Parameters.data_.interact)) && ((stage.focus == null)))) && (ConfirmBuyModal.free))) {
+        if (stage.focus == null && ConfirmBuyModal.free) {
             this.buyEvent();
         }
     }

@@ -47,7 +47,7 @@ public class DailyLoginPanelMediator extends Mediator {
     }
 
     private function onKeyDown(_arg1:KeyboardEvent):void {
-        if ((((_arg1.keyCode == Parameters.data_.interact)) && ((WebMain.STAGE.focus == null)))) {
+        if (WebMain.STAGE.focus == null) {
             this.showCalendarModal(null);
         }
     }

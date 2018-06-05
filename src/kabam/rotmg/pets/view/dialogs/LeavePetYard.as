@@ -19,21 +19,11 @@ public class LeavePetYard extends PetDialog {
         this.gameSprite = _arg1;
         super("LeavePetYardDialog.title", "LeavePetYardDialog.text", TextKey.PET_DIALOG_REMAIN, TextKey.PET_DIALOG_LEAVE, null);
         addEventListener(Dialog.LEFT_BUTTON, this.onClose);
-        addEventListener(Dialog.RIGHT_BUTTON, this.onExitToNexus);
         titleText_.setMultiLine(true);
     }
 
     private function onClose(_arg1:Event):void {
         this.closeDialogSignal.dispatch();
     }
-
-    private function onExitToNexus(_arg1:Event):void {
-        this.gameSprite.gsc_.escape();
-        Parameters.data_.needsRandomRealm = false;
-        Parameters.save();
-        this.closeDialogSignal.dispatch();
-    }
-
-
 }
 }

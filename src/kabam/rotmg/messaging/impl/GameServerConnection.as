@@ -303,9 +303,6 @@ public class GameServerConnection {
     public function checkCredits():void {
     }
 
-    public function escape():void {
-    }
-
     public function useItem(_arg1:int, _arg2:int, _arg3:int, _arg4:int, _arg5:Number, _arg6:Number, _arg7:int, _arg8:Boolean):void {
     }
 
