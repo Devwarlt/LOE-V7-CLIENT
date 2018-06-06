@@ -68,6 +68,8 @@ public class GameObject extends BasicObject {
     private static const NEGATIVE_ZERO_LIMIT:Number = -(ZERO_LIMIT);
     public static const ATTACK_PERIOD:int = 300;
 
+    public var IsDoingLogout:Boolean = false;
+
     public var nameBitmapData_:BitmapData = null;
     private var nameFill_:GraphicsBitmapFill = null;
     private var namePath_:GraphicsPath = null;
@@ -460,7 +462,7 @@ public class GameObject extends BasicObject {
     }
 
     public function isPaused():Boolean {
-        return (!(((this.condition_[ConditionEffect.CE_FIRST_BATCH] & ConditionEffect.PAUSED_BIT) == 0)));
+        return this.IsDoingLogout || (!(((this.condition_[ConditionEffect.CE_FIRST_BATCH] & ConditionEffect.PAUSED_BIT) == 0)));
     }
 
     public function isStasis():Boolean {

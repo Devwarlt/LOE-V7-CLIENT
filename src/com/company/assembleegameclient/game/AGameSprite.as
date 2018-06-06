@@ -2,6 +2,7 @@
 import com.company.assembleegameclient.map.AbstractMap;
 import com.company.assembleegameclient.map.Camera;
 import com.company.assembleegameclient.objects.GameObject;
+import com.company.assembleegameclient.objects.Player;
 import com.company.assembleegameclient.tutorial.Tutorial;
 
 import flash.display.Sprite;

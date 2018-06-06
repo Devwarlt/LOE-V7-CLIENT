@@ -99,6 +99,7 @@ public class GameSprite extends AGameSprite {
     public var packageModel:PackageModel;
     public var addToQueueSignal:AddPopupToStartupQueueSignal;
     public var flushQueueSignal:FlushPopupStartupQueueSignal;
+    public var player:Player;
     private var focus:GameObject;
     private var isGameStarted:Boolean;
     private var displaysPosY:uint = 4;
@@ -146,6 +147,8 @@ public class GameSprite extends AGameSprite {
     }
 
     override public function setFocus(_arg1:GameObject):void {
+        this.player = _arg1 as Player;
+
         _arg1 = ((_arg1) || (map.player_));
         this.focus = _arg1;
     }
@@ -185,8 +188,9 @@ public class GameSprite extends AGameSprite {
     }
 
     public function hudModelInitialized():void {
-        hudView = new HUDView(this);
-        addChild(hudView);
+        this.hudView = new HUDView(this);
+
+        addChild(this.hudView);
     }
 
     override public function initialize():void {
@@ -478,19 +482,17 @@ public class GameSprite extends AGameSprite {
                     this.guildText_.x = this.rankText2_.width + 16;
                 }
                 if (_local5.isPaused()) {
-                    hudView.filters = [PAUSED_FILTER];
+                    this.hudView.applyFilterOverlay([PAUSED_FILTER]);
+                    this.hudView.disableContents();
                     map.mouseEnabled = false;
                     map.mouseChildren = false;
-                    hudView.mouseEnabled = false;
-                    hudView.mouseChildren = false;
                 }
                 else {
-                    if (hudView.filters.length > 0) {
-                        hudView.filters = [];
+                    if (hudView.filters.length > 0 || !_local5.isPaused()) {
+                        this.hudView.applyFilterOverlay([]);
+                        this.hudView.enableContents();
                         map.mouseEnabled = true;
                         map.mouseChildren = true;
-                        hudView.mouseEnabled = true;
-                        hudView.mouseChildren = true;
                     }
                 }
                 moveRecords_.addRecord(_local2, _local5.x_, _local5.y_);

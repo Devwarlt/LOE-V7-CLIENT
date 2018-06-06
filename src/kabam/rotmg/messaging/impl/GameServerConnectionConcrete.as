@@ -911,6 +911,12 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     public function move(tickId:int, player:Player):void {
+        if (!player)
+            return;
+
+        if (player.IsDoingLogout)
+            return;
+
         var moveRecords:int;
         var moveCounter:int;
         var newX:Number = -1;
