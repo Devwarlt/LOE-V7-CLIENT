@@ -1,13 +1,13 @@
-package kabam.rotmg.ui.view.GameUI {
+package kabam.rotmg.ui.view.GameUI.UIs {
 import com.company.assembleegameclient.game.GameSprite;
 import com.company.assembleegameclient.ui.dialogs.Dialog;
 
 import flash.events.Event;
 
-public class ConfirmLogout extends Dialog {
+public class ConfirmLogoutGameUI extends Dialog {
     private var gameSprite:GameSprite;
 
-    public function ConfirmLogout(_gameSprite:GameSprite) {
+    public function ConfirmLogoutGameUI(_gameSprite:GameSprite) {
         this.gameSprite = _gameSprite;
         this.gameSprite.player.IsDoingLogout = true;
 

@@ -28,14 +28,7 @@ public class SoundIcon extends Sprite {
         this.bitmap_.bitmapData = ((((Parameters.data_.playMusic) || (Parameters.data_.playSFX))) ? AssetLibrary.getImageFromSet("lofiInterfaceBig", 3) : AssetLibrary.getImageFromSet("lofiInterfaceBig", 4));
     }
 
-    private function onIconClick(_arg1:MouseEvent):void {
-        var _local2:Boolean = !(((Parameters.data_.playMusic) || (Parameters.data_.playSFX)));
-        Music.setPlayMusic(_local2);
-        SFX.setPlaySFX(_local2);
-        Parameters.data_.playPewPew = _local2;
-        Parameters.save();
-        this.setBitmap();
-    }
+    private function onIconClick(_arg1:MouseEvent):void { }
 
 
 }

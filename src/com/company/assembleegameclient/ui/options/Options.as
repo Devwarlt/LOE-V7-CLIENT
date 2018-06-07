@@ -413,11 +413,7 @@ public class Options extends Sprite {
         this.addOptionAndPosition(new ChoiceOption("HPBar", makeOnOffLabels(), [true, false], TextKey.OPTIONS_HPBAR, TextKey.OPTIONS_HPBAR_DESC, null));
     }
 
-    private function addSoundOptions():void {
-        this.addOptionAndPosition(new SliderOption("musicVolume", this.onMusicVolumeChange), -120, 15);
-        this.addOptionAndPosition(new SliderOption("SFXVolume", this.onSoundEffectsVolumeChange), -120, 34);
-        this.addOptionAndPosition(new ChoiceOption("playPewPew", makeOnOffLabels(), [true, false], TextKey.OPTIONS_PLAY_WEAPON_SOUNDS, TextKey.OPTIONS_PLAY_WEAPON_SOUNDS_DESC, null));
-    }
+    private function addSoundOptions():void { }
 
     private function addMiscOptions():void {
         this.addOptionAndPosition(new ChoiceOption("showProtips", new <StringBuilder>[makeLineBuilder(TextKey.DISCORD_INVITE_LINK_LABEL), makeLineBuilder(TextKey.DISCORD_INVITE_LINK_LABEL)], [Parameters.data_.showProtips, Parameters.data_.showProtips], TextKey.DISCORD_INVITE_LINK_TITLE, TextKey.DISCORD_INVITE_LINK_TITLE_DESC, this.onJoinDiscordClick));
@@ -428,14 +424,6 @@ public class Options extends Sprite {
         _local1.url = Parameters.DISCORD_PERMANENTLY_INVITE;
         _local1.method = URLRequestMethod.GET;
         navigateToURL(_local1, "_blank");
-    }
-
-    private function onMusicVolumeChange(_arg1:Number):void {
-        Music.setMusicVolume(_arg1);
-    }
-
-    private function onSoundEffectsVolumeChange(_arg1:Number):void {
-        SFX.setSFXVolume(_arg1);
     }
 
     private function onLegalPrivacyClick():void {

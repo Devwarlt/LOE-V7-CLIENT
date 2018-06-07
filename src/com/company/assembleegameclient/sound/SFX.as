@@ -9,19 +9,15 @@ public class SFX {
 
 
     public static function load():void {
-        sfxTrans_ = new SoundTransform(((Parameters.data_.playSFX) ? 1 : 0));
+        sfxTrans_ = new SoundTransform(Parameters.data_.sound ? 1 : 0);
     }
 
-    public static function setPlaySFX(_arg1:Boolean):void {
-        Parameters.data_.playSFX = _arg1;
-        Parameters.save();
+    public static function setPlaySFX():void {
         SoundEffectLibrary.updateTransform();
     }
 
-    public static function setSFXVolume(_arg1:Number):void {
-        Parameters.data_.SFXVolume = _arg1;
-        Parameters.save();
-        SoundEffectLibrary.updateVolume(_arg1);
+    public static function setSFXVolume():void {
+        SoundEffectLibrary.updateVolume(Parameters.data_.sound ? 1 : 0);
     }
 
 

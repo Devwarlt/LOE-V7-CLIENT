@@ -268,6 +268,7 @@ public class Parameters {
         setDefaultKey("chatCommand", KeyCodes.SLASH);
         setDefaultKey("tell", KeyCodes.TAB);
         setDefaultKey("particleEffect", KeyCodes.P);
+        setDefault("displayConnectionMediator", false);
         setDefault("sound", true);
         setDefault("playerObjectType", 782);
         setDefault("playMusic", true);
