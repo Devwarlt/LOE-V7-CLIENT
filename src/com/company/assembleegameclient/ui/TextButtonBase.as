@@ -20,11 +20,15 @@ public class TextButtonBase extends BackgroundFilledText {
         text_.setStringBuilder(new LineBuilder().setParams(_arg1));
     }
 
-    public function setEnabled(_arg1:Boolean):void {
-        if (_arg1 == mouseEnabled) {
-            return;
+    public function setEnabled(_arg1:Boolean, _arg2:Boolean = false):void {
+        if (!_arg2) {
+            if (_arg1 == mouseEnabled) {
+                return;
+            }
+
+            mouseEnabled = _arg1;
         }
-        mouseEnabled = _arg1;
+
         graphicsData_[0] = ((_arg1) ? enabledFill_ : disabledFill_);
         this.draw();
     }

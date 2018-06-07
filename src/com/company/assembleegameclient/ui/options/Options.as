@@ -414,9 +414,7 @@ public class Options extends Sprite {
     }
 
     private function addSoundOptions():void {
-        this.addOptionAndPosition(new ChoiceOption("playMusic", makeOnOffLabels(), [true, false], TextKey.OPTIONS_PLAY_MUSIC, TextKey.OPTIONS_PLAY_MUSIC_DESC, this.onPlayMusicChange));
         this.addOptionAndPosition(new SliderOption("musicVolume", this.onMusicVolumeChange), -120, 15);
-        this.addOptionAndPosition(new ChoiceOption("playSFX", makeOnOffLabels(), [true, false], TextKey.OPTIONS_PLAY_SOUND_EFFECTS, TextKey.OPTIONS_PLAY_SOUND_EFFECTS_DESC, this.onPlaySoundEffectsChange));
         this.addOptionAndPosition(new SliderOption("SFXVolume", this.onSoundEffectsVolumeChange), -120, 34);
         this.addOptionAndPosition(new ChoiceOption("playPewPew", makeOnOffLabels(), [true, false], TextKey.OPTIONS_PLAY_WEAPON_SOUNDS, TextKey.OPTIONS_PLAY_WEAPON_SOUNDS_DESC, null));
     }
@@ -430,22 +428,6 @@ public class Options extends Sprite {
         _local1.url = Parameters.DISCORD_PERMANENTLY_INVITE;
         _local1.method = URLRequestMethod.GET;
         navigateToURL(_local1, "_blank");
-    }
-
-    private function onPlayMusicChange():void {
-        Music.setPlayMusic(Parameters.data_.playMusic);
-        this.refresh();
-    }
-
-    private function onPlaySoundEffectsChange():void {
-        SFX.setPlaySFX(Parameters.data_.playSFX);
-        if (((Parameters.data_.playSFX) || (Parameters.data_.playPewPew))) {
-            SFX.setSFXVolume(1);
-        }
-        else {
-            SFX.setSFXVolume(0);
-        }
-        this.refresh();
     }
 
     private function onMusicVolumeChange(_arg1:Number):void {

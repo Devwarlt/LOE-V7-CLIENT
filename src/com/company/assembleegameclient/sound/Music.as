@@ -13,7 +13,7 @@ public class Music {
         }
         musicName = name;
 
-        if (Parameters.data_.playMusic) {
+        if (Parameters.data_.sound) {
             transitionNewMusic();
         }
     }
@@ -30,8 +30,6 @@ public class Music {
     }
 
     public static function setPlayMusic(play:Boolean):void {
-        Parameters.data_.playMusic = play;
-        Parameters.save();
         if (play) {
             transitionNewMusic();
         }
@@ -42,9 +40,7 @@ public class Music {
     }
 
     public static function setMusicVolume(newVol:Number):void {
-        Parameters.data_.musicVolume = newVol;
-        Parameters.save();
-        if (Parameters.data_.playMusic && song) {
+        if (Parameters.data_.sound && song) {
             song.volume = newVol;
         }
     }

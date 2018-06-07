@@ -12,7 +12,7 @@ import flash.utils.Dictionary;
 import kabam.rotmg.build.impl.BuildEnvironments;
 
 public class Parameters {
-    public static const IS_DEVELOPER_MODE:Boolean = false;
+    public static const IS_DEVELOPER_MODE:Boolean = true;
     public static const DISCORD_PERMANENTLY_INVITE:String = "https://discord.gg/jHNTjun";
     public static const CONNECTION_SECURITY_PROTOCOL:String = "http";
     public static const CLIENT_NAME:String = "LoE Realm";
@@ -25,7 +25,6 @@ public class Parameters {
     public static const FULL_BUILD:String = BUILD_VERSION + "." + MINOR_VERSION;
     public static const ENABLE_ENCRYPTION:Boolean = true;
     public static const PORT:int = 2050;
-    public static const ALLOW_SCREENSHOT_MODE:Boolean = false;
     public static const FELLOW_GUILD_COLOR:uint = 10944349;
     public static const NAME_CHOSEN_COLOR:uint = 0xFCDF00;
     public static const PLAYER_ROTATE_SPEED:Number = 0.003;
@@ -269,6 +268,7 @@ public class Parameters {
         setDefaultKey("chatCommand", KeyCodes.SLASH);
         setDefaultKey("tell", KeyCodes.TAB);
         setDefaultKey("particleEffect", KeyCodes.P);
+        setDefault("sound", true);
         setDefault("playerObjectType", 782);
         setDefault("playMusic", true);
         setDefault("playSFX", true);

@@ -3,11 +3,13 @@ import com.company.assembleegameclient.game.GameSprite;
 import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.ui.panels.InteractPanel;
 import com.company.assembleegameclient.util.TextureRedrawer;
+import com.company.util.MoreColorUtil;
 
 import flash.display.Bitmap;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
 import flash.filters.ColorMatrixFilter;
+import flash.filters.GlowFilter;
 import flash.geom.Point;
 
 import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_LoENewUICharacterStats_shapeEmbed_;
@@ -21,8 +23,14 @@ import kabam.rotmg.chat.model.ChatMessage;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.game.signals.AddTextLineSignal;
 import kabam.rotmg.minimap.view.MiniMapImp;
+import kabam.rotmg.ui.view.GameUI.ConfirmLogout;
+import kabam.rotmg.ui.view.GameUI.GameUIScreen;
+import kabam.rotmg.ui.view.GameUI.SettingsGameUI;
 
 public class HUDView extends Sprite implements UnFocusAble {
+    public static const UI_FILTERS_BLACK_OUTLINE:GlowFilter = TextureRedrawer.OUTLINE_FILTER;
+    public static const UI_FILTERS_GRAY_SHADES:ColorMatrixFilter = new ColorMatrixFilter(MoreColorUtil.greyscaleFilterMatrix);
+
     private var gameSprite:GameSprite;
 
     public var interactPanel:InteractPanel;
@@ -248,135 +256,18 @@ public class HUDView extends Sprite implements UnFocusAble {
     private function displaySettingsScreen(event:MouseEvent):void {
         debug("Button 'ui_settingsIcon' has been clicked.");
 
-        addChild(new GameUIScreen("Settings"));
+        addChild(new SettingsGameUI());
     }
 
-    private static function debug(_arg1:String):void {
-        var _local1:ChatMessage = new ChatMessage();
-        _local1.name = Parameters.SERVER_CHAT_NAME;
-        _local1.text = _arg1;
+    public static function debug(_arg1:String):void {
+        if (Parameters.IS_DEVELOPER_MODE) {
+            var _local1:ChatMessage = new ChatMessage();
+            _local1.name = Parameters.SERVER_CHAT_NAME;
+            _local1.text = "[Developer Mode] " + _arg1;
 
-        var _local2:AddTextLineSignal = StaticInjectorContext.getInjector().getInstance(AddTextLineSignal);
-        _local2.dispatch(_local1);
-    }
-}
-}
-
-import com.company.assembleegameclient.game.GameSprite;
-import com.company.assembleegameclient.ui.dialogs.Dialog;
-
-import flash.display.Graphics;
-import flash.display.Shape;
-import flash.display.Sprite;
-import flash.events.Event;
-import flash.events.MouseEvent;
-import flash.filters.DropShadowFilter;
-import flash.text.TextFieldAutoSize;
-
-import kabam.rotmg.pets.util.PetsViewAssetFactory;
-import kabam.rotmg.pets.view.components.DialogCloseButton;
-import kabam.rotmg.text.view.TextFieldDisplayConcrete;
-import kabam.rotmg.text.view.stringBuilder.LineBuilder;
-
-class ConfirmLogout extends Dialog {
-    private var gameSprite:GameSprite;
-
-    public function ConfirmLogout(_gameSprite:GameSprite) {
-        this.gameSprite = _gameSprite;
-        this.gameSprite.player.IsDoingLogout = true;
-
-        super("Logout", "Are you sure you want to logout?", "Yes", "No", null, Dialog.ORANGE);
-
-        this.addEventListener(Dialog.LEFT_BUTTON, this.doLogout);
-        this.addEventListener(Dialog.RIGHT_BUTTON, this.cancelLogout);
-    }
-
-    private function doLogout(event:Event):void {
-        this.gameSprite.player.IsDoingLogout = false;
-
-        stage.focus = null;
-
-        parent.removeChild(this);
-
-        this.gameSprite.closed.dispatch();
-    }
-
-    private function cancelLogout(event:Event):void {
-        this.gameSprite.player.IsDoingLogout = false;
-
-        parent.filters = [];
-
-        parent.removeChild(this);
+            var _local2:AddTextLineSignal = StaticInjectorContext.getInjector().getInstance(AddTextLineSignal);
+            _local2.dispatch(_local1);
+        }
     }
 }
-
-class GameUIScreen extends Sprite {
-    private var gameUIBackgroundOverlay_:Shape;
-    private var gameUITitle_:TextFieldDisplayConcrete;
-    private var gameUICloseButton_:DialogCloseButton;
-
-    public function GameUIScreen(_title:String) {
-        this.gameUIBackgroundOverlay_ = new Shape();
-
-        this.gameUITitle_ = new TextFieldDisplayConcrete().setSize(18).setColor(0xFFFFFF);
-        this.gameUITitle_.setTextWidth(800);
-        this.gameUITitle_.setBold(true);
-        this.gameUITitle_.setAutoSize(TextFieldAutoSize.CENTER);
-        this.gameUITitle_.filters = [new DropShadowFilter(0, 0, 0, 1, 8, 8, 1)];
-        this.gameUITitle_.setStringBuilder(new LineBuilder().setParams(_title));
-
-        this.gameUICloseButton_ = PetsViewAssetFactory.returnCloseButton(800 - 56);
-
-        this.drawUI();
-        this.setUI();
-        this.addUI();
-        this.eventsUI();
-    }
-
-    private function drawUI():void {
-        var _local1:Graphics = this.gameUIBackgroundOverlay_.graphics;
-        _local1.clear();
-        _local1.beginFill(0, 0.8);
-        _local1.drawRect(0, 0, 800, 600);
-        _local1.endFill();
-
-        this.drawExtraUI();
-    }
-
-    protected function drawExtraUI():void { }
-
-    private function setUI():void {
-        this.gameUITitle_.y = 8;
-
-        this.gameUICloseButton_.x = 800 - this.gameUICloseButton_.width - 4;
-        this.gameUICloseButton_.y = 4;
-
-        this.setExtraUI();
-    }
-
-    protected function setExtraUI():void { }
-
-    private function addUI():void {
-        addChild(this.gameUIBackgroundOverlay_);
-        addChild(this.gameUITitle_);
-        addChild(this.gameUICloseButton_);
-
-        this.addExtraUI();
-    }
-
-    protected function addExtraUI():void { }
-
-    private function eventsUI():void {
-        this.gameUICloseButton_.addEventListener(MouseEvent.CLICK, this.onClose);
-
-        this.eventsExtraUI();
-    }
-
-    protected function eventsExtraUI():void { }
-
-    private function onClose(event:Event):void {
-        parent.removeChild(this);
-
-        dispatchEvent(new Event(Event.COMPLETE));
-    }
 }
