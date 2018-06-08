@@ -40,9 +40,7 @@ public class ConnectionGameUI extends GameUIScreen {
     private var ui_connectionMediatorPingStart:Number;
 
     public function ConnectionGameUI(_hudView:HUDView) {
-        this.hudView = _hudView;
-
-        super();
+        super(_hudView);
     }
 
     public static function connectionMediatorAction(_arg1:Boolean):void {
@@ -96,19 +94,22 @@ public class ConnectionGameUI extends GameUIScreen {
     }
 
     private function onPingMeasureUpdate():void {
-        var _pingStatus:PingStatus = this.getPingStatus();
+        try {
+            var _pingStatus:PingStatus = this.getPingStatus();
 
-        var _pingIndicator:Graphics = this.ui_connectionMediatorPingIndicator.graphics;
-        _pingIndicator.clear();
-        _pingIndicator.beginFill(uint(_pingStatus.pingStatusColor_(false)), 1);
-        _pingIndicator.drawRoundRect(0, 0, 16, 16, 32, 32);
-        _pingIndicator.endFill();
+            var _pingIndicator:Graphics = this.ui_connectionMediatorPingIndicator.graphics;
+            _pingIndicator.clear();
+            _pingIndicator.beginFill(uint(_pingStatus.pingStatusColor_(false)), 1);
+            _pingIndicator.drawRoundRect(0, 0, 16, 16, 32, 32);
+            _pingIndicator.endFill();
 
-        this.ui_connectionMediatorPingLabel.htmlText =
-            UI_CONNECTION_MEDIATOR_PING_LABEL_TEXT
-                .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS_COLOR, _pingStatus.pingStatusColor_() != "#000000" ? _pingStatus.pingStatusColor_() : "")
-                .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS, _pingStatus.pingStatusLabel_())
-                .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_MEASURE, this.ui_connectionMediatorPingMeasure);
+            this.ui_connectionMediatorPingLabel.htmlText =
+                UI_CONNECTION_MEDIATOR_PING_LABEL_TEXT
+                    .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS_COLOR, _pingStatus.pingStatusColor_() != "#000000" ? _pingStatus.pingStatusColor_() : "")
+                    .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS, _pingStatus.pingStatusLabel_())
+                    .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_MEASURE, this.ui_connectionMediatorPingMeasure);
+        }
+        catch (error:Error) { }
     }
 
     public function initializePing():void {

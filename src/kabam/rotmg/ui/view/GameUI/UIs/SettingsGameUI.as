@@ -19,16 +19,16 @@ public class SettingsGameUI extends GameUIScreen {
     * [OVERVIEW]
     * Settings options:
     *
-    * - Sound:
+    * - [OK] Sound:
     *       Turn game sounds enabled (on) or disabled (off);
-    * - Connection:
+    * - [OK] Connection:
     *       Show modal mediator UI with:
     *           -> Ping Latency:
     *               - red circle indicator: latency above 500 ms;
     *               - orange circle indicator: latency between 250 to 499 ms;
     *               - yellow circle indicator: latency between 100 to 249 ms;
     *               - green circle indicator: latency under 99 ms.
-    * - Game Status:
+    * - [WIP] Game Status:
     *       Show modal mediator UI with:
     *           -> 'FPS': show number of frames per second rendered;
     *           -> 'Memory Usage': show memory used by client instance before crash notification*.
@@ -51,8 +51,6 @@ public class SettingsGameUI extends GameUIScreen {
     private var ui_settingsGameUICloseButton_:DialogCloseButton;
 
     public function SettingsGameUI(_hudView:HUDView) {
-        this.hudView = _hudView;
-
         this.ui_settingsGameUIBackgroundOverlay_ = new Shape();
 
         this.ui_settingsGameUITitle_ = new TextFieldDisplayConcrete().setSize(18).setColor(0xFFFFFF);
@@ -64,7 +62,7 @@ public class SettingsGameUI extends GameUIScreen {
 
         this.ui_settingsGameUICloseButton_ = PetsViewAssetFactory.returnCloseButton(800 - 56);
 
-        super();
+        super(_hudView);
     }
 
     override public function drawUI():void {

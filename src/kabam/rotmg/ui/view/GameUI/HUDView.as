@@ -26,6 +26,7 @@ import kabam.rotmg.minimap.view.MiniMapImp;
 import kabam.rotmg.ui.view.*;
 import kabam.rotmg.ui.view.GameUI.UIs.ConfirmLogoutGameUI;
 import kabam.rotmg.ui.view.GameUI.UIs.ConnectionGameUI;
+import kabam.rotmg.ui.view.GameUI.UIs.GameStatusGameUI;
 import kabam.rotmg.ui.view.GameUI.UIs.GameUIInterface;
 import kabam.rotmg.ui.view.GameUI.UIs.GameUIScreen;
 import kabam.rotmg.ui.view.GameUI.UIs.SettingsGameUI;
@@ -58,6 +59,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     private static const UI_LOGOUT_ICON_POSITION:Point = new Point(UI_STAGE_WIDTH - UI_ICON_SIZE - UI_OVERLAY_ICON_SPACE_POSITION.x, UI_INVENTORY_ICON_POSITION.y);
     private static const UI_SETTINGS_ICON_POSITION:Point = new Point(UI_LOGOUT_ICON_POSITION.x - 2 * UI_ICON_SIZE, UI_LOGOUT_ICON_POSITION.y);
     private static const UI_OVERLAY_CONNECTION_MEDIATOR_POSITION:Point = new Point(UI_MINIMAP_POSITION.x, UI_MINIMAP_POSITION.y + UI_OVERLAY_MINIMAP_SIZE.y + UI_OVERLAY_ICON_SPACE_POSITION.y);
+    private static const UI_OVERLAY_GAME_STATUS_MEDIATOR_POSITION:Point = new Point(UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.x, UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.y + UI_OVERLAY_ICON_SPACE_POSITION.x + UI_OVERLAY_ICON_SPACE_POSITION.y);
 
     private var ui_optionsToolBar:Bitmap;
     private var ui_minimapBackground:Bitmap;
@@ -74,6 +76,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     private var ui_settingsIconSprite:Sprite;
 
     // Game UIs
+    public var ui_gameStatusGameUI:GameStatusGameUI;
     public var ui_connectionGameUI:ConnectionGameUI;
     public var ui_settingsGameUI:SettingsGameUI;
 
@@ -121,6 +124,9 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_settingsIcon = new Bitmap();
         this.ui_settingsIcon.bitmapData = new EmbeddedAssets_LoENewUISettings_shapeEmbed_().bitmapData;
 
+        this.ui_gameStatusGameUI = new GameStatusGameUI(this);
+        this.ui_gameStatusGameUI.visible = Parameters.data_.displayGameStatusMediator;
+
         this.ui_connectionGameUI = new ConnectionGameUI(this);
         this.ui_connectionGameUI.visible = Parameters.data_.displayConnectionMediator;
 
@@ -153,6 +159,9 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_minimap.x = UI_MINIMAP_POSITION.x;
         this.ui_minimap.y = UI_MINIMAP_POSITION.y;
 
+        this.ui_gameStatusGameUI.x = UI_OVERLAY_GAME_STATUS_MEDIATOR_POSITION.x;
+        this.ui_gameStatusGameUI.y = UI_OVERLAY_GAME_STATUS_MEDIATOR_POSITION.y;
+
         this.ui_connectionGameUI.x = UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.x;
         this.ui_connectionGameUI.y = UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.y;
     }
@@ -168,6 +177,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_settingsIconSprite.addChild(this.ui_settingsIcon);
 
+        addChild(this.ui_gameStatusGameUI);
         addChild(this.ui_connectionGameUI);
         addChild(this.ui_minimapBackground);
         addChild(this.ui_minimap);
@@ -226,6 +236,12 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_connectionGameUI.visible = _arg1;
 
         ConnectionGameUI.connectionMediatorAction(_arg1);
+    }
+
+    public function updateGameStatusGameUI(_arg1:Boolean):void {
+        this.ui_gameStatusGameUI.visible = _arg1;
+
+        GameStatusGameUI.gameStatusMediatorAction(_arg1);
     }
 
     public function applyFilterOverlay(_arg1:Array):void {
@@ -300,10 +316,13 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_settingsIconSprite.removeEventListener(MouseEvent.CLICK, this.displaySettingsScreen);
 
+        this.ui_gameStatusGameUI.destroy();
+
         this.ui_connectionGameUI.destroy();
 
         this.ui_settingsGameUI.destroy();
 
+        removeChild(this.ui_gameStatusGameUI);
         removeChild(this.ui_connectionGameUI);
         removeChild(this.ui_minimapBackground);
         removeChild(this.ui_minimap);

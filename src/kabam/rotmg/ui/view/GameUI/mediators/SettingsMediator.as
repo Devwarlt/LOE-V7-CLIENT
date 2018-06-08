@@ -14,10 +14,12 @@ public class SettingsMediator extends Sprite {
     private static const UI_OPTION_SPACE:int = 24;
     private static const UI_SOUND_MEDIATOR_OPTION_POSITION:Point = new Point(0, 0);
     private static const UI_CONNECTION_MEDIATOR_OPTION_POSITION:Point = new Point(UI_SOUND_MEDIATOR_OPTION_POSITION.x, UI_SOUND_MEDIATOR_OPTION_POSITION.y + UI_OPTION_SPACE * 2);
+    private static const UI_GAME_STATUS_OPTION_POSITION:Point = new Point(UI_CONNECTION_MEDIATOR_OPTION_POSITION.x, UI_CONNECTION_MEDIATOR_OPTION_POSITION.y + UI_OPTION_SPACE * 2);
 
     private var hudView:HUDView;
     private var ui_soundMediatorOption:RegularOption;
     private var ui_connectionMediatorOption:RegularOption;
+    private var ui_gameStatusMediatorOption:RegularOption;
 
     public function SettingsMediator(_hudView:HUDView) {
         this.hudView = _hudView;
@@ -35,6 +37,8 @@ public class SettingsMediator extends Sprite {
         this.ui_soundMediatorOption = new RegularOption("Sound", "turn game volume enabled or disabled", UI_SOUND_MEDIATOR_OPTION_POSITION);
 
         this.ui_connectionMediatorOption = new RegularOption("Connection", "show modal mediator UI with ping latency", UI_CONNECTION_MEDIATOR_OPTION_POSITION);
+
+        this.ui_gameStatusMediatorOption = new RegularOption("Game Status", "show modal mediator UI with FPS and memory usage", UI_GAME_STATUS_OPTION_POSITION);
     }
 
     private function setUI():void { }
@@ -44,6 +48,7 @@ public class SettingsMediator extends Sprite {
     private function addUI():void {
         addChild(this.ui_soundMediatorOption);
         addChild(this.ui_connectionMediatorOption);
+        addChild(this.ui_gameStatusMediatorOption);
     }
 
     private function eventsUI():void {
@@ -52,6 +57,9 @@ public class SettingsMediator extends Sprite {
 
         this.ui_connectionMediatorOption.ui_OnButton.addEventListener(MouseEvent.CLICK, this.connectionEnabled);
         this.ui_connectionMediatorOption.ui_OffButton.addEventListener(MouseEvent.CLICK, this.connectionDisabled);
+
+        this.ui_gameStatusMediatorOption.ui_OnButton.addEventListener(MouseEvent.CLICK, this.gameStatusEnabled);
+        this.ui_gameStatusMediatorOption.ui_OffButton.addEventListener(MouseEvent.CLICK, this.gameStatusDisabled);
     }
 
     private function soundEnabled(event:MouseEvent):void {
@@ -80,6 +88,20 @@ public class SettingsMediator extends Sprite {
         HUDView.debug("Connection disabled.");
 
         this.connectionAction(false);
+    }
+
+    private function gameStatusEnabled(event:MouseEvent):void {
+        HUDView.debug("Button 'ui_gameStatusMediatorOptionOnButton' has been clicked.");
+        HUDView.debug("Game Status enabled.");
+
+        this.gameStatusAction(true);
+    }
+
+    private function gameStatusDisabled(event:MouseEvent):void {
+        HUDView.debug("Button 'ui_gameStatusMediatorOptionOffButton' has been clicked.");
+        HUDView.debug("Game Status disabled.");
+
+        this.gameStatusAction(false);
     }
 
     private function soundAction(_arg1:Boolean, _arg2:Boolean = false):void {
@@ -115,9 +137,23 @@ public class SettingsMediator extends Sprite {
             this.hudView.updateConnectionGameUI(_arg1);
     }
 
+    private function gameStatusAction(_arg1:Boolean, _arg2:Boolean = false):void {
+        this.ui_gameStatusMediatorOption.ui_OnButtonSprite.mouseEnabled = !_arg1;
+        this.ui_gameStatusMediatorOption.ui_OnButtonSprite.mouseChildren = !_arg1;
+        this.ui_gameStatusMediatorOption.ui_OnButton.setEnabled(_arg1, true);
+
+        this.ui_gameStatusMediatorOption.ui_OffButtonSprite.mouseEnabled = _arg1;
+        this.ui_gameStatusMediatorOption.ui_OffButtonSprite.mouseChildren = _arg1;
+        this.ui_gameStatusMediatorOption.ui_OffButton.setEnabled(!_arg1, true);
+
+        if (!_arg2)
+            this.hudView.updateGameStatusGameUI(_arg1);
+    }
+
     private function updateButtons():void {
         this.soundAction(Parameters.data_.sound, true);
         this.connectionAction(Parameters.data_.displayConnectionMediator, true);
+        this.gameStatusAction(Parameters.data_.displayGameStatusMediator, true);
     }
 }
 }

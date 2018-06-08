@@ -6,7 +6,9 @@ import kabam.rotmg.ui.view.GameUI.*;
 public class GameUIScreen extends Sprite implements GameUIInterface {
     protected var hudView:HUDView;
 
-    public function GameUIScreen() {
+    public function GameUIScreen(_hudView:HUDView) {
+        this.hudView = _hudView;
+
         this.drawUI();
         this.setUI();
         this.outlineUI();
