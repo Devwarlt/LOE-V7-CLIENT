@@ -8,7 +8,6 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import kabam.rotmg.ui.view.GameUI.HUDView;
-import kabam.rotmg.ui.view.GameUI.UIs.ConnectionGameUI;
 import kabam.rotmg.ui.view.GameUI.UIs.RegularOption;
 
 public class SettingsMediator extends Sprite {

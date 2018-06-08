@@ -29,7 +29,6 @@ import flash.utils.getTimer;
 import kabam.lib.loopedprocs.LoopedCallback;
 import kabam.lib.loopedprocs.LoopedProcess;
 import kabam.rotmg.account.core.Account;
-import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.arena.view.ArenaTimer;
 import kabam.rotmg.arena.view.ArenaWaveCounter;
 import kabam.rotmg.chat.view.Chat;
@@ -78,7 +77,6 @@ public class GameSprite extends AGameSprite {
     public const drawCharacterWindow:Signal = new Signal(Player);
 
     public var chatBox_:Chat;
-    public var isNexus_:Boolean = false;
     public var idleWatcher_:IdleWatcher;
     public var rankText_:RankText;
     public var rankText2_:RankText;
@@ -440,6 +438,7 @@ public class GameSprite extends AGameSprite {
             TextureRedrawer.clearCache();
             Projectile.dispose();
             gsc_.disconnect();
+            this.hudView.destroy();
         }
     }
 
@@ -495,7 +494,6 @@ public class GameSprite extends AGameSprite {
                         map.mouseChildren = true;
                     }
                 }
-                moveRecords_.addRecord(_local2, _local5.x_, _local5.y_);
             }
             lastUpdate_ = _local2;
             var _local6:int = (getTimer() - _local2);

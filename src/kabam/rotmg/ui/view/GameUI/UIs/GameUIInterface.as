@@ -9,5 +9,7 @@ public interface GameUIInterface {
     function addUI():void;
 
     function eventsUI():void;
+
+    function destroy():void;
 }
 }

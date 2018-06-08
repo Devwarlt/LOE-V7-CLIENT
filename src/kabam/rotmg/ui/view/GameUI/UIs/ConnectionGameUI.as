@@ -14,14 +14,13 @@ import flash.utils.setInterval;
 
 import kabam.rotmg.application.api.ApplicationSetup;
 import kabam.rotmg.core.StaticInjectorContext;
-
 import kabam.rotmg.ui.view.GameUI.HUDView;
 import kabam.rotmg.ui.view.GameUI.PingStatus;
 
 public class ConnectionGameUI extends GameUIScreen {
     private static const UI_CONNECTION_MEDIATOR_PING_STATUS_RECEIVED:int = 200;
     private static const UI_CONNECTION_MEDIATOR_PING_STATUS_MAX_LATENCY:int = 5000;
-    private static const UI_CONNECTION_MEDIATOR_PING_TTL:uint = 500;
+    private static const UI_CONNECTION_MEDIATOR_PING_TTL:uint = 2000;
     private static const UI_CONNECTION_MEDIATOR_PING_LABEL_MEASURE:String = "{PING_MEASURE}";
     private static const UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS:String = "{PING_STATUS}";
     private static const UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS_COLOR:String = "{PING_STATUS_COLOR}";
@@ -93,8 +92,6 @@ public class ConnectionGameUI extends GameUIScreen {
     }
 
     override public function eventsUI():void {
-        this.initializePing();
-
         setInterval(this.onPingMeasureUpdate, UI_CONNECTION_MEDIATOR_PING_TTL);
     }
 
@@ -114,7 +111,7 @@ public class ConnectionGameUI extends GameUIScreen {
                 .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_MEASURE, this.ui_connectionMediatorPingMeasure);
     }
 
-    private function initializePing():void {
+    public function initializePing():void {
         this.ui_connectionMediatorPingLoader = new URLLoader();
         this.ui_connectionMediatorPingLoader.addEventListener(HTTPStatusEvent.HTTP_STATUS, this.onLoadStatus);
 
@@ -124,7 +121,7 @@ public class ConnectionGameUI extends GameUIScreen {
     private function startPing():void {
         this.ui_connectionMediatorPingStart = getTimer();
 
-        this.ui_connectionMediatorPingLoader.load(new URLRequest(this.ui_connectionMediatorPingAppEngineURL + "?ping=" + Math.random()));
+        this.ui_connectionMediatorPingLoader.load(new URLRequest(this.ui_connectionMediatorPingAppEngineURL + "/ping/?i=" + Math.random()));
     }
 
     private function onLoadStatus(event:HTTPStatusEvent):void {
@@ -151,6 +148,12 @@ public class ConnectionGameUI extends GameUIScreen {
             return UI_CONNECTION_MEDIATOR_PING_STATUS_BAD;
         else
             return new PingStatus("???", "#000000"); // TODO: implement bad connection UI.
+    }
+
+    override public function destroy():void {
+        this.ui_connectionMediatorPingLoader.removeEventListener(HTTPStatusEvent.HTTP_STATUS, this.onLoadStatus);
+
+        removeChild(this.ui_connectionMediatorPingSprite);
     }
 }
 }

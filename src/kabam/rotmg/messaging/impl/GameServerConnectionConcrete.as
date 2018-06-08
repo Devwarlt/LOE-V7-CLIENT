@@ -910,47 +910,19 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         serverConnection.queueMessage(setCondition);
     }
 
-    public function move(tickId:int, player:Player):void {
-        if (!player)
+    public function move(player:Player):void {
+        if (player == null)
             return;
 
-        if (player.IsDoingLogout)
+        if (!player || player.IsDoingLogout || player.isPaused())
             return;
 
-        var moveRecords:int;
-        var moveCounter:int;
-        var newX:Number = -1;
-        var newY:Number = -1;
-
-        if (((player) && (!(player.isPaused())))) {
-            newX = player.x_;
-            newY = player.y_;
-        }
+        if (!player.moveAction_)
+            return;
 
         var move:Move = (this.messages.require(MOVE) as Move);
-        move.tickId_ = tickId;
-        move.time_ = gs_.lastUpdate_;
-        move.newPosition_.x_ = newX;
-        move.newPosition_.y_ = newY;
-        move.records_.length = 0;
-
-        var lastClearTime:int = gs_.moveRecords_.lastClearTime_;
-
-        if ((((lastClearTime >= 0)) && (((move.time_ - lastClearTime) > 200)))) {
-            moveRecords = Math.min(10, gs_.moveRecords_.records_.length);
-            moveCounter = 0;
-
-            while (moveCounter < moveRecords) {
-                if (gs_.moveRecords_.records_[moveCounter].time_ >= (move.time_ - 25))
-                    break;
-
-                move.records_.push(gs_.moveRecords_.records_[moveCounter]);
-
-                moveCounter++;
-            }
-        }
-
-        gs_.moveRecords_.clear(move.time_);
+        move.position_.x_ = player.x_;
+        move.position_.y_ = player.y_;
 
         serverConnection.queueMessage(move);
 
@@ -1391,13 +1363,15 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
     private function onNewTick(_arg1:NewTick):void {
         var _local2:ObjectStatusData;
-        if (jitterWatcher_ != null) {
-            jitterWatcher_.record();
-        }
-        this.move(_arg1.tickId_, this.player);
+
+        this.gs_.hudView.ui_connectionGameUI.initializePing();
+
+        this.move(this.player);
+
         for each (_local2 in _arg1.statuses_) {
             this.processObjectStatus(_local2, _arg1.tickTime_, _arg1.tickId_);
         }
+
         lastTickId_ = _arg1.tickId_;
     }
 

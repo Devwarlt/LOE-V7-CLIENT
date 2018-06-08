@@ -58,6 +58,7 @@ import org.swiftsuspenders.Injector;
 public class Player extends Character {
 
     public static const MS_BETWEEN_TELEPORT:int = 10000;
+
     private static const MOVE_THRESHOLD:Number = 0.4;
     private static const NEARBY:Vector.<Point> = new <Point>[new Point(0, 0), new Point(1, 0), new Point(0, 1), new Point(1, 1)];
     private static const RANK_OFFSET_MATRIX:Matrix = new Matrix(1, 0, 0, 1, 2, 2);
@@ -67,10 +68,14 @@ public class Player extends Character {
     private static const MIN_ATTACK_MULT:Number = 0.5;
     private static const MAX_ATTACK_MULT:Number = 2;
     private static const LOW_HEALTH_CT_OFFSET:int = 128;
+
+    public var moveAction_:Boolean = false;
+
     public static var empiresCoin_:int = 0;
     public static var accountType_:int = 0;
     public static var isAdmin:Boolean = false;
     public static var isMod:Boolean = false;
+
     private static var lowHealthCT:Dictionary = new Dictionary();
     private static var newP:Point = new Point();
 
@@ -1146,9 +1151,6 @@ public class Player extends Character {
             _local14 = int(_local12.projProps_.maxDamage_);
             _local15 = ((isShooting) ? this.attackMultiplier() : 1);
             _local16 = (map_.gs_.gsc_.getNextDamage(_local13, _local14) * _local15);
-            if (this.attackStart_ > (map_.gs_.moveRecords_.lastClearTime_ + 600)) {
-                _local16 = 0;
-            }
             _local12.setDamage(_local16);
             if ((((_local10 == 0)) && (!((_local12.sound_ == null))))) {
                 SoundEffectLibrary.play(_local12.sound_, 0.75, false);

@@ -4,17 +4,14 @@ import flash.display.Shape;
 import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.filters.DropShadowFilter;
+import flash.geom.Point;
 import flash.text.TextFieldAutoSize;
 
 import kabam.rotmg.pets.util.PetsViewAssetFactory;
-
 import kabam.rotmg.pets.view.components.DialogCloseButton;
 import kabam.rotmg.text.view.TextFieldDisplayConcrete;
 import kabam.rotmg.text.view.stringBuilder.LineBuilder;
 import kabam.rotmg.ui.view.GameUI.*;
-
-import flash.geom.Point;
-
 import kabam.rotmg.ui.view.GameUI.mediators.SettingsMediator;
 
 public class SettingsGameUI extends GameUIScreen {
@@ -103,7 +100,17 @@ public class SettingsGameUI extends GameUIScreen {
 
     private function onClose(event:MouseEvent):void {
         this.hudView.ui_settingsGameUI.visible = false;
+
         dispatchEvent(new Event(Event.COMPLETE));
+    }
+
+    override public function destroy():void {
+        this.ui_settingsGameUICloseButton_.removeEventListener(MouseEvent.CLICK, this.onClose);
+
+        removeChild(this.ui_settingsGameUIBackgroundOverlay_);
+        removeChild(this.ui_settingsGameUITitle_);
+        removeChild(this.ui_settingsGameUICloseButton_);
+        removeChild(this.ui_settingsSoundMediator);
     }
 }
 }

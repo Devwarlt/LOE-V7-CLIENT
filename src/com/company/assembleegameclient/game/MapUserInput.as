@@ -1,40 +1,29 @@
 ﻿package com.company.assembleegameclient.game {
-import com.company.assembleegameclient.map.Square;
-import com.company.assembleegameclient.objects.GameObject;
 import com.company.assembleegameclient.objects.ObjectLibrary;
 import com.company.assembleegameclient.objects.Player;
 import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.tutorial.Tutorial;
 import com.company.assembleegameclient.tutorial.doneAction;
-import com.company.assembleegameclient.ui.options.Options;
-import com.company.assembleegameclient.util.TextureRedrawer;
 import com.company.util.KeyCodes;
 
 import flash.display.Stage;
-import flash.display.StageDisplayState;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
-import flash.system.Capabilities;
 
 import kabam.rotmg.application.api.ApplicationSetup;
-import kabam.rotmg.chat.model.ChatMessage;
-import kabam.rotmg.constants.GeneralConstants;
 import kabam.rotmg.constants.UseType;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.core.view.Layers;
 import kabam.rotmg.dialogs.control.CloseDialogsSignal;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
-import kabam.rotmg.friends.view.FriendListView;
 import kabam.rotmg.game.model.PotionInventoryModel;
-import kabam.rotmg.game.model.UseBuyPotionVO;
 import kabam.rotmg.game.signals.AddTextLineSignal;
 import kabam.rotmg.game.signals.ExitGameSignal;
 import kabam.rotmg.game.signals.GiftStatusUpdateSignal;
 import kabam.rotmg.game.signals.SetTextBoxVisibilitySignal;
 import kabam.rotmg.game.signals.UseBuyPotionSignal;
 import kabam.rotmg.game.view.components.StatsTabHotKeyInputSignal;
-import kabam.rotmg.messaging.impl.GameServerConnection;
 import kabam.rotmg.minimap.control.MiniMapZoomSignal;
 import kabam.rotmg.pets.controller.reskin.ReskinPetFlowStartSignal;
 import kabam.rotmg.ui.UIUtils;
@@ -52,16 +41,15 @@ public class MapUserInput {
     private static var arrowWarning_:Boolean = false;
 
     public var gs_:GameSprite;
+    public var moveAction_:Boolean = false;
+
     private var moveLeft_:Boolean = false;
     private var moveRight_:Boolean = false;
     private var moveUp_:Boolean = false;
     private var moveDown_:Boolean = false;
-    private var rotateLeft_:Boolean = false;
-    private var rotateRight_:Boolean = false;
     private var mouseDown_:Boolean = false;
     private var autofire_:Boolean = false;
     private var currentString:String = "";
-    private var specialKeyDown_:Boolean = false;
     private var enablePlayerInput_:Boolean = true;
     private var giftStatusUpdateSignal:GiftStatusUpdateSignal;
     private var addTextLine:AddTextLineSignal;
@@ -117,12 +105,11 @@ public class MapUserInput {
     }
 
     public function clearInput():void {
+        this.moveAction_ = false;
         this.moveLeft_ = false;
         this.moveRight_ = false;
         this.moveUp_ = false;
         this.moveDown_ = false;
-        this.rotateLeft_ = false;
-        this.rotateRight_ = false;
         this.mouseDown_ = false;
         this.autofire_ = false;
         this.setPlayerMovement();
@@ -325,6 +312,9 @@ public class MapUserInput {
                 this.moveRight_ = true;
                 break;
         }
+
+        this.moveAction_ = this.moveUp_ || this.moveDown_ || this.moveLeft_ || this.moveRight_;
+
         this.setPlayerMovement();
     }
 
@@ -345,18 +335,21 @@ public class MapUserInput {
                 this.moveRight_ = false;
                 break;
         }
+
+        this.moveAction_ = this.moveUp_ || this.moveDown_ || this.moveLeft_ || this.moveRight_;
+
         this.setPlayerMovement();
     }
 
     private function setPlayerMovement():void {
-        var _local1:Player = this.gs_.map.player_;
-        if (_local1 != null) {
-            if (this.enablePlayerInput_) {
-                _local1.setRelativeMovement((((this.rotateRight_) ? 1 : 0) - ((this.rotateLeft_) ? 1 : 0)), (((this.moveRight_) ? 1 : 0) - ((this.moveLeft_) ? 1 : 0)), (((this.moveDown_) ? 1 : 0) - ((this.moveUp_) ? 1 : 0)));
-            }
-            else {
-                _local1.setRelativeMovement(0, 0, 0);
-            }
+
+        if (this.gs_.map.player_ != null) {
+            this.gs_.map.player_.moveAction_ = this.moveAction_;
+
+            if (this.enablePlayerInput_)
+                this.gs_.map.player_.setRelativeMovement(0, (((this.moveRight_) ? 1 : 0) - ((this.moveLeft_) ? 1 : 0)), (((this.moveDown_) ? 1 : 0) - ((this.moveUp_) ? 1 : 0)));
+            else
+                this.gs_.map.player_.setRelativeMovement(0, 0, 0);
         }
     }
 }

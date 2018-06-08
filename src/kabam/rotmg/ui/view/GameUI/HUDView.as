@@ -74,8 +74,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     private var ui_settingsIconSprite:Sprite;
 
     // Game UIs
-    private var ui_connectionGameUI:ConnectionGameUI;
-    
+    public var ui_connectionGameUI:ConnectionGameUI;
     public var ui_settingsGameUI:SettingsGameUI;
 
     public function HUDView(_gameSprite:GameSprite) {
@@ -288,6 +287,33 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
             var _local2:AddTextLineSignal = StaticInjectorContext.getInjector().getInstance(AddTextLineSignal);
             _local2.dispatch(_local1);
         }
+    }
+
+    public function destroy():void {
+        this.ui_characterStatsIconSprite.removeEventListener(MouseEvent.CLICK, this.displayCharacterStatsScreen);
+
+        this.ui_highscoresIconSprite.removeEventListener(MouseEvent.CLICK, this.displayHighscoresScreen);
+
+        this.ui_inventoryIconSprite.removeEventListener(MouseEvent.CLICK, this.displayInventoryScreen);
+
+        this.ui_logoutIconSprite.removeEventListener(MouseEvent.CLICK, this.doLogout);
+
+        this.ui_settingsIconSprite.removeEventListener(MouseEvent.CLICK, this.displaySettingsScreen);
+
+        this.ui_connectionGameUI.destroy();
+
+        this.ui_settingsGameUI.destroy();
+
+        removeChild(this.ui_connectionGameUI);
+        removeChild(this.ui_minimapBackground);
+        removeChild(this.ui_minimap);
+        removeChild(this.ui_optionsToolBar);
+        removeChild(this.ui_characterStatsIconSprite);
+        removeChild(this.ui_highscoresIconSprite);
+        removeChild(this.ui_inventoryIconSprite);
+        removeChild(this.ui_logoutIconSprite);
+        removeChild(this.ui_settingsIconSprite);
+        removeChild(this.ui_settingsGameUI);
     }
 }
 }

@@ -2,7 +2,6 @@
 import com.company.assembleegameclient.map.AbstractMap;
 import com.company.assembleegameclient.map.Camera;
 import com.company.assembleegameclient.objects.GameObject;
-import com.company.assembleegameclient.objects.Player;
 import com.company.assembleegameclient.tutorial.Tutorial;
 
 import flash.display.Sprite;
@@ -22,7 +21,6 @@ public class AGameSprite extends Sprite {
     public var tutorial_:Tutorial;
     public var mui_:MapUserInput;
     public var lastUpdate_:int;
-    public var moveRecords_:MoveRecords;
     public var map:AbstractMap;
     public var model:PlayerModel;
     public var hudView:HUDView;
@@ -30,7 +28,6 @@ public class AGameSprite extends Sprite {
     public var gsc_:GameServerConnection;
 
     public function AGameSprite() {
-        this.moveRecords_ = new MoveRecords();
         this.camera_ = new Camera();
         super();
     }

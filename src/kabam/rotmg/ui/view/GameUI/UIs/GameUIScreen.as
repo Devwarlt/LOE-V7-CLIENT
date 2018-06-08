@@ -23,5 +23,7 @@ public class GameUIScreen extends Sprite implements GameUIInterface {
     public function addUI():void { }
 
     public function eventsUI():void { }
+
+    public function destroy():void { }
 }
 }
