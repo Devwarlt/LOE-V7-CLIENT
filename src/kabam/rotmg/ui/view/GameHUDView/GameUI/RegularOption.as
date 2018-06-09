@@ -1,5 +1,5 @@
-package kabam.rotmg.ui.view.GameUI.UIs {
-import kabam.rotmg.ui.view.GameUI.*;
+package kabam.rotmg.ui.view.GameHUDView.GameUI {
+import kabam.rotmg.ui.view.GameHUDView.*;
 
 import com.company.assembleegameclient.ui.DeprecatedTextButton;
 import com.company.ui.BaseSimpleText;

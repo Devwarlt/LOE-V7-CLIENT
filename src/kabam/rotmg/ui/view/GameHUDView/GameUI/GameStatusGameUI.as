@@ -1,4 +1,4 @@
-package kabam.rotmg.ui.view.GameUI.UIs {
+package kabam.rotmg.ui.view.GameHUDView.GameUI {
 import com.company.assembleegameclient.parameters.Parameters;
 import com.company.ui.BaseSimpleText;
 
@@ -7,7 +7,7 @@ import flash.geom.Point;
 import flash.system.System;
 import flash.utils.setInterval;
 
-import kabam.rotmg.ui.view.GameUI.HUDView;
+import kabam.rotmg.ui.view.GameHUDView.HUDView;
 
 public class GameStatusGameUI extends GameUIScreen {
     private static const UI_GAME_STATUS_MEDIATOR_TTL:int = 2000;

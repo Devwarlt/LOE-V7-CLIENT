@@ -1,4 +1,4 @@
-package kabam.rotmg.ui.view.GameUI {
+package kabam.rotmg.ui.view.GameHUDView {
 public class PingStatus {
     private var _pingStatusLabel_:String;
     private var _pingStatusColor_:String;

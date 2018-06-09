@@ -1,4 +1,4 @@
-package kabam.rotmg.ui.view.GameUI.UIs {
+package kabam.rotmg.ui.view.GameHUDView.GameUI {
 import com.company.assembleegameclient.game.GameSprite;
 import com.company.assembleegameclient.ui.dialogs.Dialog;
 

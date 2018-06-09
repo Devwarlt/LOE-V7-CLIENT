@@ -9,7 +9,7 @@ import flash.display.Sprite;
 import kabam.rotmg.core.model.PlayerModel;
 import kabam.rotmg.messaging.impl.GameServerConnection;
 import kabam.rotmg.messaging.impl.incoming.MapInfo;
-import kabam.rotmg.ui.view.GameUI.HUDView;
+import kabam.rotmg.ui.view.GameHUDView.HUDView;
 
 import org.osflash.signals.Signal;
 

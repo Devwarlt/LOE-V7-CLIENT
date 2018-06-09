@@ -1,4 +1,4 @@
-package kabam.rotmg.ui.view.GameUI.UIs {
+package kabam.rotmg.ui.view.GameHUDView.GameUI {
 import flash.display.Graphics;
 import flash.display.Shape;
 import flash.events.Event;
@@ -11,8 +11,8 @@ import kabam.rotmg.pets.util.PetsViewAssetFactory;
 import kabam.rotmg.pets.view.components.DialogCloseButton;
 import kabam.rotmg.text.view.TextFieldDisplayConcrete;
 import kabam.rotmg.text.view.stringBuilder.LineBuilder;
-import kabam.rotmg.ui.view.GameUI.*;
-import kabam.rotmg.ui.view.GameUI.mediators.SettingsMediator;
+import kabam.rotmg.ui.view.GameHUDView.*;
+import kabam.rotmg.ui.view.GameHUDView.SettingsMediator;
 
 public class SettingsGameUI extends GameUIScreen {
     /*
@@ -28,12 +28,12 @@ public class SettingsGameUI extends GameUIScreen {
     *               - orange circle indicator: latency between 250 to 499 ms;
     *               - yellow circle indicator: latency between 100 to 249 ms;
     *               - green circle indicator: latency under 99 ms.
-    * - [WIP] Game Status:
+    * - [OK] Game Status:
     *       Show modal mediator UI with:
     *           -> 'FPS': show number of frames per second rendered;
     *           -> 'Memory Usage': show memory used by client instance before crash notification*.
     *           // TODO: implement 'Crash Notification'. It's Quality of Life feature.
-    * - Character Analytics:
+    * - [WIP] Character Status:
     *       Show modal mediator UI with:
     *           -> 'Character Level': display label 'level' and current level of character into bottom UI shape;
     *           -> 'Character Experience': display a bottom big bar with percentage completed in current level and experience remain until next level;

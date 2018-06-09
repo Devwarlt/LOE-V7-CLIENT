@@ -1,7 +1,7 @@
-package kabam.rotmg.ui.view.GameUI.UIs {
+package kabam.rotmg.ui.view.GameHUDView.GameUI {
 import flash.display.Sprite;
 
-import kabam.rotmg.ui.view.GameUI.*;
+import kabam.rotmg.ui.view.GameHUDView.*;
 
 public class GameUIScreen extends Sprite implements GameUIInterface {
     protected var hudView:HUDView;

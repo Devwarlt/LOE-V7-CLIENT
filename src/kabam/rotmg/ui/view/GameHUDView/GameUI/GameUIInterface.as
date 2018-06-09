@@ -1,4 +1,4 @@
-package kabam.rotmg.ui.view.GameUI.UIs {
+package kabam.rotmg.ui.view.GameHUDView.GameUI {
 public interface GameUIInterface {
     function drawUI():void;
 

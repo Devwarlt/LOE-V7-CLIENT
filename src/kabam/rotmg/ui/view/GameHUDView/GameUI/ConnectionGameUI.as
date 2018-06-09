@@ -1,4 +1,4 @@
-package kabam.rotmg.ui.view.GameUI.UIs {
+package kabam.rotmg.ui.view.GameHUDView.GameUI {
 import com.company.assembleegameclient.parameters.Parameters;
 import com.company.ui.BaseSimpleText;
 
@@ -14,8 +14,8 @@ import flash.utils.setInterval;
 
 import kabam.rotmg.application.api.ApplicationSetup;
 import kabam.rotmg.core.StaticInjectorContext;
-import kabam.rotmg.ui.view.GameUI.HUDView;
-import kabam.rotmg.ui.view.GameUI.PingStatus;
+import kabam.rotmg.ui.view.GameHUDView.HUDView;
+import kabam.rotmg.ui.view.GameHUDView.PingStatus;
 
 public class ConnectionGameUI extends GameUIScreen {
     private static const UI_CONNECTION_MEDIATOR_PING_STATUS_RECEIVED:int = 200;

@@ -62,7 +62,7 @@ import kabam.rotmg.questrewards.view.QuestRewardsPanel;
 import kabam.rotmg.servers.api.Server;
 import kabam.rotmg.stage3D.Renderer;
 import kabam.rotmg.ui.UIUtils;
-import kabam.rotmg.ui.view.GameUI.HUDView;
+import kabam.rotmg.ui.view.GameHUDView.HUDView;
 
 import org.osflash.signals.Signal;
 

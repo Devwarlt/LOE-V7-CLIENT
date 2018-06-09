@@ -271,6 +271,7 @@ public class Parameters {
         setDefault("sound", true);
         setDefault("displayConnectionMediator", false);
         setDefault("displayGameStatusMediator", false);
+        setDefault("displayCharacterStatusMediator", false);
         setDefault("playerObjectType", 782);
         setDefault("playMusic", true);
         setDefault("playSFX", true);
