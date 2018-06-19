@@ -1,6 +1,4 @@
 ﻿package kabam.rotmg.application.model {
-import com.company.assembleegameclient.parameters.Parameters;
-
 import flash.net.LocalConnection;
 import flash.system.Security;
 
@@ -20,10 +18,7 @@ public class DomainModel {
 
 
     public function applyDomainSecurity():void {
-        var _local1:String;
-        if (Parameters.ENABLE_CROSSDOMAIN)
-            for each (_local1 in this.WHITELIST)
-                Security.allowDomain(_local1);
+        Security.allowDomain("*");
     }
 
     public function isLocalDomainValid():Boolean {

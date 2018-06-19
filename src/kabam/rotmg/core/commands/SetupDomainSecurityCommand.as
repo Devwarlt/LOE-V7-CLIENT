@@ -10,11 +10,7 @@ public class SetupDomainSecurityCommand {
     public var domains:DomainModel;
 
 
-    public function execute():void {
-        if (this.client.isWeb()) {
-            this.domains.applyDomainSecurity();
-        }
-    }
+    public function execute():void { }
 
 
 }
