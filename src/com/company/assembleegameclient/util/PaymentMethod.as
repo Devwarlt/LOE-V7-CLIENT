@@ -3,7 +3,7 @@ import com.company.assembleegameclient.util.offer.Offer;
 
 import flash.net.URLVariables;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.application.api.ApplicationSetup;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.text.model.TextKey;
@@ -37,7 +37,7 @@ public class PaymentMethod {
 
 
     public function getURL(_arg1:String, _arg2:String, _arg3:Offer):String {
-        var _local4:Account = StaticInjectorContext.getInjector().getInstance(Account);
+        var _local4:WebAccount = StaticInjectorContext.getInjector().getInstance(WebAccount);
         var _local5:ApplicationSetup = StaticInjectorContext.getInjector().getInstance(ApplicationSetup);
         var _local6:URLVariables = new URLVariables();
         _local6["tok"] = _arg1;

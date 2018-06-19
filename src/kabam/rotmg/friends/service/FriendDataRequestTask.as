@@ -1,6 +1,6 @@
 ﻿package kabam.rotmg.friends.service {
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 
 public class FriendDataRequestTask extends BaseTask {
@@ -8,7 +8,7 @@ public class FriendDataRequestTask extends BaseTask {
     [Inject]
     public var client:AppEngineClient;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     public var requestURL:String;
     public var xml:XML;
 

@@ -20,7 +20,7 @@ import flash.text.TextFieldAutoSize;
 import flash.text.TextFormatAlign;
 import flash.utils.Timer;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets;
 import kabam.rotmg.core.StaticInjectorContext;
@@ -60,7 +60,7 @@ public class MysteryBoxRollModal extends Sprite {
     private const rewardsInVaultString:String = "MysteryBoxRollModal.rewardsInVaultString";
 
     public var client:AppEngineClient;
-    public var account:Account;
+    public var account:WebAccount;
     public var parentSelectModal:MysteryBoxSelectModal;
     private var state:int;
     private var isShowReward:Boolean = false;
@@ -133,7 +133,7 @@ public class MysteryBoxRollModal extends Sprite {
         //addChild(this.plusNavSprite);
         var _local3:Injector = StaticInjectorContext.getInjector();
         this.client = _local3.getInstance(AppEngineClient);
-        this.account = _local3.getInstance(Account);
+        this.account = _local3.getInstance(WebAccount);
         var _local4:uint;
         while (_local4 < this.mbi._rollsWithContents.length) {
             this.indexInRolls.push(0);

@@ -11,6 +11,7 @@ import kabam.lib.tasks.TaskSequence;
 import kabam.rotmg.account.core.services.BuyCharacterSlotTask;
 import kabam.rotmg.account.core.view.BuyingDialog;
 import kabam.rotmg.account.core.view.PurchaseConfirmationDialog;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.core.model.PlayerModel;
 import kabam.rotmg.core.signals.SetScreenSignal;
 import kabam.rotmg.dialogs.control.CloseDialogsSignal;
@@ -34,8 +35,7 @@ public class BuyCharacterSlotCommand {
     [Inject]
     public var model:PlayerModel;
     [Inject]
-    public var account:Account;
-
+    public var account:WebAccount;
 
     public function execute():void {
         if (this.isSlotUnaffordable()) {

@@ -12,7 +12,7 @@ import flash.events.Event;
 import flash.filters.DropShadowFilter;
 import flash.text.TextFieldAutoSize;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.text.model.TextKey;
@@ -49,7 +49,7 @@ public class GuildPlayerList extends Sprite {
         this.loadingText_.x = (800 / 2);
         this.loadingText_.y = 550;
         addChild(this.loadingText_);
-        var _local5:Account = StaticInjectorContext.getInjector().getInstance(Account);
+        var _local5:WebAccount = StaticInjectorContext.getInjector().getInstance(WebAccount);
         var _local6:Object = {
             "num": _arg1,
             "offset": _arg2

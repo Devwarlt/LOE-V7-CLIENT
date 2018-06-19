@@ -24,7 +24,7 @@ import flash.net.FileReference;
 import flash.text.TextFieldAutoSize;
 import flash.utils.ByteArray;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.editor.model.SearchData;
@@ -256,7 +256,7 @@ public class LoadTextureDialog extends Sprite {
     }
 
     private function onDelete(_arg_1:Event):void {
-        var _local_2:Account = StaticInjectorContext.getInjector().getInstance(Account);
+        var _local_2:WebAccount = StaticInjectorContext.getInjector().getInstance(WebAccount);
         var _local_3:DeletePictureDialog = (_arg_1.target as DeletePictureDialog);
         _local_3.parent.removeChild(_local_3);
         this.resultsBoxes_.visible = false;
@@ -266,7 +266,7 @@ public class LoadTextureDialog extends Sprite {
         _local_4.sendRequest("/picture/delete", this.getDeleteParams(_local_3, _local_2));
     }
 
-    private function getDeleteParams(_arg_1:DeletePictureDialog, _arg_2:Account):Object {
+    private function getDeleteParams(_arg_1:DeletePictureDialog, _arg_2:WebAccount):Object {
         var _local_3:Object = {"id": _arg_1.id_.toString()};
         MoreObjectUtil.addToObject(_local_3, _arg_2.getCredentials());
         return (_local_3);

@@ -8,7 +8,7 @@ import flash.events.IOErrorEvent;
 import flash.events.MouseEvent;
 
 import kabam.lib.json.JsonParser;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.application.api.ApplicationSetup;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.editor.view.components.savedialog.TagsInputField;
@@ -28,10 +28,10 @@ public class SubmitMapForm extends Frame {
     internal var tags:TagsInputField;
     internal var mapjm:String;
     internal var mapInfo:Object;
-    internal var account:Account;
+    internal var account:WebAccount;
     internal var checkbox:CheckBoxField;
 
-    public function SubmitMapForm(_arg1:String, _arg2:Object, _arg3:Account) {
+    public function SubmitMapForm(_arg1:String, _arg2:Object, _arg3:WebAccount) {
         super("SubmitMapForm.Title", TextKey.FRAME_CANCEL, TextKey.WEB_CHANGE_PASSWORD_RIGHT, 300);
         cancel = new Signal();
         this.account = _arg3;

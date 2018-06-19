@@ -1,7 +1,7 @@
 ﻿package kabam.rotmg.pets.view.components {
 import flash.events.MouseEvent;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
 import kabam.rotmg.pets.data.PetYardEnum;
 import kabam.rotmg.pets.data.PetsModel;
@@ -19,7 +19,7 @@ public class YardUpgraderPanelMediator extends Mediator {
     [Inject]
     public var petModel:PetsModel;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
 
 
     override public function initialize():void {

@@ -8,7 +8,7 @@ import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
 
-import kabam.rotmg.account.core.view.AccountInfoView;
+import kabam.rotmg.account.web.view.WebAccountInfoView;
 
 import org.osflash.signals.Signal;
 
@@ -25,7 +25,7 @@ public class AccountScreen extends Sprite {
     private var admin:Boolean;
     private var rankText:RankText;
     private var guildText:GuildText;
-    private var accountInfo:AccountInfoView;
+    private var accountInfo:WebAccountInfoView;
 
     public function AccountScreen() {
         this.tooltip = new Signal();
@@ -81,7 +81,7 @@ public class AccountScreen extends Sprite {
         this.rankLayer.addChild(this.rankText);
     }
 
-    public function setAccountInfo(_arg1:AccountInfoView):void {
+    public function setAccountInfo(_arg1:WebAccountInfoView):void {
         var _local2:DisplayObject;
         this.accountInfo = _arg1;
         _local2 = (_arg1 as DisplayObject);

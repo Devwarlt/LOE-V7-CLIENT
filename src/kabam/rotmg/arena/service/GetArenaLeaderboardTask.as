@@ -2,7 +2,7 @@
 import com.company.util.MoreObjectUtil;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.arena.control.ReloadLeaderboard;
 import kabam.rotmg.arena.model.ArenaLeaderboardEntry;
@@ -13,7 +13,7 @@ public class GetArenaLeaderboardTask extends BaseTask {
     private static const REQUEST:String = "/arena/getRecords";
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var client:AppEngineClient;
     [Inject]

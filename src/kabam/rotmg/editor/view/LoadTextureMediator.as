@@ -1,5 +1,5 @@
 ﻿package kabam.rotmg.editor.view {
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.dialogs.control.CloseDialogsSignal;
 import kabam.rotmg.editor.model.SearchData;
@@ -12,7 +12,7 @@ import robotlegs.bender.bundles.mvcs.Mediator;
 public class LoadTextureMediator extends Mediator {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var client:AppEngineClient;
     [Inject]

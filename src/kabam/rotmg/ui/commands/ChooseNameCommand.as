@@ -3,14 +3,14 @@ import com.company.assembleegameclient.account.ui.NewChooseNameFrame;
 
 import flash.display.Sprite;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
 import kabam.rotmg.ui.view.ChooseNameRegisterDialog;
 
 public class ChooseNameCommand {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var openDialog:OpenDialogSignal;
 

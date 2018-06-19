@@ -4,7 +4,7 @@ import com.company.assembleegameclient.screens.CharacterSelectionAndNewsScreen;
 import flash.display.Sprite;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.core.model.ScreenModel;
 import kabam.rotmg.core.signals.InvalidateDataSignal;
 import kabam.rotmg.core.signals.SetScreenWithValidDataSignal;
@@ -15,7 +15,7 @@ import kabam.rotmg.pets.data.PetsModel;
 public class WebLogoutCommand {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var invalidate:InvalidateDataSignal;
     [Inject]

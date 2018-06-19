@@ -1,13 +1,13 @@
 ﻿package kabam.rotmg.account.web.services {
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.services.SendConfirmEmailAddressTask;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 
 public class WebSendVerificationEmailTask extends BaseTask implements SendConfirmEmailAddressTask {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var client:AppEngineClient;
 

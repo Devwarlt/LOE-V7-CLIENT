@@ -2,8 +2,8 @@
 import com.company.assembleegameclient.objects.SellableObject;
 import com.company.assembleegameclient.util.Currency;
 
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.view.RegisterPromptDialog;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
 import kabam.rotmg.game.model.GameModel;
 import kabam.rotmg.ui.view.NotEnoughGoldDialog;
@@ -15,7 +15,7 @@ public class SellableObjectPanelMediator extends Mediator {
     public static const TEXT:String = "SellableObjectPanelMediator.text";
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var gameModel:GameModel;
     [Inject]

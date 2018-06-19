@@ -2,7 +2,7 @@
 import com.company.assembleegameclient.map.mapoverlay.MapOverlay;
 import com.company.assembleegameclient.map.mapoverlay.SpeechBalloon;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.game.model.AddSpeechBalloonVO;
 import kabam.rotmg.game.model.ChatFilter;
 import kabam.rotmg.game.signals.AddSpeechBalloonSignal;
@@ -18,7 +18,7 @@ public class MapOverlayMediator extends Mediator {
     [Inject]
     public var chatFilter:ChatFilter;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
 
 
     override public function initialize():void {

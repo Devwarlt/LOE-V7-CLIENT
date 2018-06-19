@@ -1,6 +1,6 @@
 ﻿package kabam.rotmg.account.web.view {
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.signals.LoginSignal;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.account.web.model.AccountData;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.StaticInjectorContext;
@@ -24,7 +24,7 @@ public class WebLoginMediatorForced extends Mediator {
     [Inject]
     public var loginError:TaskErrorSignal;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
 
 
     override public function initialize():void {

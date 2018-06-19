@@ -7,7 +7,6 @@ import flash.net.URLRequestMethod;
 import flash.net.URLVariables;
 import flash.net.navigateToURL;
 
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.model.JSInitializedModel;
 import kabam.rotmg.account.core.model.MoneyConfig;
 import kabam.rotmg.account.web.WebAccount;
@@ -28,7 +27,7 @@ public class ExternalOpenMoneyWindowCommand {
     [Inject]
     public var moneyWindowModel:JSInitializedModel;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var moneyConfig:MoneyConfig;
     [Inject]

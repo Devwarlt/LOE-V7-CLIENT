@@ -7,7 +7,7 @@ import com.company.util.MoreObjectUtil;
 import flash.events.MouseEvent;
 import flash.filters.DropShadowFilter;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.account.web.model.AccountData;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.StaticInjectorContext;
@@ -23,7 +23,7 @@ public class ConfirmEmailModal extends Frame {
     public var register:Signal;
     public var cancel:Signal;
     private var emailInput:TextInputField;
-    private var account:Account;
+    private var account:WebAccount;
     private var closeButton:DialogCloseButton;
     private var isKabam:Boolean = false;
 
@@ -32,7 +32,7 @@ public class ConfirmEmailModal extends Frame {
         super(TextKey.VERIFY_WEB_ACCOUNT_DIALOG_TITLE, TextKey.REGISTER_WEB_ACCOUNT_DIALOG_LEFTBUTTON, TextKey.VERIFY_WEB_ACCOUNT_DIALOG_BUTTON);
         this.positionAndStuff();
         removeChild(leftButton_);
-        this.account = StaticInjectorContext.getInjector().getInstance(Account);
+        this.account = StaticInjectorContext.getInjector().getInstance(WebAccount);
         this.createAssets();
         this.enableForTabBehavior();
         this.addEventListeners();
@@ -100,7 +100,7 @@ public class ConfirmEmailModal extends Frame {
     }
 
     private function onSent():void {
-        var _local1:Account = StaticInjectorContext.getInjector().getInstance(Account);
+        var _local1:WebAccount = StaticInjectorContext.getInjector().getInstance(WebAccount);
         if (!this.isKabam) {
             _local1.updateUser(this.emailInput.text(), _local1.getPassword(), _local1.getToken());
         }

@@ -3,7 +3,7 @@ import flash.events.TimerEvent;
 import flash.utils.Timer;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.language.model.LanguageModel;
 import kabam.rotmg.packages.model.PackageInfo;
@@ -20,7 +20,7 @@ public class GetPackagesTask extends BaseTask {
     [Inject]
     public var packageModel:PackageModel;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var logger:ILogger;
     [Inject]

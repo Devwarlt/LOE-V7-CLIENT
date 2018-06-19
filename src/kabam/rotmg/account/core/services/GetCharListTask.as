@@ -6,11 +6,9 @@ import flash.events.TimerEvent;
 import flash.utils.Timer;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.signals.CharListDataSignal;
 import kabam.rotmg.account.securityQuestions.data.SecurityQuestionsModel;
 import kabam.rotmg.account.web.WebAccount;
-import kabam.rotmg.account.web.view.MigrationDialog;
 import kabam.rotmg.account.web.view.WebLoginDialog;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.StaticInjectorContext;
@@ -29,7 +27,7 @@ public class GetCharListTask extends BaseTask {
     private static const MAX_RETRIES:int = 7;
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var client:AppEngineClient;
     [Inject]

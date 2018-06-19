@@ -1,7 +1,7 @@
 ﻿package kabam.rotmg.account.web.services {
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.services.RegisterAccountTask;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.account.web.model.AccountData;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.model.PlayerModel;
@@ -11,7 +11,7 @@ public class WebRegisterAccountTask extends BaseTask implements RegisterAccountT
     [Inject]
     public var data:AccountData;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var model:PlayerModel;
     [Inject]

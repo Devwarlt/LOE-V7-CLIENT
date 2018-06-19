@@ -5,7 +5,7 @@ import flash.events.Event;
 import flash.utils.ByteArray;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.application.api.ApplicationSetup;
 import kabam.rotmg.editor.model.TextureData;
 
@@ -14,7 +14,7 @@ import ru.inspirit.net.MultipartURLLoader;
 public class SaveTextureTask extends BaseTask {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var data:TextureData;
     [Inject]

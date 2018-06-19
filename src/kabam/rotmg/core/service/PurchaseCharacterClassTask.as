@@ -4,7 +4,7 @@ import com.company.assembleegameclient.parameters.Parameters;
 import com.company.util.MoreObjectUtil;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.model.PlayerModel;
 
@@ -15,7 +15,7 @@ public class PurchaseCharacterClassTask extends BaseTask {
     [Inject]
     public var classType:int;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var client:AppEngineClient;
     [Inject]

@@ -2,7 +2,7 @@
 import com.company.assembleegameclient.ui.dialogs.ErrorDialog;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.classes.model.CharacterSkin;
 import kabam.rotmg.classes.model.CharacterSkinState;
@@ -16,7 +16,7 @@ public class BuySkinTask extends BaseTask {
     [Inject]
     public var client:AppEngineClient;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var player:PlayerModel;
     [Inject]

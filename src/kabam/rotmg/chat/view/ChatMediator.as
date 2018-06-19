@@ -4,9 +4,9 @@ import flash.display.Stage;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.signals.RegisterSignal;
 import kabam.rotmg.account.core.view.RegisterPromptDialog;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.account.web.model.AccountData;
 import kabam.rotmg.chat.control.ScrollListSignal;
 import kabam.rotmg.chat.control.ShowChatInputSignal;
@@ -29,7 +29,7 @@ public class ChatMediator extends Mediator {
     [Inject]
     public var model:ChatModel;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var shortcuts:ChatShortcutModel;
     [Inject]

@@ -3,7 +3,6 @@ import com.company.assembleegameclient.game.GameSprite;
 import com.company.assembleegameclient.objects.Merchant;
 import com.company.assembleegameclient.objects.Player;
 import com.company.assembleegameclient.objects.SellableObject;
-import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.ui.ConfirmBuyModal;
 import com.company.assembleegameclient.ui.RankText;
 import com.company.assembleegameclient.ui.panels.Panel;
@@ -18,7 +17,7 @@ import flash.events.MouseEvent;
 import flash.filters.DropShadowFilter;
 import flash.text.TextFieldAutoSize;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.core.signals.HideTooltipsSignal;
 import kabam.rotmg.core.signals.ShowTooltipSignal;
@@ -142,7 +141,7 @@ public class SellableObjectPanel extends Panel implements TooltipAble {
     }
 
     private function buyEvent():void {
-        var _local1:Account = StaticInjectorContext.getInjector().getInstance(Account);
+        var _local1:WebAccount = StaticInjectorContext.getInjector().getInstance(WebAccount);
         if (((((!((parent == null))) && (_local1.isRegistered()))) && ((this.owner_ is Merchant)))) {
             this.confirmBuyModal = new ConfirmBuyModal(this.buyItem, this.owner_, this.buyButton_.width, this.availableInventoryNumber);
             parent.addChild(this.confirmBuyModal);

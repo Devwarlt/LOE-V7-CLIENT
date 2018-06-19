@@ -32,11 +32,11 @@ import com.company.assembleegameclient.ui.panels.mediators.InteractPanelMediator
 import com.company.assembleegameclient.ui.panels.mediators.ItemGridMediator;
 
 import kabam.rotmg.account.core.services.GetCharListTask;
-import kabam.rotmg.account.core.services.LoadAccountTask;
 import kabam.rotmg.account.core.view.AccountInfoMediator;
-import kabam.rotmg.account.core.view.AccountInfoView;
 import kabam.rotmg.account.core.view.RegisterPromptDialog;
 import kabam.rotmg.account.core.view.RegisterPromptDialogMediator;
+import kabam.rotmg.account.web.services.WebLoadAccountTask;
+import kabam.rotmg.account.web.view.WebAccountInfoView;
 import kabam.rotmg.application.api.ApplicationSetup;
 import kabam.rotmg.dailyLogin.tasks.FetchPlayerCalendarTask;
 import kabam.rotmg.death.view.ResurrectionView;
@@ -148,7 +148,7 @@ public class UIConfig implements IConfig {
         this.mediatorMap.map(ServersScreen).toMediator(ServersMediator);
         this.mediatorMap.map(CreditsScreen).toMediator(CreditsMediator);
         this.mediatorMap.map(CharacterSelectionAndNewsScreen).toMediator(CurrentCharacterMediator);
-        this.mediatorMap.map(AccountInfoView).toMediator(AccountInfoMediator);
+        this.mediatorMap.map(WebAccountInfoView).toMediator(AccountInfoMediator);
         this.mediatorMap.map(AccountScreen).toMediator(AccountScreenMediator);
         this.mediatorMap.map(TitleView).toMediator(TitleMediator);
         this.mediatorMap.map(NewCharacterScreen).toMediator(NewCharacterMediator);
@@ -183,7 +183,7 @@ public class UIConfig implements IConfig {
         this.mapNoServersDialogFactory();
         this.setupCharacterWindow();
         this.startup.addSignal(ShowLoadingUISignal, -1);
-        this.startup.addTask(LoadAccountTask);
+        this.startup.addTask(WebLoadAccountTask);
         this.startup.addTask(GetCharListTask);
         this.startup.addTask(FetchPlayerCalendarTask);
         this.startup.addTask(GetInGameNewsTask);

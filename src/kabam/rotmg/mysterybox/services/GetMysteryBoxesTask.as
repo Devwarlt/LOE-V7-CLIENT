@@ -4,7 +4,7 @@ import com.company.assembleegameclient.util.TimeUtil;
 import flash.utils.getTimer;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.application.DynamicSettings;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
@@ -28,7 +28,7 @@ public class GetMysteryBoxesTask extends BaseTask {
     [Inject]
     public var fortuneModel:FortuneModel;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var logger:ILogger;
     [Inject]

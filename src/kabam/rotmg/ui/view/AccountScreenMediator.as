@@ -2,14 +2,6 @@
 import com.company.assembleegameclient.screens.AccountScreen;
 import com.company.assembleegameclient.ui.tooltip.ToolTip;
 
-import kabam.rotmg.account.core.Account;
-import kabam.rotmg.account.core.view.AccountInfoView;
-import kabam.rotmg.account.kabam.KabamAccount;
-import kabam.rotmg.account.kabam.view.KabamAccountInfoView;
-import kabam.rotmg.account.kongregate.KongregateAccount;
-import kabam.rotmg.account.kongregate.view.KongregateAccountInfoView;
-import kabam.rotmg.account.steam.SteamAccount;
-import kabam.rotmg.account.steam.view.SteamAccountInfoView;
 import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.account.web.view.WebAccountInfoView;
 import kabam.rotmg.core.model.PlayerModel;
@@ -23,7 +15,7 @@ public class AccountScreenMediator extends Mediator {
     [Inject]
     public var view:AccountScreen;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var playerModel:PlayerModel;
     [Inject]
@@ -39,20 +31,11 @@ public class AccountScreenMediator extends Mediator {
         this.view.setAccountInfo(this.getInfoView());
     }
 
-    private function getInfoView():AccountInfoView {
-        var _local1:AccountInfoView;
+    private function getInfoView():WebAccountInfoView {
+        var _local1:WebAccountInfoView;
         switch (this.account.gameNetwork()) {
             case WebAccount.NETWORK_NAME:
                 _local1 = new WebAccountInfoView();
-                break;
-            case KabamAccount.NETWORK_NAME:
-                _local1 = new KabamAccountInfoView();
-                break;
-            case KongregateAccount.NETWORK_NAME:
-                _local1 = new KongregateAccountInfoView();
-                break;
-            case SteamAccount.NETWORK_NAME:
-                _local1 = new SteamAccountInfoView();
                 break;
         }
         return (_local1);

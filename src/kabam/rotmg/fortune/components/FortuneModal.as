@@ -27,8 +27,8 @@ import flash.text.TextFormatAlign;
 import flash.utils.Timer;
 import flash.utils.getTimer;
 
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.view.EmptyFrame;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.dialogs.control.CloseDialogsSignal;
@@ -92,7 +92,7 @@ public class FortuneModal extends EmptyFrame {
     private var currentString:int = -1;
     private var countdownTimer:CountdownTimer;
     public var client:AppEngineClient;
-    public var account:Account;
+    public var account:WebAccount;
     public var model:FortuneModel;
     public var fortuneInfo:FortuneInfo;
     public var state:int = 1;
@@ -142,7 +142,7 @@ public class FortuneModal extends EmptyFrame {
         this.largeCloseButton.x = ((modalWidth - this.largeCloseButton.width) - 5);
         var _local2:Injector = StaticInjectorContext.getInjector();
         this.client = _local2.getInstance(AppEngineClient);
-        this.account = _local2.getInstance(Account);
+        this.account = _local2.getInstance(WebAccount);
         this.model = _local2.getInstance(FortuneModel);
         this.fortuneInfo = this.model.getFortune();
         if (this.fortuneInfo == null) {

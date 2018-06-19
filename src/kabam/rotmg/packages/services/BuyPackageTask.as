@@ -2,7 +2,7 @@
 import com.company.assembleegameclient.map.QueueStatusTextSignal;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.model.PlayerModel;
 import kabam.rotmg.packages.control.BuyPackageSuccessfulSignal;
@@ -16,7 +16,7 @@ public class BuyPackageTask extends BaseTask {
     [Inject]
     public var client:AppEngineClient;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var getPackageTask:GetPackagesTask;
     [Inject]

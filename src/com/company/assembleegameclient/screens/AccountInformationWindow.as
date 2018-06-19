@@ -6,7 +6,7 @@ import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.StaticInjectorContext;
 
@@ -32,7 +32,7 @@ public class AccountInformationWindow extends Sprite {
     private function load():void {
         this.client_ = StaticInjectorContext.getInjector().getInstance(AppEngineClient);
         this.client_.complete.addOnce(this.onAccountInformationComplete);
-        this.client_.sendRequest("/account/accountInformation", StaticInjectorContext.getInjector().getInstance(Account).getCredentials());
+        this.client_.sendRequest("/account/accountInformation", StaticInjectorContext.getInjector().getInstance(WebAccount).getCredentials());
         this.dialog_ = new Dialog(null, "Loading...", null, null, null);
         addChild(this.dialog_);
         this.darkBox_.visible = false;

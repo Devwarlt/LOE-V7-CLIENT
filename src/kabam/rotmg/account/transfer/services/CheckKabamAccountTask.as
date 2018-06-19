@@ -1,15 +1,15 @@
 ﻿package kabam.rotmg.account.transfer.services {
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.transfer.model.TransferAccountData;
 import kabam.rotmg.account.transfer.view.KabamLoginView;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.model.PlayerModel;
 
 public class CheckKabamAccountTask extends BaseTask {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var model:PlayerModel;
     [Inject]

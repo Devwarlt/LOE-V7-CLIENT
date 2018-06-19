@@ -7,8 +7,8 @@ import flash.events.Event;
 
 import kabam.lib.net.api.MessageProvider;
 import kabam.lib.net.impl.SocketServer;
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.view.RegisterPromptDialog;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.arena.model.CurrentArenaRunModel;
 import kabam.rotmg.arena.service.GetBestArenaRunTask;
 import kabam.rotmg.dialogs.control.CloseDialogsSignal;
@@ -47,7 +47,7 @@ public class ArenaPortalPanelMediator extends Mediator {
     [Inject]
     public var exitSignal:ExitGameSignal;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     private var dialog:Dialog;
 
 

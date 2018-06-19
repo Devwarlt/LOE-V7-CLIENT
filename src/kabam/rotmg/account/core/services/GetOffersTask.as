@@ -4,8 +4,8 @@ import com.company.assembleegameclient.util.offer.Offers;
 import flash.utils.getTimer;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.model.OfferModel;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 
 import robotlegs.bender.framework.api.ILogger;
@@ -13,7 +13,7 @@ import robotlegs.bender.framework.api.ILogger;
 public class GetOffersTask extends BaseTask {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var model:OfferModel;
     [Inject]

@@ -3,7 +3,7 @@ import com.company.assembleegameclient.parameters.Parameters;
 import com.company.util.MoreObjectUtil;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.build.api.BuildData;
 import kabam.rotmg.build.api.BuildEnvironment;
@@ -17,7 +17,7 @@ import robotlegs.bender.framework.api.ILogger;
 public class FetchPlayerCalendarTask extends BaseTask {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var logger:ILogger;
     [Inject]

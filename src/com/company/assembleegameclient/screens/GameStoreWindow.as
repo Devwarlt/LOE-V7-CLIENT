@@ -8,7 +8,7 @@ import flash.events.Event;
 import flash.events.TimerEvent;
 import flash.utils.Timer;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.StaticInjectorContext;
 
@@ -38,7 +38,7 @@ public class GameStoreWindow extends Sprite {
         this.darkBox_.visible = true;
         this.client_ = StaticInjectorContext.getInjector().getInstance(AppEngineClient);
         this.client_.complete.addOnce(this.onAccountInformationComplete);
-        this.client_.sendRequest("/gamestore/getOffers", StaticInjectorContext.getInjector().getInstance(Account).getCredentials());
+        this.client_.sendRequest("/gamestore/getOffers", StaticInjectorContext.getInjector().getInstance(WebAccount).getCredentials());
         this.dialog_ = new Dialog(null, "Loading...", null, null, null);
         addChild(this.dialog_);
     }
@@ -132,7 +132,7 @@ import flash.filters.GlowFilter;
 import flash.utils.Timer;
 import flash.utils.setInterval;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_buttonMediumHover_shapeEmbed_;
 import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_buttonMediumNormal_shapeEmbed_;
@@ -486,8 +486,8 @@ class GameStoreCart extends Sprite {
         this.client_ = StaticInjectorContext.getInjector().getInstance(AppEngineClient);
         this.client_.complete.addOnce(this.onGameStorePurchaseComplete);
         this.client_.sendRequest("/gamestore/purchaseOffers", {
-            guid: StaticInjectorContext.getInjector().getInstance(Account).getUserId(),
-            password: StaticInjectorContext.getInjector().getInstance(Account).getPassword(),
+            guid: StaticInjectorContext.getInjector().getInstance(WebAccount).getUserId(),
+            password: StaticInjectorContext.getInjector().getInstance(WebAccount).getPassword(),
             purchasedItems: processPurchases()
         });
         this.dialog_ = new Dialog(null, "Contacting server, please wait...", null, null, null);

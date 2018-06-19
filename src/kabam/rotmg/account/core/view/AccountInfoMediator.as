@@ -1,16 +1,16 @@
 ﻿package kabam.rotmg.account.core.view {
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.signals.UpdateAccountInfoSignal;
 import kabam.rotmg.account.web.WebAccount;
+import kabam.rotmg.account.web.view.WebAccountInfoView;
 
 import robotlegs.bender.bundles.mvcs.Mediator;
 
 public class AccountInfoMediator extends Mediator {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
-    public var view:AccountInfoView;
+    public var view:WebAccountInfoView;
     [Inject]
     public var update:UpdateAccountInfoSignal;
 

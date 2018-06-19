@@ -1,10 +1,8 @@
 ﻿package kabam.rotmg.chat.control {
 import com.company.assembleegameclient.objects.ObjectLibrary;
-import com.company.assembleegameclient.objects.ObjectProperties;
-import com.company.assembleegameclient.objects.ProjectileProperties;
 import com.company.assembleegameclient.parameters.Parameters;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.build.api.BuildData;
 import kabam.rotmg.chat.model.ChatMessage;
@@ -24,7 +22,7 @@ public class ParseChatMessageCommand {
     [Inject]
     public var client:AppEngineClient;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var buildData:BuildData;
     [Inject]

@@ -1,5 +1,4 @@
 ﻿package kabam.rotmg.account.web {
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.model.MoneyConfig;
 import kabam.rotmg.account.core.services.ChangePasswordTask;
 import kabam.rotmg.account.core.services.LoadAccountTask;
@@ -73,7 +72,7 @@ public class WebAccountConfig implements IConfig {
     }
 
     protected function mapModel():void {
-        this.injector.map(Account).toSingleton(WebAccount);
+        this.injector.map(WebAccount).toSingleton(WebAccount);
         this.injector.map(MoneyConfig).toSingleton(WebMoneyConfig);
     }
 

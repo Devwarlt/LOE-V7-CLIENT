@@ -11,10 +11,10 @@ import flash.net.URLVariables;
 import flash.net.navigateToURL;
 import flash.system.Capabilities;
 
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.signals.OpenAccountInfoSignal;
 import kabam.rotmg.account.securityQuestions.data.SecurityQuestionsModel;
 import kabam.rotmg.account.securityQuestions.view.SecurityQuestionsInfoDialog;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.application.DynamicSettings;
 import kabam.rotmg.application.api.ApplicationSetup;
 import kabam.rotmg.core.model.PlayerModel;
@@ -37,7 +37,7 @@ public class TitleMediator extends Mediator {
     [Inject]
     public var view:TitleView;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var playerModel:PlayerModel;
     [Inject]

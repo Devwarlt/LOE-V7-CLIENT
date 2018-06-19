@@ -1,7 +1,6 @@
 ﻿package kabam.rotmg.game.view {
 import com.company.assembleegameclient.game.GameSprite;
 import com.company.assembleegameclient.objects.SellableObject;
-import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.ui.DeprecatedTextButton;
 import com.company.assembleegameclient.ui.panels.Panel;
 import com.company.assembleegameclient.util.Currency;
@@ -14,8 +13,8 @@ import flash.events.MouseEvent;
 import flash.filters.DropShadowFilter;
 import flash.text.TextFieldAutoSize;
 
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.view.RegisterPromptDialog;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.arena.util.ArenaViewAssetFactory;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
@@ -64,7 +63,7 @@ public class MysteryBoxPanel extends Panel {
         var _local6:String = "MysteryBoxPanel.checkBackLater";
         var _local7:String = "MysteryBoxPanel.mysteryBoxShop";
         var _local8:MysteryBoxModel = _local3.getInstance(MysteryBoxModel);
-        var _local9:Account = _local3.getInstance(Account);
+        var _local9:WebAccount = _local3.getInstance(WebAccount);
         if (((_local8.isInitialized()) || (!(_local9.isRegistered())))) {
             this.infoButton_ = new DeprecatedTextButton(16, _local5);
             this.infoButton_.addEventListener(MouseEvent.CLICK, this.onInfoButtonClick);
@@ -110,7 +109,7 @@ public class MysteryBoxPanel extends Panel {
     private function onInfoButton():void {
         var _local1:Injector = StaticInjectorContext.getInjector();
         var _local2:MysteryBoxModel = _local1.getInstance(MysteryBoxModel);
-        var _local3:Account = _local1.getInstance(Account);
+        var _local3:WebAccount = _local1.getInstance(WebAccount);
         var _local4:OpenDialogSignal = _local1.getInstance(OpenDialogSignal);
         if (((_local2.isInitialized()) && (_local3.isRegistered()))) {
             _local4.dispatch(new MysteryBoxSelectModal());

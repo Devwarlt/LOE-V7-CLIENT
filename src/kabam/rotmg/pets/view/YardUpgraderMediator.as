@@ -1,5 +1,5 @@
 ﻿package kabam.rotmg.pets.view {
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.dialogs.control.CloseDialogsSignal;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
 import kabam.rotmg.pets.controller.UpgradePetSignal;
@@ -19,7 +19,7 @@ public class YardUpgraderMediator extends Mediator {
     [Inject]
     public var upgradePet:UpgradePetSignal;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var openDialog:OpenDialogSignal;
     [Inject]

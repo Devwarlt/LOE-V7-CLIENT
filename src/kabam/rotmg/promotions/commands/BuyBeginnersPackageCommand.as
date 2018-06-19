@@ -1,10 +1,8 @@
 ﻿package kabam.rotmg.promotions.commands {
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.PaymentData;
 import kabam.rotmg.account.core.signals.OpenAccountPaymentSignal;
 import kabam.rotmg.account.core.signals.OpenMoneyWindowSignal;
 import kabam.rotmg.account.core.view.RegisterPromptDialog;
-import kabam.rotmg.account.kabam.KabamAccount;
 import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
 import kabam.rotmg.promotions.model.BeginnersPackageModel;
@@ -16,7 +14,7 @@ public class BuyBeginnersPackageCommand {
     private static const REGISTER_DIALOG_TEXT:String = TextKey.BUY_BEGINNERS_PACKAGE_COMMAND_REGISTER_DIALOG;//"BuyBeginnersPackageCommand.registerDialog"
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var model:BeginnersPackageModel;
     [Inject]
@@ -39,7 +37,7 @@ public class BuyBeginnersPackageCommand {
     }
 
     private function openAccountSpecificPaymentScreen():void {
-        if ((((this.account is WebAccount)) || ((this.account is KabamAccount)))) {
+        if (this.account is WebAccount) {
             this.openMoneyWindow.dispatch();
         }
         else {

@@ -2,8 +2,8 @@
 import com.company.assembleegameclient.util.TimeUtil;
 import com.company.assembleegameclient.util.offer.Offer;
 
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.model.OfferModel;
+import kabam.rotmg.account.web.WebAccount;
 
 import org.osflash.signals.Signal;
 
@@ -13,7 +13,7 @@ public class BeginnersPackageModel {
     private static const ONE_WEEK_IN_SECONDS:int = 604800;
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var model:OfferModel;
     public var markedAsPurchased:Signal;

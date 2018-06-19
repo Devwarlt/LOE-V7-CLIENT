@@ -1,5 +1,4 @@
 ﻿package kabam.rotmg.account.web.commands {
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.web.WebAccount;
 
 public class WebSetPaymentDataCommand {
@@ -7,7 +6,7 @@ public class WebSetPaymentDataCommand {
     [Inject]
     public var characterListData:XML;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
 
 
     public function execute():void {

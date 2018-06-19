@@ -1,7 +1,7 @@
 ﻿package kabam.rotmg.news.model {
 import com.company.assembleegameclient.parameters.Parameters;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.news.controller.NewsButtonRefreshSignal;
 import kabam.rotmg.news.controller.NewsDataUpdatedSignal;
 import kabam.rotmg.news.view.NewsModalPage;
@@ -16,7 +16,7 @@ public class NewsModel {
     [Inject]
     public var updateNoParams:NewsButtonRefreshSignal;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     public var news:Vector.<NewsCellVO>;
     public var modalPages:Vector.<NewsModalPage>;
     public var modalPageData:Vector.<NewsCellVO>;

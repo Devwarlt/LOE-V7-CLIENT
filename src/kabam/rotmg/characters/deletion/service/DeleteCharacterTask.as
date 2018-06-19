@@ -2,7 +2,7 @@
 import com.company.assembleegameclient.appengine.SavedCharacter;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.characters.model.CharacterModel;
 
@@ -13,7 +13,7 @@ public class DeleteCharacterTask extends BaseTask {
     [Inject]
     public var client:AppEngineClient;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var model:CharacterModel;
 

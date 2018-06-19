@@ -7,7 +7,7 @@ import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.Event;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.StaticInjectorContext;
 
@@ -34,7 +34,7 @@ public class GuildBoardWindow extends Sprite {
     }
 
     private function load():void {
-        var _local1:Account = StaticInjectorContext.getInjector().getInstance(Account);
+        var _local1:WebAccount = StaticInjectorContext.getInjector().getInstance(WebAccount);
         this.client = StaticInjectorContext.getInjector().getInstance(AppEngineClient);
         this.client.complete.addOnce(this.onGetBoardComplete);
         this.client.sendRequest("/guild/getBoard", _local1.getCredentials());
@@ -90,7 +90,7 @@ public class GuildBoardWindow extends Sprite {
     }
 
     private function onEditComplete(_arg1:Event):void {
-        var _local2:Account = StaticInjectorContext.getInjector().getInstance(Account);
+        var _local2:WebAccount = StaticInjectorContext.getInjector().getInstance(WebAccount);
         var _local3:Object = {"board": this.editBoard_.getText()};
         MoreObjectUtil.addToObject(_local3, _local2.getCredentials());
         this.client = StaticInjectorContext.getInjector().getInstance(AppEngineClient);

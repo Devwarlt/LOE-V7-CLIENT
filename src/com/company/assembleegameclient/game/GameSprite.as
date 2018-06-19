@@ -28,7 +28,7 @@ import flash.utils.getTimer;
 
 import kabam.lib.loopedprocs.LoopedCallback;
 import kabam.lib.loopedprocs.LoopedProcess;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.arena.view.ArenaTimer;
 import kabam.rotmg.arena.view.ArenaWaveCounter;
 import kabam.rotmg.chat.view.Chat;
@@ -192,7 +192,7 @@ public class GameSprite extends AGameSprite {
     }
 
     override public function initialize():void {
-        var _local1:Account;
+        var _local1:WebAccount;
         var _local4:ShowProTipSignal;
 
         map.initialize();
@@ -207,7 +207,7 @@ public class GameSprite extends AGameSprite {
             this.showWaveCounter();
         }
 
-        _local1 = StaticInjectorContext.getInjector().getInstance(Account);
+        _local1 = StaticInjectorContext.getInjector().getInstance(WebAccount);
 
         if (map.name_ == Map.NEXUS) {
             this.addToQueueSignal.dispatch(PopupNamesConfig.DAILY_LOGIN_POPUP, this.openDailyCalendarPopupSignal, -1, null);

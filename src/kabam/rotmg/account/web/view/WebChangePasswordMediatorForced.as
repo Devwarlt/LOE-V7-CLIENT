@@ -1,5 +1,5 @@
 ﻿package kabam.rotmg.account.web.view {
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.account.web.signals.WebChangePasswordSignal;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.StaticInjectorContext;
@@ -23,7 +23,7 @@ public class WebChangePasswordMediatorForced extends Mediator {
     [Inject]
     public var loginError:TaskErrorSignal;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     private var newPassword:String;
 
 

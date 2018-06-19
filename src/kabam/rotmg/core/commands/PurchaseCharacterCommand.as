@@ -6,9 +6,9 @@ import kabam.lib.tasks.DispatchSignalTask;
 import kabam.lib.tasks.Task;
 import kabam.lib.tasks.TaskMonitor;
 import kabam.lib.tasks.TaskSequence;
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.services.GetCharListTask;
 import kabam.rotmg.account.core.view.RegisterPromptDialog;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.core.model.PlayerModel;
 import kabam.rotmg.core.service.PurchaseCharacterClassTask;
 import kabam.rotmg.core.service.PurchaseCharacterErrorTask;
@@ -23,7 +23,7 @@ public class PurchaseCharacterCommand {
     [Inject]
     public var classType:int;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var openDialog:OpenDialogSignal;
     [Inject]

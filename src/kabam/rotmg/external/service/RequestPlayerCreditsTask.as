@@ -5,7 +5,7 @@ import flash.events.TimerEvent;
 import flash.utils.Timer;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.model.PlayerModel;
 import kabam.rotmg.game.model.GameModel;
@@ -15,7 +15,7 @@ public class RequestPlayerCreditsTask extends BaseTask {
     private static const REQUEST:String = "account/getCredits";
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var client:AppEngineClient;
     [Inject]

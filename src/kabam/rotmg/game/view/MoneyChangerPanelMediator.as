@@ -1,7 +1,7 @@
 ﻿package kabam.rotmg.game.view {
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.signals.OpenMoneyWindowSignal;
 import kabam.rotmg.account.core.view.RegisterPromptDialog;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
 import kabam.rotmg.text.model.TextKey;
 
@@ -10,7 +10,7 @@ import robotlegs.bender.bundles.mvcs.Mediator;
 public class MoneyChangerPanelMediator extends Mediator {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var view:MoneyChangerPanel;
     [Inject]

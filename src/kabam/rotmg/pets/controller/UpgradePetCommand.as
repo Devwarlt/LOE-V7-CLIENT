@@ -1,8 +1,8 @@
 ﻿package kabam.rotmg.pets.controller {
 import kabam.lib.net.api.MessageProvider;
 import kabam.lib.net.impl.SocketServer;
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.view.RegisterPromptDialog;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
 import kabam.rotmg.messaging.impl.GameServerConnection;
 import kabam.rotmg.messaging.impl.outgoing.PetUpgradeRequest;
@@ -24,7 +24,7 @@ public class UpgradePetCommand extends Command {
     [Inject]
     public var server:SocketServer;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var openDialog:OpenDialogSignal;
 

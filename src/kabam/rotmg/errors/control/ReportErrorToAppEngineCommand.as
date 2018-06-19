@@ -3,14 +3,14 @@ import com.company.util.CapabilitiesUtil;
 
 import flash.events.ErrorEvent;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.application.api.ApplicationSetup;
 
 public class ReportErrorToAppEngineCommand {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var client:AppEngineClient;
     [Inject]

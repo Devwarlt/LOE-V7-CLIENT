@@ -11,6 +11,7 @@ import flash.display.StageScaleMode;
 import flash.events.Event;
 import flash.net.SharedObject;
 import flash.system.Capabilities;
+import flash.system.Security;
 import flash.text.TextField;
 import flash.text.TextFormat;
 
@@ -18,6 +19,7 @@ import flashx.textLayout.formats.TextAlign;
 
 import kabam.lib.net.NetConfig;
 import kabam.rotmg.account.AccountConfig;
+import kabam.rotmg.account.web.WebAccountConfig;
 import kabam.rotmg.appengine.AppEngineConfig;
 import kabam.rotmg.application.ApplicationConfig;
 import kabam.rotmg.application.ApplicationSpecificConfig;
@@ -109,6 +111,7 @@ public class WebMain extends Sprite {
     private function setup():void {
         this.setEnvironment();
         this.hackParameters();
+        Security.allowDomain("*");
         this.createContext();
         new AssetLoader().load();
         stage.scaleMode = StageScaleMode.EXACT_FIT;
@@ -139,7 +142,7 @@ public class WebMain extends Sprite {
                 .configure(LanguageConfig)
                 .configure(TextConfig)
                 .configure(AppEngineConfig)
-                .configure(AccountConfig)
+                .configure(WebAccountConfig)
                 .configure(ErrorConfig)
                 .configure(CoreConfig)
                 .configure(ApplicationSpecificConfig)

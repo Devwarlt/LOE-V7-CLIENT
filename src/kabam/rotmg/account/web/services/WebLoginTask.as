@@ -1,14 +1,14 @@
 ﻿package kabam.rotmg.account.web.services {
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.services.LoginTask;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.account.web.model.AccountData;
 import kabam.rotmg.appengine.api.AppEngineClient;
 
 public class WebLoginTask extends BaseTask implements LoginTask {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var data:AccountData;
     [Inject]

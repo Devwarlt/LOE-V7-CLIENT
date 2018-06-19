@@ -1,7 +1,7 @@
 ﻿package kabam.rotmg.friends.controller {
 import com.company.assembleegameclient.ui.dialogs.ErrorDialog;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.chat.model.ChatMessage;
 import kabam.rotmg.core.StaticInjectorContext;
@@ -15,7 +15,7 @@ public class FriendActionCommand {
     [Inject]
     public var client:AppEngineClient;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var vo:FriendRequestVO;
     [Inject]

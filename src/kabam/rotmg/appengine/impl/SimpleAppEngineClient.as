@@ -3,7 +3,6 @@ import com.company.assembleegameclient.parameters.Parameters;
 
 import flash.net.URLLoaderDataFormat;
 
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.appengine.api.RetryLoader;
 import kabam.rotmg.application.api.ApplicationSetup;
@@ -16,8 +15,6 @@ public class SimpleAppEngineClient implements AppEngineClient {
     public var loader:RetryLoader;
     [Inject]
     public var setup:ApplicationSetup;
-    [Inject]
-    public var account:Account;
     private var isEncrypted:Boolean;
     private var maxRetries:int;
     private var dataFormat:String;

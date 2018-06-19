@@ -5,7 +5,7 @@ import com.company.assembleegameclient.ui.dialogs.TOSPopup;
 
 import flash.events.Event;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
 import kabam.rotmg.promotions.model.BeginnersPackageModel;
@@ -54,11 +54,11 @@ public class SavedCharactersList extends Event {
     public var accountType_:int;
     public var menuMusic_:String;
     public var deadMusic_:String;
-    private var account:Account;
+    private var account:WebAccount;
 
     public function SavedCharactersList(_arg1:String) {
         var _local4:*;
-        var _local5:Account;
+        var _local5:WebAccount;
         this.savedChars_ = new Vector.<SavedCharacter>();
         this.charStats_ = {};
         this.news_ = new Vector.<SavedNewsItem>();
@@ -78,13 +78,13 @@ public class SavedCharactersList extends Event {
         this.reportUnlocked();
         var _local3:Injector = StaticInjectorContext.getInjector();
         if (_local3) {
-            _local5 = _local3.getInstance(Account);
+            _local5 = _local3.getInstance(WebAccount);
             _local5.reportIntStat("BestLevel", this.bestOverallLevel());
             _local5.reportIntStat("BestFame", this.bestOverallFame());
             _local5.reportIntStat("NumStars", this.numStars_);
             _local5.verify(_local2.hasOwnProperty("VerifiedEmail"));
         }
-        this.classAvailability = new Object();
+        this.classAvailability = {};
         for each (_local4 in this.charsXML_.ClassAvailabilityList.ClassAvailability) {
             this.classAvailability[_local4.@id.toString()] = _local4.toString();
         }
@@ -306,7 +306,7 @@ public class SavedCharactersList extends Event {
     private function reportUnlocked():void {
         var _local1:Injector = StaticInjectorContext.getInjector();
         if (_local1) {
-            this.account = _local1.getInstance(Account);
+            this.account = _local1.getInstance(WebAccount);
             ((this.account) && (this.updateAccount()));
         }
     }

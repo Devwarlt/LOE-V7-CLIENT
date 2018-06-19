@@ -1,7 +1,7 @@
 ﻿package kabam.rotmg.account.web.view {
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.signals.SendConfirmEmailSignal;
 import kabam.rotmg.account.core.signals.UpdateAccountInfoSignal;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.dialogs.control.CloseDialogsSignal;
@@ -14,7 +14,7 @@ public class WebAccountDetailMediator extends Mediator {
     [Inject]
     public var view:WebAccountDetailDialog;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var verify:SendConfirmEmailSignal;
     [Inject]

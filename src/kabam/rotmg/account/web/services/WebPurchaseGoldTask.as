@@ -8,14 +8,14 @@ import flash.net.URLRequest;
 import flash.net.navigateToURL;
 
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.model.OfferModel;
 import kabam.rotmg.account.core.services.PurchaseGoldTask;
+import kabam.rotmg.account.web.WebAccount;
 
 public class WebPurchaseGoldTask extends BaseTask implements PurchaseGoldTask {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var offer:Offer;
     [Inject]

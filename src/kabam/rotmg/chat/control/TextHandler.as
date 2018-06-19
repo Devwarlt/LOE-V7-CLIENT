@@ -3,8 +3,8 @@ import com.company.assembleegameclient.objects.GameObject;
 import com.company.assembleegameclient.objects.TextureDataConcrete;
 import com.company.assembleegameclient.parameters.Parameters;
 
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.view.ConfirmEmailModal;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.chat.model.ChatMessage;
 import kabam.rotmg.chat.model.TellModel;
 import kabam.rotmg.chat.view.ChatListItemFactory;
@@ -31,7 +31,7 @@ public class TextHandler {
     private const GUILD_SPEECH_COLORS:TextColors = new TextColors(0x3E8A00, 10944349, 13891532);
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var model:GameModel;
     [Inject]

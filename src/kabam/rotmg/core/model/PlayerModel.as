@@ -4,8 +4,7 @@ import com.company.assembleegameclient.appengine.SavedCharactersList;
 import com.company.assembleegameclient.appengine.SavedNewsItem;
 import com.company.assembleegameclient.parameters.Parameters;
 
-import kabam.rotmg.account.core.Account;
-import kabam.rotmg.account.kongregate.KongregateAccount;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.servers.api.LatLong;
 
 import org.osflash.signals.Signal;
@@ -21,7 +20,7 @@ public class PlayerModel {
     private var _currentCharId:int;
     private var isAgeVerified:Boolean;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
 
     public function PlayerModel() {
         this.isInvalidated = true;
@@ -44,7 +43,7 @@ public class PlayerModel {
     }
 
     public function getIsAgeVerified():Boolean {
-        return (((((this.isAgeVerified) || ((this.account is KongregateAccount)))) || (this.charList.isAgeVerified)));
+        return (((((this.isAgeVerified))) || (this.charList.isAgeVerified)));
     }
 
     public function setIsAgeVerified(_arg1:Boolean):void {

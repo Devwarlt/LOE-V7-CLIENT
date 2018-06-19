@@ -1,7 +1,6 @@
 ﻿package kabam.rotmg.game.view {
 import com.company.assembleegameclient.account.ui.ChooseNameFrame;
 
-import kabam.rotmg.account.core.Account;
 import kabam.rotmg.account.core.view.RegisterPromptDialog;
 import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
@@ -13,7 +12,7 @@ import robotlegs.bender.bundles.mvcs.Mediator;
 public class NameChangerPanelMediator extends Mediator {
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var view:NameChangerPanel;
     [Inject]

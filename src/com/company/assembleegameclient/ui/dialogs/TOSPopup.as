@@ -18,7 +18,7 @@ import flash.events.MouseEvent;
 import flash.filters.DropShadowFilter;
 import flash.text.TextFieldAutoSize;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.application.api.ApplicationSetup;
 import kabam.rotmg.build.api.BuildData;
@@ -198,7 +198,7 @@ public class TOSPopup extends Sprite {
 
     protected function onLeftButtonClick(_arg1:MouseEvent):void {
         var _local2:AppEngineClient = StaticInjectorContext.getInjector().getInstance(AppEngineClient);
-        var _local3:Account = StaticInjectorContext.getInjector().getInstance(Account);
+        var _local3:WebAccount = StaticInjectorContext.getInjector().getInstance(WebAccount);
         var _local4:Object = _local3.getCredentials();
         _local2.sendRequest("account/acceptTOS", _local4);
         this.buttonAccept.removeEventListener(MouseEvent.CLICK, this.onLeftButtonClick);

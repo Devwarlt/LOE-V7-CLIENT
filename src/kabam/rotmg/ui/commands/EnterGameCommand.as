@@ -1,7 +1,7 @@
 ﻿package kabam.rotmg.ui.commands {
 import com.company.assembleegameclient.screens.CharacterSelectionAndNewsScreen;
 
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.core.model.PlayerModel;
 import kabam.rotmg.core.signals.SetScreenWithValidDataSignal;
 import kabam.rotmg.dialogs.control.OpenDialogSignal;
@@ -16,7 +16,7 @@ public class EnterGameCommand {
     private const DEFAULT_CHARACTER:int = 782;
 
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var model:PlayerModel;
     [Inject]

@@ -1,6 +1,6 @@
 ﻿package kabam.rotmg.core.service {
 import kabam.lib.tasks.BaseTask;
-import kabam.rotmg.account.core.Account;
+import kabam.rotmg.account.web.WebAccount;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.application.DynamicSettings;
 import kabam.rotmg.core.signals.AppInitDataReceivedSignal;
@@ -10,7 +10,7 @@ public class RequestAppInitTask extends BaseTask {
     [Inject]
     public var client:AppEngineClient;
     [Inject]
-    public var account:Account;
+    public var account:WebAccount;
     [Inject]
     public var appInitConfigData:AppInitDataReceivedSignal;
 
