@@ -22,7 +22,7 @@
       </LauncherParameters>
     </option>
     <option name="mobileRunTarget" value="Emulator" />
-    <option name="moduleName" value="loe-v6-client" />
+    <option name="moduleName" value="loe-v7-client" />
     <option name="overriddenMainClass" value="WebMain" />
     <option name="overriddenOutputFileName" value="client-release.swf" />
     <option name="overrideMainClass" value="true" />
