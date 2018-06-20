@@ -5,11 +5,13 @@ import robotlegs.bender.framework.impl.Context;
 
 public class StaticInjectorContext extends Context {
 
+    public static var playerType:String;
     public static var injector:Injector;
 
-    public function StaticInjectorContext() {
+    public function StaticInjectorContext(webMain:WebMain) {
         if (!StaticInjectorContext.injector) {
             StaticInjectorContext.injector = this.injector;
+            StaticInjectorContext.playerType = webMain.playerType;
         }
     }
 
@@ -17,6 +19,8 @@ public class StaticInjectorContext extends Context {
         return (injector);
     }
 
-
+    public static function get getPlayerType():String {
+        return (playerType);
+    }
 }
 }

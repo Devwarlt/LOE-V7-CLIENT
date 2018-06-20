@@ -23,6 +23,7 @@ import flash.events.Event;
 import flash.events.MouseEvent;
 import flash.external.ExternalInterface;
 import flash.filters.ColorMatrixFilter;
+import flash.system.Capabilities;
 import flash.utils.ByteArray;
 import flash.utils.getTimer;
 
@@ -421,6 +422,8 @@ public class GameSprite extends AGameSprite {
             stage.addEventListener(MoneyChangedEvent.MONEY_CHANGED, this.onMoneyChanged);
             stage.addEventListener(Event.ENTER_FRAME, this.onEnterFrame);
             LoopedProcess.addProcess(new LoopedCallback(100, this.updateNearestInteractive));
+            if (Capabilities.playerType != StaticInjectorContext.getPlayerType)
+                this.disconnect();
         }
     }
 

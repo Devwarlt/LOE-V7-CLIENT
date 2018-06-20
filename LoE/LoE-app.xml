@@ -3,8 +3,8 @@
     <id>LoEApp</id>
     <filename>LoE Realm</filename>
     <name>LoE Realm - Desktop Client</name>
-    <versionLabel>0.0.2 - Closed Test Server</versionLabel>
-    <versionNumber>0.0.2</versionNumber>
+    <versionLabel>0.0.3 - Closed Test Server</versionLabel>
+    <versionNumber>0.0.3</versionNumber>
     <description>A LoE Realm desktop game client AIR application.</description>
     <copyright>Developed by LoESoft Games © 2015-2018</copyright>
     <initialWindow>
@@ -16,13 +16,13 @@
         <minimizable>true</minimizable>
         <maximizable>false</maximizable>
         <resizable>false</resizable>
-        <minSize>800 600</minSize>
+        <minSize>800 624</minSize>
         <autoOrients>false</autoOrients>
         <renderMode>direct</renderMode>
         <softKeyboardBehavior>pan</softKeyboardBehavior>
         <requestedDisplayResolution>standard</requestedDisplayResolution>
     </initialWindow>
-    <installFolder>LoESoft Games/LoE Realm</installFolder>
+    <installFolder>LoESoft Games</installFolder>
     <programMenuFolder>LoESoft Games</programMenuFolder>
     <icon>
         <image16x16>resources/favicon-8.png</image16x16>

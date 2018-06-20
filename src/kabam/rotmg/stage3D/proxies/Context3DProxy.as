@@ -15,7 +15,8 @@ public class Context3DProxy {
     }
 
     public function configureBackBuffer(_arg1:int, _arg2:int, _arg3:int, _arg4:Boolean = true):void {
-        this.context3D.configureBackBuffer(_arg1, _arg2, _arg3, _arg4);
+        try { this.context3D.configureBackBuffer(_arg1, _arg2, _arg3, _arg4); }
+        catch (error:Error) { }
     }
 
     public function createProgram():Program3DProxy {

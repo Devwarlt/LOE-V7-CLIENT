@@ -20,7 +20,7 @@ public class Parameters {
     public static const ENVIRONMENT_DNS:String = !IS_DEVELOPER_MODE ? "testing.loesoftgames.ignorelist.com" : "localhost";
     public static const ENVIRONMENT_PORT:String = !IS_DEVELOPER_MODE ? "5555" : "3000";
     public static const BUILD_VERSION:String = "0";
-    public static const MINOR_VERSION:String = "0.2";
+    public static const MINOR_VERSION:String = "0.3";
     public static const FULL_BUILD:String = BUILD_VERSION + "." + MINOR_VERSION;
     public static const ENABLE_ENCRYPTION:Boolean = true;
     public static const PORT:int = 2050;

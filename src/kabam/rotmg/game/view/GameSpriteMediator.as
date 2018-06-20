@@ -3,6 +3,8 @@ import com.company.assembleegameclient.game.GameSprite;
 import com.company.assembleegameclient.game.events.ReconnectEvent;
 import com.company.assembleegameclient.objects.Player;
 
+import flash.system.Capabilities;
+
 import flash.utils.getTimer;
 
 import kabam.rotmg.core.StaticInjectorContext;
@@ -127,7 +129,10 @@ public class GameSpriteMediator extends Mediator {
         this.view.openDialog = this.openDialog;
         this.view.addToQueueSignal = this.addToQueueSignal;
         this.view.flushQueueSignal = this.flushQueueSignal;
-        this.view.connect();
+        if (Capabilities.playerType != StaticInjectorContext.getPlayerType)
+            this.destroy();
+        else
+            this.view.connect();
         this.view.showBeginnersPackage = this.showBeginnersPackage;
         this.view.openDailyCalendarPopupSignal = this.showDailyCalendarSignal;
         this.view.showPackage.add(this.onShowPackage);

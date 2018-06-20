@@ -2,6 +2,8 @@
 import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.ui.dialogs.ErrorDialog;
 
+import flash.system.Security;
+
 import kabam.lib.tasks.BaseTask;
 import kabam.rotmg.appengine.api.AppEngineClient;
 import kabam.rotmg.application.api.ApplicationSetup;
@@ -33,7 +35,7 @@ public class GetLanguageService extends BaseTask {
         this.language = this.model.getLanguageFamily();
         this.client.complete.addOnce(this.onComplete);
         this.client.setMaxRetries(3);
-        this.logger.info("[Production: " + !Parameters.IS_DEVELOPER_MODE.toString() + "] Attempt to connect to " + this.appEngineUrl + " to obtain language string '" + this.language + "'.");
+        this.logger.info("[Production: " + !Parameters.IS_DEVELOPER_MODE.toString() + "] Attempt to connect to " + this.appEngineUrl + " to obtain language strings '" + this.language + "'.");
         this.client.sendRequest("/app/getLanguageStrings", {"languageType": this.language});
     }
 
