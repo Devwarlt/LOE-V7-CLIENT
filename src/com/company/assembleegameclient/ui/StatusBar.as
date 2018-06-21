@@ -45,8 +45,10 @@ public class StatusBar extends Sprite {
     private var repetitions:int;
     private var direction:int = -1;
     private var speed:Number = 0.1;
+    private var toggleText:Boolean;
 
-    public function StatusBar(width:int, height:int, foregroundColor:uint, backgroundColor:uint, textKey:String = null, drawShape:Boolean = true) {
+    public function StatusBar(width:int, height:int, foregroundColor:uint, backgroundColor:uint, textKey:String = null, drawShape:Boolean = true, toggleText:Boolean = false) {
+        this.toggleText = toggleText;
         this.colorSprite = new Sprite();
         super();
         addChild(this.colorSprite);
@@ -195,7 +197,7 @@ public class StatusBar extends Sprite {
         if (contains(this.boostText_)) {
             removeChild(this.boostText_);
         }
-        if (((Parameters.data_.toggleBarText) || (((this.mouseOver_) && ((this.h_ > 4)))))) {
+        if (!this.toggleText) {
             this.drawWithMouseOver();
         }
     }

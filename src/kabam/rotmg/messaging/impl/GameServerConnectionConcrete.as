@@ -1354,7 +1354,10 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     private function onNewTick(_arg1:NewTick):void {
         var _local2:ObjectStatusData;
 
-        this.gs_.hudView.ui_connectionGameUI.initializePing();
+        try
+        { this.gs_.hudView.ui_connectionGameUI.initializePing(); }
+        catch (error:Error) // Stream Error #2032
+        { this.gs_.hudView.ui_connectionGameUI.setInvalidPing(); }
 
         this.move(this.player);
 

@@ -14,13 +14,13 @@ public class SettingsMediator extends Sprite {
     private static const UI_SOUND_MEDIATOR_OPTION_POSITION:Point = new Point(0, 0);
     private static const UI_CONNECTION_MEDIATOR_OPTION_POSITION:Point = new Point(UI_SOUND_MEDIATOR_OPTION_POSITION.x, UI_SOUND_MEDIATOR_OPTION_POSITION.y + UI_OPTION_SPACE * 2);
     private static const UI_GAME_STATUS_OPTION_POSITION:Point = new Point(UI_CONNECTION_MEDIATOR_OPTION_POSITION.x, UI_CONNECTION_MEDIATOR_OPTION_POSITION.y + UI_OPTION_SPACE * 2);
-    //private static const UI_CHARACTER_STATUS_OPTION_POSITION:Point = new Point(UI_GAME_STATUS_OPTION_POSITION.x, UI_GAME_STATUS_OPTION_POSITION.y + UI_OPTION_SPACE * 2);
+    private static const UI_CHARACTER_STATUS_OPTION_POSITION:Point = new Point(UI_GAME_STATUS_OPTION_POSITION.x, UI_GAME_STATUS_OPTION_POSITION.y + UI_OPTION_SPACE * 2);
 
     private var hudView:HUDView;
     private var ui_soundMediatorOption:RegularOption;
     private var ui_connectionMediatorOption:RegularOption;
     private var ui_gameStatusMediatorOption:RegularOption;
-    //private var ui_characterStatusMediatorOption:RegularOption;
+    private var ui_characterStatusMediatorOption:RegularOption;
 
     public function SettingsMediator(_hudView:HUDView) {
         this.hudView = _hudView;
@@ -41,7 +41,7 @@ public class SettingsMediator extends Sprite {
 
         this.ui_gameStatusMediatorOption = new RegularOption("Game Status", "show modal mediator UI with FPS and memory usage", UI_GAME_STATUS_OPTION_POSITION);
 
-        //this.ui_characterStatusMediatorOption = new RegularOption("Character Status", "show modal mediator UI with basic character status.", UI_CHARACTER_STATUS_OPTION_POSITION);
+        this.ui_characterStatusMediatorOption = new RegularOption("Character Status", "show modal mediator UI with basic character status.", UI_CHARACTER_STATUS_OPTION_POSITION);
     }
 
     private function setUI():void { }
@@ -52,7 +52,7 @@ public class SettingsMediator extends Sprite {
         addChild(this.ui_soundMediatorOption);
         addChild(this.ui_connectionMediatorOption);
         addChild(this.ui_gameStatusMediatorOption);
-        //addChild(this.ui_characterStatusMediatorOption);
+        addChild(this.ui_characterStatusMediatorOption);
     }
 
     private function eventsUI():void {
@@ -65,8 +65,8 @@ public class SettingsMediator extends Sprite {
         this.ui_gameStatusMediatorOption.ui_OnButton.addEventListener(MouseEvent.CLICK, this.gameStatusEnabled);
         this.ui_gameStatusMediatorOption.ui_OffButton.addEventListener(MouseEvent.CLICK, this.gameStatusDisabled);
 
-        /*this.ui_characterStatusMediatorOption.ui_OnButton.addEventListener(MouseEvent.CLICK, this.characterStatusEnabled);
-        this.ui_characterStatusMediatorOption.ui_OffButton.addEventListener(MouseEvent.CLICK, this.characterStatusDisabled);*/
+        this.ui_characterStatusMediatorOption.ui_OnButton.addEventListener(MouseEvent.CLICK, this.characterStatusEnabled);
+        this.ui_characterStatusMediatorOption.ui_OffButton.addEventListener(MouseEvent.CLICK, this.characterStatusDisabled);
     }
 
     private function soundEnabled(event:MouseEvent):void {
@@ -172,13 +172,13 @@ public class SettingsMediator extends Sprite {
     }
 
     private function characterStatusAction(_arg1:Boolean, _arg2:Boolean = false):void {
-        this.ui_gameStatusMediatorOption.ui_OnButtonSprite.mouseEnabled = !_arg1;
-        this.ui_gameStatusMediatorOption.ui_OnButtonSprite.mouseChildren = !_arg1;
-        this.ui_gameStatusMediatorOption.ui_OnButton.setEnabled(_arg1, true);
+        this.ui_characterStatusMediatorOption.ui_OnButtonSprite.mouseEnabled = !_arg1;
+        this.ui_characterStatusMediatorOption.ui_OnButtonSprite.mouseChildren = !_arg1;
+        this.ui_characterStatusMediatorOption.ui_OnButton.setEnabled(_arg1, true);
 
-        this.ui_gameStatusMediatorOption.ui_OffButtonSprite.mouseEnabled = _arg1;
-        this.ui_gameStatusMediatorOption.ui_OffButtonSprite.mouseChildren = _arg1;
-        this.ui_gameStatusMediatorOption.ui_OffButton.setEnabled(!_arg1, true);
+        this.ui_characterStatusMediatorOption.ui_OffButtonSprite.mouseEnabled = _arg1;
+        this.ui_characterStatusMediatorOption.ui_OffButtonSprite.mouseChildren = _arg1;
+        this.ui_characterStatusMediatorOption.ui_OffButton.setEnabled(!_arg1, true);
 
         if (!_arg2)
             this.hudView.updateCharacterStatusGameUI(_arg1);
@@ -188,7 +188,7 @@ public class SettingsMediator extends Sprite {
         this.soundAction(Parameters.data_.sound, true);
         this.connectionAction(Parameters.data_.displayConnectionMediator, true);
         this.gameStatusAction(Parameters.data_.displayGameStatusMediator, true);
-        //this.characterStatusAction(Parameters.data_.displayCharacterStatusMediator, true);
+        this.characterStatusAction(Parameters.data_.displayCharacterStatusMediator, true);
     }
 }
 }

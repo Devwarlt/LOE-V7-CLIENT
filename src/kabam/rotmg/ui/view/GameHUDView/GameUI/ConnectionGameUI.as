@@ -24,8 +24,9 @@ public class ConnectionGameUI extends GameUIScreen {
     private static const UI_CONNECTION_MEDIATOR_PING_LABEL_MEASURE:String = "{PING_MEASURE}";
     private static const UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS:String = "{PING_STATUS}";
     private static const UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS_COLOR:String = "{PING_STATUS_COLOR}";
-    private static const UI_CONNECTION_MEDIATOR_PING_LABEL_TEXT:String = "[<font color='" + UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS_COLOR + "'>" + UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS + "</font>] <b>Ping:</b> " + UI_CONNECTION_MEDIATOR_PING_LABEL_MEASURE + " ms.";
+    private static const UI_CONNECTION_MEDIATOR_PING_LABEL_TEXT:String = "[<font color='" + UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS_COLOR + "'>" + UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS + "</font>] <b>Ping:</b> " + UI_CONNECTION_MEDIATOR_PING_LABEL_MEASURE;
     private static const UI_CONNECTION_MEDIATOR_PING_LABEL_POSITION:Point = new Point(16, 0);
+    private static const UI_CONNECTION_MEDIATOR_PING_STATUS_OFFLINE:PingStatus = new PingStatus("Offline", "#ff0900");
     private static const UI_CONNECTION_MEDIATOR_PING_STATUS_BAD:PingStatus = new PingStatus("Bad", "#ff0900");
     private static const UI_CONNECTION_MEDIATOR_PING_STATUS_NORMAL_1:PingStatus = new PingStatus("Normal", "#ff9a3c");
     private static const UI_CONNECTION_MEDIATOR_PING_STATUS_NORMAL_2:PingStatus = new PingStatus("Normal", "#fffc38");
@@ -67,13 +68,13 @@ public class ConnectionGameUI extends GameUIScreen {
         this.ui_connectionMediatorPingLabel.selectable = false;
         this.ui_connectionMediatorPingLabel.border = false;
         this.ui_connectionMediatorPingLabel.mouseEnabled = true;
-        this.ui_connectionMediatorPingLabel.htmlText = "[???] <b>Ping:</b> -- ms";
+        this.ui_connectionMediatorPingLabel.htmlText = "[???] <b>Ping:</b> --";
         this.ui_connectionMediatorPingLabel.useTextDimensions();
     }
 
     override public function setUI():void {
         this.ui_connectionMediatorPingLabel.x = UI_CONNECTION_MEDIATOR_PING_LABEL_POSITION.x;
-        this.ui_connectionMediatorPingLabel.y = UI_CONNECTION_MEDIATOR_PING_LABEL_POSITION.y / 2;
+        this.ui_connectionMediatorPingLabel.y = UI_CONNECTION_MEDIATOR_PING_LABEL_POSITION.y / 2 - 1;
     }
 
     override public function outlineUI():void {
@@ -107,9 +108,15 @@ public class ConnectionGameUI extends GameUIScreen {
                 UI_CONNECTION_MEDIATOR_PING_LABEL_TEXT
                     .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS_COLOR, _pingStatus.pingStatusColor_() != "#000000" ? _pingStatus.pingStatusColor_() : "")
                     .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS, _pingStatus.pingStatusLabel_())
-                    .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_MEASURE, this.ui_connectionMediatorPingMeasure);
+                    .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_MEASURE, _pingStatus.pingStatusLabel_() != "Offline" ? this.ui_connectionMediatorPingMeasure + " ms" : "--");
         }
         catch (error:Error) { }
+    }
+
+    public function setInvalidPing():void {
+        this.ui_connectionMediatorPingLoader.removeEventListener(HTTPStatusEvent.HTTP_STATUS, this.onLoadStatus);
+
+        this.ui_connectionMediatorPingMeasure = -1;
     }
 
     public function initializePing():void {
@@ -139,7 +146,7 @@ public class ConnectionGameUI extends GameUIScreen {
     }
 
     private function getPingStatus():PingStatus {
-        if (this.ui_connectionMediatorPingMeasure < 100)
+        if (this.ui_connectionMediatorPingMeasure != -1 && this.ui_connectionMediatorPingMeasure < 100)
             return UI_CONNECTION_MEDIATOR_PING_STATUS_GOOD;
         else if (this.ui_connectionMediatorPingMeasure >= 100 && this.ui_connectionMediatorPingMeasure < 250)
             return UI_CONNECTION_MEDIATOR_PING_STATUS_NORMAL_2;
@@ -147,8 +154,10 @@ public class ConnectionGameUI extends GameUIScreen {
             return UI_CONNECTION_MEDIATOR_PING_STATUS_NORMAL_1;
         else if (this.ui_connectionMediatorPingMeasure >= 500 && this.ui_connectionMediatorPingMeasure < UI_CONNECTION_MEDIATOR_PING_STATUS_MAX_LATENCY)
             return UI_CONNECTION_MEDIATOR_PING_STATUS_BAD;
+        else if (this.ui_connectionMediatorPingMeasure == -1)
+            return UI_CONNECTION_MEDIATOR_PING_STATUS_OFFLINE;
         else
-            return new PingStatus("???", "#000000"); // TODO: implement bad connection UI.
+            return new PingStatus("???", "#000000");
     }
 
     override public function destroy():void {
