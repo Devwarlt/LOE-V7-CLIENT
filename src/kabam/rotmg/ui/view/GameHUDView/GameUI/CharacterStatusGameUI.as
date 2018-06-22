@@ -4,8 +4,16 @@ import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.ui.StatusBar;
 import com.company.ui.BaseSimpleText;
 
+import flash.display.Bitmap;
+
+import flash.display.Graphics;
+
+import flash.display.Shape;
+
 import flash.display.Sprite;
 import flash.geom.Point;
+
+import kabam.rotmg.ui.view.GameHUDView.GameBar;
 
 import kabam.rotmg.ui.view.GameHUDView.HUDView;
 
@@ -34,7 +42,8 @@ public class CharacterStatusGameUI extends GameUIScreen {
     private var ui_characterStatusMediatorSprite:Sprite;
     private var ui_characterStatusMediatorLevelLabel:BaseSimpleText;
     private var ui_characterStatusMediatorExperienceLabel:BaseSimpleText;
-    private var ui_characterStatusMediatorExperienceBar:StatusBar;
+    private var ui_characterStatusMediatorExperienceBar:GameBar;
+    private var ui_characterStatusMediatorExperienceBarShape:Shape;
 
     public function CharacterStatusGameUI(_hudView:HUDView, _player:Player) {
         this.player = _player;
@@ -64,8 +73,14 @@ public class CharacterStatusGameUI extends GameUIScreen {
         this.ui_characterStatusMediatorExperienceLabel.htmlText = "<b>EXP:</b> 0<b>/</b>0 (<b>0%</b>)";
         this.ui_characterStatusMediatorExperienceLabel.useTextDimensions();
 
-        this.ui_characterStatusMediatorExperienceBar = new StatusBar(UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_WIDTH, UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_HEIGHT, UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_FILL_COLOR, UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_END_COLOR, null, false, true);
-        this.ui_characterStatusMediatorExperienceBar.draw(1, 1, 0, 1);
+        this.ui_characterStatusMediatorExperienceBarShape = new Shape();
+        this.ui_characterStatusMediatorExperienceBarShape.graphics.clear();
+        this.ui_characterStatusMediatorExperienceBarShape.graphics.clear();
+        this.ui_characterStatusMediatorExperienceBarShape.graphics.drawRect(0, 0, UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_WIDTH, UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_HEIGHT);
+        this.ui_characterStatusMediatorExperienceBarShape.graphics.beginFill(UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_END_COLOR, 0.75);
+        this.ui_characterStatusMediatorExperienceBarShape.graphics.endFill();
+
+        this.ui_characterStatusMediatorExperienceBar = new GameBar(50, 100, 12, 12, 0, GameBar.RED);
     }
 
     override public function setUI():void {
@@ -77,6 +92,9 @@ public class CharacterStatusGameUI extends GameUIScreen {
 
         this.ui_characterStatusMediatorExperienceBar.x = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.x;
         this.ui_characterStatusMediatorExperienceBar.y = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.y;
+
+        this.ui_characterStatusMediatorExperienceBarShape.x = this.ui_characterStatusMediatorExperienceBar.x;
+        this.ui_characterStatusMediatorExperienceBarShape.y = this.ui_characterStatusMediatorExperienceBar.y;
     }
 
     override public function outlineUI():void {
@@ -86,6 +104,7 @@ public class CharacterStatusGameUI extends GameUIScreen {
     }
 
     override public function addUI():void {
+        this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorExperienceBarShape);
         this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorExperienceBar);
         this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorLevelLabel);
         this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorExperienceLabel);

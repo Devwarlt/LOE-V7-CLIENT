@@ -12,13 +12,13 @@ import flash.filters.ColorMatrixFilter;
 import flash.filters.GlowFilter;
 import flash.geom.Point;
 
-import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_LoENewUICharacterStats_shapeEmbed_;
-import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_LoENewUIHighscores_shapeEmbed_;
-import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_LoENewUIInventory_shapeEmbed_;
-import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_LoENewUILogout_shapeEmbed_;
-import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_LoENewUIMinimapBackground_shapeEmbed_;
-import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_LoENewUIOptionsToolBar_shapeEmbed_;
-import kabam.rotmg.assets.EmbeddedAssets.EmbeddedAssets_LoENewUISettings_shapeEmbed_;
+import kabam.rotmg.ui.view.GameHUDView.Assets.NewUICharacterStats_shapeEmbed_;
+import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIHighscores_shapeEmbed_;
+import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIInventory_shapeEmbed_;
+import kabam.rotmg.ui.view.GameHUDView.Assets.NewUILogout_shapeEmbed_;
+import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIMinimapBackground_shapeEmbed_;
+import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIOptionsToolBar_shapeEmbed_;
+import kabam.rotmg.ui.view.GameHUDView.Assets.NewUISettings_shapeEmbed_;
 import kabam.rotmg.chat.model.ChatMessage;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.game.signals.AddTextLineSignal;
@@ -106,27 +106,27 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_settingsIconSprite = new Sprite();
 
         this.ui_optionsToolBar = new Bitmap();
-        this.ui_optionsToolBar.bitmapData = new EmbeddedAssets_LoENewUIOptionsToolBar_shapeEmbed_().bitmapData;
+        this.ui_optionsToolBar.bitmapData = new NewUIOptionsToolBar_shapeEmbed_().bitmapData;
 
         this.ui_minimapBackground = new Bitmap();
-        this.ui_minimapBackground.bitmapData = new EmbeddedAssets_LoENewUIMinimapBackground_shapeEmbed_().bitmapData;
+        this.ui_minimapBackground.bitmapData = new NewUIMinimapBackground_shapeEmbed_().bitmapData;
 
         this.ui_minimap = new MiniMapImp(UI_OVERLAY_MINIMAP_SIZE.x, UI_OVERLAY_MINIMAP_SIZE.y);
 
         this.ui_characterStatsIcon = new Bitmap();
-        this.ui_characterStatsIcon.bitmapData = new EmbeddedAssets_LoENewUICharacterStats_shapeEmbed_().bitmapData;
+        this.ui_characterStatsIcon.bitmapData = new NewUICharacterStats_shapeEmbed_().bitmapData;
 
         this.ui_highscoresIcon = new Bitmap();
-        this.ui_highscoresIcon.bitmapData = new EmbeddedAssets_LoENewUIHighscores_shapeEmbed_().bitmapData;
+        this.ui_highscoresIcon.bitmapData = new NewUIHighscores_shapeEmbed_().bitmapData;
 
         this.ui_inventoryIcon = new Bitmap();
-        this.ui_inventoryIcon.bitmapData = new EmbeddedAssets_LoENewUIInventory_shapeEmbed_().bitmapData;
+        this.ui_inventoryIcon.bitmapData = new NewUIInventory_shapeEmbed_().bitmapData;
 
         this.ui_logoutIcon = new Bitmap();
-        this.ui_logoutIcon.bitmapData = new EmbeddedAssets_LoENewUILogout_shapeEmbed_().bitmapData;
+        this.ui_logoutIcon.bitmapData = new NewUILogout_shapeEmbed_().bitmapData;
 
         this.ui_settingsIcon = new Bitmap();
-        this.ui_settingsIcon.bitmapData = new EmbeddedAssets_LoENewUISettings_shapeEmbed_().bitmapData;
+        this.ui_settingsIcon.bitmapData = new NewUISettings_shapeEmbed_().bitmapData;
 
         this.ui_characterStatusGameUI = new CharacterStatusGameUI(this, this.gameSprite.player);
         this.ui_characterStatusGameUI.visible = Parameters.data_.displayCharacterStatusMediator;

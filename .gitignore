@@ -99,7 +99,7 @@ $RECYCLE.BIN/
 /client-release/
 /LoE/src/client-resource/
 /LoE/release/
-/obfuscator/experimental
+/obfuscator/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
