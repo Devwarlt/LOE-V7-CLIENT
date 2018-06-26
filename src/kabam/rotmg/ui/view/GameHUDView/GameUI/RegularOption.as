@@ -1,11 +1,11 @@
 package kabam.rotmg.ui.view.GameHUDView.GameUI {
-import kabam.rotmg.ui.view.GameHUDView.*;
-
 import com.company.assembleegameclient.ui.DeprecatedTextButton;
 import com.company.ui.BaseSimpleText;
 
 import flash.display.Sprite;
 import flash.geom.Point;
+
+import kabam.rotmg.ui.view.GameHUDView.*;
 
 public class RegularOption extends Sprite {
     private static const UI_BUTTON_SPACE:int = 8;

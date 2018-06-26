@@ -1,21 +1,19 @@
 package kabam.rotmg.ui.view.GameHUDView.GameUI {
 import com.company.assembleegameclient.objects.Player;
-import com.company.assembleegameclient.parameters.Parameters;
-import com.company.assembleegameclient.ui.StatusBar;
+import com.company.assembleegameclient.objects.Sign;
 import com.company.ui.BaseSimpleText;
 
-import flash.display.Bitmap;
-
-import flash.display.Graphics;
-
 import flash.display.Shape;
-
 import flash.display.Sprite;
+import flash.events.TimerEvent;
 import flash.geom.Point;
+import flash.utils.Timer;
 
 import kabam.rotmg.ui.view.GameHUDView.GameBar;
-
 import kabam.rotmg.ui.view.GameHUDView.HUDView;
+import kabam.rotmg.ui.view.GameHUDView.Utils;
+
+import org.osflash.signals.Signal;
 
 public class CharacterStatusGameUI extends GameUIScreen {
     private static const UI_CHARACTED_STATUS_MEDIATOR_SIZE:Point = new Point(HUDView.WIDTH, HUDView.HEIGHT);
@@ -44,16 +42,24 @@ public class CharacterStatusGameUI extends GameUIScreen {
     private var ui_characterStatusMediatorExperienceLabel:BaseSimpleText;
     private var ui_characterStatusMediatorExperienceBar:GameBar;
     private var ui_characterStatusMediatorExperienceBarShape:Shape;
+    private var ui_characterStatusMediatorStatsUpdate:Timer;
+    private var ui_characterStatusMediatorStatsLevel:int;
+    private var ui_characterStatusMediatorStatsExperienceTotal:Number;
+    private var ui_characterStatusMediatorStatsExperienceNextLevel:Number;
+    private var ui_characterStatusMediatorStatsExperiencePercent:int;
+    private var ui_characterStatusMediatorStatsHealthPoints:int;
+    private var ui_characterStatusMediatorStatsHealthPointsTotal:int;
+    private var ui_characterStatusMediatorStatsMagicPoints:int;
+    private var ui_characterStatusMediatorStatsMagicPointsTotal:int;
+    private var ui_characterStatusMediatorStatsUpdateLevelSignal:Signal;
+    private var ui_characterStatusMediatorStatsUpdateExperienceSignal:Signal;
+    private var ui_characterStatusMediatorStatsUpdateHealthPointsSignal:Signal;
+    private var ui_characterStatusMediatorStatsUpdateMagicPointsSignal:Signal;
 
     public function CharacterStatusGameUI(_hudView:HUDView, _player:Player) {
         this.player = _player;
 
         super(_hudView);
-    }
-
-    public static function characterStatusMediatorAction(_arg1:Boolean):void {
-        Parameters.data_.displayCharacterStatusMediator = _arg1;
-        Parameters.save();
     }
 
     override public function drawUI():void {
@@ -81,6 +87,36 @@ public class CharacterStatusGameUI extends GameUIScreen {
         this.ui_characterStatusMediatorExperienceBarShape.graphics.endFill();
 
         this.ui_characterStatusMediatorExperienceBar = new GameBar(50, 100, 12, 12, 0, GameBar.RED);
+
+        this.ui_characterStatusMediatorStatsUpdate = new Timer(200);
+
+        this.ui_characterStatusMediatorStatsLevel = this.player.level_;
+
+        this.ui_characterStatusMediatorStatsExperienceTotal = this.player.exp_;
+
+        this.ui_characterStatusMediatorStatsExperienceNextLevel = this.player.nextLevelExp_;
+
+        this.ui_characterStatusMediatorStatsExperiencePercent = Utils.trimNumber(this.ui_characterStatusMediatorStatsExperienceTotal / this.ui_characterStatusMediatorStatsExperienceNextLevel, 2);
+
+        this.ui_characterStatusMediatorStatsHealthPoints = this.player.hp_;
+
+        this.ui_characterStatusMediatorStatsHealthPointsTotal = this.player.maxHP_;
+
+        this.ui_characterStatusMediatorStatsMagicPoints = this.player.mp_;
+
+        this.ui_characterStatusMediatorStatsMagicPointsTotal = this.player.maxMP_;
+
+        this.ui_characterStatusMediatorStatsUpdateLevelSignal = new Signal(int);
+        this.ui_characterStatusMediatorStatsUpdateLevelSignal.add(this.onLevelUpdate);
+
+        this.ui_characterStatusMediatorStatsUpdateExperienceSignal = new Signal(Number, Number, int);
+        this.ui_characterStatusMediatorStatsUpdateExperienceSignal.add(this.onExperienceUpdate);
+
+        this.ui_characterStatusMediatorStatsUpdateHealthPointsSignal = new Signal(int, int);
+        this.ui_characterStatusMediatorStatsUpdateHealthPointsSignal.add(this.onHealthUpdate);
+
+        this.ui_characterStatusMediatorStatsUpdateMagicPointsSignal = new Signal(int, int);
+        this.ui_characterStatusMediatorStatsUpdateMagicPointsSignal.add(this.onMagicUpdate);
     }
 
     override public function setUI():void {
@@ -113,11 +149,57 @@ public class CharacterStatusGameUI extends GameUIScreen {
     }
 
     override public function eventsUI():void {
-        // TODO: implement experience bar update.
+        this.ui_characterStatusMediatorStatsUpdate.addEventListener(TimerEvent.TIMER, this.onStatsUpdate);
+        this.ui_characterStatusMediatorStatsUpdate.start();
     }
 
     override public function destroy():void {
+        this.ui_characterStatusMediatorStatsUpdate.stop();
+        this.ui_characterStatusMediatorStatsUpdate.removeEventListener(TimerEvent.TIMER, this.onStatsUpdate);
+
         removeChild(this.ui_characterStatusMediatorSprite);
+    }
+
+    private function onStatsUpdate(event:TimerEvent):void {
+        if (this.ui_characterStatusMediatorStatsLevel != this.player.level_) {
+            this.ui_characterStatusMediatorStatsLevel = this.player.level_;
+            this.ui_characterStatusMediatorStatsUpdateLevelSignal.dispatch(this.ui_characterStatusMediatorStatsLevel);
+        }
+
+        if (this.ui_characterStatusMediatorStatsExperienceTotal != this.player.exp_ || this.ui_characterStatusMediatorStatsExperienceNextLevel != this.player.nextLevelExp_) {
+            this.ui_characterStatusMediatorStatsExperienceTotal = this.player.exp_;
+            this.ui_characterStatusMediatorStatsExperienceNextLevel = this.player.nextLevelExp_;
+            this.ui_characterStatusMediatorStatsExperiencePercent = Utils.trimNumber(this.ui_characterStatusMediatorStatsExperienceTotal / this.ui_characterStatusMediatorStatsExperienceNextLevel, 2);
+            this.ui_characterStatusMediatorStatsUpdateExperienceSignal.dispatch(this.ui_characterStatusMediatorStatsExperienceTotal, this.ui_characterStatusMediatorStatsExperienceNextLevel, this.ui_characterStatusMediatorStatsExperiencePercent);
+        }
+
+        if (this.ui_characterStatusMediatorStatsHealthPoints != this.player.hp_ || this.ui_characterStatusMediatorStatsHealthPointsTotal != this.player.maxHP_) {
+            this.ui_characterStatusMediatorStatsHealthPoints = this.player.hp_;
+            this.ui_characterStatusMediatorStatsHealthPointsTotal = this.player.maxHP_;
+            this.ui_characterStatusMediatorStatsUpdateHealthPointsSignal.dispatch(this.ui_characterStatusMediatorStatsHealthPoints, this.ui_characterStatusMediatorStatsHealthPointsTotal);
+        }
+
+        if (this.ui_characterStatusMediatorStatsMagicPoints != this.player.mp_ || this.ui_characterStatusMediatorStatsMagicPointsTotal != this.player.maxMP_) {
+            this.ui_characterStatusMediatorStatsMagicPoints = this.player.mp_;
+            this.ui_characterStatusMediatorStatsMagicPointsTotal = this.player.maxMP_;
+            this.ui_characterStatusMediatorStatsUpdateMagicPointsSignal.dispatch(this.ui_characterStatusMediatorStatsMagicPoints, this.ui_characterStatusMediatorStatsMagicPointsTotal);
+        }
+    }
+
+    private function onLevelUpdate(_arg1:int):void {
+        // TODO: implement update.
+    }
+
+    private function onExperienceUpdate(_arg1:Number, _arg2:Number, _arg3:int):void {
+        // TODO: implement update.
+    }
+
+    private function onHealthUpdate(_arg1:int, _arg2:int):void {
+        // TODO: implement update.
+    }
+
+    private function onMagicUpdate(_arg1:int, _arg2:int):void {
+        // TODO: implement update.
     }
 }
 }

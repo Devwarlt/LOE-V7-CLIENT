@@ -12,7 +12,6 @@ import kabam.rotmg.pets.view.components.DialogCloseButton;
 import kabam.rotmg.text.view.TextFieldDisplayConcrete;
 import kabam.rotmg.text.view.stringBuilder.LineBuilder;
 import kabam.rotmg.ui.view.GameHUDView.*;
-import kabam.rotmg.ui.view.GameHUDView.SettingsMediator;
 
 public class SettingsGameUI extends GameUIScreen {
     /*

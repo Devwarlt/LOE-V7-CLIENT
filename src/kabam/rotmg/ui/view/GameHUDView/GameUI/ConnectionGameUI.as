@@ -1,5 +1,4 @@
 package kabam.rotmg.ui.view.GameHUDView.GameUI {
-import com.company.assembleegameclient.parameters.Parameters;
 import com.company.ui.BaseSimpleText;
 
 import flash.display.Graphics;
@@ -42,11 +41,6 @@ public class ConnectionGameUI extends GameUIScreen {
 
     public function ConnectionGameUI(_hudView:HUDView) {
         super(_hudView);
-    }
-
-    public static function connectionMediatorAction(_arg1:Boolean):void {
-        Parameters.data_.displayConnectionMediator = _arg1;
-        Parameters.save();
     }
 
     override public function drawUI():void {

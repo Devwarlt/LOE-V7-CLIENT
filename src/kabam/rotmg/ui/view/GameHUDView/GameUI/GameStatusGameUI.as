@@ -29,11 +29,6 @@ public class GameStatusGameUI extends GameUIScreen {
         super(_hudView);
     }
 
-    public static function gameStatusMediatorAction(_arg1:Boolean):void {
-        Parameters.data_.displayGameStatusMediator = _arg1;
-        Parameters.save();
-    }
-
     override public function drawUI():void {
         this.ui_gameStatusMediatorSprite = new Sprite();
         
