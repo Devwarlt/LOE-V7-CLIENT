@@ -709,7 +709,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         }
 
         var invSwap:InvSwap = (this.messages.require(INVSWAP) as InvSwap);
-        invSwap.time_ = gs_.lastUpdate_;
+        invSwap.time_ = gs_.time;
         invSwap.position_.x_ = player.x_;
         invSwap.position_.y_ = player.y_;
         invSwap.slotObject1_.objectId_ = gameObject1.objectId_;
@@ -743,7 +743,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         }
 
         var invSwap:InvSwap = (this.messages.require(INVSWAP) as InvSwap);
-        invSwap.time_ = gs_.lastUpdate_;
+        invSwap.time_ = gs_.time;
         invSwap.position_.x_ = player.x_;
         invSwap.position_.y_ = player.y_;
         invSwap.slotObject1_.objectId_ = gameObject1.objectId_;
@@ -1140,15 +1140,15 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         var _local4:Projectile = (FreeList.newObject(Projectile) as Projectile);
         var _local5:Player = (_local3 as Player);
         if (_local5 != null) {
-            _local4.reset(_arg1.containerType_, 0, _arg1.ownerId_, _arg1.bulletId_, _arg1.angle_, gs_.lastUpdate_, _local5.projectileIdSetOverrideNew, _local5.projectileIdSetOverrideOld);
+            _local4.reset(_arg1.containerType_, 0, _arg1.ownerId_, _arg1.bulletId_, _arg1.angle_, gs_.time, _local5.projectileIdSetOverrideNew, _local5.projectileIdSetOverrideOld);
         }
         else {
-            _local4.reset(_arg1.containerType_, 0, _arg1.ownerId_, _arg1.bulletId_, _arg1.angle_, gs_.lastUpdate_);
+            _local4.reset(_arg1.containerType_, 0, _arg1.ownerId_, _arg1.bulletId_, _arg1.angle_, gs_.time);
         }
         _local4.setDamage(_arg1.damage_);
         gs_.map.addObj(_local4, _arg1.startingPos_.x_, _arg1.startingPos_.y_);
         if (_local2) {
-            this.shootAck(gs_.lastUpdate_);
+            this.shootAck(gs_.time);
         }
     }
 
@@ -1160,10 +1160,10 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         var _local3:Projectile = (FreeList.newObject(Projectile) as Projectile);
         var _local4:Player = (_local2 as Player);
         if (_local4 != null) {
-            _local3.reset(_arg1.containerType_, 0, _arg1.ownerId_, _arg1.bulletId_, _arg1.angle_, gs_.lastUpdate_, _local4.projectileIdSetOverrideNew, _local4.projectileIdSetOverrideOld);
+            _local3.reset(_arg1.containerType_, 0, _arg1.ownerId_, _arg1.bulletId_, _arg1.angle_, gs_.time, _local4.projectileIdSetOverrideNew, _local4.projectileIdSetOverrideOld);
         }
         else {
-            _local3.reset(_arg1.containerType_, 0, _arg1.ownerId_, _arg1.bulletId_, _arg1.angle_, gs_.lastUpdate_);
+            _local3.reset(_arg1.containerType_, 0, _arg1.ownerId_, _arg1.bulletId_, _arg1.angle_, gs_.time);
         }
         gs_.map.addObj(_local3, _local2.x_, _local2.y_);
         _local2.setAttack(_arg1.containerType_, _arg1.angle_);
@@ -1191,18 +1191,14 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         }
         var _local3:int;
         while (_local3 < _arg1.numShots_) {
-            var _containerProps:ObjectProperties = ObjectLibrary.propsLibrary_[_local2.objectType_];
-            var _projectileProps:ProjectileProperties = _containerProps.projectiles_[_arg1.bulletType_];
-            var _projectileObjectId:String = _projectileProps.objectId_;
-            var _projectileProps2:ObjectProperties = ObjectLibrary.getPropsFromId(_projectileObjectId);
             _local4 = (FreeList.newObject(Projectile) as Projectile);
             _local5 = (_arg1.angle_ + (_arg1.angleInc_ * _local3));
-            _local4.reset(_local2.objectType_, _arg1.bulletType_, _arg1.ownerId_, (_arg1.bulletId_ + _local3) % 0x0100, _local5, gs_.lastUpdate_);
+            _local4.reset(_local2.objectType_, _arg1.bulletType_, _arg1.ownerId_, (_arg1.bulletId_ + _local3) % 0x0100, _local5, gs_.time);
             _local4.setDamage(_arg1.damage_);
             gs_.map.addObj(_local4, _arg1.startingPos_.x_, _arg1.startingPos_.y_);
             _local3++;
         }
-        this.shootAck(gs_.lastUpdate_);
+        this.shootAck(gs_.time);
         _local2.setAttack(_local2.objectType_, (_arg1.angle_ + (_arg1.angleInc_ * ((_arg1.numShots_ - 1) / 2))));
     }
 
@@ -1500,12 +1496,12 @@ public class GameServerConnectionConcrete extends GameServerConnection {
     }
 
     private function onGoto(_arg1:Goto):void {
-        this.gotoAck(gs_.lastUpdate_);
+        this.gotoAck(gs_.time);
         var _local2:GameObject = gs_.map.goDict_[_arg1.objectId_];
         if (_local2 == null) {
             return;
         }
-        _local2.onGoto(_arg1.pos_.x_, _arg1.pos_.y_, gs_.lastUpdate_);
+        _local2.onGoto(_arg1.pos_.x_, _arg1.pos_.y_, gs_.time);
     }
 
     private function updateGameObject(_arg1:GameObject, _arg2:Vector.<StatData>, _arg3:Boolean):void {
@@ -2008,13 +2004,13 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         var _local4:int;
         var _local5:Vector.<uint>;
         if (this.player == null) {
-            this.aoeAck(gs_.lastUpdate_, 0, 0);
+            this.aoeAck(gs_.time, 0, 0);
             return;
         }
         var _local2:AOEEffect = new AOEEffect(_arg1.pos_.toPoint(), _arg1.radius_, 0xFF0000);
         gs_.map.addObj(_local2, _arg1.pos_.x_, _arg1.pos_.y_);
         if (((this.player.isInvincible()) || (this.player.isPaused()))) {
-            this.aoeAck(gs_.lastUpdate_, this.player.x_, this.player.y_);
+            this.aoeAck(gs_.time, this.player.x_, this.player.y_);
             return;
         }
         var _local3:Boolean = (this.player.distTo(_arg1.pos_) < _arg1.radius_);
@@ -2027,7 +2023,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
             }
             this.player.damage(_arg1.origType_, _local4, _local5, false, null);
         }
-        this.aoeAck(gs_.lastUpdate_, this.player.x_, this.player.y_);
+        this.aoeAck(gs_.time, this.player.x_, this.player.y_);
     }
 
     private function onNameResult(_arg1:NameResult):void {

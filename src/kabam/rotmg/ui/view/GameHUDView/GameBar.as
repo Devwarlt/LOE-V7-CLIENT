@@ -1,4 +1,7 @@
 package kabam.rotmg.ui.view.GameHUDView {
+import com.company.assembleegameclient.parameters.Parameters;
+import com.company.ui.BaseSimpleText;
+
 import flash.display.Bitmap;
 import flash.display.BitmapData;
 import flash.display.PixelSnapping;
@@ -34,18 +37,45 @@ public class GameBar extends Sprite {
     //  - width: 800px
     //  - height: 36px
 
-    public function GameBar(min:Number, max:Number, height:Number, widthOffset:int, heightOffset:int, colorMatrix:ColorMatrixFilter) {
+    public function GameBar(min:Number, max:Number, height:Number, widthOffset:int, heightOffset:int, colorMatrix:ColorMatrixFilter, text:String = null, enablePercent:Boolean = false) {
         var bitmap:Bitmap = new Bitmap();
         bitmap.bitmapData = new NewUIHighResolutionBar_shapeEmbed_().bitmapData;
 
         var matrix:Matrix = new Matrix();
         matrix.scale(1, height / bitmap.height);
 
-        var bitmapData:BitmapData = new BitmapData((bitmap.width - widthOffset) * (min / max), bitmap.height - heightOffset);
+        var bitmapData:BitmapData = new BitmapData((bitmap.width - widthOffset) * (min / max), bitmap.height - heightOffset, true, 0x00000000);
         bitmapData.draw(bitmap, matrix, null, null, null, true);
         bitmapData.applyFilter(bitmapData, new Rectangle(0, 0, (bitmap.width - widthOffset) * (min / max), (bitmap.height - heightOffset) * (height / bitmap.height)), new Point(), colorMatrix);
 
-        addChild(new Bitmap(bitmapData, PixelSnapping.NEVER, true));
+        var newBitmap:Bitmap = new Bitmap(bitmapData, PixelSnapping.NEVER, true);
+        newBitmap.filters = [HUDView.UI_FILTERS_BLACK_OUTLINE];
+
+        addChild(newBitmap);
+
+        if (text != null) {
+            var topLabel:BaseSimpleText = new BaseSimpleText(14, 0xE8E8E8, false, 128, 0);
+            topLabel.selectable = false;
+            topLabel.border = false;
+            topLabel.mouseEnabled = true;
+            topLabel.htmlText = "<b>" + text + "</b>";
+            topLabel.useTextDimensions();
+            topLabel.x = 4;
+            topLabel.y = - 12;
+            topLabel.filters = [HUDView.UI_FILTERS_BLACK_OUTLINE];
+
+            var middleLabel:BaseSimpleText = new BaseSimpleText(12, 0xE8E8E8, false, 128, 0);
+            middleLabel.selectable = false;
+            middleLabel.border = false;
+            middleLabel.mouseEnabled = true;
+            middleLabel.htmlText = enablePercent ? min + "/" + max + " <b>(" + Parameters.formatValue((min / max) / 1000, 2) + "%)</b>" : "<b>" + min + "</b>";
+            middleLabel.useTextDimensions();
+            middleLabel.x = (bitmap.width - middleLabel.textWidth) / 2;
+            middleLabel.y = - 4;
+
+            addChild(topLabel);
+            addChild(middleLabel);
+        }
     }
 }
 }

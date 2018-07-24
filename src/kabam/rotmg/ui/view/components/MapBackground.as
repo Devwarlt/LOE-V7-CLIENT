@@ -15,7 +15,7 @@ public class MapBackground extends Sprite {
 
     private static const BORDER:int = 10;
     private static const RECTANGLE:Rectangle = new Rectangle(-400, -300, 800, 600);
-    private static const ANGLE:Number = ((7 * Math.PI) / 4);//5.49778714378214
+    private static const ANGLE:Number = 0;//5.49778714378214
     private static const TO_MILLISECONDS:Number = (1 / 1000);//0.001
     private static const EMBEDDED_BACKGROUNDMAP:Class = MapBackground_EMBEDDED_BACKGROUNDMAP;
 

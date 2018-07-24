@@ -687,7 +687,7 @@ public class GameObject extends BasicObject {
         if (this.myLastTickId_ < map_.gs_.gsc_.lastTickId_) {
             this.moveTo(this.tickPosition_.x, this.tickPosition_.y);
         }
-        this.lastTickUpdateTime_ = map_.gs_.lastUpdate_;
+        this.lastTickUpdateTime_ = map_.gs_.time;
         this.tickPosition_.x = _arg1;
         this.tickPosition_.y = _arg2;
         this.posAtTick_.x = x_;

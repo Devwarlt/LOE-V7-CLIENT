@@ -96,7 +96,7 @@ public class Projectile extends BasicObject {
         this.projProps_ = this.containerProps_.projectiles_[this.bulletType_];
         var _projectileObjectId:String = ((((!((_arg7 == ""))) && ((this.projProps_.objectId_ == _arg8)))) ? _arg7 : this.projProps_.objectId_);
         this.props_ = ObjectLibrary.getPropsFromId(_projectileObjectId);
-        this.hasShadow_ = false;//(this.props_.shadowSize_ > 0);
+        this.hasShadow_ = false;
         var _local10:TextureData = ObjectLibrary.typeToTextureData_[this.props_.type_];
         this.texture_ = _local10.getTexture(this.objectId_);
         this.damagesPlayers_ = this.containerProps_.isEnemy_;

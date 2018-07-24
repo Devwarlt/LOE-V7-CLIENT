@@ -418,7 +418,7 @@ public class GameSprite extends AGameSprite {
             Renderer.inGame = true;
             gsc_.connect();
             this.idleWatcher_.start(this);
-            lastUpdate_ = getTimer();
+            lastUpdate_ = time;
             stage.addEventListener(MoneyChangedEvent.MONEY_CHANGED, this.onMoneyChanged);
             stage.addEventListener(Event.ENTER_FRAME, this.onEnterFrame);
             LoopedProcess.addProcess(new LoopedCallback(100, this.updateNearestInteractive));
