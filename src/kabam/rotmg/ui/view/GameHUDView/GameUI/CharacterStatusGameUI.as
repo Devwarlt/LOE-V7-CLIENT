@@ -39,7 +39,8 @@ public class CharacterStatusGameUI extends GameUIScreen {
 
     private var ui_characterStatusMediatorSprite:Sprite;
     private var ui_characterStatusMediatorExperienceBar:GameBar;
-    private var ui_characterStatusMediatorExperienceBarStatic:GameBar;
+    private var ui_characterStatusMediatorHealthPointsBar:GameBar;
+    private var ui_characterStatusMediatorMagicPointsBar:GameBar;
     //private var ui_characterStatusMediatorStatsUpdate:Timer;
     //private var ui_characterStatusMediatorStatsLevel:int;
     //private var ui_characterStatusMediatorStatsExperienceTotal:Number;
@@ -63,9 +64,11 @@ public class CharacterStatusGameUI extends GameUIScreen {
     override public function drawUI():void {
         this.ui_characterStatusMediatorSprite = new Sprite();
 
-        this.ui_characterStatusMediatorExperienceBar = new GameBar(50, 100, 12, 12, 0, GameBar.RED, "Experience", true);
+        this.ui_characterStatusMediatorExperienceBar = new GameBar(25, 100, 12, 12, 0, GameBar.GREEN, "Experience", true);
 
-        this.ui_characterStatusMediatorExperienceBarStatic = new GameBar(100, 100, 12, 12, 0, GameBar.BLACK);
+        this.ui_characterStatusMediatorHealthPointsBar = new GameBar(50, 100, 12, 12, 0, GameBar.RED, "Health Points", true);
+
+        this.ui_characterStatusMediatorMagicPointsBar = new GameBar(75, 100, 12, 12, 0, GameBar.BLUE, "Magic Points", true);
 
         //this.ui_characterStatusMediatorStatsUpdate = new Timer(200);
 
@@ -102,16 +105,20 @@ public class CharacterStatusGameUI extends GameUIScreen {
         this.ui_characterStatusMediatorExperienceBar.x = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.x;
         this.ui_characterStatusMediatorExperienceBar.y = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.y;
 
-        this.ui_characterStatusMediatorExperienceBarStatic.x = this.ui_characterStatusMediatorExperienceBar.x;
-        this.ui_characterStatusMediatorExperienceBarStatic.y = this.ui_characterStatusMediatorExperienceBar.y;
+        this.ui_characterStatusMediatorHealthPointsBar.x = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.x;
+        this.ui_characterStatusMediatorHealthPointsBar.y = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.y + UI_CHARACTER_STATUS_MEDIATOR_SPACE + 4;
+
+        this.ui_characterStatusMediatorMagicPointsBar.x = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.x;
+        this.ui_characterStatusMediatorMagicPointsBar.y = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.y + (UI_CHARACTER_STATUS_MEDIATOR_SPACE + 4) * 2;
     }
 
     override public function outlineUI():void {
     }
 
     override public function addUI():void {
-        this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorExperienceBarStatic);
         this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorExperienceBar);
+        this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorHealthPointsBar);
+        this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorMagicPointsBar);
 
         addChild(this.ui_characterStatusMediatorSprite);
     }

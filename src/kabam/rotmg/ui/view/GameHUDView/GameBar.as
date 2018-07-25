@@ -22,15 +22,33 @@ public class GameBar extends Sprite {
     public static const CYAN:ColorMatrixFilter = GetColor(0x00, 0xFF, 0xFF, 1);
     public static const WHITE:ColorMatrixFilter = GetColor(0xFF, 0xFF, 0xFF, 1);
     public static const BLACK:ColorMatrixFilter = GetColor(0x00, 0x00, 0x00, 1);
+    public static const ORANGE:ColorMatrixFilter = GetColor(0xFF, 0xA5, 0x00, 1);
 
     private static function GetColor(_arg1:uint, _arg2:uint, _arg3:uint, _arg4:Number = 1):ColorMatrixFilter {
         var matrix:Array = [];
-        matrix = matrix.concat([_arg1 / 0xFF, _arg2 / 0xFF, _arg3 / 0xFF, 0, 0]); // red
-        matrix = matrix.concat([0, 0, 0, 0, 0]); // green
-        matrix = matrix.concat([0, 0, 0, 0, 0]); // blue
+        matrix = matrix.concat([_arg1 / 0xFF, 0, 0, 0, 0]); // red
+        matrix = matrix.concat([0, _arg2 / 0xFF, 0, 0, 0]); // green
+        matrix = matrix.concat([0, 0, _arg3 / 0xFF, 0, 0]); // blue
         matrix = matrix.concat([0, 0, 0, _arg4, 0]); // alpha
 
         return new ColorMatrixFilter(matrix);
+    }
+
+    private function drawBackground(height:Number, widthOffset:int, heightOffset:int):void {
+        var bitmap:Bitmap = new Bitmap();
+        bitmap.bitmapData = new NewUIHighResolutionBar_shapeEmbed_().bitmapData;
+
+        var matrix:Matrix = new Matrix();
+        matrix.scale(1, height / bitmap.height);
+
+        var bitmapData:BitmapData = new BitmapData((bitmap.width - widthOffset), bitmap.height - heightOffset, true, 0x00000000);
+        bitmapData.draw(bitmap, matrix, null, null, null, true);
+        bitmapData.applyFilter(bitmapData, new Rectangle(0, 0, (bitmap.width - widthOffset), (bitmap.height - heightOffset) * (height / bitmap.height)), new Point(), BLACK);
+
+        var newBitmap:Bitmap = new Bitmap(bitmapData, PixelSnapping.NEVER, true);
+        newBitmap.filters = [HUDView.UI_FILTERS_BLACK_OUTLINE];
+
+        addChild(newBitmap);
     }
 
     // Bar data:
@@ -50,6 +68,8 @@ public class GameBar extends Sprite {
 
         var newBitmap:Bitmap = new Bitmap(bitmapData, PixelSnapping.NEVER, true);
         newBitmap.filters = [HUDView.UI_FILTERS_BLACK_OUTLINE];
+
+        this.drawBackground(height, widthOffset, heightOffset);
 
         addChild(newBitmap);
 
