@@ -39,6 +39,7 @@ import kabam.rotmg.promotions.signals.ShowBeginnersPackageSignal;
 import kabam.rotmg.ui.signals.HUDModelInitialized;
 import kabam.rotmg.ui.signals.HUDSetupStarted;
 import kabam.rotmg.ui.signals.UpdateHUDSignal;
+import kabam.rotmg.ui.view.GameHUDView.HUDView;
 
 import robotlegs.bender.bundles.mvcs.Mediator;
 
@@ -118,8 +119,7 @@ public class GameSpriteMediator extends Mediator {
         this.setWorldInteraction.add(this.onSetWorldInteraction);
         addViewListener(ReconnectEvent.RECONNECT, this.onReconnect);
         this.view.modelInitialized.add(this.onGameSpriteModelInitialized);
-        this.view.drawCharacterWindow.add(this.onStatusPanelDraw);
-        this.hudModelInitialized.add(this.onHUDModelInitialized);
+        this.view.drawHUDView.addOnce(this.onHUDView);
         this.showPetTooltip.add(this.onShowPetTooltip);
         this.view.monitor.add(this.onMonitor);
         this.view.closed.add(this.onClosed);
@@ -154,8 +154,7 @@ public class GameSpriteMediator extends Mediator {
         this.setWorldInteraction.remove(this.onSetWorldInteraction);
         removeViewListener(ReconnectEvent.RECONNECT, this.onReconnect);
         this.view.modelInitialized.remove(this.onGameSpriteModelInitialized);
-        this.view.drawCharacterWindow.remove(this.onStatusPanelDraw);
-        this.hudModelInitialized.remove(this.onHUDModelInitialized);
+        this.view.drawHUDView.remove(this.onHUDView);
         this.beginnersPackageAvailable.remove(this.onBeginner);
         this.packageAvailable.remove(this.onPackage);
         this.view.closed.remove(this.onClosed);
@@ -212,12 +211,9 @@ public class GameSpriteMediator extends Mediator {
         this.initPackages.dispatch();
     }
 
-    private function onStatusPanelDraw(_arg1:Player):void {
+    private function onHUDView(_arg1:Player):void {
         this.updateHUDSignal.dispatch(_arg1);
-    }
-
-    private function onHUDModelInitialized():void {
-        this.view.hudModelInitialized();
+        this.view.hudModelInitialized(_arg1);
     }
 
     private function onShowPetTooltip(_arg1:Boolean):void {

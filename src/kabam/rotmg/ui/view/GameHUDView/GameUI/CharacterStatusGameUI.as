@@ -1,36 +1,15 @@
 package kabam.rotmg.ui.view.GameHUDView.GameUI {
 import com.company.assembleegameclient.objects.Player;
-import com.company.assembleegameclient.objects.Sign;
 import com.company.ui.BaseSimpleText;
 
-import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.TimerEvent;
-import flash.geom.Point;
-import flash.utils.Timer;
 
 import kabam.rotmg.ui.view.GameHUDView.GameBar;
 import kabam.rotmg.ui.view.GameHUDView.HUDView;
-import kabam.rotmg.ui.view.GameHUDView.Utils;
-
-import org.osflash.signals.Signal;
 
 public class CharacterStatusGameUI extends GameUIScreen {
-    private static const UI_CHARACTED_STATUS_MEDIATOR_SIZE:Point = new Point(HUDView.WIDTH, HUDView.HEIGHT);
-    private static const UI_CHARACTER_STATUS_MEDIATOR_SPACE:int = 12;
-    private static const UI_CHARACTER_STATUS_MEDIATOR_LEVEL_LABEL_POSITION:Point = new Point(4, UI_CHARACTER_STATUS_MEDIATOR_SPACE * 12);
-    private static const UI_CHARACTER_STATUS_MEDIATOR_LEVEL_LABEL_LEVEL:String = "{LEVEL}";
-    private static const UI_CHARACTER_STATUS_MEDIATOR_LEVEL_LABEL_TEXT:String = "<b>Level:</b> " + UI_CHARACTER_STATUS_MEDIATOR_LEVEL_LABEL_LEVEL;
-    private static const UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_FILL_COLOR:int = int("#ff1200".replace("#", "0x"));
-    private static const UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_END_COLOR:int = int("#353535".replace("#", "0x"));
-    private static const UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_WIDTH:int = UI_CHARACTED_STATUS_MEDIATOR_SIZE.x - 12;
-    private static const UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_HEIGHT:int = UI_CHARACTER_STATUS_MEDIATOR_SPACE;
-    private static const UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION:Point = new Point(4, UI_CHARACTER_STATUS_MEDIATOR_SPACE * 15);
-    private static const UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_EXPERIENCE_NEXT_LEVEL:String = "{EXPERIENCE_NEXT_LEVEL}";
-    private static const UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_EXPERIENCE_TOTAL:String = "{EXPERIENCE_TOTAL}";
-    private static const UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_EXPERIENCE_PERCENT:String = "{EXPERIENCE_PERCENT}";
-    private static const UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_TEXT:String = "<b>EXP:</b> " + UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_EXPERIENCE_TOTAL + "<b>/</b>" + UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_EXPERIENCE_NEXT_LEVEL + " (<b>" + UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_EXPERIENCE_PERCENT + "%</b>)";
-    private static const UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_LABEL_POSITION:Point = new Point(4, UI_CHARACTER_STATUS_MEDIATOR_SPACE * 13 + 4);
+    private static const UI_CHARACTER_STATUS_MEDIATOR_SPACE:int = 12 * 2;
 
     private var player:Player;
 
@@ -41,6 +20,7 @@ public class CharacterStatusGameUI extends GameUIScreen {
     private var ui_characterStatusMediatorExperienceBar:GameBar;
     private var ui_characterStatusMediatorHealthPointsBar:GameBar;
     private var ui_characterStatusMediatorMagicPointsBar:GameBar;
+    private var ui_characterStatusMediatorLevelLabel:BaseSimpleText;
     //private var ui_characterStatusMediatorStatsUpdate:Timer;
     //private var ui_characterStatusMediatorStatsLevel:int;
     //private var ui_characterStatusMediatorStatsExperienceTotal:Number;
@@ -64,11 +44,18 @@ public class CharacterStatusGameUI extends GameUIScreen {
     override public function drawUI():void {
         this.ui_characterStatusMediatorSprite = new Sprite();
 
-        this.ui_characterStatusMediatorExperienceBar = new GameBar(25, 100, 12, 12, 0, GameBar.GREEN, "Experience", true);
+        this.ui_characterStatusMediatorExperienceBar = new GameBar(25, 100, 12, 148, 0, GameBar.GREEN, "Experience", true);
 
-        this.ui_characterStatusMediatorHealthPointsBar = new GameBar(50, 100, 12, 12, 0, GameBar.RED, "Health Points", true);
+        this.ui_characterStatusMediatorHealthPointsBar = new GameBar(50, 100, 24, 148, 0, GameBar.RED, "Health Points", true);
 
-        this.ui_characterStatusMediatorMagicPointsBar = new GameBar(75, 100, 12, 12, 0, GameBar.BLUE, "Magic Points", true);
+        this.ui_characterStatusMediatorMagicPointsBar = new GameBar(75, 100, 24, 148, 0, GameBar.BLUE, "Magic Points", true);
+
+        this.ui_characterStatusMediatorLevelLabel = new BaseSimpleText(14, 0xE8E8E8, false, 128, 0);
+        this.ui_characterStatusMediatorLevelLabel.selectable = false;
+        this.ui_characterStatusMediatorLevelLabel.border = false;
+        this.ui_characterStatusMediatorLevelLabel.mouseEnabled = true;
+        this.ui_characterStatusMediatorLevelLabel.htmlText = "<b>Level</b> " + (this.player == null ? "null" : this.player.level_.toString());
+        this.ui_characterStatusMediatorLevelLabel.useTextDimensions();
 
         //this.ui_characterStatusMediatorStatsUpdate = new Timer(200);
 
@@ -102,23 +89,31 @@ public class CharacterStatusGameUI extends GameUIScreen {
     }
 
     override public function setUI():void {
-        this.ui_characterStatusMediatorExperienceBar.x = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.x;
-        this.ui_characterStatusMediatorExperienceBar.y = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.y;
+        var x_:int = 144;
+        var y_:int = 52;
 
-        this.ui_characterStatusMediatorHealthPointsBar.x = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.x;
-        this.ui_characterStatusMediatorHealthPointsBar.y = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.y + UI_CHARACTER_STATUS_MEDIATOR_SPACE + 4;
+        this.ui_characterStatusMediatorExperienceBar.x = x_;
+        this.ui_characterStatusMediatorExperienceBar.y = y_ + UI_CHARACTER_STATUS_MEDIATOR_SPACE - 12;
 
-        this.ui_characterStatusMediatorMagicPointsBar.x = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.x;
-        this.ui_characterStatusMediatorMagicPointsBar.y = UI_CHARACTER_STATUS_MEDIATOR_EXPERIENCE_BAR_POSITION.y + (UI_CHARACTER_STATUS_MEDIATOR_SPACE + 4) * 2;
+        this.ui_characterStatusMediatorHealthPointsBar.x = x_;
+        this.ui_characterStatusMediatorHealthPointsBar.y = y_ + UI_CHARACTER_STATUS_MEDIATOR_SPACE + 4;
+
+        this.ui_characterStatusMediatorMagicPointsBar.x = x_;
+        this.ui_characterStatusMediatorMagicPointsBar.y = y_ + (UI_CHARACTER_STATUS_MEDIATOR_SPACE + 4) * 2;
+
+        this.ui_characterStatusMediatorLevelLabel.x = x_ + 4;
+        this.ui_characterStatusMediatorLevelLabel.y = y_ - 16;
     }
 
     override public function outlineUI():void {
+        this.ui_characterStatusMediatorLevelLabel.filters = [HUDView.UI_FILTERS_BLACK_OUTLINE];
     }
 
     override public function addUI():void {
         this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorExperienceBar);
         this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorHealthPointsBar);
         this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorMagicPointsBar);
+        this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorLevelLabel);
 
         addChild(this.ui_characterStatusMediatorSprite);
     }

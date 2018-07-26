@@ -221,7 +221,7 @@ public class SocketServer {
                 message.parseFromInput(data);
             }
             catch (error:Error) {
-                if (message.id != GameServerConnection.TEXT && message.id != GameServerConnection.FAILURE)
+                if (message.id != GameServerConnection.TEXT && message.id != GameServerConnection.FAILURE && message.id != GameServerConnection.NEWTICK)
                     logErrorAndClose("[Protocol Error] Error in message ID " + message.id + ":\n", error);
                 return;
             }
@@ -229,7 +229,7 @@ public class SocketServer {
                 message.consume();
             }
             catch (error:Error) {
-                if (message.id != GameServerConnection.TEXT && message.id != GameServerConnection.FAILURE)
+                if (message.id != GameServerConnection.TEXT && message.id != GameServerConnection.FAILURE && message.id != GameServerConnection.NEWTICK)
                     logErrorAndClose("[Protocol Error] Error in message ID " + message.id + ":\n", error);
             }
             sendPendingMessages();

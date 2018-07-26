@@ -93,6 +93,7 @@ import kabam.rotmg.ui.view.CreditsMediator;
 import kabam.rotmg.ui.view.CurrentCharacterMediator;
 import kabam.rotmg.ui.view.CurrentCharacterRectMediator;
 import kabam.rotmg.ui.view.ErrorDialogMediator;
+import kabam.rotmg.ui.view.GameHUDView.HUDView;
 import kabam.rotmg.ui.view.KeysMediator;
 import kabam.rotmg.ui.view.KeysView;
 import kabam.rotmg.ui.view.LoadingMediator;

@@ -88,10 +88,10 @@ public class GameBar extends Sprite {
             middleLabel.selectable = false;
             middleLabel.border = false;
             middleLabel.mouseEnabled = true;
-            middleLabel.htmlText = enablePercent ? min + "/" + max + " <b>(" + Parameters.formatValue((min / max) / 1000, 2) + "%)</b>" : "<b>" + min + "</b>";
+            middleLabel.htmlText = enablePercent ? min + "/" + max + " <b>(" + Parameters.formatValue((min / max) * 100, 2) + "%)</b>" : "<b>" + min + "</b>";
             middleLabel.useTextDimensions();
-            middleLabel.x = (bitmap.width - middleLabel.textWidth) / 2;
-            middleLabel.y = - 4;
+            middleLabel.x = (bitmap.width - middleLabel.htmlText.length) / 2 - middleLabel.htmlText.length / 2;
+            middleLabel.y = (height - middleLabel.textHeight) / 4 - 12 / 4;
 
             addChild(topLabel);
             addChild(middleLabel);

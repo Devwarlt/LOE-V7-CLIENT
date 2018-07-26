@@ -1,5 +1,6 @@
 ﻿package kabam.rotmg.ui.view.GameHUDView {
 import com.company.assembleegameclient.game.GameSprite;
+import com.company.assembleegameclient.objects.Player;
 import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.ui.panels.InteractPanel;
 import com.company.assembleegameclient.util.TextureRedrawer;
@@ -37,8 +38,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     public static const UI_FILTERS_BLACK_OUTLINE:GlowFilter = TextureRedrawer.OUTLINE_FILTER;
     public static const UI_FILTERS_GRAY_SHADES:ColorMatrixFilter = new ColorMatrixFilter(MoreColorUtil.greyscaleFilterMatrix);
 
-    private var gameSprite:GameSprite;
-
+    public var player:Player;
+    public var gameSprite:GameSprite;
     public var interactPanel:InteractPanel;
 
     /*
@@ -62,11 +63,10 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     private static const UI_SETTINGS_ICON_POSITION:Point = new Point(UI_LOGOUT_ICON_POSITION.x - 2 * UI_ICON_SIZE, UI_LOGOUT_ICON_POSITION.y);
     private static const UI_OVERLAY_CONNECTION_MEDIATOR_POSITION:Point = new Point(UI_MINIMAP_POSITION.x, UI_MINIMAP_POSITION.y + UI_OVERLAY_MINIMAP_SIZE.y + UI_OVERLAY_ICON_SPACE_POSITION.y);
     private static const UI_OVERLAY_GAME_STATUS_MEDIATOR_POSITION:Point = new Point(UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.x, UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.y + UI_OVERLAY_ICON_SPACE_POSITION.x + UI_OVERLAY_ICON_SPACE_POSITION.y);
-    private static const UI_OVERLAY_CHARACTER_STATUS_MEDIATOR_POSITION:Point = new Point(0, WebMain.STAGE.stageHeight / 2);
+    private static const UI_OVERLAY_CHARACTER_STATUS_MEDIATOR_POSITION:Point = new Point(0, 0);
 
     private var ui_optionsToolBar:Bitmap;
     private var ui_minimapBackground:Bitmap;
-    private var ui_minimap:MiniMapImp;
     private var ui_characterStatsIcon:Bitmap;
     private var ui_highscoresIcon:Bitmap;
     private var ui_inventoryIcon:Bitmap;
@@ -78,14 +78,17 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     private var ui_logoutIconSprite:Sprite;
     private var ui_settingsIconSprite:Sprite;
 
+    public var ui_minimap:MiniMapImp;
+
     // Game UIs
     public var ui_characterStatusGameUI:CharacterStatusGameUI;
     public var ui_gameStatusGameUI:GameStatusGameUI;
     public var ui_connectionGameUI:ConnectionGameUI;
     public var ui_settingsGameUI:SettingsGameUI;
 
-    public function HUDView(_gameSprite:GameSprite) {
-        this.gameSprite = _gameSprite;
+    public function HUDView(gameSprite:GameSprite) {
+        this.gameSprite = gameSprite;
+        this.player = gameSprite.player;
 
         this.drawUI();
         this.setUI();
@@ -128,7 +131,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_settingsIcon = new Bitmap();
         this.ui_settingsIcon.bitmapData = new NewUISettings_shapeEmbed_().bitmapData;
 
-        this.ui_characterStatusGameUI = new CharacterStatusGameUI(this, this.gameSprite.player);
+        this.ui_characterStatusGameUI = new CharacterStatusGameUI(this, this.player);
         this.ui_characterStatusGameUI.visible = Parameters.data_.displayCharacterStatusMediator;
 
         this.ui_gameStatusGameUI = new GameStatusGameUI(this);
@@ -263,7 +266,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
     public function applyFilterOverlay(_arg1:Array):void {
         this.ui_minimapBackground.filters = _arg1;
-        this.ui_minimap.filters = _arg1;
+        if (this.ui_minimap)
+            this.ui_minimap.filters = _arg1;
         this.ui_optionsToolBar.filters = _arg1;
         this.ui_characterStatsIconSprite.filters = _arg1;
         this.ui_highscoresIconSprite.filters = _arg1;
@@ -273,8 +277,10 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     }
 
     public function disableContents():void {
-        this.ui_minimap.mouseEnabled = false;
-        this.ui_minimap.mouseChildren = false;
+        if (this.ui_minimap) {
+            this.ui_minimap.mouseEnabled = false;
+            this.ui_minimap.mouseChildren = false;
+        }
 
         this.ui_characterStatsIconSprite.mouseEnabled = false;
         this.ui_characterStatsIconSprite.mouseChildren = false;
@@ -293,8 +299,10 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     }
 
     public function enableContents():void {
-        this.ui_minimap.mouseEnabled = true;
-        this.ui_minimap.mouseChildren = true;
+        if (this.ui_minimap) {
+            this.ui_minimap.mouseEnabled = true;
+            this.ui_minimap.mouseChildren = true;
+        }
 
         this.ui_characterStatsIconSprite.mouseEnabled = true;
         this.ui_characterStatsIconSprite.mouseChildren = true;
@@ -352,7 +360,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         removeChild(this.ui_gameStatusGameUI);
         removeChild(this.ui_connectionGameUI);
         removeChild(this.ui_minimapBackground);
-        removeChild(this.ui_minimap);
+        if (this.ui_minimap)
+            removeChild(this.ui_minimap);
         removeChild(this.ui_optionsToolBar);
         removeChild(this.ui_characterStatsIconSprite);
         removeChild(this.ui_highscoresIconSprite);
