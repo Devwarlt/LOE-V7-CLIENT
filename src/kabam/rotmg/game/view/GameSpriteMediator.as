@@ -4,7 +4,6 @@ import com.company.assembleegameclient.game.events.ReconnectEvent;
 import com.company.assembleegameclient.objects.Player;
 
 import flash.system.Capabilities;
-
 import flash.utils.getTimer;
 
 import kabam.rotmg.core.StaticInjectorContext;
@@ -39,7 +38,6 @@ import kabam.rotmg.promotions.signals.ShowBeginnersPackageSignal;
 import kabam.rotmg.ui.signals.HUDModelInitialized;
 import kabam.rotmg.ui.signals.HUDSetupStarted;
 import kabam.rotmg.ui.signals.UpdateHUDSignal;
-import kabam.rotmg.ui.view.GameHUDView.HUDView;
 
 import robotlegs.bender.bundles.mvcs.Mediator;
 
@@ -104,7 +102,6 @@ public class GameSpriteMediator extends Mediator {
     [Inject]
     public var flushQueueSignal:FlushPopupStartupQueueSignal;
 
-
     public static function sleepForMs(_arg1:int):void {
         var _local2:int = getTimer();
         while (true) {
@@ -112,14 +109,14 @@ public class GameSpriteMediator extends Mediator {
         }
     }
 
-
     override public function initialize():void {
         this.showLoadingViewSignal.dispatch();
         this.view.packageModel = this.packageModel;
         this.setWorldInteraction.add(this.onSetWorldInteraction);
         addViewListener(ReconnectEvent.RECONNECT, this.onReconnect);
         this.view.modelInitialized.add(this.onGameSpriteModelInitialized);
-        this.view.drawHUDView.addOnce(this.onHUDView);
+        this.view.drawCharacterWindow.add(this.onStatusPanelDraw);
+        this.hudModelInitialized.addOnce(this.onHUDModelInitialized);
         this.showPetTooltip.add(this.onShowPetTooltip);
         this.view.monitor.add(this.onMonitor);
         this.view.closed.add(this.onClosed);
@@ -154,7 +151,8 @@ public class GameSpriteMediator extends Mediator {
         this.setWorldInteraction.remove(this.onSetWorldInteraction);
         removeViewListener(ReconnectEvent.RECONNECT, this.onReconnect);
         this.view.modelInitialized.remove(this.onGameSpriteModelInitialized);
-        this.view.drawHUDView.remove(this.onHUDView);
+        this.view.drawCharacterWindow.remove(this.onStatusPanelDraw);
+        this.hudModelInitialized.remove(this.onHUDModelInitialized);
         this.beginnersPackageAvailable.remove(this.onBeginner);
         this.packageAvailable.remove(this.onPackage);
         this.view.closed.remove(this.onClosed);
@@ -211,9 +209,12 @@ public class GameSpriteMediator extends Mediator {
         this.initPackages.dispatch();
     }
 
-    private function onHUDView(_arg1:Player):void {
+    private function onStatusPanelDraw(_arg1:Player):void {
         this.updateHUDSignal.dispatch(_arg1);
-        this.view.hudModelInitialized(_arg1);
+    }
+
+    private function onHUDModelInitialized():void {
+        this.view.hudModelInitialized();
     }
 
     private function onShowPetTooltip(_arg1:Boolean):void {
