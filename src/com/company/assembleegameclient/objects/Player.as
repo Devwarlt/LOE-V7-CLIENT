@@ -124,6 +124,22 @@ public class Player extends Character {
         texturingCache_ = new Dictionary();
         this.slideVec_ = new Vector3D();
     }
+
+    public var charLvl:int = 0;
+    public var charEXP:Number = 0;
+    public var charHP:int = 0;
+    public var charMP:int = 0;
+    public var charATTLvl:int = 0;
+    public var charATTEXP:Number = 0;
+    public var charDEFLvl:int = 0;
+    public var charDEFEXP:Number = 0;
+    public var charSPD:int = 0;
+    public var charMaxHP:int = 0;
+    public var charMaxMP:int = 0;
+    public var charNextEXP:Number = 0;
+    public var charNextATTEXP:Number = 0;
+    public var charNextDEFEXP:Number = 0;
+
     public var petObjectId:int = 0;
     public var petHpHealingAverageMin:int = 0;
     public var petHpHealingAverageMax:int = 0;

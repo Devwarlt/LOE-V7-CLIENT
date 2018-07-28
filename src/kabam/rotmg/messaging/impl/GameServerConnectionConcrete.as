@@ -1522,6 +1522,48 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         for each (_local7 in _arg2) {
             _local8 = _local7.statValue_;
             switch (_local7.statType_) {
+                case StatData.CHAR_LEVEL:
+                    _local4.charLvl = _local8;
+                    break;
+                case StatData.CHAR_EXPERIENCE:
+                    _local4.charEXP = Number(_local7.strStatValue_);
+                    break;
+                case StatData.CHAR_HEALTH_POINTS:
+                    _local4.charHP = _local8;
+                    break;
+                case StatData.CHAR_MAGIC_POINTS:
+                    _local4.charMP = _local8;
+                    break;
+                case StatData.CHAR_ATTACK_LEVEL:
+                    _local4.charATTLvl = _local8;
+                    break;
+                case StatData.CHAR_ATTACK_EXPERIENCE:
+                    _local4.charATTEXP = Number(_local7.strStatValue_);
+                    break;
+                case StatData.CHAR_DEFENSE_LEVEL:
+                    _local4.charDEFLvl = _local8;
+                    break;
+                case StatData.CHAR_DEFENSE_EXPERIENCE:
+                    _local4.charDEFEXP = Number(_local7.strStatValue_);
+                    break;
+                case StatData.CHAR_SPEED:
+                    _local4.charSPD = _local8;
+                    break;
+                case StatData.CHAR_MAX_HEALTH_POINTS:
+                    _local4.charMaxHP = _local8;
+                    break;
+                case StatData.CHAR_MAX_MAGIC_POINTS:
+                    _local4.charMaxMP = _local8;
+                    break;
+                case StatData.CHAR_NEXT_EXPERIENCE:
+                    _local4.charNextEXP = Number(_local7.strStatValue_);
+                    break;
+                case StatData.CHAR_NEXT_ATTACK_EXPERIENCE:
+                    _local4.charNextATTEXP = Number(_local7.strStatValue_);
+                    break;
+                case StatData.CHAR_NEXT_DEFENSE_EXPERIENCE:
+                    _local4.charNextDEFEXP = Number(_local7.strStatValue_);
+                    break;
                 case StatData.MAX_HP_STAT:
                     _arg1.maxHP_ = _local8;
                     break;

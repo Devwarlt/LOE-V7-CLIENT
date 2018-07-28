@@ -123,6 +123,11 @@ public class StatData {
     public static const CHAR_DEFENSE_LEVEL:int = 117;
     public static const CHAR_DEFENSE_EXPERIENCE:int = 118;
     public static const CHAR_SPEED:int = 119;
+    public static const CHAR_MAX_HEALTH_POINTS:int = 120;
+    public static const CHAR_MAX_MAGIC_POINTS:int = 121;
+    public static const CHAR_NEXT_EXPERIENCE:int = 122;
+    public static const CHAR_NEXT_ATTACK_EXPERIENCE:int = 123;
+    public static const CHAR_NEXT_DEFENSE_EXPERIENCE:int = 124;
 
     public var statType_:uint = 0;
     public var statValue_:int;
@@ -172,6 +177,9 @@ public class StatData {
             case CHAR_EXPERIENCE:
             case CHAR_ATTACK_EXPERIENCE:
             case CHAR_DEFENSE_EXPERIENCE:
+            case CHAR_NEXT_EXPERIENCE:
+            case CHAR_NEXT_ATTACK_EXPERIENCE:
+            case CHAR_NEXT_DEFENSE_EXPERIENCE:
                 return (true);
         }
         return (false);

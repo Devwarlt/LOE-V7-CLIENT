@@ -56,6 +56,15 @@ public class GameBar extends Sprite {
     //  - height: 36px
 
     public function GameBar(min:Number, max:Number, height:Number, widthOffset:int, heightOffset:int, colorMatrix:ColorMatrixFilter, text:String = null, enablePercent:Boolean = false) {
+        var nullInput:Boolean = false;
+
+        if (max <= 0) {
+            min = 1;
+            max = 1;
+
+            nullInput = true;
+        }
+
         var bitmap:Bitmap = new Bitmap();
         bitmap.bitmapData = new NewUIHighResolutionBar_shapeEmbed_().bitmapData;
 
@@ -88,9 +97,9 @@ public class GameBar extends Sprite {
             middleLabel.selectable = false;
             middleLabel.border = false;
             middleLabel.mouseEnabled = true;
-            middleLabel.htmlText = enablePercent ? min + "/" + max + " <b>(" + Parameters.formatValue((min / max) * 100, 2) + "%)</b>" : "<b>" + min + "</b>";
+            middleLabel.htmlText = enablePercent ? "<b>" + nullInput ? "0" : (Parameters.formatValue((min / max) * 100, 2)) + "%</b>" : ( nullInput ? "0 / 0" : min + " / " + max);
             middleLabel.useTextDimensions();
-            middleLabel.x = (bitmap.width - middleLabel.htmlText.length) / 2 - middleLabel.htmlText.length / 2;
+            middleLabel.x = newBitmap.width - 3 * middleLabel.htmlText.length / 2;
             middleLabel.y = (height - middleLabel.textHeight) / 4 - 12 / 4;
 
             addChild(topLabel);
