@@ -98,7 +98,7 @@ public class GameObject extends BasicObject {
     protected var texturingCache_:Dictionary = null;
     public var maxHP_:int = 200;
     public var hp_:int = 200;
-    public var size_:int = 72;
+    public var size_:int = 80;
     public var level_:int = -1;
     public var defense_:String = "0";
     public var slotTypes_:Vector.<int> = null;
@@ -1085,7 +1085,7 @@ public class GameObject extends BasicObject {
             _local7 = ((_local3 - this.hp_) / _local3);
             this.hpbarBackFill_.color = MoreColorUtil.lerpColor(0x121212, 0xFF0000, (Math.abs(Math.sin((time / 150))) * _local7));
         }
-        var _hpBarWidth:int = 20;
+        var _hpBarWidth:int = 25;
         var _hpBarHeight:int = 6;
         var _hpBarDistance:int = 4;
         this.hpbarBackPath_.data.length = 0;
@@ -1096,14 +1096,14 @@ public class GameObject extends BasicObject {
         var _top:Number = posS_[1] + _hpBarDistance;
         var _bottom:Number = posS_[1] + _hpBarDistance + _hpBarHeight;
         _local9.push(
-                _left,
-                _top,
-                _right,
-                _top,
-                _right,
-                _bottom,
-                _left,
-                _bottom
+            _left,
+            _top,
+            _right,
+            _top,
+            _right,
+            _bottom,
+            _left,
+            _bottom
         );
         this.hpbarBackPath_.data = _local9;
         graphicsData.push(this.hpBarLineStyle_);
@@ -1116,14 +1116,14 @@ public class GameObject extends BasicObject {
             this.hpbarPath_.data.length = 0;
             var _local10:Vector.<Number> = (this.hpbarPath_.data as Vector.<Number>);
             _local10.push(
-                    _left,
-                    _top,
-                    _left + _hpBarVariance,
-                    _top,
-                    _left + _hpBarVariance,
-                    _bottom,
-                    _left,
-                    _bottom
+                _left,
+                _top,
+                _left + _hpBarVariance,
+                _top,
+                _left + _hpBarVariance,
+                _bottom,
+                _left,
+                _bottom
             );
             this.hpbarPath_.data = _local10;
             graphicsData.push(this.hpBarLineStyle_);
@@ -1231,7 +1231,7 @@ public class GameObject extends BasicObject {
         if (((((this.props_.showName_) && (!((this.name_ == null))))) && (!((this.name_.length == 0))))) {
             this.drawName(graphicsData, camera);
         }
-        if (((((((((this.props_) && (((this.props_.isEnemy_) || (this.props_.isPlayer_))))) && (!(this.isInvisible())))) && (!(this.isInvulnerable())))) && (!(this.props_.noMiniMap_)))) {
+        if (((((((((this.props_) && (((this.props_.isEnemy_))))) && (!(this.isInvisible())))))) && (!(this.props_.noMiniMap_)))) {
             _local9 = ((_local4.getPixel32((_local4.width / 4), (_local4.height / 4)) | _local4.getPixel32((_local4.width / 2), (_local4.height / 2))) | _local4.getPixel32(((_local4.width * 3) / 4), ((_local4.height * 3) / 4)));
             _local10 = (_local9 >> 24);
             if (_local10 != 0) {

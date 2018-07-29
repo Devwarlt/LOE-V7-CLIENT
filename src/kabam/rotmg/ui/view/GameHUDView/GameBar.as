@@ -72,14 +72,34 @@ public class GameBar extends Sprite {
         this.min_ = min;
         this.max_ = max;
 
+        if (this.max_ <= 0) {
+            this.min_ = 1;
+            this.max_ = 1;
+        }
+
+        this.middleText_.htmlText = this.getText;
+
         this.sprite_.removeChild(this.bitmapBackground_);
         this.sprite_.removeChild(this.bitmap_);
 
-        this.bitmap_ = this.draw();
+        this.bitmap_ = this.min_ <= 0 ? this.drawBackground() : this.draw();
         this.bitmapBackground_ = this.drawBackground();
 
         this.sprite_.addChild(this.bitmapBackground_);
         this.sprite_.addChild(this.bitmap_);
+    }
+
+    private function get getText():String {
+        var nullInput:Boolean = false;
+
+        if (this.max_ <= 0) {
+            this.min_ = 1;
+            this.max_ = 1;
+
+            nullInput = true;
+        }
+
+        return nullInput ? (this.enablePercent_ ? "<b>0%</b>" : "0 / 0") : (this.enablePercent_ ? "<b>" + Parameters.formatValue((this.min_ / this.max_) * 100, 2) + "%</b>" : this.min_ + " / " + this.max_);
     }
 
     // Bar data:
@@ -101,7 +121,7 @@ public class GameBar extends Sprite {
     private var sprite_:Sprite;
 
     public function GameBar(min:Number, max:Number, height:Number, widthOffset:int, heightOffset:int, colorMatrix:ColorMatrixFilter, text:String = null, enablePercent:Boolean = false) {
-        this.min_ = min;
+        this.min_ = min > max ? max : min;
         this.max_ = max;
         this.height_ = height;
         this.widthOffset_ = widthOffset;
@@ -139,15 +159,15 @@ public class GameBar extends Sprite {
             this.middleText_.selectable = false;
             this.middleText_.border = false;
             this.middleText_.mouseEnabled = true;
-            this.middleText_.htmlText = this.enablePercent_ ? "<b>" + nullInput ? "0" : (Parameters.formatValue((this.min_ / this.max_) * 100, 2)) + "%</b>" : ( nullInput ? "0 / 0" : this.min_ + " / " + this.max_);
+            this.middleText_.htmlText = this.getText;
             this.middleText_.useTextDimensions();
-            this.middleText_.x = 800 - 444 - 64;
+            this.middleText_.x = this.width + this.middleText_.textWidth / 2;
             this.middleText_.y = (this.height_ - this.middleText_.textHeight) / 4 - 12 / 4;
 
             addChild(this.middleText_);
         }
 
-        this.bitmap_ = this.draw();
+        this.bitmap_ = this.min_ <= 0 ? this.drawBackground() : this.draw();
         this.bitmapBackground_ = this.drawBackground();
 
         this.sprite_.addChild(this.bitmapBackground_);
