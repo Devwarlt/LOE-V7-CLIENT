@@ -34,77 +34,124 @@ public class GameBar extends Sprite {
         return new ColorMatrixFilter(matrix);
     }
 
-    private function drawBackground(height:Number, widthOffset:int, heightOffset:int):void {
+    private function drawBackground():Bitmap {
         var bitmap:Bitmap = new Bitmap();
         bitmap.bitmapData = new NewUIHighResolutionBar_shapeEmbed_().bitmapData;
 
         var matrix:Matrix = new Matrix();
-        matrix.scale(1, height / bitmap.height);
+        matrix.scale(1, this.height_ / bitmap.height);
 
-        var bitmapData:BitmapData = new BitmapData((bitmap.width - widthOffset), bitmap.height - heightOffset, true, 0x00000000);
+        var bitmapData:BitmapData = new BitmapData((bitmap.width - this.widthOffset_), bitmap.height - this.heightOffset_, true, 0x00000000);
         bitmapData.draw(bitmap, matrix, null, null, null, true);
-        bitmapData.applyFilter(bitmapData, new Rectangle(0, 0, (bitmap.width - widthOffset), (bitmap.height - heightOffset) * (height / bitmap.height)), new Point(), BLACK);
+        bitmapData.applyFilter(bitmapData, new Rectangle(0, 0, (bitmap.width - this.widthOffset_), (bitmap.height - this.heightOffset_) * (this.height_ / bitmap.height)), new Point(), BLACK);
 
         var newBitmap:Bitmap = new Bitmap(bitmapData, PixelSnapping.NEVER, true);
         newBitmap.filters = [HUDView.UI_FILTERS_BLACK_OUTLINE];
 
-        addChild(newBitmap);
+        return newBitmap;
+    }
+
+    private function draw():Bitmap {
+        var bitmap:Bitmap = new Bitmap();
+        bitmap.bitmapData = new NewUIHighResolutionBar_shapeEmbed_().bitmapData;
+
+        var matrix:Matrix = new Matrix();
+        matrix.scale(1, this.height_ / bitmap.height);
+
+        var bitmapData:BitmapData = new BitmapData((bitmap.width - this.widthOffset_) * (this.min_ / this.max_), bitmap.height - this.heightOffset_, true, 0x00000000);
+        bitmapData.draw(bitmap, matrix, null, null, null, true);
+        bitmapData.applyFilter(bitmapData, new Rectangle(0, 0, (bitmap.width - this.widthOffset_) * (this.min_ / this.max_), (bitmap.height - this.heightOffset_) * (this.height_ / bitmap.height)), new Point(), this.colorMatrix_);
+
+        var newBitmap:Bitmap = new Bitmap(bitmapData, PixelSnapping.NEVER, true);
+        newBitmap.filters = [HUDView.UI_FILTERS_BLACK_OUTLINE];
+
+        return newBitmap;
+    }
+
+    public function redraw(min:int, max:int):void {
+        this.min_ = min;
+        this.max_ = max;
+
+        this.sprite_.removeChild(this.bitmapBackground_);
+        this.sprite_.removeChild(this.bitmap_);
+
+        this.bitmap_ = this.draw();
+        this.bitmapBackground_ = this.drawBackground();
+
+        this.sprite_.addChild(this.bitmapBackground_);
+        this.sprite_.addChild(this.bitmap_);
     }
 
     // Bar data:
     //  - width: 800px
     //  - height: 36px
 
+    private var min_:Number;
+    private var max_:Number;
+    private var height_:Number;
+    private var widthOffset_:int;
+    private var heightOffset_:int;
+    private var colorMatrix_:ColorMatrixFilter;
+    private var text_:String;
+    private var enablePercent_:Boolean;
+    private var bitmap_:Bitmap;
+    private var bitmapBackground_:Bitmap;
+    private var topText_:BaseSimpleText;
+    private var middleText_:BaseSimpleText;
+    private var sprite_:Sprite;
+
     public function GameBar(min:Number, max:Number, height:Number, widthOffset:int, heightOffset:int, colorMatrix:ColorMatrixFilter, text:String = null, enablePercent:Boolean = false) {
+        this.min_ = min;
+        this.max_ = max;
+        this.height_ = height;
+        this.widthOffset_ = widthOffset;
+        this.heightOffset_ = heightOffset;
+        this.colorMatrix_ = colorMatrix;
+        this.text_ = text;
+        this.enablePercent_ = enablePercent;
+        this.sprite_ = new Sprite();
+
+        addChild(this.sprite_);
+
         var nullInput:Boolean = false;
 
-        if (max <= 0) {
-            min = 1;
-            max = 1;
+        if (this.max_ <= 0) {
+            this.min_ = 1;
+            this.max_ = 1;
 
             nullInput = true;
         }
 
-        var bitmap:Bitmap = new Bitmap();
-        bitmap.bitmapData = new NewUIHighResolutionBar_shapeEmbed_().bitmapData;
+        if (this.text_ != null) {
+            this.topText_ = new BaseSimpleText(14, 0xE8E8E8, false, 128, 0);
+            this.topText_.selectable = false;
+            this.topText_.border = false;
+            this.topText_.mouseEnabled = true;
+            this.topText_.htmlText = "<b>" + this.text_ + "</b>";
+            this.topText_.useTextDimensions();
+            this.topText_.x = 4;
+            this.topText_.y = - 12;
+            this.topText_.filters = [HUDView.UI_FILTERS_BLACK_OUTLINE];
 
-        var matrix:Matrix = new Matrix();
-        matrix.scale(1, height / bitmap.height);
+            addChild(this.topText_);
 
-        var bitmapData:BitmapData = new BitmapData((bitmap.width - widthOffset) * (min / max), bitmap.height - heightOffset, true, 0x00000000);
-        bitmapData.draw(bitmap, matrix, null, null, null, true);
-        bitmapData.applyFilter(bitmapData, new Rectangle(0, 0, (bitmap.width - widthOffset) * (min / max), (bitmap.height - heightOffset) * (height / bitmap.height)), new Point(), colorMatrix);
+            this.middleText_ = new BaseSimpleText(12, 0xE8E8E8, false, 128, 0);
+            this.middleText_.selectable = false;
+            this.middleText_.border = false;
+            this.middleText_.mouseEnabled = true;
+            this.middleText_.htmlText = this.enablePercent_ ? "<b>" + nullInput ? "0" : (Parameters.formatValue((this.min_ / this.max_) * 100, 2)) + "%</b>" : ( nullInput ? "0 / 0" : this.min_ + " / " + this.max_);
+            this.middleText_.useTextDimensions();
+            this.middleText_.x = 800 - 444 - 64;
+            this.middleText_.y = (this.height_ - this.middleText_.textHeight) / 4 - 12 / 4;
 
-        var newBitmap:Bitmap = new Bitmap(bitmapData, PixelSnapping.NEVER, true);
-        newBitmap.filters = [HUDView.UI_FILTERS_BLACK_OUTLINE];
-
-        this.drawBackground(height, widthOffset, heightOffset);
-
-        addChild(newBitmap);
-
-        if (text != null) {
-            var topLabel:BaseSimpleText = new BaseSimpleText(14, 0xE8E8E8, false, 128, 0);
-            topLabel.selectable = false;
-            topLabel.border = false;
-            topLabel.mouseEnabled = true;
-            topLabel.htmlText = "<b>" + text + "</b>";
-            topLabel.useTextDimensions();
-            topLabel.x = 4;
-            topLabel.y = - 12;
-            topLabel.filters = [HUDView.UI_FILTERS_BLACK_OUTLINE];
-
-            var middleLabel:BaseSimpleText = new BaseSimpleText(12, 0xE8E8E8, false, 128, 0);
-            middleLabel.selectable = false;
-            middleLabel.border = false;
-            middleLabel.mouseEnabled = true;
-            middleLabel.htmlText = enablePercent ? "<b>" + nullInput ? "0" : (Parameters.formatValue((min / max) * 100, 2)) + "%</b>" : ( nullInput ? "0 / 0" : min + " / " + max);
-            middleLabel.useTextDimensions();
-            middleLabel.x = newBitmap.width - 3 * middleLabel.htmlText.length / 2;
-            middleLabel.y = (height - middleLabel.textHeight) / 4 - 12 / 4;
-
-            addChild(topLabel);
-            addChild(middleLabel);
+            addChild(this.middleText_);
         }
+
+        this.bitmap_ = this.draw();
+        this.bitmapBackground_ = this.drawBackground();
+
+        this.sprite_.addChild(this.bitmapBackground_);
+        this.sprite_.addChild(this.bitmap_);
     }
 }
 }
