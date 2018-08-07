@@ -103,6 +103,7 @@ public class GameObject extends BasicObject {
     public var defense_:String = "0";
     public var slotTypes_:Vector.<int> = null;
     public var equipment_:Vector.<int> = null;
+    public var inventory_:Vector.<int> = new Vector.<int>(28);
     public var lockedSlot:Vector.<int> = null;
     public var condition_:Vector.<uint>;
     protected var tex1Id_:int = 0;
@@ -190,9 +191,15 @@ public class GameObject extends BasicObject {
         if (_arg1.hasOwnProperty("SlotTypes")) {
             this.slotTypes_ = ConversionUtil.toIntVector(_arg1.SlotTypes);
             this.equipment_ = new Vector.<int>(this.slotTypes_.length);
+            this.inventory_ = new Vector.<int>(this.slotTypes_.length);
             _local4 = 0;
             while (_local4 < this.equipment_.length) {
                 this.equipment_[_local4] = -1;
+                _local4++;
+            }
+            _local4 = 0;
+            while (_local4 < this.inventory_.length) {
+                this.inventory_[_local4] = -1;
                 _local4++;
             }
             this.lockedSlot = new Vector.<int>(this.slotTypes_.length);

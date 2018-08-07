@@ -52,8 +52,13 @@ import kabam.rotmg.text.view.stringBuilder.LineBuilder;
 import kabam.rotmg.text.view.stringBuilder.StaticStringBuilder;
 import kabam.rotmg.text.view.stringBuilder.StringBuilder;
 import kabam.rotmg.ui.model.TabStripModel;
+import kabam.rotmg.ui.view.GameHUDView.HUDView;
 
 import org.swiftsuspenders.Injector;
+
+import robotlegs.bender.framework.api.ILogger;
+
+import robotlegs.bender.framework.impl.Logger;
 
 public class Player extends Character {
 
@@ -1116,29 +1121,53 @@ public class Player extends Character {
         return hallucinatingMaskedImage_;
     }
 
-    private function shoot(angle:Number):void {
+    [Inject]
+    public static var log:Logger = StaticInjectorContext.getInjector().getInstance(ILogger);
+
+    public function shoot(angle:Number):void {
         if (map_ == null || isStunned() || isPaused() || isPetrified())
             return;
 
-        var weapType:int = this.equipment_[2];
+        var _invArray:String = null;
 
-        if (weapType == -1)
+        for (var i:int = 0; i < this.inventory_.length; i++)
+            if (_invArray == null)
+                _invArray = this.inventory_[i] == -1 ? "-1" : "0x" + this.inventory_[i].toString(16);
+            else
+                _invArray += ", " + (this.inventory_[i] == -1 ? "-1" : "0x" + this.inventory_[i].toString(16));
+
+        log.info("Inventory (" + this.inventory_.length + "/" + this.slotTypes_.length + "): " + _invArray);
+
+        for (var j:int = 0; j < this.inventory_.length; j++)
+            if (this.inventory_[j] == -1)
+                log.info("Slot(" + j + ") '" + this.inventory_[j] + "' is empty.");
+            else
+            {
+                if (ObjectLibrary.xmlLibrary_[this.inventory_[j]] == null)
+                    log.error("Slot(" + j + ") '0x" + this.inventory_[j].toString(16) + "' has null property declaration.");
+                else
+                    log.info(ObjectLibrary.xmlLibrary_[this.inventory_[j]].toXMLString());
+            }
+
+        return;
+
+        var weaponType:int = this.equipment_[2];
+        if (weaponType == -1)
             return;
 
-        var weapon:XML = ObjectLibrary.xmlLibrary_[weapType];
+        var weapon:XML = ObjectLibrary.xmlLibrary_[weaponType];
         var curTime:int = getTimer();
 
-        this.weaponRateOfFire_ = Number(weapon.RateOfFire);
-        this.attackPeriod_ = (NumberKey.RATEOFFIREVALUE / this.attackFrequency()) * (NumberKey.RATEOFFIREVALUE / this.weaponRateOfFire_);
+        this.weaponRateOfFire_ = 1;
+        this.attackPeriod_ = 500;
 
         if (curTime < this.attackStart_ + this.attackPeriod_)
             return;
 
-        doneAction(map_.gs_, Tutorial.ATTACK_ACTION);
-
         this.attackAngle_ = angle;
         this.attackStart_ = curTime;
-        this.doShoot(weapType, weapon, attackAngle_, true);
+
+        this.doShoot(weaponType, weapon, attackAngle_, true);
     }
 
     private function doShoot(weaponType:int, weaponXML:XML, attackAngle:Number, isShooting:Boolean):void {

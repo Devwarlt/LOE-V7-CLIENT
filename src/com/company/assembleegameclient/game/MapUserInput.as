@@ -28,6 +28,7 @@ import kabam.rotmg.minimap.control.MiniMapZoomSignal;
 import kabam.rotmg.pets.controller.reskin.ReskinPetFlowStartSignal;
 import kabam.rotmg.ui.UIUtils;
 import kabam.rotmg.ui.model.TabStripModel;
+import kabam.rotmg.ui.view.GameHUDView.HUDView;
 
 import net.hires.debug.Stats;
 
@@ -177,57 +178,17 @@ public class MapUserInput {
         var _local6:Number;
         var _local7:Number;
         var _local2:Player = this.gs_.map.player_;
-        if (_local2 == null) {
+
+        if (_local2 == null)
             return;
-        }
-        if (!this.enablePlayerInput_) {
-            return;
-        }
-        if (_arg1.shiftKey) {
-            _local4 = _local2.equipment_[2];
-            if (_local4 == -1) {
-                return;
-            }
-            _local5 = ObjectLibrary.xmlLibrary_[_local4];
-            if ((((_local5 == null)) || (_local5.hasOwnProperty("EndMpCost")))) {
-                return;
-            }
-            if (_local2.isUnstable()) {
-                _local6 = ((Math.random() * 600) - 300);
-                _local7 = ((Math.random() * 600) - 325);
-            }
-            else {
-                _local6 = this.gs_.map.mouseX;
-                _local7 = this.gs_.map.mouseY;
-            }
-            if (Parameters.isGpuRender()) {
-                if ((((((_arg1.currentTarget == _arg1.target)) || ((_arg1.target == this.gs_.map)))) || ((_arg1.target == this.gs_)))) {
-                    _local2.useAltWeapon(_local6, _local7, UseType.START_USE);
-                }
-            }
-            else {
-                _local2.useAltWeapon(_local6, _local7, UseType.START_USE);
-            }
-            return;
-        }
-        if (Parameters.isGpuRender()) {
-            if ((((((((_arg1.currentTarget == _arg1.target)) || ((_arg1.target == this.gs_.map)))) || ((_arg1.target == this.gs_)))) || ((_arg1.currentTarget == this.gs_.chatBox_.list)))) {
-                _local3 = Math.atan2(this.gs_.map.mouseY, this.gs_.map.mouseX);
-            }
-            else {
-                return;
-            }
-        }
-        else {
-            _local3 = Math.atan2(this.gs_.map.mouseY, this.gs_.map.mouseX);
-        }
-        doneAction(this.gs_, Tutorial.ATTACK_ACTION);
-        if (_local2.isUnstable()) {
-            _local2.attemptAttackAngle((Math.random() * 360));
-        }
-        else {
-            _local2.attemptAttackAngle(_local3);
-        }
+
+        _local3 = Math.atan2(this.gs_.map.mouseY, this.gs_.map.mouseX);
+
+        if (_local2.isUnstable())
+            _local2.shoot((Math.random() * 360));
+        else
+            _local2.shoot(_local3);
+
         this.mouseDown_ = true;
     }
 
