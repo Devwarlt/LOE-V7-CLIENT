@@ -1,5 +1,13 @@
 ﻿package kabam.rotmg.assets.EmbeddedData {
 public class EmbeddedData {
+    private static const LoERealmv7AmuletsCXML:Class = EmbeddedData_LoERealmv7AmuletsCXML;
+    private static const LoERealmv7ArmorsCXML:Class = EmbeddedData_LoERealmv7ArmorsCXML;
+    private static const LoERealmv7BootsCXML:Class = EmbeddedData_LoERealmv7BootsCXML;
+    private static const LoERealmv7HelmetsCXML:Class = EmbeddedData_LoERealmv7HelmetsCXML;
+    private static const LoERealmv7RingsCXML:Class = EmbeddedData_LoERealmv7RingsCXML;
+    private static const LoERealmv7ShieldsCXML:Class = EmbeddedData_LoERealmv7ShieldsCXML;
+    private static const LoERealmv7TrousersCXML:Class = EmbeddedData_LoERealmv7TrousersCXML;
+    private static const LoERealmv7WeaponsCXML:Class = EmbeddedData_LoERealmv7WeaponsCXML;
     private static const LoEEncounterCXML:Class = EmbeddedData_LoEEncounterCXML;
     private static const DrrItemsCXML:Class = EmbeddedData_DrrItemsCXML;
     private static const LoERealmEggsCXML:Class = EmbeddedData_LoERealmEggsCXML;
@@ -99,113 +107,120 @@ public class EmbeddedData {
 
     public static const PlayersCXML:Class = EmbeddedData_PlayersCXML;
     public static const skinsXML:Array =
-            [
-                XML(new SkinsCXML()).children(),
-                XML(new LoERealmSkinsCXML()).children()
-            ];
+        [
+            XML(new SkinsCXML()).children(),
+            XML(new LoERealmSkinsCXML()).children()
+        ];
     public static const skinsEquipmentSetsXML:XML = XML(new EquipmentSetsCXML());
     public static const groundFiles:Array =
-            [
-                new GroundCXML(),
-                new stPatricksGroundCXML(),
-                new hanaminexusGroundCXML(),
-                new mountainTempleGroundCXML(),
-                new LoERealmEdition1GroundsCXML()
-            ];
+        [
+            new GroundCXML(),
+            new stPatricksGroundCXML(),
+            new hanaminexusGroundCXML(),
+            new mountainTempleGroundCXML(),
+            new LoERealmEdition1GroundsCXML()
+        ];
     public static const objectFiles:Array =
-            [
-                new LoEEncounterCXML(),
-                new DrrItemsCXML(),
-                new LoERealmEdition1EncountersCXML(),
-                new LoERealmEdition1ObjectsCXML(),
-                new LoERealmEdition1ProjectilesCXML(),
-                new LoERealmEdition1ItemsCXML(),
-                new LoERealmGoldenCrownsCXML(),
-                new LoERealmDreamIslandEncountersCXML(),
-                new LoERealmDreamIslandObjectsCXML(),
-                new LoERealmDreamIslandProjectilesCXML(),
-                new LoERealmEggsCXML(),
-                new LoERealmItemsCXML(),
-                new LoERealmLegendaryTierCXML(),
-                new LoERealmPetsCXML(),
-                new LoERealmProjectilesCXML(),
-                new LoERealmSuperRareTierCXML(),
-                new ProjectilesCXML(),
-                new EquipCXML(),
-                new DyesCXML(),
-                new TextilesCXML(),
-                new PermapetsCXML(),
-                new TokenCXML(),
-                new WillemTestingCXML(),
-                new TTestingCXML(),
-                new BTestingCXML(),
-                new STestingCXML(),
-                new MTestingCXML(),
-                new KTestingCXML(),
-                new PlayersCXML(),
-                new ContainersCXML(),
-                new ObjectsCXML(),
-                new PortalsCXML(),
-                new TestingObjectsCXML(),
-                new StaticObjectsCXML(),
-                new TutorialObjectsCXML(),
-                new TutorialMonstersCXML(),
-                new AlliesCXML(),
-                new HeroesCXML(),
-                new PlayersZombiesCXML(),
-                new PetsCXML(),
-                new NPCsCXML(),
-                new ShoreCXML(),
-                new LowCXML(),
-                new MidCXML(),
-                new HighCXML(),
-                new MountainsCXML(),
-                new EncountersCXML(),
-                new ArenaCXML(),
-                new OryxCastleCXML(),
-                new TombOfTheAncientsCXML(),
-                new SpriteWorldCXML(),
-                new UndeadLairCXML(),
-                new OceanTrenchCXML(),
-                new ForbiddenJungleCXML(),
-                new OryxChamberCXML(),
-                new OryxChickenChamberCXML(),
-                new OryxWineCellarCXML(),
-                new ManorOfTheImmortalsCXML(),
-                new PirateCaveCXML(),
-                new SnakePitCXML(),
-                new SpiderDenCXML(),
-                new AbyssOfDemonsCXML(),
-                new GhostShipCXML(),
-                new MadLabCXML(),
-                new CaveOfAThousandTreasuresCXML(),
-                new CandyLandCXML(),
-                new HauntedCemeteryCXML(),
-                new ForestMazeCXML(),
-                new EpicForestMazeCXML(),
-                new EpicPirateCaveCXML(),
-                new EpicSpiderDenCXML(),
-                new NexusDestroyedCXML(),
-                new MiniDungeonHubCXML(),
-                new LairOfDraconisCXML(),
-                new LairOfShaitanCXML(),
-                new ShattersCXML(),
-                new BelladonnaCXML(),
-                new PuppetMasterCXML(),
-                new IceCaveCXML(),
-                new TheHiveCXML(),
-                new ToxicSewersCXML(),
-                new PuppetMasterEncoreCXML(),
-                new IceTombCXML(),
-                new stPatricksObjectCXML(),
-                new buffedBunnyObjectCXML(),
-                new hanaminexusObjectCXML(),
-                new mountainTempleObjectCXML()
-            ];
+        [
+            new LoERealmv7AmuletsCXML(),
+            new LoERealmv7ArmorsCXML(),
+            new LoERealmv7BootsCXML(),
+            new LoERealmv7HelmetsCXML(),
+            new LoERealmv7RingsCXML(),
+            new LoERealmv7ShieldsCXML(),
+            new LoERealmv7TrousersCXML(),
+            new LoEEncounterCXML(),
+            new DrrItemsCXML(),
+            new LoERealmEdition1EncountersCXML(),
+            new LoERealmEdition1ObjectsCXML(),
+            new LoERealmEdition1ProjectilesCXML(),
+            new LoERealmEdition1ItemsCXML(),
+            new LoERealmGoldenCrownsCXML(),
+            new LoERealmDreamIslandEncountersCXML(),
+            new LoERealmDreamIslandObjectsCXML(),
+            new LoERealmDreamIslandProjectilesCXML(),
+            new LoERealmEggsCXML(),
+            new LoERealmItemsCXML(),
+            new LoERealmLegendaryTierCXML(),
+            new LoERealmPetsCXML(),
+            new LoERealmProjectilesCXML(),
+            new LoERealmSuperRareTierCXML(),
+            new ProjectilesCXML(),
+            new EquipCXML(),
+            new DyesCXML(),
+            new TextilesCXML(),
+            new PermapetsCXML(),
+            new TokenCXML(),
+            new WillemTestingCXML(),
+            new TTestingCXML(),
+            new BTestingCXML(),
+            new STestingCXML(),
+            new MTestingCXML(),
+            new KTestingCXML(),
+            new PlayersCXML(),
+            new ContainersCXML(),
+            new ObjectsCXML(),
+            new PortalsCXML(),
+            new TestingObjectsCXML(),
+            new StaticObjectsCXML(),
+            new TutorialObjectsCXML(),
+            new TutorialMonstersCXML(),
+            new AlliesCXML(),
+            new HeroesCXML(),
+            new PlayersZombiesCXML(),
+            new PetsCXML(),
+            new NPCsCXML(),
+            new ShoreCXML(),
+            new LowCXML(),
+            new MidCXML(),
+            new HighCXML(),
+            new MountainsCXML(),
+            new EncountersCXML(),
+            new ArenaCXML(),
+            new OryxCastleCXML(),
+            new TombOfTheAncientsCXML(),
+            new SpriteWorldCXML(),
+            new UndeadLairCXML(),
+            new OceanTrenchCXML(),
+            new ForbiddenJungleCXML(),
+            new OryxChamberCXML(),
+            new OryxChickenChamberCXML(),
+            new OryxWineCellarCXML(),
+            new ManorOfTheImmortalsCXML(),
+            new PirateCaveCXML(),
+            new SnakePitCXML(),
+            new SpiderDenCXML(),
+            new AbyssOfDemonsCXML(),
+            new GhostShipCXML(),
+            new MadLabCXML(),
+            new CaveOfAThousandTreasuresCXML(),
+            new CandyLandCXML(),
+            new HauntedCemeteryCXML(),
+            new ForestMazeCXML(),
+            new EpicForestMazeCXML(),
+            new EpicPirateCaveCXML(),
+            new EpicSpiderDenCXML(),
+            new NexusDestroyedCXML(),
+            new MiniDungeonHubCXML(),
+            new LairOfDraconisCXML(),
+            new LairOfShaitanCXML(),
+            new ShattersCXML(),
+            new BelladonnaCXML(),
+            new PuppetMasterCXML(),
+            new IceCaveCXML(),
+            new TheHiveCXML(),
+            new ToxicSewersCXML(),
+            new PuppetMasterEncoreCXML(),
+            new IceTombCXML(),
+            new stPatricksObjectCXML(),
+            new buffedBunnyObjectCXML(),
+            new hanaminexusObjectCXML(),
+            new mountainTempleObjectCXML()
+        ];
     public static const regionFiles:Array =
-            [
-                new RegionsCXML()
-            ];
+        [
+            new RegionsCXML()
+        ];
     public static const tutorialXML:XML = XML(new TutorialScriptCXML());
 }
 }

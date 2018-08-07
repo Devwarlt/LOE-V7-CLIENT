@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Additions>
+  <Object type="0x671d" id="Mace">
+    <Class>Equipment</Class>
+    <Item/>
+    <Texture>
+      <File>v7</File>
+      <Index>0x07</Index>
+    </Texture>
+    <SlotType>1003</SlotType>
+    <HitChance>66</HitChance>
+    <Sound>weapon/mithril_sword</Sound>
+    <OldSound>bladeSwing</OldSound>
+    <Projectile>
+      <ObjectId>Blade</ObjectId>
+      <Speed>100</Speed>
+      <Damage>1</Damage>
+      <LifetimeMS>300</LifetimeMS>
+    </Projectile>
+  </Object>
+</Additions>

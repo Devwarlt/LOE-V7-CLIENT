@@ -1880,7 +1880,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
                     }
                     if (_local14.length > 0) {
                         _local7.projectileIdSetOverrideNew = _local14;
-                        _local15 = _local7.equipment_[0];
+                        _local15 = _local7.equipment_[2];
                         _local16 = ObjectLibrary.propsLibrary_[_local15];
                         _local17 = _local16.projectiles_[0];
                         _local7.projectileIdSetOverrideOld = _local17.objectId_;

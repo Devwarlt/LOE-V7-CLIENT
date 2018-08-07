@@ -840,7 +840,7 @@ public class Player extends Character {
         if ((((map_ == null)) || (isPaused()))) {
             return (false);
         }
-        var _local4:int = equipment_[1];
+        var _local4:int = equipment_[2];
         if (_local4 == -1) {
             return (false);
         }
@@ -1120,7 +1120,7 @@ public class Player extends Character {
         if (map_ == null || isStunned() || isPaused() || isPetrified())
             return;
 
-        var weapType:int = this.equipment_[0];
+        var weapType:int = this.equipment_[2];
 
         if (weapType == -1)
             return;

@@ -184,7 +184,7 @@ public class MapUserInput {
             return;
         }
         if (_arg1.shiftKey) {
-            _local4 = _local2.equipment_[1];
+            _local4 = _local2.equipment_[2];
             if (_local4 == -1) {
                 return;
             }
