@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Objects>
 	<!--
-    Vocation Slot Type:
-    - 1000: Any Type
-    - 1001: Amulet Type
-    - 1002: Helmet Type
-    - 1003: Weapon Type
-    - 1004: Armor Type
-    - 1005: Shield Type
-    - 1006: Ring Type
-    - 1007: Legs Type
-    - 1008: Boots Type
-    -->
+      Vocation Slot Type:
+      - 10: Any Type
+      - 1001: Amulet Type
+      - 1002: Helmet Type
+      - 1003: Weapon Type
+      - 1004: Armor Type
+      - 1005: Shield Type
+      - 1006: Ring Type
+      - 1007: Trousers Type
+      - 1008: Boots Type
+      -->
 	<Object type="0x0300" id="Apprentice">
 		<Class>Player</Class>
 		<Description></Description>
@@ -23,8 +23,8 @@
 		<DeathSound>player/rogue_death</DeathSound>
 		<Player />
 		<BloodProb>1.0</BloodProb>
-		<SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000</SlotTypes>
-		<Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
+		<SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10</SlotTypes>
+		<Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
 		<MaxHitPoints max="1000000000">100</MaxHitPoints>
 		<MaxMagicPoints max="1000000000">0</MaxMagicPoints>
 		<Attack max="0">0</Attack>
@@ -48,8 +48,8 @@
 		<DeathSound>player/wizard_death</DeathSound>
 		<Player />
 		<BloodProb>1.0</BloodProb>
-		<SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000</SlotTypes>
-		<Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
+		<SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10</SlotTypes>
+		<Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
 		<MaxHitPoints max="1000000000">0</MaxHitPoints>
 		<MaxMagicPoints max="1000000000">0</MaxMagicPoints>
 		<Attack max="0">0</Attack>
@@ -73,8 +73,8 @@
 		<DeathSound>player/archer_death</DeathSound>
 		<Player />
 		<BloodProb>1.0</BloodProb>
-		<SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000</SlotTypes>
-		<Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
+		<SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10</SlotTypes>
+		<Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
 		<MaxHitPoints max="1000000000">0</MaxHitPoints>
 		<MaxMagicPoints max="1000000000">0</MaxMagicPoints>
 		<Attack max="0">0</Attack>
@@ -98,8 +98,8 @@
 		<DeathSound>player/warrior_death</DeathSound>
 		<Player />
 		<BloodProb>1.0</BloodProb>
-		<SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000</SlotTypes>
-		<Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
+		<SlotTypes>1001, 1002, 1003, 1004, 1005, 1006, 1007, 1008, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10, 10</SlotTypes>
+		<Equipment>-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1</Equipment>
 		<MaxHitPoints max="1000000000">0</MaxHitPoints>
 		<MaxMagicPoints max="1000000000">0</MaxMagicPoints>
 		<Attack max="0">0</Attack>
