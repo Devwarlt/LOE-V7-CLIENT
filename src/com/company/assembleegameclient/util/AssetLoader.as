@@ -37,6 +37,7 @@ public class AssetLoader {
 
     private function addImages():void {
         AssetLibrary.addImageSet("discordIcon", new EmbeddedAssets.discordIcon().bitmapData, 32, 32);
+        AssetLibrary.addImageSet("v7", new EmbeddedAssets.LoERealmV78x8Embed_().bitmapData, 8, 8);
         AssetLibrary.addImageSet("LRE", new EmbeddedAssets.LoERealmEquipmentsEmbed_().bitmapData, 8, 8);
         AssetLibrary.addImageSet("LRDIO8x8", new EmbeddedAssets.LoERealmDreamIslandObjects8x8Embed_().bitmapData, 8, 8);
         AssetLibrary.addImageSet("LRDIO16x16", new EmbeddedAssets.LoERealmDreamIslandObjects16x16Embed_().bitmapData, 16, 16);
