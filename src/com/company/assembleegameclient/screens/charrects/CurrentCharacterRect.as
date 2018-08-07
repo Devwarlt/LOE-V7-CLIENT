@@ -107,9 +107,6 @@ public class CurrentCharacterRect extends CharacterRect {
     override protected function onMouseOver(_arg1:MouseEvent):void {
         super.onMouseOver(_arg1);
         this.removeToolTip();
-        this.toolTip_ = this.myPlayerToolTipFactory.create(this.charName, this.char.charXML_, this.charStats);
-        this.toolTip_.createUI();
-        this.showToolTip.dispatch(this.toolTip_);
     }
 
     override protected function onRollOut(_arg1:MouseEvent):void {
