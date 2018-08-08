@@ -36,6 +36,7 @@ public class AssetLoader {
     }
 
     private function addImages():void {
+        AssetLibrary.addImageSet("slotsNormal", new EmbeddedAssets.slotsNormal().bitmapData, 8, 8);
         AssetLibrary.addImageSet("discordIcon", new EmbeddedAssets.discordIcon().bitmapData, 32, 32);
         AssetLibrary.addImageSet("v7", new EmbeddedAssets.LoERealmV78x8Embed_().bitmapData, 8, 8);
         AssetLibrary.addImageSet("LRE", new EmbeddedAssets.LoERealmEquipmentsEmbed_().bitmapData, 8, 8);

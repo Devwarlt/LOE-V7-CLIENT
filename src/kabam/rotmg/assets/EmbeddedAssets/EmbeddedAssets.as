@@ -1,5 +1,6 @@
 ﻿package kabam.rotmg.assets.EmbeddedAssets {
 public class EmbeddedAssets {
+    public static var slotsNormal:Class = EmbeddedAssets_slotsNormal_shapeEmbed_;
     public static var discordIcon:Class = EmbeddedAssets_DiscordModalIconEmbed_;
     public static var LoERealmV78x8Embed_:Class = EmbeddedAssets_LoERealmV78x8Embed_;
     public static var LoERealmEquipmentsEmbed_:Class = EmbeddedAssets_LoERealmEquipmentsEmbed_;
