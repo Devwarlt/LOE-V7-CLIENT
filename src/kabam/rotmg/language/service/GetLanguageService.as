@@ -40,11 +40,12 @@ public class GetLanguageService extends BaseTask {
     }
 
     private function onComplete(_arg1:Boolean, _arg2:*):void {
-        this.logger.info(("String response from GetLanguageStrings: " + _arg2));
         if (_arg1) {
+            this.logger.info("String response from GetLanguageStrings: OK!");
             this.onLanguageResponse(_arg2);
         }
         else {
+            this.logger.error("String response from GetLanguageStrings: ERROR!");
             this.onLanguageError();
         }
         completeTask(_arg1, _arg2);

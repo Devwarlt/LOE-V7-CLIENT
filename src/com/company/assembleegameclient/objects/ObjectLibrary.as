@@ -176,7 +176,6 @@ public class ObjectLibrary {
                     typeToAnimationsData_[_objectType] = new AnimationsData(_xmlDoc);
                 }
             }
-            log.info("Item [" + _xmlDoc.@type + "]: '" + _id + "' has been added!");
         }
     }
 

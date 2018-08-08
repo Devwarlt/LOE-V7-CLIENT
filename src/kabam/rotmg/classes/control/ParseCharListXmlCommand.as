@@ -45,9 +45,6 @@ public class ParseCharListXmlCommand {
                     _local3.setState(CharacterSkinState.UNLISTED);
                 }
             }
-            else {
-                this.logger.warn("Cannot set Character Skin cost: type {0} not found", [_local2.@type]);
-            }
         }
     }
 
@@ -59,9 +56,6 @@ public class ParseCharListXmlCommand {
             _local3 = this.model.getCharacterSkin(_local2);
             if (_local3) {
                 _local3.setState(CharacterSkinState.OWNED);
-            }
-            else {
-                this.logger.warn("Cannot set Character Skin ownership: type {0} not found", [_local2]);
             }
         }
     }

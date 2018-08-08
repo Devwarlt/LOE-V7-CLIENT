@@ -41,13 +41,12 @@ public class GetInGameNewsTask extends BaseTask {
     }
 
     private function onComplete(_arg1:Boolean, _arg2:*):void {
-        this.logger.info(("String response from GetInGameNewsTask: " + _arg2));
         if (_arg1) {
+            this.logger.info("String response from GetInGameNewsTask: OK!");
             this.parseNews(_arg2);
         }
-        else {
-            completeTask(true);
-        }
+
+        completeTask(true);
     }
 
     private function parseNews(_arg1:String):void {
