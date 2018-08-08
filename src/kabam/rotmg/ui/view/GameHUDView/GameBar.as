@@ -161,7 +161,7 @@ public class GameBar extends Sprite {
             this.middleText_.mouseEnabled = true;
             this.middleText_.htmlText = this.getText;
             this.middleText_.useTextDimensions();
-            this.middleText_.x = this.width + this.middleText_.textWidth / 2;
+            this.middleText_.x = this.width + this.middleText_.textWidth / 2 + (this.enablePercent_ ? 12 : 0);
             this.middleText_.y = (this.height_ - this.middleText_.textHeight) / 4 - 12 / 4;
 
             addChild(this.middleText_);
