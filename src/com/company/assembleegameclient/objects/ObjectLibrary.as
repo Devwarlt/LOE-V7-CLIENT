@@ -12,9 +12,17 @@ import flash.utils.getDefinitionByName;
 
 import kabam.rotmg.constants.GeneralConstants;
 import kabam.rotmg.constants.ItemConstants;
+import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.messaging.impl.data.StatData;
 
+import robotlegs.bender.framework.api.ILogger;
+
+import robotlegs.bender.framework.impl.Logger;
+
 public class ObjectLibrary {
+
+    [Inject]
+    public static var log:Logger = StaticInjectorContext.getInjector().getInstance(ILogger);
 
     public static const IMAGE_SET_NAME:String = "lofiObj3";
     public static const IMAGE_ID:int = 0xFF;
@@ -103,6 +111,8 @@ public class ObjectLibrary {
         };
     }
 
+
+
     public static function parseFromXML(_arg1:XML, _arg2:Function = null):void {
         var _xmlDoc:XML;
         var _id:String;
@@ -166,6 +176,7 @@ public class ObjectLibrary {
                     typeToAnimationsData_[_objectType] = new AnimationsData(_xmlDoc);
                 }
             }
+            log.info("Item [" + _xmlDoc.@type + "]: '" + _id + "' has been added!");
         }
     }
 

@@ -721,9 +721,9 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
         serverConnection.queueMessage(invSwap);
 
-        var temporarilyInventorySwap:int = gameObject1.inventory_[slotId1];
-        gameObject1.inventory_[slotId1] = gameObject2.inventory_[slotId2];
-        gameObject2.inventory_[slotId2] = temporarilyInventorySwap;
+        var temporarilyInventorySwap:int = gameObject1.equipment_[slotId1];
+        gameObject1.equipment_[slotId1] = gameObject2.equipment_[slotId2];
+        gameObject2.equipment_[slotId2] = temporarilyInventorySwap;
 
         SoundEffectLibrary.play("inventory_move_item");
 
@@ -753,7 +753,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         invSwap.slotObject2_.slotId_ = slotId2;
         invSwap.slotObject2_.objectType_ = objectType2;
 
-        gameObject1.inventory_[slotId1] = ItemConstants.NO_ITEM;
+        gameObject1.equipment_[slotId1] = ItemConstants.NO_ITEM;
 
         if (objectType1 == PotionInventoryModel.HEALTH_POTION_ID)
             player.healthPotionCount_++;
@@ -789,7 +789,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         serverConnection.queueMessage(invDrop);
 
         if (((!((slotId == PotionInventoryModel.HEALTH_POTION_SLOT))) && (!((slotId == PotionInventoryModel.MAGIC_POTION_SLOT)))))
-            gameObject.inventory_[slotId] = ItemConstants.NO_ITEM;
+            gameObject.equipment_[slotId] = ItemConstants.NO_ITEM;
     }
 
     override public function useItem(time:int, objectId:int, slotId:int, objectType:int, X:Number, Y:Number, useType:int, isTrading:Boolean):void {
@@ -827,7 +827,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         }
 
         var xml:XML;
-        var itemSlot:int = gameObject.inventory_[slotId];
+        var itemSlot:int = gameObject.equipment_[slotId];
 
         if ((((itemSlot >= 0x9000)) && ((itemSlot < 0xF000))))
             xml = ObjectLibrary.xmlLibrary_[36863];
@@ -886,7 +886,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         serverConnection.queueMessage(useItem);
 
         if (xml.hasOwnProperty("Consumable")) {
-            gameObject.inventory_[slotId] = -1;
+            gameObject.equipment_[slotId] = -1;
 
             if (((xml.hasOwnProperty("Activate")) && ((xml.Activate == "UnlockSkin")))) { }
         }
@@ -1637,7 +1637,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
                 case StatData.INVENTORY_25_STAT:
                 case StatData.INVENTORY_26_STAT:
                     _local9 = (_local7.statType_ - StatData.INVENTORY_0_STAT);
-                    _arg1.inventory_[_local9] = _local8;
+                    _arg1.equipment_[_local9] = _local8;
                     break;
                 case StatData.NUM_STARS_STAT:
                     _local4.numStars_ = _local8;

@@ -1128,30 +1128,8 @@ public class Player extends Character {
         if (map_ == null || isStunned() || isPaused() || isPetrified())
             return;
 
-        var _invArray:String = null;
-
-        for (var i:int = 0; i < this.inventory_.length; i++)
-            if (_invArray == null)
-                _invArray = this.inventory_[i] == -1 ? "-1" : "0x" + this.inventory_[i].toString(16);
-            else
-                _invArray += ", " + (this.inventory_[i] == -1 ? "-1" : "0x" + this.inventory_[i].toString(16));
-
-        log.info("Inventory (" + this.inventory_.length + "/" + this.slotTypes_.length + "): " + _invArray);
-
-        for (var j:int = 0; j < this.inventory_.length; j++)
-            if (this.inventory_[j] == -1)
-                log.info("Slot(" + j + ") '" + this.inventory_[j] + "' is empty.");
-            else
-            {
-                if (ObjectLibrary.xmlLibrary_[this.inventory_[j]] == null)
-                    log.error("Slot(" + j + ") '0x" + this.inventory_[j].toString(16) + "' has null property declaration.");
-                else
-                    log.info(ObjectLibrary.xmlLibrary_[this.inventory_[j]].toXMLString());
-            }
-
-        return;
-
         var weaponType:int = this.equipment_[2];
+
         if (weaponType == -1)
             return;
 

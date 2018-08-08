@@ -129,6 +129,7 @@ public class EmbeddedData {
             new LoERealmv7RingsCXML(),
             new LoERealmv7ShieldsCXML(),
             new LoERealmv7TrousersCXML(),
+            new LoERealmv7WeaponsCXML(),
             new LoEEncounterCXML(),
             new DrrItemsCXML(),
             new LoERealmEdition1EncountersCXML(),
