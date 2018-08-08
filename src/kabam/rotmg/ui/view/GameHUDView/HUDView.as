@@ -4,12 +4,10 @@ import com.company.assembleegameclient.objects.Player;
 import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.ui.panels.InteractPanel;
 import com.company.assembleegameclient.util.TextureRedrawer;
-import com.company.util.MoreColorUtil;
 
 import flash.display.Bitmap;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
-import flash.filters.ColorMatrixFilter;
 import flash.filters.GlowFilter;
 import flash.geom.Point;
 
@@ -25,6 +23,7 @@ import kabam.rotmg.ui.view.GameHUDView.Assets.NewUILogout_shapeEmbed_;
 import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIMinimapBackground_shapeEmbed_;
 import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIOptionsToolBar_shapeEmbed_;
 import kabam.rotmg.ui.view.GameHUDView.Assets.NewUISettings_shapeEmbed_;
+import kabam.rotmg.ui.view.GameHUDView.GameUI.CharacterInfoGameUI;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.CharacterStatusGameUI;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.ConfirmLogoutGameUI;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.ConnectionGameUI;
@@ -36,7 +35,6 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     public static const WIDTH:int = 800;
     public static const HEIGHT:int = 600;
     public static const UI_FILTERS_BLACK_OUTLINE:GlowFilter = TextureRedrawer.OUTLINE_FILTER;
-    public static const UI_FILTERS_GRAY_SHADES:ColorMatrixFilter = new ColorMatrixFilter(MoreColorUtil.greyscaleFilterMatrix);
 
     public var player:Player;
     public var gameSprite:GameSprite;
@@ -80,10 +78,11 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     private var ui_settingsIconSprite:Sprite;
 
     // Game UIs
+    public var ui_characterInfoGameUI:CharacterInfoGameUI;
+    public var ui_settingsGameUI:SettingsGameUI;
     public var ui_characterStatusGameUI:CharacterStatusGameUI;
     public var ui_gameStatusGameUI:GameStatusGameUI;
     public var ui_connectionGameUI:ConnectionGameUI;
-    public var ui_settingsGameUI:SettingsGameUI;
 
     public function HUDView(gameSprite:GameSprite) {
         this.gameSprite = gameSprite;
@@ -94,7 +93,13 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.addUI();
         this.eventsUI();
 
-        this.gameSprite.sendPlayerData.addOnce(this.ui_characterStatusGameUI.setPlayer);
+        this.gameSprite.sendPlayerData.addOnce(this.setPlayer);
+    }
+
+    private function setPlayer(player:Player):void {
+        this.ui_characterStatusGameUI.setPlayer(player);
+
+        this.ui_characterInfoGameUI.setPlayer(player);
     }
 
     public function drawUI():void {
@@ -142,6 +147,9 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_settingsGameUI = new SettingsGameUI(this);
         this.ui_settingsGameUI.visible = false;
+
+        this.ui_characterInfoGameUI = new CharacterInfoGameUI(this);
+        this.ui_characterInfoGameUI.visible = false;
     }
 
     public function setUI():void {
@@ -202,6 +210,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         addChild(this.ui_logoutIconSprite);
         addChild(this.ui_settingsIconSprite);
         addChild(this.ui_settingsGameUI);
+        addChild(this.ui_characterInfoGameUI);
     }
 
     public function outlineUI():void {
@@ -230,6 +239,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
     private function displayCharacterStatsScreen(event:MouseEvent):void {
         debug("Button 'ui_characterStatsIcon' has been clicked.");
+
+        this.ui_characterInfoGameUI.visible = true;
     }
 
     private function displayHighscoresScreen(event:MouseEvent):void {
@@ -238,6 +249,12 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
     private function displayInventoryScreen(event:MouseEvent):void {
         debug("Button 'ui_inventoryIcon' has been clicked.");
+    }
+
+    private function displaySettingsScreen(event:MouseEvent):void {
+        debug("Button 'ui_settingsIcon' has been clicked.");
+
+        this.ui_settingsGameUI.visible = true;
     }
 
     private function doLogout(event:MouseEvent):void {
@@ -315,12 +332,6 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_characterStatusGameUI.mouseChildren = true;
     }
 
-    private function displaySettingsScreen(event:MouseEvent):void {
-        debug("Button 'ui_settingsIcon' has been clicked.");
-
-        this.ui_settingsGameUI.visible = true;
-    }
-
     public static function debug(_arg1:String):void {
         if (Parameters.IS_DEVELOPER_MODE) {
             var _local1:ChatMessage = new ChatMessage();
@@ -333,7 +344,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     }
 
     public function destroy():void {
-        this.gameSprite.sendPlayerData.remove(this.ui_characterStatusGameUI.setPlayer);
+        this.gameSprite.sendPlayerData.remove(this.setPlayer);
 
         this.ui_characterStatsIconSprite.removeEventListener(MouseEvent.CLICK, this.displayCharacterStatsScreen);
 
@@ -353,6 +364,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_settingsGameUI.destroy();
 
+        this.ui_characterInfoGameUI.destroy();
+
         removeChild(this.ui_characterStatusGameUI);
         removeChild(this.ui_gameStatusGameUI);
         removeChild(this.ui_connectionGameUI);
@@ -365,6 +378,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         removeChild(this.ui_logoutIconSprite);
         removeChild(this.ui_settingsIconSprite);
         removeChild(this.ui_settingsGameUI);
+        removeChild(this.ui_characterInfoGameUI);
     }
 }
 }

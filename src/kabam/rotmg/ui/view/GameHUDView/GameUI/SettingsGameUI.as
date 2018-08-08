@@ -14,33 +14,6 @@ import kabam.rotmg.text.view.stringBuilder.LineBuilder;
 import kabam.rotmg.ui.view.GameHUDView.*;
 
 public class SettingsGameUI extends GameUIScreen {
-    /*
-    * [OVERVIEW]
-    * Settings options:
-    *
-    * - [OK] Sound:
-    *       Turn game sounds enabled (on) or disabled (off);
-    * - [OK] Connection:
-    *       Show modal mediator UI with:
-    *           -> Ping Latency:
-    *               - red circle indicator: latency above 500 ms;
-    *               - orange circle indicator: latency between 250 to 499 ms;
-    *               - yellow circle indicator: latency between 100 to 249 ms;
-    *               - green circle indicator: latency under 99 ms.
-    * - [OK] Game Status:
-    *       Show modal mediator UI with:
-    *           -> 'FPS': show number of frames per second rendered;
-    *           -> 'Memory Usage': show memory used by client instance before crash notification*.
-    *           // TODO: implement 'Crash Notification'. It's Quality of Life feature.
-    * - [WIP] Character Status:
-    *       Show modal mediator UI with:
-    *           -> 'Character Level': display label 'level' and current level of character into bottom UI shape;
-    *           -> 'Character Experience': display a bottom big bar with percentage completed in current level and experience remain until next level;
-    *           -> 'Character Health Points': display the current health points of character using following structure '{CURRENT_HEALTH_POINTS}/{MAX_HEALTH_POINTS}' and also fit half size of 'Character Experience Bar' in the bottom left corner of game UI;
-    *           -> 'Character Magic Points': display the current magic points of character using following structure '{CURRENT_MAGIC_POINTS}/{MAX_MAGIC_POINTS}' and also fit half size of 'Character Experience Bar' in the bottom right corner of game UI;
-    *           // TODO: implement 'Experience Analytics'. It's Quality of Life feature.
-    * */
-
     private static const UI_SETTINGS_SOUND_MEDIATOR_POSITION:Point = new Point(32, 64);
 
     private var ui_settingsSoundMediator:SettingsMediator;
@@ -67,7 +40,7 @@ public class SettingsGameUI extends GameUIScreen {
     override public function drawUI():void {
         var _local1:Graphics = this.ui_settingsGameUIBackgroundOverlay_.graphics;
         _local1.clear();
-        _local1.beginFill(0, 0.8);
+        _local1.beginFill(0, 0.9);
         _local1.drawRect(0, 0, 800, 600);
         _local1.endFill();
 
