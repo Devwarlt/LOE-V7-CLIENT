@@ -74,14 +74,16 @@ public class SoundEffectLibrary {
     }
 
     public static function updateVolume(_arg1:Number):void {
-        var _local2:SoundChannel;
-        var _local3:SoundTransform;
-        for each (_local2 in activeSfxList_) {
-            activeSfxList_[_local2] = _arg1;
-            _local3 = _local2.soundTransform;
-            _local3.volume = ((Parameters.data_.playSFX) ? activeSfxList_[_local2] : 0);
-            _local2.soundTransform = _local3;
-        }
+        try {
+            var _local2:SoundChannel;
+            var _local3:SoundTransform;
+            for each (_local2 in activeSfxList_) {
+                activeSfxList_[_local2] = _arg1;
+                _local3 = _local2.soundTransform;
+                _local3.volume = ((Parameters.data_.playSFX) ? activeSfxList_[_local2] : 0);
+                _local2.soundTransform = _local3;
+            }
+        } catch (error:Error) { }
     }
 
     public static function updateTransform():void {
