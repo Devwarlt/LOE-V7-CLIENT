@@ -5,6 +5,7 @@ import flash.display.Sprite;
 import flash.geom.Point;
 
 import kabam.rotmg.ui.view.GameHUDView.GameUI.EquipmentSlot;
+import kabam.rotmg.ui.view.GameHUDView.GameUI.InventorySlot;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.RegularOption;
 
 import org.osflash.signals.Signal;
@@ -21,7 +22,7 @@ public class CharacterInfoMediator extends Sprite {
     private static const UI_EQUIPMENTS_TROUSERS_INDEX:int = 6;
     private static const UI_EQUIPMENTS_BOOTS_INDEX:int = 7;
 
-    private static const UI_EQUIPMENTS_OFFSET:Point = new Point(448, 0);
+    private static const UI_EQUIPMENTS_OFFSET:Point = new Point(512, 0);
     private static const UI_EQUIPMENTS_SLOT_SIZE:int = 56;
 
     private static const UI_EQUIPMENTS_AMULET_POSITION:Point = new Point(UI_EQUIPMENTS_OFFSET.x, UI_EQUIPMENTS_OFFSET.y);
@@ -44,7 +45,8 @@ public class CharacterInfoMediator extends Sprite {
     private var ui_characterInfoAttackLevelMediatorOption:RegularOption;
     private var ui_characterInfoDefenseLevelMediatorOption:RegularOption;
     private var ui_characterInfoSpeedMediatorOption:RegularOption;
-    private var ui_characterInfoEquipmentsSlot:Vector.<EquipmentSlot>;
+    private var ui_characterInfoEquipmentSlots:Vector.<EquipmentSlot>;
+    private var ui_characterInfoInventorySlots:Vector.<InventorySlot>;
 
     public function CharacterInfoMediator(_hudView:HUDView) {
         this.hudView = _hudView;
@@ -75,9 +77,9 @@ public class CharacterInfoMediator extends Sprite {
         this.ui_characterInfoDefenseLevelMediatorOption = new RegularOption("DEF", "\t\t\t--", new Point(0, UI_LABEL_SPACE * 6), false);
         this.ui_characterInfoSpeedMediatorOption = new RegularOption("SPD", "\t\t\t--", new Point(0, UI_LABEL_SPACE * 7), false);
 
-        this.ui_characterInfoEquipmentsSlot = new Vector.<EquipmentSlot>(8);
+        this.ui_characterInfoEquipmentSlots = new Vector.<EquipmentSlot>(8);
 
-        for (var i:int = 0; i < 8; i++) {
+        for (var i:int = 0; i < this.ui_characterInfoEquipmentSlots.length; i++) {
             var _local1:EquipmentSlot = new EquipmentSlot();
 
             switch (i) {
@@ -91,7 +93,29 @@ public class CharacterInfoMediator extends Sprite {
                 case UI_EQUIPMENTS_BOOTS_INDEX: _local1.x = UI_EQUIPMENTS_BOOTS_POSITION.x; _local1.y = UI_EQUIPMENTS_BOOTS_POSITION.y; break;
             }
 
-            this.ui_characterInfoEquipmentsSlot[i] = _local1;
+            this.ui_characterInfoEquipmentSlots[i] = _local1;
+        }
+
+        this.ui_characterInfoInventorySlots = new Vector.<InventorySlot>(20);
+
+        for (var j:int = 0; j < this.ui_characterInfoInventorySlots.length; j++) {
+            var _local2:InventorySlot = new InventorySlot();
+
+            if (j >= 0 && j < 5) {
+                _local2.x = UI_EQUIPMENTS_HELMET_POSITION.x - UI_EQUIPMENTS_SLOT_SIZE * 2 + UI_EQUIPMENTS_SLOT_SIZE * j;
+                _local2.y = UI_EQUIPMENTS_BOOTS_POSITION.y + UI_EQUIPMENTS_SLOT_SIZE * 2;
+            } else if (j >= 5 && j < 10) {
+                _local2.x = UI_EQUIPMENTS_HELMET_POSITION.x - UI_EQUIPMENTS_SLOT_SIZE * 2 + UI_EQUIPMENTS_SLOT_SIZE * (j - 5);
+                _local2.y = UI_EQUIPMENTS_BOOTS_POSITION.y + UI_EQUIPMENTS_SLOT_SIZE * 3;
+            } else if (j >= 10 && j < 15) {
+                _local2.x = UI_EQUIPMENTS_HELMET_POSITION.x - UI_EQUIPMENTS_SLOT_SIZE * 2 + UI_EQUIPMENTS_SLOT_SIZE * (j - 10);
+                _local2.y = UI_EQUIPMENTS_BOOTS_POSITION.y + UI_EQUIPMENTS_SLOT_SIZE * 4;
+            } else {
+                _local2.x = UI_EQUIPMENTS_HELMET_POSITION.x - UI_EQUIPMENTS_SLOT_SIZE * 2 + UI_EQUIPMENTS_SLOT_SIZE * (j - 15);
+                _local2.y = UI_EQUIPMENTS_BOOTS_POSITION.y + UI_EQUIPMENTS_SLOT_SIZE * 5;
+            }
+
+            this.ui_characterInfoInventorySlots[j] = _local2;
         }
     }
 
@@ -109,7 +133,10 @@ public class CharacterInfoMediator extends Sprite {
         addChild(this.ui_characterInfoDefenseLevelMediatorOption);
         addChild(this.ui_characterInfoSpeedMediatorOption);
 
-        for each (var j:EquipmentSlot in this.ui_characterInfoEquipmentsSlot)
+        for each (var i:EquipmentSlot in this.ui_characterInfoEquipmentSlots)
+            addChild(i);
+
+        for each (var j:InventorySlot in this.ui_characterInfoInventorySlots)
             addChild(j);
     }
 
@@ -125,8 +152,11 @@ public class CharacterInfoMediator extends Sprite {
         this.ui_characterInfoDefenseLevelMediatorOption.setText("\t\t\t" + player.charDEFLvl);
         this.ui_characterInfoSpeedMediatorOption.setText("\t\t\t" + player.charSPD);
 
-        for (var k:int = 0; k < this.ui_characterInfoEquipmentsSlot.length; k++)
-            this.ui_characterInfoEquipmentsSlot[k].draw(this.player.equipment_[k]);
+        for (var i:int = 0; i < this.ui_characterInfoEquipmentSlots.length; i++)
+            this.ui_characterInfoEquipmentSlots[i].draw(this.player.equipment_[i]);
+
+        for (var j:int = 0; j < this.ui_characterInfoInventorySlots.length; j++)
+            this.ui_characterInfoInventorySlots[j].draw(this.player.equipment_[j + this.ui_characterInfoEquipmentSlots.length]);
     }
 }
 }
