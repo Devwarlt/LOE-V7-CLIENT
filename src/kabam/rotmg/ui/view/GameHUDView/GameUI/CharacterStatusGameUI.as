@@ -14,8 +14,7 @@ import org.osflash.signals.Signal;
 public class CharacterStatusGameUI extends GameUIScreen {
     private static const UI_CHARACTER_STATUS_MEDIATOR_SPACE:int = 12 * 2;
     private static const UI_CHARACTER_STATUS_MEDIATOR_LEVEL_LABEL:String = "{LEVEL}";
-    private static const UI_CHARACTER_STATUS_MEDIATOR_EXP_LABEL:String = "{EXP}";
-    private static const UI_CHARACTER_STATUS_MEDIATOR_LEVEL_EXP_TEXT:String = "<b>Level:</b> " + UI_CHARACTER_STATUS_MEDIATOR_LEVEL_LABEL + "\t<b>Total EXP:</b> " + UI_CHARACTER_STATUS_MEDIATOR_EXP_LABEL;
+    private static const UI_CHARACTER_STATUS_MEDIATOR_LEVEL_EXP_TEXT:String = "<b>LVL</b>\t\t" + UI_CHARACTER_STATUS_MEDIATOR_LEVEL_LABEL;
 
     private var player:Player;
 
@@ -26,6 +25,8 @@ public class CharacterStatusGameUI extends GameUIScreen {
     private var ui_characterStatusMediatorExperienceBar:GameBar;
     private var ui_characterStatusMediatorHealthPointsBar:GameBar;
     private var ui_characterStatusMediatorMagicPointsBar:GameBar;
+    private var ui_characterStatusMediatorAttackBar:GameBar;
+    private var ui_characterStatusMediatorDefenseBar:GameBar;
     private var ui_characterStatusMediatorLevelAndExperienceLabel:BaseSimpleText;
     private var ui_characterStatusMediatorStatsUpdateSignal:Signal;
     private var ui_characterStatusMediatorStatsUpdate:Timer;
@@ -36,6 +37,12 @@ public class CharacterStatusGameUI extends GameUIScreen {
     private var ui_characterStatusMediatorStatsHealthPointsTotal:int;
     private var ui_characterStatusMediatorStatsMagicPoints:int;
     private var ui_characterStatusMediatorStatsMagicPointsTotal:int;
+    private var ui_characterStatusMediatorStatsAttackLevel:int;
+    private var ui_characterStatusMediatorStatsAttackExperienceTotal:Number;
+    private var ui_characterStatusMediatorStatsAttackExperienceNextLevel:Number;
+    private var ui_characterStatusMediatorStatsDefenseLevel:int;
+    private var ui_characterStatusMediatorStatsDefenseExperienceTotal:Number;
+    private var ui_characterStatusMediatorStatsDefenseExperienceNextLevel:Number;
 
     public function CharacterStatusGameUI(_hudView:HUDView) {
         super(_hudView);
@@ -51,8 +58,10 @@ public class CharacterStatusGameUI extends GameUIScreen {
         this.ui_characterStatusMediatorSprite = new Sprite();
 
         this.ui_characterStatusMediatorExperienceBar = new GameBar(100, 100, 12, 444, 0, GameBar.GREEN, "EXP", true);
-        this.ui_characterStatusMediatorHealthPointsBar = new GameBar(100, 100, 24, 444, 0, GameBar.RED, "HP");
-        this.ui_characterStatusMediatorMagicPointsBar = new GameBar(100, 100, 24, 444, 0, GameBar.BLUE, "MP");
+        this.ui_characterStatusMediatorHealthPointsBar = new GameBar(100, 100, 12, 444, 0, GameBar.RED, "HP");
+        this.ui_characterStatusMediatorMagicPointsBar = new GameBar(100, 100, 12, 444, 0, GameBar.BLUE, "MP");
+        this.ui_characterStatusMediatorAttackBar = new GameBar(100, 100, 12, 444, 0, GameBar.ORANGE, "ATT", true);
+        this.ui_characterStatusMediatorDefenseBar = new GameBar(100, 100, 12, 444, 0, GameBar.GRAY, "DEF", true);
 
         this.ui_characterStatusMediatorLevelAndExperienceLabel = new BaseSimpleText(14, 0xE8E8E8, false, 256, 0);
         this.ui_characterStatusMediatorLevelAndExperienceLabel.selectable = false;
@@ -70,6 +79,12 @@ public class CharacterStatusGameUI extends GameUIScreen {
         this.ui_characterStatusMediatorStatsHealthPointsTotal = 0;
         this.ui_characterStatusMediatorStatsMagicPoints = 0;
         this.ui_characterStatusMediatorStatsMagicPointsTotal = 0;
+        this.ui_characterStatusMediatorStatsAttackLevel = 0;
+        this.ui_characterStatusMediatorStatsAttackExperienceTotal = 0;
+        this.ui_characterStatusMediatorStatsAttackExperienceNextLevel = 0;
+        this.ui_characterStatusMediatorStatsDefenseLevel = 0;
+        this.ui_characterStatusMediatorStatsDefenseExperienceTotal = 0;
+        this.ui_characterStatusMediatorStatsDefenseExperienceNextLevel = 0;
 
         this.ui_characterStatusMediatorStatsUpdateSignal = new Signal();
         this.ui_characterStatusMediatorStatsUpdateSignal.addOnce(this.asyncEventsUI);
@@ -83,13 +98,19 @@ public class CharacterStatusGameUI extends GameUIScreen {
         this.ui_characterStatusMediatorLevelAndExperienceLabel.y = y_ - 16;
 
         this.ui_characterStatusMediatorExperienceBar.x = x_;
-        this.ui_characterStatusMediatorExperienceBar.y = y_ + UI_CHARACTER_STATUS_MEDIATOR_SPACE - 12;
+        this.ui_characterStatusMediatorExperienceBar.y = y_ + 18;
 
         this.ui_characterStatusMediatorHealthPointsBar.x = x_;
-        this.ui_characterStatusMediatorHealthPointsBar.y = this.ui_characterStatusMediatorExperienceBar.y + UI_CHARACTER_STATUS_MEDIATOR_SPACE + 4;
+        this.ui_characterStatusMediatorHealthPointsBar.y = this.ui_characterStatusMediatorExperienceBar.y + UI_CHARACTER_STATUS_MEDIATOR_SPACE;
 
         this.ui_characterStatusMediatorMagicPointsBar.x = x_;
-        this.ui_characterStatusMediatorMagicPointsBar.y = this.ui_characterStatusMediatorHealthPointsBar.y + UI_CHARACTER_STATUS_MEDIATOR_SPACE + 4;
+        this.ui_characterStatusMediatorMagicPointsBar.y = this.ui_characterStatusMediatorHealthPointsBar.y + UI_CHARACTER_STATUS_MEDIATOR_SPACE;
+
+        this.ui_characterStatusMediatorAttackBar.x = x_;
+        this.ui_characterStatusMediatorAttackBar.y = this.ui_characterStatusMediatorMagicPointsBar.y + UI_CHARACTER_STATUS_MEDIATOR_SPACE;
+
+        this.ui_characterStatusMediatorDefenseBar.x = x_;
+        this.ui_characterStatusMediatorDefenseBar.y = this.ui_characterStatusMediatorAttackBar.y + UI_CHARACTER_STATUS_MEDIATOR_SPACE;
     }
 
     override public function outlineUI():void {
@@ -100,6 +121,8 @@ public class CharacterStatusGameUI extends GameUIScreen {
         this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorExperienceBar);
         this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorHealthPointsBar);
         this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorMagicPointsBar);
+        this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorAttackBar);
+        this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorDefenseBar);
         this.ui_characterStatusMediatorSprite.addChild(this.ui_characterStatusMediatorLevelAndExperienceLabel);
 
         addChild(this.ui_characterStatusMediatorSprite);
@@ -122,7 +145,7 @@ public class CharacterStatusGameUI extends GameUIScreen {
 
     private function onStatsUpdateMonitor(event:TimerEvent):void {
         if (!level)
-            this.refreshLvlExpLabel();
+            this.refreshLvlLabel();
 
         if (!exp || !nextExp)
             this.refreshEXPGameBar();
@@ -132,14 +155,19 @@ public class CharacterStatusGameUI extends GameUIScreen {
 
         if (!mp || !maxMp)
             this.refreshMPGameBar();
+
+        if (!attLevel || !attExp || !attNextExp)
+            this.refreshATTGameBar();
+
+        if (!defLevel || !defExp || !defNextExp)
+            this.refreshDEFGameBar();
     }
 
-    private function refreshLvlExpLabel():void {
+    private function refreshLvlLabel():void {
         this.ui_characterStatusMediatorStatsLevel = this.player.charLvl;
         this.ui_characterStatusMediatorLevelAndExperienceLabel.htmlText =
             UI_CHARACTER_STATUS_MEDIATOR_LEVEL_EXP_TEXT
-                .replace(UI_CHARACTER_STATUS_MEDIATOR_LEVEL_LABEL, this.ui_characterStatusMediatorStatsLevel)
-                .replace(UI_CHARACTER_STATUS_MEDIATOR_EXP_LABEL, this.ui_characterStatusMediatorStatsExperienceTotal);
+                .replace(UI_CHARACTER_STATUS_MEDIATOR_LEVEL_LABEL, this.ui_characterStatusMediatorStatsLevel);
     }
 
     private function refreshEXPGameBar():void {
@@ -158,6 +186,20 @@ public class CharacterStatusGameUI extends GameUIScreen {
         this.ui_characterStatusMediatorStatsMagicPoints = this.player.charMP;
         this.ui_characterStatusMediatorStatsMagicPointsTotal = this.player.charMaxMP;
         this.ui_characterStatusMediatorMagicPointsBar.redraw(this.ui_characterStatusMediatorStatsMagicPoints, this.ui_characterStatusMediatorStatsMagicPointsTotal);
+    }
+
+    private function refreshATTGameBar():void {
+        this.ui_characterStatusMediatorStatsAttackLevel = this.player.charATTLvl;
+        this.ui_characterStatusMediatorStatsAttackExperienceTotal = this.player.charATTEXP;
+        this.ui_characterStatusMediatorStatsAttackExperienceNextLevel = this.player.charNextATTEXP;
+        this.ui_characterStatusMediatorAttackBar.redraw(this.ui_characterStatusMediatorStatsAttackExperienceTotal, this.ui_characterStatusMediatorStatsAttackExperienceNextLevel);
+    }
+
+    private function refreshDEFGameBar():void {
+        this.ui_characterStatusMediatorStatsDefenseLevel = this.player.charDEFLvl;
+        this.ui_characterStatusMediatorStatsDefenseExperienceTotal = this.player.charDEFEXP;
+        this.ui_characterStatusMediatorStatsDefenseExperienceNextLevel = this.player.charNextDEFEXP;
+        this.ui_characterStatusMediatorDefenseBar.redraw(this.ui_characterStatusMediatorStatsDefenseExperienceTotal, this.ui_characterStatusMediatorStatsDefenseExperienceNextLevel);
     }
 
     private function get level():Boolean {
@@ -186,6 +228,30 @@ public class CharacterStatusGameUI extends GameUIScreen {
 
     private function get maxMp():Boolean {
         return this.ui_characterStatusMediatorStatsMagicPointsTotal == this.player.charMaxMP;
+    }
+
+    private function get attLevel():Boolean {
+        return this.ui_characterStatusMediatorStatsAttackLevel == this.player.charATTLvl;
+    }
+
+    private function get attExp():Boolean {
+        return this.ui_characterStatusMediatorStatsAttackExperienceTotal == this.player.charATTEXP;
+    }
+
+    private function get attNextExp():Boolean {
+        return this.ui_characterStatusMediatorStatsAttackExperienceNextLevel == this.player.charNextATTEXP;
+    }
+
+    private function get defLevel():Boolean {
+        return this.ui_characterStatusMediatorStatsDefenseLevel == this.player.charDEFLvl;
+    }
+
+    private function get defExp():Boolean {
+        return this.ui_characterStatusMediatorStatsDefenseExperienceTotal == this.player.charDEFEXP;
+    }
+
+    private function get defNextExp():Boolean {
+        return this.ui_characterStatusMediatorStatsDefenseExperienceNextLevel == this.player.charNextDEFEXP;
     }
 }
 }
