@@ -23,6 +23,7 @@ public class GameBar extends Sprite {
     public static const WHITE:ColorMatrixFilter = GetColor(0xFF, 0xFF, 0xFF, 1);
     public static const BLACK:ColorMatrixFilter = GetColor(0x00, 0x00, 0x00, 1);
     public static const ORANGE:ColorMatrixFilter = GetColor(0xFF, 0xA5, 0x00, 1);
+    public static const GRAY:ColorMatrixFilter = GetColor(0x69, 0x69, 0x69, 1);
 
     private static function GetColor(_arg1:uint, _arg2:uint, _arg3:uint, _arg4:Number = 1):ColorMatrixFilter {
         var matrix:Array = [];
@@ -143,7 +144,7 @@ public class GameBar extends Sprite {
         }
 
         if (this.text_ != null) {
-            this.topText_ = new BaseSimpleText(14, 0xE8E8E8, false, 128, 0);
+            this.topText_ = new BaseSimpleText(12, 0xE8E8E8, false, 128, 0);
             this.topText_.selectable = false;
             this.topText_.border = false;
             this.topText_.mouseEnabled = true;
