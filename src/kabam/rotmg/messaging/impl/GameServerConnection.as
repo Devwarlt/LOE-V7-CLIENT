@@ -363,7 +363,7 @@ public class GameServerConnection {
     public function playerShoot(_arg1:Projectile, _arg2:int, _arg3:Boolean, _arg4:Boolean, _arg5:Number, _arg6:Number, _arg7:Number):void {
     }
 
-    public function playerHit(_arg1:int, _arg2:int):void {
+    public function playerHit(_arg1:int, _arg2:int, _arg3:Boolean = false):void {
     }
 
     public function enemyHit(_arg1:int, _arg2:int, _arg3:int, _arg4:Boolean):void {
