@@ -13,6 +13,7 @@ public class ObjectProperties {
     public var shadowSize_:int;
     public var isPlayer_:Boolean = false;
     public var isEnemy_:Boolean = false;
+    public var isShieldProtector_:Boolean = false;
     public var drawOnGround_:Boolean = false;
     public var drawUnder_:Boolean = false;
     public var occupySquare_:Boolean = false;
@@ -60,6 +61,7 @@ public class ObjectProperties {
         this.shadowSize_ = 100;
         this.isPlayer_ = _arg1.hasOwnProperty(TextKey.PLAYER);
         this.isEnemy_ = _arg1.hasOwnProperty(TextKey.ENEMY);
+        this.isShieldProtector_ = _arg1.hasOwnProperty("ShieldProtector");
         this.drawOnGround_ = _arg1.hasOwnProperty(TextKey.DRAWONGROUND);
         if (((this.drawOnGround_) || (_arg1.hasOwnProperty(TextKey.DRAWUNDER)))) {
             this.drawUnder_ = true;
@@ -96,6 +98,7 @@ public class ObjectProperties {
         }
         if (this.isPlayer_ != _arg1.hasOwnProperty(TextKey.PLAYER)) this.isPlayer_ = _arg1.hasOwnProperty(TextKey.PLAYER);
         if (this.isEnemy_ != _arg1.hasOwnProperty(TextKey.ENEMY)) this.isEnemy_ = _arg1.hasOwnProperty(TextKey.ENEMY);
+        if (this.isShieldProtector_ != _arg1.hasOwnProperty("ShieldProtector")) this.isShieldProtector_ = _arg1.hasOwnProperty("ShieldProtector");
         this.oldSound_ = ((_arg1.hasOwnProperty(TextKey.OLDSOUND)) ? String(_arg1.OldSound) : null);
         for each (_local2 in _arg1.Projectile) {
             _local4 = int(_local2.@id);

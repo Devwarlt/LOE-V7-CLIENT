@@ -8,6 +8,7 @@ public class EmbeddedData {
     private static const LoERealmv7ShieldsCXML:Class = EmbeddedData_LoERealmv7ShieldsCXML;
     private static const LoERealmv7TrousersCXML:Class = EmbeddedData_LoERealmv7TrousersCXML;
     private static const LoERealmv7WeaponsCXML:Class = EmbeddedData_LoERealmv7WeaponsCXML;
+    private static const LoERealmv7EntitiesCXML:Class = EmbeddedData_LoERealmv7EntitiesCXML;
     private static const LoEEncounterCXML:Class = EmbeddedData_LoEEncounterCXML;
     private static const DrrItemsCXML:Class = EmbeddedData_DrrItemsCXML;
     private static const LoERealmEggsCXML:Class = EmbeddedData_LoERealmEggsCXML;
@@ -130,6 +131,7 @@ public class EmbeddedData {
             new LoERealmv7ShieldsCXML(),
             new LoERealmv7TrousersCXML(),
             new LoERealmv7WeaponsCXML(),
+            new LoERealmv7EntitiesCXML(),
             new LoEEncounterCXML(),
             new DrrItemsCXML(),
             new LoERealmEdition1EncountersCXML(),

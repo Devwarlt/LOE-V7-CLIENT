@@ -229,7 +229,7 @@ public class Projectile extends BasicObject {
         }
 
         if (square_.obj_ != null &&
-                (!square_.obj_.props_.isEnemy_ || !this.damagesEnemies_) &&
+                ((!square_.obj_.props_.isEnemy_ || !square_.obj_.props_.isShieldProtector_) || !this.damagesEnemies_) &&
                 (square_.obj_.props_.enemyOccupySquare_ || !this.projProps_.passesCover_ && square_.obj_.props_.occupySquare_)) {
             if (this.damagesPlayers_) {
                 map_.gs_.gsc_.otherHit(currentTime, this.bulletId_, this.ownerId_, square_.obj_.objectId_);
@@ -245,10 +245,11 @@ public class Projectile extends BasicObject {
         if (go != null) {
             var player:Player = map_.player_;
             var goIsEnemy:Boolean = go.props_.isEnemy_;
+            var goIsShieldProtector:Boolean = go.props_.isShieldProtector_;
             var goHit:Boolean = player != null &&
                     !player.isPaused() &&
                     !player.isHidden() &&
-                    (this.damagesPlayers_ || goIsEnemy && this.ownerId_ == player.objectId_);
+                    (this.damagesPlayers_ || (goIsEnemy || goIsShieldProtector) && this.ownerId_ == player.objectId_);
 
             if (goHit) {
                 var dmg:int = GameObject.damageWithDefense(this.damage_, Parameters.parse(go.defense_), this.projProps_.armorPiercing_, go.condition_);
@@ -256,7 +257,7 @@ public class Projectile extends BasicObject {
                 var killed:Boolean = false;
                 if (go.hp_ <= dmg) {
                     killed = true;
-                    if (goIsEnemy) {
+                    if (goIsEnemy || goIsShieldProtector) {
                         doneAction(map_.gs_, Tutorial.KILL_ACTION);
                     }
                 }
@@ -268,6 +269,10 @@ public class Projectile extends BasicObject {
                 else {
                     if (goIsEnemy) {
                         map_.gs_.gsc_.enemyHit(currentTime, this.bulletId_, go.objectId_, killed);
+                        go.damage(this.objectType_, dmg, this.projProps_.effects_, killed, this);
+                    }
+                    else if (goIsShieldProtector) {
+                        map_.gs_.gsc_.playerHit(this.bulletId_, go.objectId_, true);
                         go.damage(this.objectType_, dmg, this.projProps_.effects_, killed, this);
                     }
                     else {
@@ -302,7 +307,7 @@ public class Projectile extends BasicObject {
                 continue;
             }
 
-            if (damagesEnemies_ && go.props_.isEnemy_ || damagesPlayers_ && go.props_.isPlayer_) {
+            if (damagesEnemies_ && go.props_.isEnemy_ || damagesPlayers_ && (go.props_.isPlayer_ || go.props_.isShieldProtector_)) {
                 if (!projProps_.multiHit_ || multiHitDict_[go] == null) {
                     if (go == map_.player_) {
                         return go;

@@ -365,7 +365,7 @@ public class MiniMapImp extends MiniMap {
                     ;
                 }
                 ;
-                if ((((_local11 is Character)) && (_local11.props_.isEnemy_))) {
+                if ((((_local11 is Character)) && (_local11.props_.isEnemy_ && !_local11.props_.isShieldProtector_))) {
                     _local16 = 0xFF0000;
                     _local8.beginFill(_local16);
                     _local8.drawRect((_local18 - 2), (_local19 - 2), 4, 4);

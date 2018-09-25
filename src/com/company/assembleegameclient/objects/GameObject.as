@@ -838,7 +838,7 @@ public class GameObject extends BasicObject {
                 }
             }
         }
-        if (!((this.props_.isEnemy_) && (Parameters.data_.disableEnemyParticles))) {
+        if (!((this.props_.isEnemy_ || this.props_.isShieldProtector_) && (Parameters.data_.disableEnemyParticles))) {
             _local14 = BloodComposition.getBloodComposition(this.objectType_, this.texture_, this.props_.bloodProb_, this.props_.bloodColor_);
             if (this.dead_) {
                 this.hp_ = 0;
@@ -1231,7 +1231,7 @@ public class GameObject extends BasicObject {
         if (((((this.props_.showName_) && (!((this.name_ == null))))) && (!((this.name_.length == 0))))) {
             this.drawName(graphicsData, camera);
         }
-        if (((((((((this.props_) && (((this.props_.isEnemy_))))) && (!(this.isInvisible())))))) && (!(this.props_.noMiniMap_)))) {
+        if (((((((((this.props_) && (((this.props_.isEnemy_ || this.props_.isShieldProtector_))))) && (!(this.isInvisible())))))) && (!(this.props_.noMiniMap_)))) {
             _local9 = ((_local4.getPixel32((_local4.width / 4), (_local4.height / 4)) | _local4.getPixel32((_local4.width / 2), (_local4.height / 2))) | _local4.getPixel32(((_local4.width * 3) / 4), ((_local4.height * 3) / 4)));
             _local10 = (_local9 >> 24);
             if (_local10 != 0) {

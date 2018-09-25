@@ -627,10 +627,11 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         serverConnection.queueMessage(playerShoot);
     }
 
-    override public function playerHit(bulletId:int, objectId:int):void {
+    override public function playerHit(bulletId:int, objectId:int, isShieldProtector:Boolean = false):void {
         var playerHit:PlayerHit = (this.messages.require(PLAYERHIT) as PlayerHit);
         playerHit.bulletId_ = bulletId;
         playerHit.objectId_ = objectId;
+        playerHit.isShieldProtector = isShieldProtector;
 
         serverConnection.queueMessage(playerHit);
     }
