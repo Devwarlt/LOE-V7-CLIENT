@@ -249,8 +249,8 @@ public class WebMain extends Sprite {
             "\nYour <b>LoESoft Games</b>" +
             "\n<img width='48px' height='48px' src='http://loesoft-games.github.io/loesoft.png' />\n\n" +
             "\n\n<font color='#FFFF00'><b><i>How to avoid this screen?</i></b></font>" +
-            "\n\t<font color='#FFFF00'><b>Option 1.</b></font>\tDownload <b>Adobe AIR</b>, click <b><a href='https://get.adobe.com/air/'><font color='#FF6347'>here</font></a></b>." +
-            "\n\t<font color='#FFFF00'><b>Option 2.</b></font>\tGame could be run via browser, click <b><a href='https://loesoft-games.github.io/play'><font color='#FF6347'>here</font></a></b> to play." +
+            "\n\t<font color='#FFFF00'><b>Option 1.</b></font>\tDownload <b>Adobe AIR</b>, click <b><a href='https://get.adobe.com/air/' target='_blank'><font color='#FF6347'>here</font></a></b> (direct link <b>https://get.adobe.com/air/</b>)." +
+            "\n\t<font color='#FFFF00'><b>Option 2.</b></font>\tGame could be run via browser, click <b><a href='https://loesoft-games.github.io/play' target='_blank'><font color='#FF6347'>here</font></a></b> to play (direct link <b>https://loesoft-games.github.io/play</b>)." +
             "\n\t<font color='#FFFF00'><b>Option 3.</b></font>\tDo not run game using your <b>Adobe Flash Projector</b>, our game engine support only <b>Adobe AIR</b> and browser invocation, it already contains all framework settings able to run properly with good performance.";
         _local4.wordWrap = true;
         _local4.width = 792;
