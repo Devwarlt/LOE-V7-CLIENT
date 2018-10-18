@@ -18,7 +18,7 @@
         <option name="browser" value="a7bb68e0-33c0-4d6f-a81a-aac1fdb870c8" />
         <option name="launcherType" value="Player" />
         <option name="newPlayerInstance" value="false" />
-        <option name="playerPath" value="$USER_HOME$/Desktop/flashplayer_28_sa_debug.exe" />
+        <option name="playerPath" value="$USER_HOME$/Desktop/archives/flashplayer_28_sa_debug.exe" />
       </LauncherParameters>
     </option>
     <option name="mobileRunTarget" value="Emulator" />
