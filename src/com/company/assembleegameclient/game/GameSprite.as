@@ -415,6 +415,14 @@ public class GameSprite extends AGameSprite {
             this.isGameStarted = true;
             Renderer.inGame = true;
             gsc_.connect();
+            switch (Capabilities.playerType) {
+                case "PlugIn":
+                case "ActiveX": gsc_.serverConnection.url.dispatch(ExternalInterface.call("window.location.href.toString")); break;
+                case "External":
+                case "StandAlone": gsc_.serverConnection.url.dispatch(stage.loaderInfo.url); break;
+                case "Desktop":
+                default: gsc_.serverConnection.url.dispatch("unknown domain"); break;
+            }
             this.idleWatcher_.start(this);
             lastUpdate_ = time;
             stage.addEventListener(MoneyChangedEvent.MONEY_CHANGED, this.onMoneyChanged);

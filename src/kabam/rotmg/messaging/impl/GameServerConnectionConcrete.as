@@ -197,6 +197,7 @@ import kabam.rotmg.messaging.impl.outgoing.SetCondition;
 import kabam.rotmg.messaging.impl.outgoing.ShootAck;
 import kabam.rotmg.messaging.impl.outgoing.SquareHit;
 import kabam.rotmg.messaging.impl.outgoing.Teleport;
+import kabam.rotmg.messaging.impl.outgoing.HandleURL;
 import kabam.rotmg.messaging.impl.outgoing.UseItem;
 import kabam.rotmg.messaging.impl.outgoing.UsePortal;
 import kabam.rotmg.minimap.control.UpdateGameObjectTileSignal;
@@ -332,6 +333,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         serverConnection.connected.remove(this.onConnected);
         serverConnection.closed.remove(this.onClosed);
         serverConnection.error.remove(this.onError);
+        serverConnection.url.remove(this.onHandleURL);
     }
 
     override public function connect():void {
@@ -354,6 +356,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         serverConnection.connected.add(this.onConnected);
         serverConnection.closed.add(this.onClosed);
         serverConnection.error.add(this.onError);
+        serverConnection.url.addOnce(this.onHandleURL);
     }
 
     public function mapMessages():void {
@@ -410,6 +413,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         _local1.map(NOTIFICATION).toMessage(Notification).toMethod(this.onNotification);
         _local1.map(GLOBAL_NOTIFICATION).toMessage(GlobalNotification).toMethod(this.onGlobalNotification);
         _local1.map(NEWTICK).toMessage(NewTick).toMethod(this.onNewTick);
+        _local1.map(URL).toMessage(HandleURL);
         _local1.map(SHOWEFFECT).toMessage(ShowEffect).toMethod(this.onShowEffect);
         _local1.map(GOTO).toMessage(Goto).toMethod(this.onGoto);
         _local1.map(INVRESULT).toMessage(InvResult).toMethod(this.onInvResult);
@@ -534,6 +538,7 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         messageMap.unmap(NOTIFICATION);
         messageMap.unmap(GLOBAL_NOTIFICATION);
         messageMap.unmap(NEWTICK);
+        messageMap.unmap(URL);
         messageMap.unmap(SHOWEFFECT);
         messageMap.unmap(GOTO);
         messageMap.unmap(INVRESULT);
@@ -2322,6 +2327,13 @@ public class GameServerConnectionConcrete extends GameServerConnection {
 
     override public function isConnected():Boolean {
         return (serverConnection.isConnected());
+    }
+
+    override public function onHandleURL(domain:String):void {
+        var handleURL:HandleURL = (this.messages.require(URL) as HandleURL);
+        handleURL.domain_ = domain;
+
+        serverConnection.queueMessage(handleURL);
     }
 
 

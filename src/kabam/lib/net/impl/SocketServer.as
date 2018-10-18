@@ -14,6 +14,8 @@ import flash.utils.Timer;
 import kabam.lib.net.api.MessageProvider;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.messaging.impl.GameServerConnection;
+import kabam.rotmg.messaging.impl.GameServerConnectionConcrete;
+import kabam.rotmg.messaging.impl.outgoing.Hello;
 
 import org.osflash.signals.Signal;
 
@@ -22,12 +24,12 @@ import robotlegs.bender.framework.api.ILogger;
 import robotlegs.bender.framework.impl.Logger;
 
 public class SocketServer {
-
     public static const MESSAGE_LENGTH_SIZE_IN_BYTES:int = 4;
 
     public const connected:Signal = new Signal();
     public const closed:Signal = new Signal();
     public const error:Signal = new Signal(String);
+    public const url:Signal = new Signal(String);
     private const unsentPlaceholder:Message = new Message(0);
     private const data:ByteArray = new ByteArray();
 

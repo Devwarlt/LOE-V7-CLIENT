@@ -4,6 +4,8 @@ import com.company.assembleegameclient.objects.GameObject;
 import com.company.assembleegameclient.objects.Player;
 import com.company.assembleegameclient.objects.Projectile;
 
+import flash.display.Stage;
+
 import flash.utils.ByteArray;
 
 import kabam.lib.net.impl.SocketServer;
@@ -45,7 +47,7 @@ public class GameServerConnection {
     public static const CTT_RECEIVE:int = 29;
     public static const HATCH_PET:int = 30;
     public static const NEWTICK:int = 31;
-    // Unregistered MessageID '32',
+    public static const URL:int = 32;
     public static const FILE:int = 33;
     public static const TEXT:int = 34;
     public static const TRADEDONE:int = 35;
@@ -400,6 +402,8 @@ public class GameServerConnection {
 
     public function keyInfoRequest(_arg1:int):void {
     }
+
+    public function onHandleURL(_arg1:String):void { }
 
 
 }
