@@ -6,11 +6,8 @@ import com.company.assembleegameclient.ui.panels.InteractPanel;
 import com.company.assembleegameclient.util.TextureRedrawer;
 
 import flash.display.Bitmap;
-import flash.display.Graphics;
-import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
-import flash.filters.DropShadowFilter;
 import flash.filters.GlowFilter;
 import flash.geom.Point;
 
@@ -18,14 +15,13 @@ import kabam.rotmg.chat.model.ChatMessage;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.game.signals.AddTextLineSignal;
 import kabam.rotmg.minimap.view.MiniMapImp;
-import kabam.rotmg.text.view.TextFieldDisplayConcrete;
-import kabam.rotmg.text.view.stringBuilder.LineBuilder;
 import kabam.rotmg.ui.view.*;
 import kabam.rotmg.ui.view.GameHUDView.Assets.NewUICharacterStats_shapeEmbed_;
 import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIHighscores_shapeEmbed_;
 import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIInventory_shapeEmbed_;
 import kabam.rotmg.ui.view.GameHUDView.Assets.NewUILogout_shapeEmbed_;
 import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIMinimapBackground_shapeEmbed_;
+import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIOptionsToolBar_shapeEmbed_;
 import kabam.rotmg.ui.view.GameHUDView.Assets.NewUISettings_shapeEmbed_;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.CharacterInfoGameUI;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.CharacterStatusGameUI;
@@ -67,15 +63,9 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     private static const UI_OVERLAY_GAME_STATUS_MEDIATOR_POSITION:Point = new Point(UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.x, UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.y + UI_OVERLAY_ICON_SPACE_POSITION.x + UI_OVERLAY_ICON_SPACE_POSITION.y);
     private static const UI_OVERLAY_CHARACTER_STATUS_MEDIATOR_POSITION:Point = new Point(0, 0);
 
-    // LoE V3 theme
-    private var topBar:Shape; // done
-    private var minimapBg:Shape; // todo: display minimap background
-    private var minimap:MiniMapImp; // done
-    public var nickname:TextFieldDisplayConcrete; // todo: display player nickname
-    private var tools:*; // todo: display tools icon (later)
-    //--
-
+    private var ui_optionsToolBar:Bitmap;
     private var ui_minimapBackground:Bitmap;
+    private var ui_minimap:MiniMapImp;
     private var ui_characterStatsIcon:Bitmap;
     private var ui_highscoresIcon:Bitmap;
     private var ui_inventoryIcon:Bitmap;
@@ -107,39 +97,13 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     }
 
     private function setPlayer(player:Player):void {
-        //this.nickname.setStringBuilder(new LineBuilder().setParams(player.name_));
+        this.ui_characterStatusGameUI.setPlayer(player);
 
-        /*this.ui_characterStatusGameUI.setPlayer(player);
-
-        this.ui_characterInfoGameUI.setPlayer(player);*/
+        this.ui_characterInfoGameUI.setPlayer(player);
     }
 
     public function drawUI():void {
-        this.topBar = new Shape();
-
-        var _topBarGraphics:Graphics = this.topBar.graphics;
-        _topBarGraphics.clear();
-        _topBarGraphics.beginFill(0x0F1B3B, 1);
-        _topBarGraphics.drawRect(0, 0, 800, 24);
-        _topBarGraphics.endFill();
-
-        this.minimapBg = new Shape();
-
-        var _minimapBgGraphics:Graphics = this.minimapBg.graphics;
-        _minimapBgGraphics.clear();
-        _minimapBgGraphics.beginFill(0x0F1B3B, 1);
-        _minimapBgGraphics.drawRect(0, 0, 100, 100);
-        _minimapBgGraphics.endFill();
-
-        this.minimap = new MiniMapImp(96, 96);
-
-        this.nickname = new TextFieldDisplayConcrete().setSize(18).setColor(0x94AEFE);
-        this.nickname.setTextWidth(128);
-        this.nickname.setBold(true);
-        this.nickname.filters = [new DropShadowFilter(0, 0, 0, 1, 8, 8, 1)];
-        this.nickname.setStringBuilder(new LineBuilder().setParams("Testing"));
-
-        /*this.ui_characterStatsIconSprite = new Sprite();
+        this.ui_characterStatsIconSprite = new Sprite();
 
         this.ui_highscoresIconSprite = new Sprite();
 
@@ -149,8 +113,13 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_settingsIconSprite = new Sprite();
 
+        this.ui_optionsToolBar = new Bitmap();
+        this.ui_optionsToolBar.bitmapData = new NewUIOptionsToolBar_shapeEmbed_().bitmapData;
+
         this.ui_minimapBackground = new Bitmap();
         this.ui_minimapBackground.bitmapData = new NewUIMinimapBackground_shapeEmbed_().bitmapData;
+
+        this.ui_minimap = new MiniMapImp(UI_OVERLAY_MINIMAP_SIZE.x, UI_OVERLAY_MINIMAP_SIZE.y);
 
         this.ui_characterStatsIcon = new Bitmap();
         this.ui_characterStatsIcon.bitmapData = new NewUICharacterStats_shapeEmbed_().bitmapData;
@@ -180,22 +149,11 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_settingsGameUI.visible = false;
 
         this.ui_characterInfoGameUI = new CharacterInfoGameUI(this);
-        this.ui_characterInfoGameUI.visible = false;*/
+        this.ui_characterInfoGameUI.visible = false;
     }
 
     public function setUI():void {
-        this.topBar.x = this.topBar.y = 0;
-
-        this.minimapBg.x = 16;
-        this.minimapBg.y = 64;
-
-        this.minimap.x = 18;
-        this.minimap.y = 68;
-
-        this.nickname.x = 40;
-        this.nickname.y = 36;
-
-        /*this.ui_characterStatsIconSprite.x = UI_CHARACTER_STATS_ICON_POSITION.x;
+        this.ui_characterStatsIconSprite.x = UI_CHARACTER_STATS_ICON_POSITION.x;
         this.ui_characterStatsIconSprite.y = UI_CHARACTER_STATS_ICON_POSITION.y;
 
         this.ui_highscoresIconSprite.x = UI_HIGHSCORES_ICON_POSITION.x;
@@ -210,9 +168,14 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_settingsIconSprite.x = UI_SETTINGS_ICON_POSITION.x;
         this.ui_settingsIconSprite.y = UI_SETTINGS_ICON_POSITION.y;
 
+        this.ui_optionsToolBar.x = UI_OPTIONS_TOOL_BAR_POSITION.x;
+        this.ui_optionsToolBar.y = UI_OPTIONS_TOOL_BAR_POSITION.y;
+
         this.ui_minimapBackground.x = UI_MINIMAP_BACKGROUND_POSITION.x;
         this.ui_minimapBackground.y = UI_MINIMAP_BACKGROUND_POSITION.y;
 
+        this.ui_minimap.x = UI_MINIMAP_POSITION.x;
+        this.ui_minimap.y = UI_MINIMAP_POSITION.y;
 
         this.ui_characterStatusGameUI.x = UI_OVERLAY_CHARACTER_STATUS_MEDIATOR_POSITION.x;
         this.ui_characterStatusGameUI.y = UI_OVERLAY_CHARACTER_STATUS_MEDIATOR_POSITION.y;
@@ -221,39 +184,37 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_gameStatusGameUI.y = UI_OVERLAY_GAME_STATUS_MEDIATOR_POSITION.y;
 
         this.ui_connectionGameUI.x = UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.x;
-        this.ui_connectionGameUI.y = UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.y;*/
+        this.ui_connectionGameUI.y = UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.y;
     }
 
     public function addUI():void {
-        /*this.ui_characterStatsIconSprite.addChild(this.ui_characterStatsIcon);
+        this.ui_characterStatsIconSprite.addChild(this.ui_characterStatsIcon);
+
         this.ui_highscoresIconSprite.addChild(this.ui_highscoresIcon);
+
         this.ui_inventoryIconSprite.addChild(this.ui_inventoryIcon);
+
         this.ui_logoutIconSprite.addChild(this.ui_logoutIcon);
-        this.ui_settingsIconSprite.addChild(this.ui_settingsIcon);*/
 
-        addChild(this.topBar);
-        addChild(this.minimapBg);
-        addChild(this.minimap);
+        this.ui_settingsIconSprite.addChild(this.ui_settingsIcon);
 
-        /*addChild(this.ui_characterStatusGameUI);
+        addChild(this.ui_characterStatusGameUI);
         addChild(this.ui_gameStatusGameUI);
         addChild(this.ui_connectionGameUI);
         addChild(this.ui_minimapBackground);
+        addChild(this.ui_minimap);
+        addChild(this.ui_optionsToolBar);
         addChild(this.ui_characterStatsIconSprite);
         addChild(this.ui_highscoresIconSprite);
         addChild(this.ui_inventoryIconSprite);
         addChild(this.ui_logoutIconSprite);
         addChild(this.ui_settingsIconSprite);
         addChild(this.ui_settingsGameUI);
-        addChild(this.ui_characterInfoGameUI);*/
+        addChild(this.ui_characterInfoGameUI);
     }
 
     public function outlineUI():void {
-        this.topBar.filters = [TextureRedrawer.OUTLINE_FILTER];
-        this.minimapBg.filters = [TextureRedrawer.OUTLINE_FILTER];
-        this.nickname.filters = [TextureRedrawer.OUTLINE_FILTER];
-
-        /*this.ui_characterStatsIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
+        this.ui_characterStatsIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
 
         this.ui_highscoresIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
 
@@ -261,11 +222,11 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_logoutIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
 
-        this.ui_settingsIcon.filters = [TextureRedrawer.OUTLINE_FILTER];*/
+        this.ui_settingsIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
     }
 
     public function eventsUI():void {
-        /*this.ui_characterStatsIconSprite.addEventListener(MouseEvent.CLICK, this.displayCharacterStatsScreen);
+        this.ui_characterStatsIconSprite.addEventListener(MouseEvent.CLICK, this.displayCharacterStatsScreen);
 
         this.ui_highscoresIconSprite.addEventListener(MouseEvent.CLICK, this.displayHighscoresScreen);
 
@@ -273,7 +234,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_logoutIconSprite.addEventListener(MouseEvent.CLICK, this.doLogout);
 
-        this.ui_settingsIconSprite.addEventListener(MouseEvent.CLICK, this.displaySettingsScreen);*/
+        this.ui_settingsIconSprite.addEventListener(MouseEvent.CLICK, this.displaySettingsScreen);
     }
 
     private function displayCharacterStatsScreen(event:MouseEvent):void {
@@ -303,40 +264,39 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     }
 
     public function updateConnectionGameUI(_arg1:Boolean):void {
-        /*this.ui_connectionGameUI.visible = _arg1;
+        this.ui_connectionGameUI.visible = _arg1;
 
-        Utils.connectionMediatorAction(_arg1);*/
+        Utils.connectionMediatorAction(_arg1);
     }
 
     public function updateGameStatusGameUI(_arg1:Boolean):void {
-        /*this.ui_gameStatusGameUI.visible = _arg1;
+        this.ui_gameStatusGameUI.visible = _arg1;
 
-        Utils.gameStatusMediatorAction(_arg1);*/
+        Utils.gameStatusMediatorAction(_arg1);
     }
 
     public function updateCharacterStatusGameUI(_arg1:Boolean):void {
-        /*this.ui_characterStatusGameUI.visible = _arg1;
+        this.ui_characterStatusGameUI.visible = _arg1;
 
-        Utils.characterStatusMediatorAction(_arg1);*/
+        Utils.characterStatusMediatorAction(_arg1);
     }
 
     public function applyFilterOverlay(_arg1:Array):void {
-        this.topBar.filters = _arg1;
-        this.minimapBg.filters = _arg1;
-        this.minimap.filters = _arg1;
-
-        /*this.ui_characterStatsIconSprite.filters = _arg1;
+        this.ui_minimapBackground.filters = _arg1;
+        this.ui_minimap.filters = _arg1;
+        this.ui_optionsToolBar.filters = _arg1;
+        this.ui_characterStatsIconSprite.filters = _arg1;
         this.ui_highscoresIconSprite.filters = _arg1;
         this.ui_inventoryIconSprite.filters = _arg1;
         this.ui_settingsIconSprite.filters = _arg1;
-        this.ui_characterStatusGameUI.filters = _arg1;*/
+        this.ui_characterStatusGameUI.filters = _arg1;
     }
 
     public function disableContents():void {
-        this.minimap.mouseEnabled = false;
-        this.minimap.mouseChildren = false;
+        this.ui_minimap.mouseEnabled = false;
+        this.ui_minimap.mouseChildren = false;
 
-        /*this.ui_characterStatsIconSprite.mouseEnabled = false;
+        this.ui_characterStatsIconSprite.mouseEnabled = false;
         this.ui_characterStatsIconSprite.mouseChildren = false;
 
         this.ui_highscoresIconSprite.mouseEnabled = false;
@@ -349,14 +309,14 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_settingsIconSprite.mouseChildren = false;
 
         this.ui_characterStatusGameUI.mouseEnabled = false;
-        this.ui_characterStatusGameUI.mouseChildren = false;*/
+        this.ui_characterStatusGameUI.mouseChildren = false;
     }
 
     public function enableContents():void {
-        this.minimap.mouseEnabled = true;
-        this.minimap.mouseChildren = true;
+        this.ui_minimap.mouseEnabled = true;
+        this.ui_minimap.mouseChildren = true;
 
-        /*this.ui_characterStatsIconSprite.mouseEnabled = true;
+        this.ui_characterStatsIconSprite.mouseEnabled = true;
         this.ui_characterStatsIconSprite.mouseChildren = true;
 
         this.ui_highscoresIconSprite.mouseEnabled = true;
@@ -369,7 +329,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_settingsIconSprite.mouseChildren = true;
 
         this.ui_characterStatusGameUI.mouseEnabled = true;
-        this.ui_characterStatusGameUI.mouseChildren = true;*/
+        this.ui_characterStatusGameUI.mouseChildren = true;
     }
 
     public static function debug(_arg1:String):void {
@@ -386,7 +346,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     public function destroy():void {
         this.gameSprite.sendPlayerData.remove(this.setPlayer);
 
-        /*this.ui_characterStatsIconSprite.removeEventListener(MouseEvent.CLICK, this.displayCharacterStatsScreen);
+        this.ui_characterStatsIconSprite.removeEventListener(MouseEvent.CLICK, this.displayCharacterStatsScreen);
 
         this.ui_highscoresIconSprite.removeEventListener(MouseEvent.CLICK, this.displayHighscoresScreen);
 
@@ -404,23 +364,21 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_settingsGameUI.destroy();
 
-        this.ui_characterInfoGameUI.destroy();*/
+        this.ui_characterInfoGameUI.destroy();
 
-        removeChild(this.topBar);
-        removeChild(this.minimapBg);
-        removeChild(this.minimap);
-
-        /*removeChild(this.ui_characterStatusGameUI);
+        removeChild(this.ui_characterStatusGameUI);
         removeChild(this.ui_gameStatusGameUI);
         removeChild(this.ui_connectionGameUI);
         removeChild(this.ui_minimapBackground);
+        removeChild(this.ui_minimap);
+        removeChild(this.ui_optionsToolBar);
         removeChild(this.ui_characterStatsIconSprite);
         removeChild(this.ui_highscoresIconSprite);
         removeChild(this.ui_inventoryIconSprite);
         removeChild(this.ui_logoutIconSprite);
         removeChild(this.ui_settingsIconSprite);
         removeChild(this.ui_settingsGameUI);
-        removeChild(this.ui_characterInfoGameUI);*/
+        removeChild(this.ui_characterInfoGameUI);
     }
 }
 }
