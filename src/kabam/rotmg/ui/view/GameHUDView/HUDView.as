@@ -457,6 +457,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
     public function destroy():void {
         this.ping.destroy();
+
         this.logout.removeEventListener(MouseEvent.CLICK, this.doLogout);
 
         removeChild(this.topBar);
@@ -465,6 +466,9 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         removeChild(this.nickname);
         removeChild(this.ping);
         removeChild(this.vocation);
+        removeChild(this.logout);
+
+        this.logoutSignal.remove(this.setLogout);
 
         this.gameSprite.sendPlayerData.remove(this.setPlayer);
 

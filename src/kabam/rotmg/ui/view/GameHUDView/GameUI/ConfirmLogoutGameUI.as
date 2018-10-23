@@ -32,8 +32,8 @@ public class ConfirmLogoutGameUI extends Dialog {
         this.hudView.gameSprite.player.IsDoingLogout = false;
         this.hudView.logoutSignal.dispatch(true);
 
-        parent.removeChild(this);
         parent.filters = [];
+        parent.removeChild(this);
     }
 }
 }
