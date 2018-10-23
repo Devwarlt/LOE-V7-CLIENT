@@ -1357,9 +1357,9 @@ public class GameServerConnectionConcrete extends GameServerConnection {
         var _local2:ObjectStatusData;
 
         try
-        { this.gs_.hudView.ui_connectionGameUI.initializePing(); }
+        { this.gs_.hudView.InitializePing(); }
         catch (error:Error) // Stream Error #2032
-        { this.gs_.hudView.ui_connectionGameUI.setInvalidPing(); }
+        { this.gs_.hudView.SetInvalidPing(); }
 
         this.move(this.player);
 
