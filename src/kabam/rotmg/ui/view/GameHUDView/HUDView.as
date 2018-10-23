@@ -18,6 +18,8 @@ import kabam.rotmg.chat.model.ChatMessage;
 import kabam.rotmg.core.StaticInjectorContext;
 import kabam.rotmg.game.signals.AddTextLineSignal;
 import kabam.rotmg.minimap.view.MiniMapImp;
+import kabam.rotmg.pets.util.PetsViewAssetFactory;
+import kabam.rotmg.pets.view.components.DialogCloseButton;
 import kabam.rotmg.text.view.TextFieldDisplayConcrete;
 import kabam.rotmg.text.view.stringBuilder.LineBuilder;
 import kabam.rotmg.ui.view.*;
@@ -35,6 +37,8 @@ import kabam.rotmg.ui.view.GameHUDView.GameUI.ConnectionGameUI;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.GameStatusGameUI;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.GameUIInterface;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.SettingsGameUI;
+
+import org.osflash.signals.Signal;
 
 public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     public static const WIDTH:int = 800;
@@ -97,6 +101,10 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     private var ping:ConnectionGameUI;
     private var vocation:Bitmap; // todo: display vocation icon
     private var tools:*; // todo: display tools icon (later)
+    private var logout:DialogCloseButton;
+    private var logoutEnabled:Boolean = true;
+
+    public var logoutSignal:Signal = new Signal(Boolean);
     //--
 
     public function HUDView(gameSprite:GameSprite) {
@@ -108,7 +116,13 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.addUI();
         this.eventsUI();
 
+        this.logoutSignal.add(this.setLogout);
+
         this.gameSprite.sendPlayerData.addOnce(this.setPlayer);
+    }
+
+    private function setLogout(logOut:Boolean):void {
+        this.logoutEnabled = logOut;
     }
 
     private function setPlayer(player:Player):void {
@@ -143,6 +157,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ping = new ConnectionGameUI(this);
 
         this.vocation = new Bitmap();
+
+        this.logout = PetsViewAssetFactory.returnCloseButton(800);
 
         //--
 
@@ -213,6 +229,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.vocation.x = 4;
         this.vocation.y = 24;
 
+        this.logout.y = 0;
+
         this.ui_characterStatsIconSprite.x = UI_CHARACTER_STATS_ICON_POSITION.x;
         this.ui_characterStatsIconSprite.y = UI_CHARACTER_STATS_ICON_POSITION.y;
 
@@ -254,6 +272,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         addChild(this.nickname);
         addChild(this.ping);
         addChild(this.vocation);
+        addChild(this.logout);
 
         this.ui_characterStatsIconSprite.addChild(this.ui_characterStatsIcon);
 
@@ -297,6 +316,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     }
 
     public function eventsUI():void {
+        this.logout.addEventListener(MouseEvent.CLICK, this.doLogout);
+
         this.ui_characterStatsIconSprite.addEventListener(MouseEvent.CLICK, this.displayCharacterStatsScreen);
 
         this.ui_highscoresIconSprite.addEventListener(MouseEvent.CLICK, this.displayHighscoresScreen);
@@ -339,7 +360,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     private function doLogout(event:MouseEvent):void {
         debug("Button 'ui_logoutIcon' has been clicked.");
 
-        addChild(new ConfirmLogoutGameUI(this.gameSprite));
+        if (this.logoutEnabled)
+            addChild(new ConfirmLogoutGameUI(this));
     }
 
     public function updateConnectionGameUI(_arg1:Boolean):void {
@@ -435,6 +457,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
     public function destroy():void {
         this.ping.destroy();
+        this.logout.removeEventListener(MouseEvent.CLICK, this.doLogout);
 
         removeChild(this.topBar);
         removeChild(this.minimapBg);

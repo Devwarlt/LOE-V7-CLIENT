@@ -1,15 +1,17 @@
 package kabam.rotmg.ui.view.GameHUDView.GameUI {
-import com.company.assembleegameclient.game.GameSprite;
 import com.company.assembleegameclient.ui.dialogs.Dialog;
 
 import flash.events.Event;
 
-public class ConfirmLogoutGameUI extends Dialog {
-    private var gameSprite:GameSprite;
+import kabam.rotmg.ui.view.GameHUDView.HUDView;
 
-    public function ConfirmLogoutGameUI(_gameSprite:GameSprite) {
-        this.gameSprite = _gameSprite;
-        this.gameSprite.player.IsDoingLogout = true;
+public class ConfirmLogoutGameUI extends Dialog {
+    private var hudView:HUDView;
+
+    public function ConfirmLogoutGameUI(_hudView:HUDView) {
+        this.hudView = _hudView;
+        this.hudView.gameSprite.player.IsDoingLogout = true;
+        this.hudView.logoutSignal.dispatch(false);
 
         super("Logout", "Are you sure you want to logout?", "Yes", "No", null, Dialog.ORANGE);
 
@@ -18,21 +20,20 @@ public class ConfirmLogoutGameUI extends Dialog {
     }
 
     private function doLogout(event:Event):void {
-        this.gameSprite.player.IsDoingLogout = false;
+        this.hudView.gameSprite.player.IsDoingLogout = false;
+        this.hudView.gameSprite.closed.dispatch();
 
         stage.focus = null;
 
         parent.removeChild(this);
-
-        this.gameSprite.closed.dispatch();
     }
 
     private function cancelLogout(event:Event):void {
-        this.gameSprite.player.IsDoingLogout = false;
-
-        parent.filters = [];
+        this.hudView.gameSprite.player.IsDoingLogout = false;
+        this.hudView.logoutSignal.dispatch(true);
 
         parent.removeChild(this);
+        parent.filters = [];
     }
 }
 }
