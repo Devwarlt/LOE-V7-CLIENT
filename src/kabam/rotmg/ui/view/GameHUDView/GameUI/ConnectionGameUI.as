@@ -31,6 +31,9 @@ public class ConnectionGameUI extends GameUIScreen {
     private static const UI_CONNECTION_MEDIATOR_PING_STATUS_NORMAL_2:PingStatus = new PingStatus("Normal", "#fffc38");
     private static const UI_CONNECTION_MEDIATOR_PING_STATUS_GOOD:PingStatus = new PingStatus("Good", "#58fc00");
 
+    public function ConnectionGameUI(_hudView:HUDView) {
+        super(_hudView);
+    }
     private var ui_connectionMediatorPingSprite:Sprite;
     private var ui_connectionMediatorPingIndicator:Shape;
     private var ui_connectionMediatorPingLabel:BaseSimpleText;
@@ -38,10 +41,6 @@ public class ConnectionGameUI extends GameUIScreen {
     private var ui_connectionMediatorPingLoader:URLLoader;
     private var ui_connectionMediatorPingAppEngineURL:String = StaticInjectorContext.getInjector().getInstance(ApplicationSetup).getAppEngineUrl();
     private var ui_connectionMediatorPingStart:Number;
-
-    public function ConnectionGameUI(_hudView:HUDView) {
-        super(_hudView);
-    }
 
     override public function drawUI():void {
         this.ui_connectionMediatorPingSprite = new Sprite();
@@ -88,23 +87,10 @@ public class ConnectionGameUI extends GameUIScreen {
         setInterval(this.onPingMeasureUpdate, UI_CONNECTION_MEDIATOR_PING_TTL);
     }
 
-    private function onPingMeasureUpdate():void {
-        try {
-            var _pingStatus:PingStatus = this.getPingStatus();
+    override public function destroy():void {
+        this.ui_connectionMediatorPingLoader.removeEventListener(HTTPStatusEvent.HTTP_STATUS, this.onLoadStatus);
 
-            var _pingIndicator:Graphics = this.ui_connectionMediatorPingIndicator.graphics;
-            _pingIndicator.clear();
-            _pingIndicator.beginFill(uint(_pingStatus.pingStatusColor_(false)), 1);
-            _pingIndicator.drawRoundRect(0, 0, 16, 16, 32, 32);
-            _pingIndicator.endFill();
-
-            this.ui_connectionMediatorPingLabel.htmlText =
-                UI_CONNECTION_MEDIATOR_PING_LABEL_TEXT
-                    .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS_COLOR, _pingStatus.pingStatusColor_() != "#000000" ? _pingStatus.pingStatusColor_() : "")
-                    .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS, _pingStatus.pingStatusLabel_())
-                    .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_MEASURE, _pingStatus.pingStatusLabel_() != "Offline" ? this.ui_connectionMediatorPingMeasure + " ms" : "--");
-        }
-        catch (error:Error) { }
+        removeChild(this.ui_connectionMediatorPingSprite);
     }
 
     public function setInvalidPing():void {
@@ -120,23 +106,30 @@ public class ConnectionGameUI extends GameUIScreen {
         this.startPing();
     }
 
+    private function onPingMeasureUpdate():void {
+        try {
+            var _pingStatus:PingStatus = this.getPingStatus();
+
+            var _pingIndicator:Graphics = this.ui_connectionMediatorPingIndicator.graphics;
+            _pingIndicator.clear();
+            _pingIndicator.beginFill(uint(_pingStatus.pingStatusColor_(false)), 1);
+            _pingIndicator.drawRoundRect(0, 0, 16, 16, 32, 32);
+            _pingIndicator.endFill();
+
+            this.ui_connectionMediatorPingLabel.htmlText =
+                    UI_CONNECTION_MEDIATOR_PING_LABEL_TEXT
+                            .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS_COLOR, _pingStatus.pingStatusColor_() != "#000000" ? _pingStatus.pingStatusColor_() : "")
+                            .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_STATUS, _pingStatus.pingStatusLabel_())
+                            .replace(UI_CONNECTION_MEDIATOR_PING_LABEL_MEASURE, _pingStatus.pingStatusLabel_() != "Offline" ? this.ui_connectionMediatorPingMeasure + " ms" : "--");
+        }
+        catch (error:Error) {
+        }
+    }
+
     private function startPing():void {
         this.ui_connectionMediatorPingStart = getTimer();
 
         this.ui_connectionMediatorPingLoader.load(new URLRequest(this.ui_connectionMediatorPingAppEngineURL + "/ping/?i=" + Math.random()));
-    }
-
-    private function onLoadStatus(event:HTTPStatusEvent):void {
-        if (event.status == UI_CONNECTION_MEDIATOR_PING_STATUS_RECEIVED) {
-            this.ui_connectionMediatorPingMeasure = getTimer() - this.ui_connectionMediatorPingStart;
-
-            this.ui_connectionMediatorPingStart = 0;
-
-            this.startPing();
-        }
-
-        if (getTimer() - this.ui_connectionMediatorPingStart < UI_CONNECTION_MEDIATOR_PING_STATUS_MAX_LATENCY)
-            this.startPing();
     }
 
     private function getPingStatus():PingStatus {
@@ -154,10 +147,17 @@ public class ConnectionGameUI extends GameUIScreen {
             return new PingStatus("???", "#000000");
     }
 
-    override public function destroy():void {
-        this.ui_connectionMediatorPingLoader.removeEventListener(HTTPStatusEvent.HTTP_STATUS, this.onLoadStatus);
+    private function onLoadStatus(event:HTTPStatusEvent):void {
+        if (event.status == UI_CONNECTION_MEDIATOR_PING_STATUS_RECEIVED) {
+            this.ui_connectionMediatorPingMeasure = getTimer() - this.ui_connectionMediatorPingStart;
 
-        removeChild(this.ui_connectionMediatorPingSprite);
+            this.ui_connectionMediatorPingStart = 0;
+
+            this.startPing();
+        }
+
+        if (getTimer() - this.ui_connectionMediatorPingStart < UI_CONNECTION_MEDIATOR_PING_STATUS_MAX_LATENCY)
+            this.startPing();
     }
 }
 }

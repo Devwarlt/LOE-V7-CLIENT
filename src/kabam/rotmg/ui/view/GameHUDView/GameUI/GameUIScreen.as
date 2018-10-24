@@ -4,8 +4,6 @@ import flash.display.Sprite;
 import kabam.rotmg.ui.view.GameHUDView.*;
 
 public class GameUIScreen extends Sprite implements GameUIInterface {
-    protected var hudView:HUDView;
-
     public function GameUIScreen(_hudView:HUDView) {
         this.hudView = _hudView;
 
@@ -15,17 +13,24 @@ public class GameUIScreen extends Sprite implements GameUIInterface {
         this.addUI();
         this.eventsUI();
     }
+    protected var hudView:HUDView;
 
-    public function drawUI():void { }
+    public function drawUI():void {
+    }
 
-    public function setUI():void { }
+    public function setUI():void {
+    }
 
-    public function outlineUI():void { }
+    public function outlineUI():void {
+    }
 
-    public function addUI():void { }
+    public function addUI():void {
+    }
 
-    public function eventsUI():void { }
+    public function eventsUI():void {
+    }
 
-    public function destroy():void { }
+    public function destroy():void {
+    }
 }
 }

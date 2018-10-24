@@ -1,5 +1,4 @@
 package kabam.rotmg.ui.view.GameHUDView.GameUI {
-import com.company.assembleegameclient.parameters.Parameters;
 import com.company.ui.BaseSimpleText;
 
 import flash.display.Sprite;
@@ -19,19 +18,18 @@ public class GameStatusGameUI extends GameUIScreen {
     private static const UI_GAME_STATUS_MEDIATOR_MEMORY_LABEL_MEMORY_USAGE_MEASURE:String = "{MEMORY_USAGE_MEASURE}";
     private static const UI_GAME_STATUS_MEDIATOR_MEMORY_LABEL_TEXT:String = "<b>Memory: </b> " + UI_GAME_STATUS_MEDIATOR_MEMORY_LABEL_MEMORY_USAGE_MEASURE + " Mb";
 
+    public function GameStatusGameUI(_hudView:HUDView) {
+        super(_hudView);
+    }
     private var ui_gameStatusMediatorSprite:Sprite;
     private var ui_gameStatusMediatorFPSLabel:BaseSimpleText;
     private var ui_gameStatusMediatorFPSMeasure:int;
     private var ui_gameStatusMediatorMemoryUsageLabel:BaseSimpleText;
     private var ui_gameStatusMediatorMemoryUsageMeasure:int;
 
-    public function GameStatusGameUI(_hudView:HUDView) {
-        super(_hudView);
-    }
-
     override public function drawUI():void {
         this.ui_gameStatusMediatorSprite = new Sprite();
-        
+
         this.ui_gameStatusMediatorFPSMeasure = 0;
 
         this.ui_gameStatusMediatorMemoryUsageMeasure = 0;
@@ -77,15 +75,20 @@ public class GameStatusGameUI extends GameUIScreen {
         setInterval(this.onMemoryUsageMeasureUpdate, UI_GAME_STATUS_MEDIATOR_TTL);
     }
 
+    override public function destroy():void {
+        removeChild(this.ui_gameStatusMediatorSprite);
+    }
+
     private function onFPSMeasureUpdate():void {
         try {
             this.ui_gameStatusMediatorFPSMeasure = int(stage.frameRate);
 
             this.ui_gameStatusMediatorFPSLabel.htmlText =
-                UI_GAME_STATUS_MEDIATOR_FPS_LABEL_TEXT
-                    .replace(UI_GAME_STATUS_MEDIATOR_FPS_LABEL_FPS_MEASURE, this.ui_gameStatusMediatorFPSMeasure);
+                    UI_GAME_STATUS_MEDIATOR_FPS_LABEL_TEXT
+                            .replace(UI_GAME_STATUS_MEDIATOR_FPS_LABEL_FPS_MEASURE, this.ui_gameStatusMediatorFPSMeasure);
         }
-        catch (error:Error) { }
+        catch (error:Error) {
+        }
     }
 
     private function onMemoryUsageMeasureUpdate():void {
@@ -93,14 +96,11 @@ public class GameStatusGameUI extends GameUIScreen {
             this.ui_gameStatusMediatorMemoryUsageMeasure = int(System.privateMemory / (1024 * 1024));
 
             this.ui_gameStatusMediatorMemoryUsageLabel.htmlText =
-                UI_GAME_STATUS_MEDIATOR_MEMORY_LABEL_TEXT
-                    .replace(UI_GAME_STATUS_MEDIATOR_MEMORY_LABEL_MEMORY_USAGE_MEASURE, this.ui_gameStatusMediatorMemoryUsageMeasure);
+                    UI_GAME_STATUS_MEDIATOR_MEMORY_LABEL_TEXT
+                            .replace(UI_GAME_STATUS_MEDIATOR_MEMORY_LABEL_MEMORY_USAGE_MEASURE, this.ui_gameStatusMediatorMemoryUsageMeasure);
         }
-        catch (error:Error) { }
-    }
-
-    override public function destroy():void {
-        removeChild(this.ui_gameStatusMediatorSprite);
+        catch (error:Error) {
+        }
     }
 }
 }

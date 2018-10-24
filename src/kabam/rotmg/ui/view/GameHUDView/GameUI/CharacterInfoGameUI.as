@@ -18,12 +18,6 @@ import kabam.rotmg.ui.view.GameHUDView.*;
 public class CharacterInfoGameUI extends GameUIScreen {
     private static const UI_CHARACTER_INFO_POSITION:Point = new Point(32, 64);
 
-    private var ui_characterInfoMediator:CharacterInfoMediator;
-
-    private var ui_characterInfoGameUIBackgroundOverlay_:Shape;
-    private var ui_characterInfoGameUITitle_:TextFieldDisplayConcrete;
-    private var ui_characterInfoGameUICloseButton_:DialogCloseButton;
-
     public function CharacterInfoGameUI(_hudView:HUDView) {
         this.ui_characterInfoGameUIBackgroundOverlay_ = new Shape();
 
@@ -38,10 +32,10 @@ public class CharacterInfoGameUI extends GameUIScreen {
 
         super(_hudView);
     }
-
-    public function setPlayer(player:Player):void {
-        this.ui_characterInfoMediator.setPlayer(player);
-    }
+    private var ui_characterInfoMediator:CharacterInfoMediator;
+    private var ui_characterInfoGameUIBackgroundOverlay_:Shape;
+    private var ui_characterInfoGameUITitle_:TextFieldDisplayConcrete;
+    private var ui_characterInfoGameUICloseButton_:DialogCloseButton;
 
     override public function drawUI():void {
         var _local1:Graphics = this.ui_characterInfoGameUIBackgroundOverlay_.graphics;
@@ -74,12 +68,6 @@ public class CharacterInfoGameUI extends GameUIScreen {
         this.ui_characterInfoGameUICloseButton_.addEventListener(MouseEvent.CLICK, this.onClose);
     }
 
-    private function onClose(event:MouseEvent):void {
-        this.hudView.ui_characterInfoGameUI.visible = false;
-
-        dispatchEvent(new Event(Event.COMPLETE));
-    }
-
     override public function destroy():void {
         this.ui_characterInfoGameUICloseButton_.removeEventListener(MouseEvent.CLICK, this.onClose);
 
@@ -87,6 +75,16 @@ public class CharacterInfoGameUI extends GameUIScreen {
         removeChild(this.ui_characterInfoGameUITitle_);
         removeChild(this.ui_characterInfoGameUICloseButton_);
         removeChild(this.ui_characterInfoMediator);
+    }
+
+    public function setPlayer(player:Player):void {
+        this.ui_characterInfoMediator.setPlayer(player);
+    }
+
+    private function onClose(event:MouseEvent):void {
+        //this.hudView.ui_characterInfoGameUI.visible = false;
+
+        dispatchEvent(new Event(Event.COMPLETE));
     }
 }
 }

@@ -12,26 +12,6 @@ public class RegularOption extends Sprite {
     private static const UI_BUTTON_HEIGHT:int = 16;
     private static const UI_BUTTON_WIDTH:int = 90;
 
-    private var ui_OptionName:String;
-    private var ui_OptionDescription:String;
-    private var ui_DrawButtons:Boolean;
-    private var ui_Label:BaseSimpleText;
-
-    public var ui_OnButton:DeprecatedTextButton;
-    public var ui_OffButton:DeprecatedTextButton;
-    public var ui_OnButtonSprite:Sprite;
-    public var ui_OffButtonSprite:Sprite;
-
-    private function get getText():String {
-        return "<b>" + this.ui_OptionName + ":</b> " + this.ui_OptionDescription + (this.ui_DrawButtons ? "." : "");
-    }
-
-    public function setText(_optionDescription:String):void {
-        this.ui_OptionDescription = _optionDescription;
-
-        this.ui_Label.htmlText = this.getText;
-    }
-
     public function RegularOption(_optionName:String, _optionDescription:String, _position:Point, _drawButtons:Boolean = true) {
         this.ui_OptionName = _optionName;
         this.ui_OptionDescription = _optionDescription;
@@ -75,6 +55,24 @@ public class RegularOption extends Sprite {
             addChild(this.ui_OnButtonSprite);
             addChild(this.ui_OffButtonSprite);
         }
+    }
+    public var ui_OnButton:DeprecatedTextButton;
+    public var ui_OffButton:DeprecatedTextButton;
+    public var ui_OnButtonSprite:Sprite;
+    public var ui_OffButtonSprite:Sprite;
+    private var ui_OptionName:String;
+    private var ui_OptionDescription:String;
+    private var ui_DrawButtons:Boolean;
+    private var ui_Label:BaseSimpleText;
+
+    private function get getText():String {
+        return "<b>" + this.ui_OptionName + ":</b> " + this.ui_OptionDescription + (this.ui_DrawButtons ? "." : "");
+    }
+
+    public function setText(_optionDescription:String):void {
+        this.ui_OptionDescription = _optionDescription;
+
+        this.ui_Label.htmlText = this.getText;
     }
 }
 }

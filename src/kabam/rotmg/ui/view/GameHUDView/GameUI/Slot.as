@@ -11,9 +11,6 @@ import flash.display.Sprite;
 public class Slot extends Sprite {
     private const UI_ITEM_SIZE:int = 80;
 
-    private var ui_itemSlotBitmap:Bitmap;
-    private var ui_itemBitmap:Bitmap;
-
     public function Slot(_equipmentSlot:Boolean = true) {
         this.ui_itemSlotBitmap = new Bitmap(TextureRedrawer.redraw(AssetLibrary.getImageFromSet("slotsNormal", _equipmentSlot ? 0 : 1), this.UI_ITEM_SIZE * 1.5, false, 0));
         this.ui_itemBitmap = new Bitmap();
@@ -21,6 +18,8 @@ public class Slot extends Sprite {
         addChild(this.ui_itemSlotBitmap);
         addChild(this.ui_itemBitmap);
     }
+    private var ui_itemSlotBitmap:Bitmap;
+    private var ui_itemBitmap:Bitmap;
 
     public function draw(_itemType:int):void {
         if (_itemType == -1)
@@ -38,7 +37,7 @@ public class Slot extends Sprite {
         bitmapData = TextureRedrawer.redraw(bitmapData, size, false, 0, true, 5);
 
         this.ui_itemBitmap.bitmapData = bitmapData;
-        this.ui_itemBitmap.x = this.ui_itemSlotBitmap.width / 2 -  this.ui_itemBitmap.width / 2;
+        this.ui_itemBitmap.x = this.ui_itemSlotBitmap.width / 2 - this.ui_itemBitmap.width / 2;
         this.ui_itemBitmap.y = this.ui_itemSlotBitmap.height / 2 - this.ui_itemBitmap.height / 2;
     }
 }

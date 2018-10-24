@@ -63,8 +63,8 @@ public class ChatInput extends Sprite {
         this.input.type = TextFieldType.INPUT;
         this.input.border = true;
         this.input.selectable = true;
-        this.input.maxChars = 128;
-        this.input.borderColor = 0xFFFFFF;
+        this.input.maxChars = 84;
+        this.input.borderColor = 0x0F1B3B;
         this.input.height = 18;
         this.input.filters = [new GlowFilter(0, 1, 3, 3, 2, 1)];
         addEventListener(KeyboardEvent.KEY_UP, this.onKeyUp);
@@ -79,7 +79,7 @@ public class ChatInput extends Sprite {
     private function activateDisabled():void {
         this.input.type = TextFieldType.DYNAMIC;
         this.input.border = false;
-        this.input.selectable = false;
+        this.input.selectable = true;
         this.input.filters = [new GlowFilter(0, 1, 3, 3, 2, 1)];
         this.input.height = 18;
         removeEventListener(KeyboardEvent.KEY_UP, this.onKeyUp);

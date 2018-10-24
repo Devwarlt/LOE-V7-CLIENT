@@ -16,12 +16,6 @@ import kabam.rotmg.ui.view.GameHUDView.*;
 public class SettingsGameUI extends GameUIScreen {
     private static const UI_SETTINGS_SOUND_MEDIATOR_POSITION:Point = new Point(32, 64);
 
-    private var ui_settingsSoundMediator:SettingsMediator;
-
-    private var ui_settingsGameUIBackgroundOverlay_:Shape;
-    private var ui_settingsGameUITitle_:TextFieldDisplayConcrete;
-    private var ui_settingsGameUICloseButton_:DialogCloseButton;
-
     public function SettingsGameUI(_hudView:HUDView) {
         this.ui_settingsGameUIBackgroundOverlay_ = new Shape();
 
@@ -36,6 +30,10 @@ public class SettingsGameUI extends GameUIScreen {
 
         super(_hudView);
     }
+    private var ui_settingsSoundMediator:SettingsMediator;
+    private var ui_settingsGameUIBackgroundOverlay_:Shape;
+    private var ui_settingsGameUITitle_:TextFieldDisplayConcrete;
+    private var ui_settingsGameUICloseButton_:DialogCloseButton;
 
     override public function drawUI():void {
         var _local1:Graphics = this.ui_settingsGameUIBackgroundOverlay_.graphics;
@@ -68,12 +66,6 @@ public class SettingsGameUI extends GameUIScreen {
         this.ui_settingsGameUICloseButton_.addEventListener(MouseEvent.CLICK, this.onClose);
     }
 
-    private function onClose(event:MouseEvent):void {
-        this.hudView.ui_settingsGameUI.visible = false;
-
-        dispatchEvent(new Event(Event.COMPLETE));
-    }
-
     override public function destroy():void {
         this.ui_settingsGameUICloseButton_.removeEventListener(MouseEvent.CLICK, this.onClose);
 
@@ -81,6 +73,12 @@ public class SettingsGameUI extends GameUIScreen {
         removeChild(this.ui_settingsGameUITitle_);
         removeChild(this.ui_settingsGameUICloseButton_);
         removeChild(this.ui_settingsSoundMediator);
+    }
+
+    private function onClose(event:MouseEvent):void {
+        //this.hudView.ui_settingsGameUI.visible = false;
+
+        dispatchEvent(new Event(Event.COMPLETE));
     }
 }
 }

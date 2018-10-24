@@ -12,10 +12,10 @@ public class ChatModel {
     public function ChatModel() {
         this.chatMessages = new Vector.<ChatMessage>();
         super();
-        this.bounds = new Rectangle(0, 0, 600, 300);
+        this.bounds = new Rectangle(0, 0, 800, 300);
         this.lineHeight = 20;
-        this.visibleItemCount = 10;
-        this.storedItemCount = 150;
+        this.visibleItemCount = 5;
+        this.storedItemCount = 500;
     }
 
     public function pushMessage(_arg1:ChatMessage):void {

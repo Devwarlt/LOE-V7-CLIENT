@@ -58,9 +58,7 @@ public class CharacterInfoMediator extends Sprite {
         this.eventsUI();
     }
 
-    public function setPlayer(player:Player):void {
-        this.hudView.gameSprite.player = this.player = player;
-
+    public function setPlayer():void {
         this.ui_characterInfoMediatorStatsUpdateSignal.dispatch();
     }
 

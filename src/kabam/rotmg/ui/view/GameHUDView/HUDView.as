@@ -10,9 +10,7 @@ import flash.display.Graphics;
 import flash.display.Shape;
 import flash.display.Sprite;
 import flash.events.MouseEvent;
-import flash.filters.DropShadowFilter;
 import flash.filters.GlowFilter;
-import flash.geom.Point;
 
 import kabam.rotmg.chat.model.ChatMessage;
 import kabam.rotmg.core.StaticInjectorContext;
@@ -23,89 +21,25 @@ import kabam.rotmg.pets.view.components.DialogCloseButton;
 import kabam.rotmg.text.view.TextFieldDisplayConcrete;
 import kabam.rotmg.text.view.stringBuilder.LineBuilder;
 import kabam.rotmg.ui.view.*;
-import kabam.rotmg.ui.view.GameHUDView.Assets.NewUICharacterStats_shapeEmbed_;
-import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIHighscores_shapeEmbed_;
-import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIInventory_shapeEmbed_;
-import kabam.rotmg.ui.view.GameHUDView.Assets.NewUILogout_shapeEmbed_;
-import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIMinimapBackground_shapeEmbed_;
-import kabam.rotmg.ui.view.GameHUDView.Assets.NewUIOptionsToolBar_shapeEmbed_;
-import kabam.rotmg.ui.view.GameHUDView.Assets.NewUISettings_shapeEmbed_;
-import kabam.rotmg.ui.view.GameHUDView.GameUI.CharacterInfoGameUI;
-import kabam.rotmg.ui.view.GameHUDView.GameUI.CharacterStatusGameUI;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.ConfirmLogoutGameUI;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.ConnectionGameUI;
-import kabam.rotmg.ui.view.GameHUDView.GameUI.GameStatusGameUI;
 import kabam.rotmg.ui.view.GameHUDView.GameUI.GameUIInterface;
-import kabam.rotmg.ui.view.GameHUDView.GameUI.SettingsGameUI;
 
 import org.osflash.signals.Signal;
 
 public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
-    public static const WIDTH:int = 800;
-    public static const HEIGHT:int = 600;
     public static const UI_FILTERS_BLACK_OUTLINE:GlowFilter = TextureRedrawer.OUTLINE_FILTER;
 
-    public var player:Player;
-    public var gameSprite:GameSprite;
-    public var interactPanel:InteractPanel;
+    public static function debug(_arg1:String):void {
+        if (Parameters.IS_DEVELOPER_MODE) {
+            var _local1:ChatMessage = new ChatMessage();
+            _local1.name = Parameters.SERVER_CHAT_NAME;
+            _local1.text = "[Developer Mode] " + _arg1;
 
-    /*
-    * Game UI
-    * Author: DV
-    * */
-    private static const UI_ICON_SIZE:int = 24;
-    private static const UI_STAGE_WIDTH:int = 800;
-    private static const UI_OVERLAY_POSITION:Point = new Point(0, 0);
-    private static const UI_OVERLAY_ICON_SPACE:int = 36;
-    private static const UI_OVERLAY_ICON_SPACE_POSITION:Point = new Point(12, 6);
-    private static const UI_OVERLAY_MINIMAP_POSITION:Point = new Point(-4, 40);
-    private static const UI_OVERLAY_MINIMAP_SIZE:Point = new Point(128, 128);
-    private static const UI_OPTIONS_TOOL_BAR_POSITION:Point = new Point(UI_OVERLAY_POSITION.x, UI_OVERLAY_POSITION.y);
-    private static const UI_MINIMAP_BACKGROUND_POSITION:Point = new Point(UI_OPTIONS_TOOL_BAR_POSITION.x + UI_OVERLAY_MINIMAP_POSITION.x, UI_OPTIONS_TOOL_BAR_POSITION.y + UI_OVERLAY_MINIMAP_POSITION.y);
-    private static const UI_MINIMAP_POSITION:Point = new Point(UI_MINIMAP_BACKGROUND_POSITION.x + 12, UI_MINIMAP_BACKGROUND_POSITION.y + 12);
-    private static const UI_CHARACTER_STATS_ICON_POSITION:Point = new Point(UI_OPTIONS_TOOL_BAR_POSITION.x + UI_OVERLAY_ICON_SPACE_POSITION.x, UI_OPTIONS_TOOL_BAR_POSITION.y + UI_OVERLAY_ICON_SPACE_POSITION.y);
-    private static const UI_HIGHSCORES_ICON_POSITION:Point = new Point(UI_CHARACTER_STATS_ICON_POSITION.x + UI_OVERLAY_ICON_SPACE, UI_CHARACTER_STATS_ICON_POSITION.y);
-    private static const UI_INVENTORY_ICON_POSITION:Point = new Point(UI_HIGHSCORES_ICON_POSITION.x + UI_OVERLAY_ICON_SPACE, UI_HIGHSCORES_ICON_POSITION.y);
-    private static const UI_LOGOUT_ICON_POSITION:Point = new Point(UI_STAGE_WIDTH - UI_ICON_SIZE - UI_OVERLAY_ICON_SPACE_POSITION.x, UI_INVENTORY_ICON_POSITION.y);
-    private static const UI_SETTINGS_ICON_POSITION:Point = new Point(UI_LOGOUT_ICON_POSITION.x - 2 * UI_ICON_SIZE, UI_LOGOUT_ICON_POSITION.y);
-    private static const UI_OVERLAY_CONNECTION_MEDIATOR_POSITION:Point = new Point(UI_MINIMAP_POSITION.x, UI_MINIMAP_POSITION.y + UI_OVERLAY_MINIMAP_SIZE.y + UI_OVERLAY_ICON_SPACE_POSITION.y);
-    private static const UI_OVERLAY_GAME_STATUS_MEDIATOR_POSITION:Point = new Point(UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.x, UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.y + UI_OVERLAY_ICON_SPACE_POSITION.x + UI_OVERLAY_ICON_SPACE_POSITION.y);
-    private static const UI_OVERLAY_CHARACTER_STATUS_MEDIATOR_POSITION:Point = new Point(0, 0);
-
-    private var ui_optionsToolBar:Bitmap;
-    private var ui_minimapBackground:Bitmap;
-    private var ui_minimap:MiniMapImp;
-    private var ui_characterStatsIcon:Bitmap;
-    private var ui_highscoresIcon:Bitmap;
-    private var ui_inventoryIcon:Bitmap;
-    private var ui_logoutIcon:Bitmap;
-    private var ui_settingsIcon:Bitmap;
-    private var ui_characterStatsIconSprite:Sprite;
-    private var ui_highscoresIconSprite:Sprite;
-    private var ui_inventoryIconSprite:Sprite;
-    private var ui_logoutIconSprite:Sprite;
-    private var ui_settingsIconSprite:Sprite;
-
-    // Game UIs
-    public var ui_characterInfoGameUI:CharacterInfoGameUI;
-    public var ui_settingsGameUI:SettingsGameUI;
-    public var ui_characterStatusGameUI:CharacterStatusGameUI;
-    public var ui_gameStatusGameUI:GameStatusGameUI;
-    public var ui_connectionGameUI:ConnectionGameUI;
-
-    // LoE V3 theme
-    private var topBar:Shape; // done
-    private var minimapBg:Shape; // done
-    private var minimap:MiniMapImp; // done
-    private var nickname:TextFieldDisplayConcrete; // done
-    private var ping:ConnectionGameUI;
-    private var vocation:Bitmap; // todo: display vocation icon
-    private var tools:*; // todo: display tools icon (later)
-    private var logout:DialogCloseButton;
-    private var logoutEnabled:Boolean = true;
-
-    public var logoutSignal:Signal = new Signal(Boolean);
-    //--
+            var _local2:AddTextLineSignal = StaticInjectorContext.getInjector().getInstance(AddTextLineSignal);
+            _local2.dispatch(_local1);
+        }
+    }
 
     public function HUDView(gameSprite:GameSprite) {
         this.gameSprite = gameSprite;
@@ -120,35 +54,61 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.gameSprite.sendPlayerData.addOnce(this.setPlayer);
     }
+    public var player:Player;
 
-    private function setLogout(logOut:Boolean):void {
-        this.logoutEnabled = logOut;
-    }
+    /*
+    * Game UI
+    * Author: DV
+    * */
 
-    private function setPlayer(player:Player):void {
-        this.nickname.setStringBuilder(new LineBuilder().setParams(player.name_));
-
-        this.vocation.bitmapData = player.getPortrait();
-
-        this.ui_characterStatusGameUI.setPlayer(player);
-
-        this.ui_characterInfoGameUI.setPlayer(player);
-    }
+    // Game UIs
+    public var gameSprite:GameSprite;
+    public var interactPanel:InteractPanel;
+    /*public var ui_characterInfoGameUI:CharacterInfoGameUI;
+    public var ui_settingsGameUI:SettingsGameUI;
+    public var ui_characterStatusGameUI:CharacterStatusGameUI;
+    public var ui_gameStatusGameUI:GameStatusGameUI;
+    public var ui_connectionGameUI:ConnectionGameUI;*/
+    public var logoutSignal:Signal = new Signal(Boolean); // done
+    // LoE V3 theme
+    private var topBarSprite:Sprite; // todo
+    private var topBar:Shape; // done
+    private var minimapBackgroundSprite:Sprite; // todo
+    private var minimapBackground:Shape; // done
+    private var minimap:MiniMapImp; // done
+    private var nicknameSprite:Sprite; // todo
+    private var nickname:TextFieldDisplayConcrete; // done
+    private var ping:ConnectionGameUI; // done
+    private var vocation:Bitmap; // done
+    private var tools:*; // todo: display tools icon (later)
+    //--
+    private var logout:DialogCloseButton; // done
+    private var logoutEnabled:Boolean = true; // done
 
     public function drawUI():void {
-        this.topBar = new Shape();
-        this.topBar.graphics.clear();
-        this.topBar.graphics.beginFill(0x0F1B3B, 1);
-        this.topBar.graphics.drawRect(0, 0, 800, 24);
-        this.topBar.graphics.endFill();
+        this.topBarSprite = new Sprite();
 
-        this.minimapBg = new Shape();
-        this.minimapBg.graphics.clear();
-        this.minimapBg.graphics.beginFill(0x0F1B3B, 1);
-        this.minimapBg.graphics.drawRect(0, 0, 104, 104);
-        this.minimapBg.graphics.endFill();
+        this.topBar = new Shape();
+
+        var _topBar:Graphics = this.topBar.graphics;
+        _topBar.clear();
+        _topBar.beginFill(0x0F1B3B, 1);
+        _topBar.drawRect(0, 0, 800, 24);
+        _topBar.endFill();
+
+        this.minimapBackgroundSprite = new Sprite();
+
+        this.minimapBackground = new Shape();
+
+        var _minimapBackground:Graphics = this.minimapBackground.graphics;
+        _minimapBackground.clear();
+        _minimapBackground.beginFill(0x0F1B3B, 1);
+        _minimapBackground.drawRect(0, 0, 104, 104);
+        _minimapBackground.endFill();
 
         this.minimap = new MiniMapImp(96, 96);
+
+        this.nicknameSprite = new Sprite();
 
         this.nickname = new TextFieldDisplayConcrete().setSize(18).setColor(0x94AEFE);
         this.nickname.setTextWidth(128);
@@ -162,7 +122,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         //--
 
-        this.ui_characterStatsIconSprite = new Sprite();
+        /*this.ui_characterStatsIconSprite = new Sprite();
 
         this.ui_highscoresIconSprite = new Sprite();
 
@@ -208,14 +168,14 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_settingsGameUI.visible = false;
 
         this.ui_characterInfoGameUI = new CharacterInfoGameUI(this);
-        this.ui_characterInfoGameUI.visible = false;
+        this.ui_characterInfoGameUI.visible = false;*/
     }
 
     public function setUI():void {
         this.topBar.x = this.topBar.y = 0;
 
-        this.minimapBg.x = 16;
-        this.minimapBg.y = 64;
+        this.minimapBackground.x = 16;
+        this.minimapBackground.y = 64;
 
         this.minimap.x = 20;
         this.minimap.y = 68;
@@ -231,7 +191,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.logout.y = 0;
 
-        this.ui_characterStatsIconSprite.x = UI_CHARACTER_STATS_ICON_POSITION.x;
+        /*this.ui_characterStatsIconSprite.x = UI_CHARACTER_STATS_ICON_POSITION.x;
         this.ui_characterStatsIconSprite.y = UI_CHARACTER_STATS_ICON_POSITION.y;
 
         this.ui_highscoresIconSprite.x = UI_HIGHSCORES_ICON_POSITION.x;
@@ -262,19 +222,39 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_gameStatusGameUI.y = UI_OVERLAY_GAME_STATUS_MEDIATOR_POSITION.y;
 
         this.ui_connectionGameUI.x = UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.x;
-        this.ui_connectionGameUI.y = UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.y;
+        this.ui_connectionGameUI.y = UI_OVERLAY_CONNECTION_MEDIATOR_POSITION.y;*/
+    }
+
+    public function outlineUI():void {
+        this.topBar.filters = [UI_FILTERS_BLACK_OUTLINE];
+        this.minimapBackground.filters = [UI_FILTERS_BLACK_OUTLINE];
+        this.nickname.filters = [UI_FILTERS_BLACK_OUTLINE];
+
+        /*this.ui_characterStatsIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
+
+        this.ui_highscoresIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
+
+        this.ui_inventoryIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
+
+        this.ui_logoutIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
+
+        this.ui_settingsIcon.filters = [TextureRedrawer.OUTLINE_FILTER];*/
     }
 
     public function addUI():void {
-        addChild(this.topBar);
-        addChild(this.minimapBg);
+        this.topBarSprite.addChild(this.topBar);
+        this.minimapBackgroundSprite.addChild(this.minimapBackground);
+        this.nicknameSprite.addChild(this.nickname);
+
+        addChild(this.topBarSprite);
+        addChild(this.minimapBackgroundSprite);
+        addChild(this.nicknameSprite);
         addChild(this.minimap);
-        addChild(this.nickname);
         addChild(this.ping);
         addChild(this.vocation);
         addChild(this.logout);
 
-        this.ui_characterStatsIconSprite.addChild(this.ui_characterStatsIcon);
+        /*this.ui_characterStatsIconSprite.addChild(this.ui_characterStatsIcon);
 
         this.ui_highscoresIconSprite.addChild(this.ui_highscoresIcon);
 
@@ -282,12 +262,12 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_logoutIconSprite.addChild(this.ui_logoutIcon);
 
-        this.ui_settingsIconSprite.addChild(this.ui_settingsIcon);
+        this.ui_settingsIconSprite.addChild(this.ui_settingsIcon);*/
 
         /*addChild(this.ui_characterStatusGameUI);
-        addChild(this.ui_gameStatusGameUI);*/
-        //addChild(this.ui_connectionGameUI);
-        /*addChild(this.ui_minimapBackground);
+        addChild(this.ui_gameStatusGameUI);
+        addChild(this.ui_connectionGameUI);
+        addChild(this.ui_minimapBackground);
         addChild(this.ui_minimap);
         addChild(this.ui_optionsToolBar);
         addChild(this.ui_characterStatsIconSprite);
@@ -299,26 +279,10 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         addChild(this.ui_characterInfoGameUI);*/
     }
 
-    public function outlineUI():void {
-        this.topBar.filters = [TextureRedrawer.OUTLINE_FILTER]; // for some reason its not working ??? anyway
-        this.minimapBg.filters = [TextureRedrawer.OUTLINE_FILTER];
-        this.nickname.filters = [TextureRedrawer.OUTLINE_FILTER];
-
-        this.ui_characterStatsIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
-
-        this.ui_highscoresIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
-
-        this.ui_inventoryIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
-
-        this.ui_logoutIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
-
-        this.ui_settingsIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
-    }
-
     public function eventsUI():void {
         this.logout.addEventListener(MouseEvent.CLICK, this.doLogout);
 
-        this.ui_characterStatsIconSprite.addEventListener(MouseEvent.CLICK, this.displayCharacterStatsScreen);
+        /*this.ui_characterStatsIconSprite.addEventListener(MouseEvent.CLICK, this.displayCharacterStatsScreen);
 
         this.ui_highscoresIconSprite.addEventListener(MouseEvent.CLICK, this.displayHighscoresScreen);
 
@@ -326,7 +290,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_logoutIconSprite.addEventListener(MouseEvent.CLICK, this.doLogout);
 
-        this.ui_settingsIconSprite.addEventListener(MouseEvent.CLICK, this.displaySettingsScreen);
+        this.ui_settingsIconSprite.addEventListener(MouseEvent.CLICK, this.displaySettingsScreen);*/
     }
 
     public function InitializePing():void {
@@ -337,72 +301,45 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ping.setInvalidPing();
     }
 
-    private function displayCharacterStatsScreen(event:MouseEvent):void {
-        debug("Button 'ui_characterStatsIcon' has been clicked.");
-
-        this.ui_characterInfoGameUI.visible = true;
-    }
-
-    private function displayHighscoresScreen(event:MouseEvent):void {
-        debug("Button 'ui_highscoresIcon' has been clicked.");
-    }
-
-    private function displayInventoryScreen(event:MouseEvent):void {
-        debug("Button 'ui_inventoryIcon' has been clicked.");
-    }
-
-    private function displaySettingsScreen(event:MouseEvent):void {
-        debug("Button 'ui_settingsIcon' has been clicked.");
-
-        this.ui_settingsGameUI.visible = true;
-    }
-
-    private function doLogout(event:MouseEvent):void {
-        debug("Button 'ui_logoutIcon' has been clicked.");
-
-        if (this.logoutEnabled)
-            addChild(new ConfirmLogoutGameUI(this));
-    }
-
     public function updateConnectionGameUI(_arg1:Boolean):void {
-        this.ui_connectionGameUI.visible = _arg1;
+        /*this.ui_connectionGameUI.visible = _arg1;
 
-        Utils.connectionMediatorAction(_arg1);
+        Utils.connectionMediatorAction(_arg1);*/
     }
 
     public function updateGameStatusGameUI(_arg1:Boolean):void {
-        this.ui_gameStatusGameUI.visible = _arg1;
+        /*this.ui_gameStatusGameUI.visible = _arg1;
 
-        Utils.gameStatusMediatorAction(_arg1);
+        Utils.gameStatusMediatorAction(_arg1);*/
     }
 
     public function updateCharacterStatusGameUI(_arg1:Boolean):void {
-        this.ui_characterStatusGameUI.visible = _arg1;
+        /*this.ui_characterStatusGameUI.visible = _arg1;
 
-        Utils.characterStatusMediatorAction(_arg1);
+        Utils.characterStatusMediatorAction(_arg1);*/
     }
 
     public function applyFilterOverlay(_arg1:Array):void {
         this.topBar.filters = _arg1;
-        this.minimapBg.filters = _arg1;
+        this.minimapBackground.filters = _arg1;
         this.minimap.filters = _arg1;
         this.nickname.filters = _arg1;
 
-        this.ui_minimapBackground.filters = _arg1;
+        /*this.ui_minimapBackground.filters = _arg1;
         this.ui_minimap.filters = _arg1;
         this.ui_optionsToolBar.filters = _arg1;
         this.ui_characterStatsIconSprite.filters = _arg1;
         this.ui_highscoresIconSprite.filters = _arg1;
         this.ui_inventoryIconSprite.filters = _arg1;
         this.ui_settingsIconSprite.filters = _arg1;
-        this.ui_characterStatusGameUI.filters = _arg1;
+        this.ui_characterStatusGameUI.filters = _arg1;*/
     }
 
     public function disableContents():void {
         this.minimap.mouseEnabled = false;
         this.minimap.mouseChildren = false;
 
-        this.ui_minimap.mouseEnabled = false;
+        /*this.ui_minimap.mouseEnabled = false;
         this.ui_minimap.mouseChildren = false;
 
         this.ui_characterStatsIconSprite.mouseEnabled = false;
@@ -418,14 +355,14 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_settingsIconSprite.mouseChildren = false;
 
         this.ui_characterStatusGameUI.mouseEnabled = false;
-        this.ui_characterStatusGameUI.mouseChildren = false;
+        this.ui_characterStatusGameUI.mouseChildren = false;*/
     }
 
     public function enableContents():void {
         this.minimap.mouseEnabled = true;
         this.minimap.mouseChildren = true;
 
-        this.ui_minimap.mouseEnabled = true;
+        /*this.ui_minimap.mouseEnabled = true;
         this.ui_minimap.mouseChildren = true;
 
         this.ui_characterStatsIconSprite.mouseEnabled = true;
@@ -441,18 +378,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         this.ui_settingsIconSprite.mouseChildren = true;
 
         this.ui_characterStatusGameUI.mouseEnabled = true;
-        this.ui_characterStatusGameUI.mouseChildren = true;
-    }
-
-    public static function debug(_arg1:String):void {
-        if (Parameters.IS_DEVELOPER_MODE) {
-            var _local1:ChatMessage = new ChatMessage();
-            _local1.name = Parameters.SERVER_CHAT_NAME;
-            _local1.text = "[Developer Mode] " + _arg1;
-
-            var _local2:AddTextLineSignal = StaticInjectorContext.getInjector().getInstance(AddTextLineSignal);
-            _local2.dispatch(_local1);
-        }
+        this.ui_characterStatusGameUI.mouseChildren = true;*/
     }
 
     public function destroy():void {
@@ -460,10 +386,10 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.logout.removeEventListener(MouseEvent.CLICK, this.doLogout);
 
-        removeChild(this.topBar);
-        removeChild(this.minimapBg);
+        removeChild(this.topBarSprite);
+        removeChild(this.minimapBackgroundSprite);
+        removeChild(this.nicknameSprite);
         removeChild(this.minimap);
-        removeChild(this.nickname);
         removeChild(this.ping);
         removeChild(this.vocation);
         removeChild(this.logout);
@@ -472,7 +398,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.gameSprite.sendPlayerData.remove(this.setPlayer);
 
-        this.ui_characterStatsIconSprite.removeEventListener(MouseEvent.CLICK, this.displayCharacterStatsScreen);
+        /*this.ui_characterStatsIconSprite.removeEventListener(MouseEvent.CLICK, this.displayCharacterStatsScreen);
 
         this.ui_highscoresIconSprite.removeEventListener(MouseEvent.CLICK, this.displayHighscoresScreen);
 
@@ -480,9 +406,9 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_logoutIconSprite.removeEventListener(MouseEvent.CLICK, this.doLogout);
 
-        this.ui_settingsIconSprite.removeEventListener(MouseEvent.CLICK, this.displaySettingsScreen);
+        this.ui_settingsIconSprite.removeEventListener(MouseEvent.CLICK, this.displaySettingsScreen);*/
 
-        this.ui_characterStatusGameUI.destroy();
+        /*this.ui_characterStatusGameUI.destroy();
 
         this.ui_gameStatusGameUI.destroy();
 
@@ -490,12 +416,12 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.ui_settingsGameUI.destroy();
 
-        this.ui_characterInfoGameUI.destroy();
+        this.ui_characterInfoGameUI.destroy();*/
 
         /*removeChild(this.ui_characterStatusGameUI);
-        removeChild(this.ui_gameStatusGameUI);*/
-        //removeChild(this.ui_connectionGameUI);
-        /*removeChild(this.ui_minimapBackground);
+        removeChild(this.ui_gameStatusGameUI);
+        removeChild(this.ui_connectionGameUI);
+        removeChild(this.ui_minimapBackground);
         removeChild(this.ui_minimap);
         removeChild(this.ui_optionsToolBar);
         removeChild(this.ui_characterStatsIconSprite);
@@ -505,6 +431,49 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
         removeChild(this.ui_settingsIconSprite);
         removeChild(this.ui_settingsGameUI);
         removeChild(this.ui_characterInfoGameUI);*/
+    }
+
+    private function setLogout(logOut:Boolean):void {
+        this.logoutEnabled = logOut;
+    }
+
+    private function setPlayer(player:Player):void {
+        this.gameSprite.player = this.player = player;
+
+        this.nickname.setStringBuilder(new LineBuilder().setParams(this.player.name_));
+
+        this.vocation.bitmapData = this.player.getPortrait();
+
+        /*this.ui_characterStatusGameUI.setPlayer(player);
+
+        this.ui_characterInfoGameUI.setPlayer(player);*/
+    }
+
+    private function displayCharacterStatsScreen(event:MouseEvent):void {
+        /*debug("Button 'ui_characterStatsIcon' has been clicked.");
+
+        this.ui_characterInfoGameUI.visible = true;*/
+    }
+
+    private function displayHighscoresScreen(event:MouseEvent):void {
+        //debug("Button 'ui_highscoresIcon' has been clicked.");
+    }
+
+    private function displayInventoryScreen(event:MouseEvent):void {
+        //debug("Button 'ui_inventoryIcon' has been clicked.");
+    }
+
+    private function displaySettingsScreen(event:MouseEvent):void {
+        /*debug("Button 'ui_settingsIcon' has been clicked.");
+
+        this.ui_settingsGameUI.visible = true;*/
+    }
+
+    private function doLogout(event:MouseEvent):void {
+        debug("Button 'ui_logoutIcon' has been clicked.");
+
+        if (this.logoutEnabled)
+            addChild(new ConfirmLogoutGameUI(this));
     }
 }
 }
