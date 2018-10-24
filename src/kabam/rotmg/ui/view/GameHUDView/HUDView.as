@@ -4,6 +4,7 @@ import com.company.assembleegameclient.objects.Player;
 import com.company.assembleegameclient.parameters.Parameters;
 import com.company.assembleegameclient.ui.panels.InteractPanel;
 import com.company.assembleegameclient.util.TextureRedrawer;
+import com.company.ui.BaseSimpleText;
 
 import flash.display.Bitmap;
 import flash.display.Graphics;
@@ -71,13 +72,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     public var ui_connectionGameUI:ConnectionGameUI;*/
     public var logoutSignal:Signal = new Signal(Boolean); // done
     // LoE V3 theme
-    private var topBarSprite:Sprite; // todo
-    private var topBar:Shape; // done
-    private var minimapBackgroundSprite:Sprite; // todo
-    private var minimapBackground:Shape; // done
+    private var ui:Sprite; // done
     private var minimap:MiniMapImp; // done
-    private var nicknameSprite:Sprite; // todo
-    private var nickname:TextFieldDisplayConcrete; // done
     private var ping:ConnectionGameUI; // done
     private var vocation:Bitmap; // done
     private var tools:*; // todo: display tools icon (later)
@@ -86,33 +82,35 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     private var logoutEnabled:Boolean = true; // done
 
     public function drawUI():void {
-        this.topBarSprite = new Sprite();
+        this.ui = new Sprite();
 
-        this.topBar = new Shape();
+        var topBar:Shape = new Shape();
 
-        var _topBar:Graphics = this.topBar.graphics;
-        _topBar.clear();
-        _topBar.beginFill(0x0F1B3B, 1);
-        _topBar.drawRect(0, 0, 800, 24);
-        _topBar.endFill();
+        var topBarGraphics:Graphics = topBar.graphics;
+        topBarGraphics.clear();
+        topBarGraphics.beginFill(0x0F1B3B, 1);
+        topBarGraphics.drawRect(0, 0, 800, 24);
+        topBarGraphics.endFill();
 
-        this.minimapBackgroundSprite = new Sprite();
+        topBar.filters = [UI_FILTERS_BLACK_OUTLINE];
+        topBar.x = topBar.y = 0;
 
-        this.minimapBackground = new Shape();
+        var minimapBackground:Shape = new Shape();
 
-        var _minimapBackground:Graphics = this.minimapBackground.graphics;
-        _minimapBackground.clear();
-        _minimapBackground.beginFill(0x0F1B3B, 1);
-        _minimapBackground.drawRect(0, 0, 104, 104);
-        _minimapBackground.endFill();
+        var minimapBackgroundGraphics:Graphics = minimapBackground.graphics;
+        minimapBackgroundGraphics.clear();
+        minimapBackgroundGraphics.beginFill(0x0F1B3B, 1);
+        minimapBackgroundGraphics.drawRect(0, 0, 104, 104);
+        minimapBackgroundGraphics.endFill();
+
+        minimapBackground.filters = [UI_FILTERS_BLACK_OUTLINE];
+        minimapBackground.x = 16;
+        minimapBackground.y = 64;
+
+        this.ui.addChild(topBar);
+        this.ui.addChild(minimapBackground);
 
         this.minimap = new MiniMapImp(96, 96);
-
-        this.nicknameSprite = new Sprite();
-
-        this.nickname = new TextFieldDisplayConcrete().setSize(18).setColor(0x94AEFE);
-        this.nickname.setTextWidth(128);
-        this.nickname.setBold(true);
 
         this.ping = new ConnectionGameUI(this);
 
@@ -172,16 +170,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     }
 
     public function setUI():void {
-        this.topBar.x = this.topBar.y = 0;
-
-        this.minimapBackground.x = 16;
-        this.minimapBackground.y = 64;
-
         this.minimap.x = 20;
         this.minimap.y = 68;
-
-        this.nickname.x = 40;
-        this.nickname.y = 36;
 
         this.ping.x = 4;
         this.ping.y = 4;
@@ -226,10 +216,6 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     }
 
     public function outlineUI():void {
-        this.topBar.filters = [UI_FILTERS_BLACK_OUTLINE];
-        this.minimapBackground.filters = [UI_FILTERS_BLACK_OUTLINE];
-        this.nickname.filters = [UI_FILTERS_BLACK_OUTLINE];
-
         /*this.ui_characterStatsIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
 
         this.ui_highscoresIcon.filters = [TextureRedrawer.OUTLINE_FILTER];
@@ -242,13 +228,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     }
 
     public function addUI():void {
-        this.topBarSprite.addChild(this.topBar);
-        this.minimapBackgroundSprite.addChild(this.minimapBackground);
-        this.nicknameSprite.addChild(this.nickname);
-
-        addChild(this.topBarSprite);
-        addChild(this.minimapBackgroundSprite);
-        addChild(this.nicknameSprite);
+        addChild(this.ui);
         addChild(this.minimap);
         addChild(this.ping);
         addChild(this.vocation);
@@ -320,10 +300,8 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     }
 
     public function applyFilterOverlay(_arg1:Array):void {
-        this.topBar.filters = _arg1;
-        this.minimapBackground.filters = _arg1;
+        this.ui.filters = _arg1;
         this.minimap.filters = _arg1;
-        this.nickname.filters = _arg1;
 
         /*this.ui_minimapBackground.filters = _arg1;
         this.ui_minimap.filters = _arg1;
@@ -386,9 +364,7 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
 
         this.logout.removeEventListener(MouseEvent.CLICK, this.doLogout);
 
-        removeChild(this.topBarSprite);
-        removeChild(this.minimapBackgroundSprite);
-        removeChild(this.nicknameSprite);
+        removeChild(this.ui);
         removeChild(this.minimap);
         removeChild(this.ping);
         removeChild(this.vocation);
@@ -440,7 +416,18 @@ public class HUDView extends Sprite implements UnFocusAble, GameUIInterface {
     private function setPlayer(player:Player):void {
         this.gameSprite.player = this.player = player;
 
-        this.nickname.setStringBuilder(new LineBuilder().setParams(this.player.name_));
+        var nickname:BaseSimpleText = new BaseSimpleText(18, 0x94AEFE, false, 128, 0);
+        nickname.selectable = false;
+        nickname.border = false;
+        nickname.mouseEnabled = true;
+        nickname.htmlText = "<b>" + this.player.name_ + "</b>";
+        nickname.useTextDimensions();
+        nickname.filters = [UI_FILTERS_BLACK_OUTLINE];
+        nickname.x = 40;
+        nickname.y = 36;
+
+        if (!this.ui.contains(nickname))
+            this.ui.addChild(nickname);
 
         this.vocation.bitmapData = this.player.getPortrait();
 
